@@ -1,5 +1,5 @@
 # Redaxo Guide – MForm Beispiel
-
+**Eingabe:**
 ```php
 <?php
 use FriendsOfRedaxo\MForm;
@@ -22,12 +22,14 @@ $mform = MForm::factory()
 echo $mform->show();
 ```
 
- Ausgabe:  REX_TEMPLATE[key=inc_rexvalues]
+**Ausgabe:**
+```php
+REX_TEMPLATE[key=inc_rexvalues]
 REX_TEMPLATE[key=basic_functions] 
 $data = $REX_VALUE[1] ?? [];
  <?php if (rex::isFrontend()) { ?> 
 
-<div class="footer__right-title"><?= $data['right_title'] ?></h2>
+<div style="color:blue;" class="footer__right-title"><?= $data['right_title'] ?></h2>
 <?php foreach ($products as $item) { 
             $iconType = $item['icon_type'] ?? 'basic';
             $iconClass = ($iconType === 'download') ? 'icn--arrow-download' : 'icn--arrow-up-right';
@@ -46,8 +48,10 @@ $headerClass = (!empty($data['center']) && $data['center'] == 1)
        <?= $data['left_cta_label'] ?>
        <span class="icn icn--arrow-right-thin" aria-hidden="true"></span>
 </a> <?php } ?>   REX_TEMPLATE[key=inc_moduleinfo]
+```
 
-Abfragen:  
+**Abfragen:**
+```php
 Accordeon-Element: $grid = MForm::factory()
     ->addAccordionElement('Grid', MForm::factory()
         ->addMediaField(3, ['label' => 'Bild'])
@@ -61,7 +65,11 @@ Accordeon-Element: $grid = MForm::factory()
         ], ['label' => 'Icon-Typ', 'full' => true, 'default' => 'basic'])
     );
  echo MBlock::show(2, $grid->show()); 
-Picture Tag: <div class="text-grid__image-wrapper-upright">
+ ```
+ 
+**Picture Tag:**
+```php
+<div class="text-grid__image-wrapper-upright">
                                     <?= pictureTag($item["img1"], 720); ?>
                                 </div> 
 //Im CSS muss hierbei immer für img, picture {…} mitgestyled werden CK5Editor:  Eingabe: ->addTextAreaField('1.left_text', ['label' => 'Text', 'class' => 'cke5-editor', 'data-profile' => 'default']  Ausgabe: (default ist im Editor immer <p>, also als div am besten ausgeben)
@@ -71,3 +79,4 @@ $data = $REX_VALUE[1] ?? [];
 <?php if (!empty($data['left_text'])) { ?>
             <div class="text-block__text"> <?= $data['left_text']; ?> </div> //<p> Tag wird automatisch kreiert
 <?php } ?>
+```
