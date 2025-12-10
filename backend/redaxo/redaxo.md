@@ -21,7 +21,7 @@ $mform = MForm::factory()
 
 echo $mform->show();
 ```
-
+🔵🟢🟡⌘⌥⇧⌃❗⚠️🧩➤📁
 **<h2 style="color:blue;">Ausgabe:</h2>**
 ```php
 REX_TEMPLATE[key=inc_rexvalues]
