@@ -22,14 +22,14 @@ $mform = MForm::factory()
 echo $mform->show();
 ```
 
-**Ausgabe:**
+**<h2 style="color:blue;">Ausgabe:</h2>**
 ```php
 REX_TEMPLATE[key=inc_rexvalues]
 REX_TEMPLATE[key=basic_functions] 
 $data = $REX_VALUE[1] ?? [];
  <?php if (rex::isFrontend()) { ?> 
 
-<div style="color:blue;" class="footer__right-title"><?= $data['right_title'] ?></h2>
+<div class="footer__right-title"><?= $data['right_title'] ?></h2>
 <?php foreach ($products as $item) { 
             $iconType = $item['icon_type'] ?? 'basic';
             $iconClass = ($iconType === 'download') ? 'icn--arrow-download' : 'icn--arrow-up-right';
