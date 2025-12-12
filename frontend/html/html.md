@@ -37,7 +37,7 @@ Kann sein: URL zu einer anderen Seite, Interner Anker auf derselben Seite (#), E
 ```php
 <a href="#">Hier klicken</a>
 ```
-# = Verweis auf den Seitenanfang / leeren Anker
+(#) = Verweis auf den Seitenanfang / leeren Anker
 Macht die Seite nicht neu, springt zum Top
 Problem: ohne preventDefault() springt die Seite nach oben → nicht ideal
 
