@@ -81,7 +81,7 @@ $data = $REX_VALUE[1] ?? [];
 <?php } ?>
 ```
 
-**addTextField**
+🟢**addTextField**
 Eingabe:
 ```php
 ->addTextField('1.heading', ['label' => 'Headline', 'full' => true])
@@ -97,4 +97,16 @@ $data = Helper::getData($this);
 						<?php } ?>
 					</header>
 				<?php } ?>
+```
+🟢**addMediaField**
+Eingabe:
+```php
+->addMediaField('1.background', ['label' => 'Hintergrundbild', 'full' => true])
+```
+
+Ausgabe:
+```php
+<div class="block__background">
+			<img src="<?= rex_url::media($data->value_1->background) ?>" alt="">
+		</div>
 ```
