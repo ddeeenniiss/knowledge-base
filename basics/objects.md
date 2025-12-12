@@ -1,6 +1,26 @@
 Mögliche Emojis: 🔵🟢🟡❗⚠️🧩➤📁⌘⌥⇧⌃
 **<h2>🔵 theory / background: </h2>**
-Alle Eingaben hier sind Objekte, also Key Value Paare.
+Alle Eingaben hier sind Objekte, dabei sind Objekte Instanzen einer Klasse.
+
+zB
+
+```php
+class Person {
+    public $name;
+    public $age;
+
+    public function greet() {
+        return "Hallo, ich bin $this->name";
+    }
+}
+
+// Objekt erstellen
+$max = new Person();
+$max->name = "Max";
+$max->age = 30;
+
+echo $max->greet(); // Hallo, ich bin Max
+```
 
 **<h2>🟢 code snippet: </h2>**
 ```php
