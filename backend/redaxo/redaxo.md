@@ -80,3 +80,21 @@ $data = $REX_VALUE[1] ?? [];
             <div class="text-block__text"> <?= $data['left_text']; ?> </div> //<p> Tag wird automatisch kreiert
 <?php } ?>
 ```
+
+**addTextField**
+Eingabe:
+```php
+->addTextField('1.heading', ['label' => 'Headline', 'full' => true])
+```
+
+Ausgabe:
+```php
+$data = Helper::getData($this);
+<?php if (!empty($data->value_1->heading)) { ?>
+					<header class="heading">
+						<?php if (!empty($data->value_1->heading)) { ?>
+							<h3><?= $data->value_1->heading ?></h3>
+						<?php } ?>
+					</header>
+				<?php } ?>
+```
