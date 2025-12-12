@@ -110,3 +110,16 @@ Ausgabe:
 			<img src="<?= rex_url::media($data->value_1->background) ?>" alt="">
 		</div>
 ```
+🟢**addCheckboxField**
+Eingabe:
+```php
+->addCheckboxField('1.karriereseite', ['karriereseite' => 'Styling für Karriereseite'])
+```
+
+Ausgabe:
+```php
+$data = $REX_VALUE[1] ?? [];
+$modClasses = ['text-block block'];
+if (!empty($data['karriereseite'])) { $modClasses[] = 'karriereseite'; }
+<section id="c<?= $this->getCurrentSlice()->getId() ?>" class="<?= implode(' ', $modClasses) ?> <?= $data['background'] ?? '' ?>">
+```
