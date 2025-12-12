@@ -2,7 +2,7 @@ Mögliche Emojis: 🔵🟢🟡❗⚠️🧩➤📁⌘⌥⇧⌃
 **<h2>🔵 theory / background: </h2>**
 **<h2>🟢 img </h2>**
 < img src="<bild.jpg>" alt="Beschreibung des Bildes" title="Text bei Hover">
-<img> → HTML-Tag für Bilder (Self-Closing, kein <img></img> nötig)
+<img> → HTML-Tag für Bilder (Self-Closing, kein < img >< /img > nötig)
 
 src ➤ „Source“ ➤ die **Datei/URL des Bildes“
 Angabe als relative URL: "images/logo.png" oder als absolute URL: "https://example.com/logo.png"
