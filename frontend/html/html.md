@@ -1,6 +1,8 @@
 Mögliche Emojis: 🔵🟢🟡❗⚠️🧩➤📁⌘⌥⇧⌃
 **<h2>🔵 theory / background: </h2>**
-```php **<h2>🟢img</h2>** ```
+```php 
+**<h2>🟢img</h2>** 
+```
 < img src="<bild.jpg>" alt="Beschreibung des Bildes" title="Text bei Hover">
 <img> → HTML-Tag für Bilder (Self-Closing, kein < img >< /img > nötig)
 
