@@ -1,5 +1,4 @@
 Mögliche Emojis: 🔵🟢🟡❗⚠️🧩➤📁⌘⌥⇧⌃
-**<h2>🔵 theory / background: </h2>**
 ```php 
 img
 ```
@@ -16,6 +15,9 @@ Wichtig für SEO (Suchmaschinen lesen alt aus)
 
 title ➤ Text erscheint bei hover, Zusatzinformation zum Bild, aber keine Pflicht
 
+```php 
+nav
+```
 **<h2>🟢 nav </h2>**
 <nav> ist ein semantisches HTML-Element, das Navigation enthält.
 Es zeigt wichtige Links, die die Benutzer durch die Hauptstruktur der Website führen.
@@ -33,6 +35,9 @@ aria-label: Benennung für mehrere Navigationsbereiche
 </nav>
 ```
 
+```php 
+href
+```
 **<h2>🟢 href </h2>**
 href = „Hypertext REFerence“ → Ziel des Links
 Kann sein: URL zu einer anderen Seite, Interner Anker auf derselben Seite (#), Externe URL
