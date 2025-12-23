@@ -17,6 +17,82 @@ transform: rotateX(0deg) // rotiert 0 Grad entlang der x-Achse
   transition: transform 2s ease-out;
 }
 
+<div class="example-section" style=".demo-card-container {
+  margin-top: 10px;
+}
+
+.demo-card {
+  width: 150px;
+  height: 150px;
+  background-color: coral;
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.demo-card:hover {
+  transform: scale(1.2);
+}
+
+.show-css-btn {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.css-output {
+  background: #f0f0f0;
+  padding: 10px;
+  margin-top: 5px;
+  overflow-x: auto;
+}">
+
+  <!-- Erklärung -->
+  <div class="info">
+    <h3>Hover Animation</h3>
+    <p>Wenn man über die Card hovert, skaliert sie leicht.</p>
+  </div>
+
+  <!-- Live-Demo Card -->
+  <div class="demo-card-container">
+    <div class="demo-card">
+      Hover mich
+    </div>
+
+    <!-- Button zum CSS anzeigen -->
+    <button class="show-css-btn" data-css=" 
+.demo-card {
+  width: 150px;
+  height: 150px;
+  background-color: coral;
+  transition: transform 0.3s ease;
+}
+.demo-card:hover {
+  transform: scale(1.2);
+}">CSS anzeigen & kopieren</button>
+  </div>
+
+  <!-- Bereich, um CSS zu zeigen -->
+  <pre class="css-output" style="display:none;"></pre>
+</div>
+
+<script>
+document.querySelectorAll('.show-css-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const pre = btn.nextElementSibling;
+    pre.style.display = 'block';
+    pre.textContent = btn.dataset.css.trim();
+
+    // Code automatisch kopieren
+    navigator.clipboard.writeText(btn.dataset.css.trim()).then(() => {
+      btn.textContent = 'CSS kopiert!';
+      setTimeout(() => btn.textContent = 'CSS anzeigen & kopieren', 1500);
+    });
+  });
+});
+</script>
 Wichtig: Es muss immer einen Änderungszustand geben, bsp hover, click
 
 transition: <property> <duration> <timing-function> <delay>;
