@@ -57,7 +57,11 @@ async function buildNav() {
         a.onclick = () => loadMD(obj[key]);
         li.appendChild(a);
       } else {
-        li.textContent = key;
+        // Ordner: key als span
+        const folder = document.createElement('span');
+        folder.textContent = key;
+        li.appendChild(folder);
+
         const subUl = document.createElement('ul');
         subUl.style.paddingLeft = '15px';
         addItems(obj[key], subUl);
