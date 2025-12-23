@@ -1,0 +1,68 @@
+@use '../functions' as *;
+@use '../abstracts' as *;
+
+.block {
+	--block-padding-top: var(--padding-2xl);
+	--block-padding-bottom: var(--padding-2xl);
+	padding-top: var(--block-padding-top);
+	padding-bottom: var(--block-padding-bottom);
+
+	@include breakpoint-up('md') {
+		--block-padding-top: 5rem;
+		--block-padding-bottom: 5rem;
+	}
+}
+
+.block-bottom{
+	padding-bottom: rem(80px);
+}
+
+.block--no-padding {
+	padding-block: 0;
+}
+
+.block--no-padding-top {
+	padding-top: 0;
+}
+
+.block--no-padding-bottom {
+	padding-bottom: 0;
+}
+
+.block--small-padding-top {
+	padding-top: var(--padding-3xl);
+}
+
+.block--small-padding-bottom {
+	padding-bottom: var(--padding-3xl);
+}
+
+.block--small-padding {
+	--block-padding-top: #{rem(42px)};
+	--block-padding-bottom: #{rem(42px)};
+}
+
+.block--black {
+	background-color: var(--color-black);
+	color: var(--color-white);
+}
+
+.block--light-grey {
+	background-color: var(--color-grey-90);
+}
+
+.block--red {
+	background-color: var(--color-base-red);
+}
+
+.block--anthrazit {
+	background-color: var(--color-grey-20);
+	color: var(--color-white);
+}
+
+.nachhaltigkeit {
+	&.block--nachhaltigkeit {
+		--block-padding-top: rem(48px);
+		--block-padding-bottom: rem(48px);
+	}
+}

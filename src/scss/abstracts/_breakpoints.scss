@@ -1,0 +1,58 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:list';
+@use '../variables' as *;
+
+@mixin breakpoint-up($size) {
+	$breakpoint-value: map.get($breakpoints, $size);
+
+	@media screen and (min-width: $breakpoint-value) {
+		@content;
+	}
+}
+
+@mixin breakpoint-down($size) {
+	$breakpoint-value: map.get($breakpoints, get-next-breakpoint($breakpoints, $size));
+
+	@if not $breakpoint-value {
+		$breakpoint-value: 1000000px;
+	}
+
+	@media screen and (max-width: #{$breakpoint-value - 1px}) {
+		@content;
+	}
+}
+
+@mixin breakpoint-only($size) {
+	$breakpoint-small: map.get($breakpoints, $size);
+	$breakpoint-large: map.get($breakpoints, get-next-breakpoint($breakpoints, $size));
+
+	@if not $breakpoint-large {
+		$breakpoint-large: 1000000px;
+	}
+
+	@media screen and (min-width: $breakpoint-small) and (max-width: #{$breakpoint-large - 1px}) {
+		@content;
+	}
+}
+
+@function get-next-breakpoint($map, $key) {
+	$keys: map.keys($map);
+	$mapindex: list.index($keys, $key);
+
+	$mapkey: null;
+
+	@if $mapindex + 1 <= list.length($keys) {
+		$mapkey: list.nth($keys, $mapindex + 1);
+	}
+
+	@return $mapkey;
+}
+
+:root {
+	@each $key, $value in $breakpoints {
+		@include breakpoint-up(#{$key}) {
+			--breakpoint: '#{$key}';
+		}
+	}
+}

@@ -1,0 +1,51 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:math';
+@use '../abstracts' as *;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.-heading {
+	margin: 0;
+	font-weight: unset;
+	font-family: var(--font-serif);
+}
+
+.-serif {
+	font-family: var(--font-serif);
+}
+
+.-sans-serif {
+    font-family: var(--font-sans);
+}
+
+.-red {
+	color: var(--color-base-red);
+}
+
+p {
+	margin: 0;
+	font-weight: 300;
+}
+
+.-regular {
+	font-weight: 500;
+}
+
+strong,
+.-bold {
+	font-weight: 700;
+}
+
+.-extra-bold {
+	font-weight: 900;
+}
+
+.-center {
+	text-align: center;
+}

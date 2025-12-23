@@ -1,0 +1,27 @@
+@use 'sass:math';
+@use 'sass:list';
+@use '../variables' as *;
+@use '../functions' as *;
+@use '../abstracts' as *;
+
+:root {
+	@each $key, $grid in $grids {
+		@include breakpoint-up(#{$key}) {
+			--container-columns: #{list.nth($grid, 1)};
+			--container-gap: #{list.nth($grid, 2)};
+			--container-margin: #{list.nth($grid, 3)};
+			--container-max-width: #{list.nth($grid, 4)};
+			--column-width: calc((100% - (var(--container-gap) * (var(--container-columns) - 1))) / var(--container-columns));
+		}
+	}
+}
+
+.container {
+	margin-inline: auto;
+	width: calc(100% - var(--container-margin) * 2);
+	max-width: var(--container-max-width);
+}
+
+.container--extra-wide {
+	max-width: calc(var(--container-max-width) + 12rem);
+}

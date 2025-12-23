@@ -1,0 +1,61 @@
+@use 'sass:list';
+@use '../variables' as *;
+@use '../abstracts' as *;
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(var(--container-columns), var(--column-width));
+	gap: var(--container-gap);
+
+	.text-block__text {
+		@include font-size('base');
+
+		@include breakpoint-up('lg') {
+			@include font-size('md-large');
+		}
+	}
+}
+
+.grid__item {
+	overflow-wrap: anywhere;
+	width: 100%;
+}
+
+@for $i from 1 through 16 {
+	.grid__item--#{$i} {
+		grid-column: span #{$i};
+	}
+}
+
+@each $key, $breakpoint in $breakpoints {
+	.grid__item--#{$key} {
+		@each $span, $shift in $breakpoint {
+			@for $i from 1 through 16 {
+				&--#{$i} {
+					@include breakpoint-up(#{$key}) {
+						/* stylelint-disable */
+						grid-column: span #{$i} !important;
+						/* stylelint-enable */
+					}
+				}
+			}
+		}
+	}
+}
+
+.grid__item:has(.grid__item) {
+	display: grid;
+	grid-template-columns: subgrid;
+}
+
+@each $key, $bp in $breakpoints {
+	@include breakpoint-up(#{$key}) {
+		@for $i from 1 through 16 {
+			.#{$key}\:grid__item--#{$i} {
+				/* stylelint-disable */
+				grid-column: span #{$i} !important;
+				/* stylelint-enable */
+			}
+		}
+	}
+}
