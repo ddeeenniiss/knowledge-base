@@ -37,7 +37,7 @@ async function loadMD(path) {
     const res = await fetch(path);
     if (!res.ok) throw new Error("Datei nicht gefunden");
     const text = await res.text();
-    document.getElementById('content').innerHTML = marked.parse(text);
+    document.querySelector('.content').innerHTML = marked.parse(text);
   } catch (err) {
     document.getElementById('content').innerHTML = "<p style='color:red;'>Fehler: " + err + "</p>";
   }
