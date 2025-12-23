@@ -1,8 +1,9 @@
 @use 'sass:map';
-@use 'sass:string';
 @use 'sass:list';
 @use 'sass:math';
 @use '../abstracts' as *;
+@use '../variables' as *;
+@use '../functions' as *;
 
 h1,
 h2,
@@ -14,6 +15,10 @@ h6,
 	margin: 0;
 	font-weight: unset;
 	font-family: var(--font-serif);
+}
+
+h2{
+	@include font-size('2xl');
 }
 
 .-serif {

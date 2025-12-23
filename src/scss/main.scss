@@ -1,2 +1,4 @@
-@forward 'variables/typography';
-@forward 'components/button';
+@use './variables';
+@use './components';
+@use './basics';
+@use './abstracts';

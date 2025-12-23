@@ -1,0 +1,22 @@
+@use 'sass:math';
+@use 'sass:meta';
+
+/*
+ * --------------------------------------------------
+ * Converts px values to rem.
+ * just type rem(5px) to get the matching rem value.
+ * --------------------------------------------------
+ */
+$html-font-size: 16px;
+
+@function strip-unit($number) {
+	@if meta.type-of($number) == 'number' and not math.is-unitless($number) {
+		@return math.div($number, ($number * 0 + 1));
+	}
+
+	@return $number;
+}
+
+@function rem($pxValue) {
+	@return #{math.div(strip-unit($pxValue), strip-unit($html-font-size))}rem;
+}

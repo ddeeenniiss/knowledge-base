@@ -1,0 +1,32 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:list';
+@use '../variables/_font-sizes' as *;
+@use '../functions' as *;
+@use 'breakpoints' as *;
+
+@mixin generate-font-size($font-size, $line-height) {
+    font-size: #{rem($font-size)};
+    line-height: math.div($line-height, $font-size);
+
+    // Variable can be used for icon size
+    --font-size: #{rem($font-size)};
+    --line-height: #{math.div($line-height, $font-size)};
+}
+
+@mixin font-size($size-key) {
+    $size: map.get($font-sizes, $size-key);
+
+    @if $size and type-of($size) == 'list' and list.length($size) >= 2 {
+        @include generate-font-size(list.nth($size, 1), list.nth($size, 2));
+    } @else {
+        @warn "Invalid or missing font size for key '#{$size-key}' in $font-sizes";
+    }
+}
+
+// Generate classes for RTE
+@each $key, $size in $font-sizes {
+    .-size-#{$key} {
+        @include font-size(#{$key});
+    }
+}
