@@ -45,6 +45,36 @@ async function loadMD(path) {
     document.getElementById('content').innerHTML = "<p style='color:red;'>Fehler: " + err + "</p>";
   }
 }
+
+async function buildNav() {
+  const res = await fetch('structure.json');
+  const data = await res.json();
+  const nav = document.querySelector('nav ul');
+
+  function addItems(obj, parent) {
+    for (const key in obj) {
+      const li = document.createElement('li');
+      if (typeof obj[key] === 'string') {
+        const a = document.createElement('a');
+        a.textContent = key;
+        a.onclick = () => loadMD(obj[key]);
+        li.appendChild(a);
+      } else {
+        li.textContent = key;
+        const subUl = document.createElement('ul');
+        subUl.style.paddingLeft = '15px';
+        addItems(obj[key], subUl);
+        li.appendChild(subUl);
+      }
+      parent.appendChild(li);
+    }
+  }
+
+  addItems(data, nav);
+}
+
+buildNav();
+
 </script>
 
 </body>
