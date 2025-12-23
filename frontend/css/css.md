@@ -32,6 +32,8 @@ step-start	sofortiger Sprung
 step-end	Sprung am Ende
 <delay>:
 
+Für hover empfohlen: cubic-bezier(0.4, 0, 0.2, 1)
+
 cubic-bezier: (x1, y1, x2, y2)
 Eine Timing-Function beschreibt nicht die Bewegung im Raum, sondern:
 
