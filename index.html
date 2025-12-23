@@ -1,1 +1,50 @@
-<p>Das hier ist die Startseite</p>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Knowledge Base</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  body { font-family: sans-serif; margin: 0; display: flex; height: 100vh; }
+  nav { width: 220px; background: #f0f0f0; padding: 10px; overflow-y: auto; }
+  nav ul { list-style: none; padding: 0; }
+  nav li { margin: 5px 0; }
+  nav a { text-decoration: none; color: #333; cursor: pointer; }
+  nav a:hover { text-decoration: underline; }
+  #content { flex: 1; padding: 20px; overflow-y: auto; }
+  .demo-box { width: 100px; height: 100px; background: coral; transition: 0.3s; margin: 10px 0; }
+  .demo-box:hover { transform: scale(1.2); }
+</style>
+</head>
+<body>
+
+<nav>
+  <h3>Navigation</h3>
+  <ul>
+    <li><a onclick="loadMD('backend/')">Backend / Redaxo</a></li>
+    <li><a onclick="loadMD('basics/')">Basics / Chrome DevTools</a></li>
+    <li><a onclick="loadMD('frontend/')">Frontend / CSS</a></li>
+    <li><a onclick="loadMD('templates/')">Templates / Template</a></li>
+  </ul>
+</nav>
+
+<div id="content">
+  <h2>Willkommen!</h2>
+  <p>Wähle links ein Thema aus, um die Markdown-Datei und Live-Demos zu sehen.</p>
+</div>
+
+<script>
+async function loadMD(path) {
+  try {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error("Datei nicht gefunden");
+    const text = await res.text();
+    document.getElementById('content').innerHTML = marked.parse(text);
+  } catch (err) {
+    document.getElementById('content').innerHTML = "<p style='color:red;'>Fehler: " + err + "</p>";
+  }
+}
+</script>
+
+</body>
+</html>
