@@ -20,7 +20,7 @@
 	user-select: none;
 	cursor: pointer;
 	transition: background-color var(--duration) var(--easing);
-	@include font-size('sm-large');
+	@include font-size('sm');
 
 	@include hover {
 		background-color: var(--color-base-black);

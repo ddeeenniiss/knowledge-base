@@ -16,8 +16,8 @@ function walk(dir) {
       if (Object.keys(sub).length > 0) {
         result[file] = sub;
       }
-    } else if (file.endsWith('.md')) {
-      result[path.basename(file, '.md')] = path.relative(rootDir, fullPath).replace(/\\/g, '/');
+    } else if (file.endsWith('.php')) {
+      result[path.basename(file, '.php')] = path.relative(rootDir, fullPath).replace(/\\/g, '/');
     }
   });
   return result;

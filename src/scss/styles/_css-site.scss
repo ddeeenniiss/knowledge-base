@@ -1,0 +1,52 @@
+@use "../functions" as *;
+@use "../abstracts" as *;
+
+/* Option mit keyframes bei .animate__rotateX
+@keyframes rotateXOnce {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+.animate_X {
+  .box:hover {
+    animation: rotateXOnce 2s ease-out forwards;
+  }
+}
+*/
+
+.animate__rotateX {
+  .box {
+    transform: rotateX(0deg);
+
+    &:hover {
+      transform: rotateX(360deg);
+      transition: transform 2s ease-out;
+    }
+  }
+}
+
+.animate__rotateY {
+  .box {
+    transform: rotateY(0deg);
+
+    &:hover {
+      transform: rotateY(360deg);
+      transition: transform 2s ease-out;
+    }
+  }
+}
+
+.animate__rotateZ {
+  .box {
+    transform: rotateZ(0deg);
+
+    &:hover {
+      transform: rotateZ(360deg);
+      transition: transform 2s ease-out;
+    }
+  }
+}

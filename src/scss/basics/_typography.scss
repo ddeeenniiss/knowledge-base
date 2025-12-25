@@ -7,50 +7,44 @@
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6,
-.-heading {
-	margin: 0;
-	font-weight: unset;
-	font-family: var(--font-serif);
+h3{
+	font-family: var(--font-inter);
+	font-weight: var(--font-weight-bold);
+}
+
+h2, h3{
+	margin-top: var(--space-sm);
+}
+
+h1{
+	@include font-size('md');
+
+	@include breakpoint-up('lg'){
+		@include font-size('lg');
+	}
 }
 
 h2{
-	@include font-size('2xl');
+	@include font-size('sm');
+
+	@include breakpoint-up('lg'){
+		@include font-size('md');
+	}
 }
 
-.-serif {
-	font-family: var(--font-serif);
-}
+h3{
+	@include font-size('base');
 
-.-sans-serif {
-    font-family: var(--font-sans);
-}
-
-.-red {
-	color: var(--color-base-red);
+	@include breakpoint-up('lg'){
+		@include font-size('sm');
+	}
 }
 
 p {
-	margin: 0;
-	font-weight: 300;
-}
+	@include font-size('xs');
+	font-weight: var(--font-weight-thin);
 
-.-regular {
-	font-weight: 500;
-}
-
-strong,
-.-bold {
-	font-weight: 700;
-}
-
-.-extra-bold {
-	font-weight: 900;
-}
-
-.-center {
-	text-align: center;
+	@include breakpoint-up('lg'){
+		@include font-size('base');
+	}
 }

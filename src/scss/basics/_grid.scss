@@ -11,7 +11,7 @@
 		@include font-size('base');
 
 		@include breakpoint-up('lg') {
-			@include font-size('md-large');
+			@include font-size('md');
 		}
 	}
 }

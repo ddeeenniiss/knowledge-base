@@ -1,8 +1,8 @@
 @use 'sass:map';
 @use 'sass:math';
 @use 'sass:list';
-@use '../variables/_font-sizes' as *;
-@use '../functions' as *;
+@use '../variables/' as *;
+@use '../functions/' as *;
 @use 'breakpoints' as *;
 
 @mixin generate-font-size($font-size, $line-height) {

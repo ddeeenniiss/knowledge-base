@@ -1,0 +1,32 @@
+{
+  "README": "README.md",
+  "backend": {
+    "php": {
+      "php": "src/backend/php/php.php",
+      "phpmailer": {
+        "phpmailer": "src/backend/php/phpmailer/phpmailer.php"
+      }
+    },
+    "redaxo": {
+      "redaxo": "src/backend/redaxo/redaxo.php"
+    }
+  },
+  "basics": {
+    "objects": "src/basics/objects.php"
+  },
+  "frontend": {
+    "css": {
+      "css": "src/frontend/css/css.php",
+      "flex": "src/frontend/css/flex.php"
+    },
+    "html": {
+      "html": "src/frontend/html/html.php"
+    },
+    "js": {
+      "js": "src/frontend/js/js.php"
+    }
+  },
+  "templates": {
+    "template": "templates/template.php"
+  }
+}

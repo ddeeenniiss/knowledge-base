@@ -6,19 +6,21 @@
 
 :root {
 	--font-sans: 'RobotoCondensed', arial, sans-serif;
-	--font-serif: 'Rotis', serif;
-	font-size: 4vw;
-	font-family: var(--font-sans);
-	font-weight: 400;
-	
-	@media (width >= 360px) {
-		@include font-size('base');
-	  }
+	--font-inter: 'Inter', sans-serif;
+	--font-weight-thin: 100;
+  	--font-weight-regular: 400;
+  	--font-weight-bold: 700;
+
+	@include font-size('base');
+	font-family: var(--font-inter);
+	font-weight: var(--font-weight-regular);
 }
 
 *,
 *::before,
 *::after {
+	margin: 0;
+	padding: 0;
 	box-sizing: inherit;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
@@ -42,11 +44,6 @@ body {
 	&.no-body-scrolling {
 		overflow: hidden;
 	}
-}
-
-figure {
-	margin: 0;
-	padding: 0;
 }
 
 img,
@@ -84,15 +81,4 @@ textarea,
 select {
 	font-family: inherit;
 	font-size: inherit;
-}
-
-a:not([class]):not(.megamenu__wrapper a):not(.footer__section a) { // Megamenu, Footer nicht einbeziehen
-	color: var(--color-base-black);
-	text-decoration: underline;
-	font-weight: inherit;
-
-	@include hover {
-		text-decoration: underline;
-		color: var(--color-grey-60);
-	}
 }
