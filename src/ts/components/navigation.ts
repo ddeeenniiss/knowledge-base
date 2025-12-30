@@ -7,10 +7,9 @@ async function loadMD(path: string) {
     if (!res.ok) throw new Error("Datei nicht gefunden");
     const text = await res.text(); // await hier! -> text ist jetzt string
     const content = document.querySelector(".content");
-if (content instanceof HTMLElement) {
-  content.innerHTML = marked.parse(text);
-}
-
+    if (content instanceof HTMLElement) {
+      content.innerHTML = marked.parse(text);
+    }
   } catch (err) {
     document.querySelector(".content")!.innerHTML =
       "<p style='color:red;'>Fehler: " + err + "</p>";
@@ -30,7 +29,7 @@ async function buildNav() {
       if (typeof obj[key] === "string") {
         const a = document.createElement("a");
         a.textContent = key;
-        a.onclick = () => loadMD(obj[key]);
+        a.onclick = () => loadMD(`${import.meta.env.BASE_URL}${obj[key]}`);
         li.appendChild(a);
       } else {
         const folder = document.createElement("span");
