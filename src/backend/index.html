@@ -37,10 +37,16 @@
 <script>
 const form = document.getElementById('ajaxForm');
 const messageDiv = document.getElementById('formMessage');
+const envWarning = document.getElementById('envWarning');
+const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+if (!isLocalhost) {
+  envWarning.innerHTML = '<p style="color: orange; font-weight: bold;">⚠️ Formulare funktionieren nur auf localhost (PHP wird auf GitHub Pages nicht ausgeführt)</p>';
+  form.style.display = 'none';
+}
 
 form.addEventListener('submit', async (e) => {
-  e.preventDefault(); // Seite wird nicht neu geladen
-
+  e.preventDefault();
   const formData = new FormData(form);
 
   try {
@@ -59,7 +65,6 @@ form.addEventListener('submit', async (e) => {
       messageDiv.style.color = "red";
       messageDiv.textContent = "Fehler beim Senden: " + text;
     }
-
   } catch (err) {
     messageDiv.style.color = "red";
     messageDiv.textContent = "Fehler beim Senden: " + err;

@@ -1,8 +1,7 @@
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  base: '/',
-  root: 'src',
+  base: process.env.NODE_ENV === 'production' ? '/knowledge-base/' : '/',
   build: {
     outDir: 'dist',
     emptyOutDir: true
