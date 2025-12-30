@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Knowledge Base</title>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 <style>
 
   * {box-sizing: border-box;}
@@ -18,7 +17,7 @@
   .demo-box { width: 100px; height: 100px; background: coral; transition: 0.3s; margin: 10px 0; }
   .demo-box:hover { transform: scale(1.2); }
 </style>
-  <script type="module" crossorigin src="/knowledge-base/assets/index-affa1676.js"></script>
+  <script type="module" crossorigin src="/knowledge-base/assets/index-4afaaeaa.js"></script>
   <link rel="stylesheet" href="/knowledge-base/assets/index-7b339c48.css">
 </head>
 <body>
@@ -36,53 +35,6 @@
   <p>Neue Dateien werden automatisch zur Navigation hinzugefügt.</p>
   <p>Nach und nach werden Inhalte ergänzt.</p>
 </div>
-
-<script>
-async function loadMD(path) {
-  try {
-    const res = await fetch(path);
-    if (!res.ok) throw new Error("Datei nicht gefunden");
-    const text = await res.text();
-    document.querySelector('.content').innerHTML = marked.parse(text);
-  } catch (err) {
-    document.querySelector('.content').innerHTML = "<p style='color:red;'>Fehler: " + err + "</p>";
-  }
-}
-
-async function buildNav() {
-  const res = await fetch(`${import.meta.env.BASE_URL}structure.json`);
-  const data = await res.json();
-  const nav = document.querySelector('nav ul');
-
-  function addItems(obj, parent) {
-    for (const key in obj) {
-      const li = document.createElement('li');
-      if (typeof obj[key] === 'string') {
-        const a = document.createElement('a');
-        a.textContent = key;
-        a.onclick = () => loadMD(obj[key]);
-        li.appendChild(a);
-      } else {
-        // Ordner: key als span
-        const folder = document.createElement('span');
-        folder.textContent = key;
-        li.appendChild(folder);
-
-        const subUl = document.createElement('ul');
-        subUl.style.paddingLeft = '15px';
-        addItems(obj[key], subUl);
-        li.appendChild(subUl);
-      }
-      parent.appendChild(li);
-    }
-  }
-
-  addItems(data, nav);
-}
-
-buildNav();
-
-</script>
 
 </body>
 </html>
