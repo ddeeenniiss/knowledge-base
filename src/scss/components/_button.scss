@@ -142,3 +142,234 @@
         justify-content: center;
     }
 }
+
+.button__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* ---------- Button A: Primär Blau ---------- */
+.button--a {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007BFF;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--a:hover, .button--a:focus { background-color: #0056b3; }
+.button--a:active { transform: scale(0.95); }
+
+/* ---------- Button B: Grün Outline ---------- */
+.button--b {
+    padding: 10px 20px;
+    border: 2px solid #28A745;
+    border-radius: 6px;
+    background-color: white;
+    color: #28A745;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--b:hover, .button--b:focus { background-color: #28A745; color: white; }
+.button--b:active { transform: scale(0.95); }
+
+/* ---------- Button C: Farbverlauf Rund ---------- */
+.button--c {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(45deg, #FF6B6B, #FFD93D);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.button--c:hover, .button--c:focus { transform: scale(1.05); }
+.button--c:active { transform: scale(0.95); }
+
+/* ---------- Button D: Dezenter Grau ---------- */
+.button--d {
+    padding: 10px 20px;
+    border: 2px solid #6C757D;
+    border-radius: 6px;
+    background-color: #F8F9FA;
+    color: #6C757D;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.button--d:hover, .button--d:focus { background-color: #E2E6EA; }
+.button--d:active { transform: scale(0.95); }
+
+/* ---------- Button E: Rot Solid ---------- */
+.button--e {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #DC3545;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.button--e:hover, .button--e:focus { background-color: #a71d2a; }
+.button--e:active { transform: scale(0.95); }
+
+/* ---------- Button F: Orange Outline ---------- */
+.button--f {
+    padding: 10px 20px;
+    border: 2px solid #FD7E14;
+    border-radius: 6px;
+    background-color: white;
+    color: #FD7E14;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--f:hover, .button--f:focus { background-color: #FD7E14; color: white; }
+.button--f:active { transform: scale(0.95); }
+
+/* ---------- Button G: Lila Gradient ---------- */
+.button--g {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #6f42c1, #d63384);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--g:hover, .button--g:focus { opacity: 0.9; transform: scale(1.05); }
+.button--g:active { transform: scale(0.95); }
+
+/* ---------- Button H: Hellblau Outline ---------- */
+.button--h {
+    padding: 10px 20px;
+    border: 2px solid #17A2B8;
+    border-radius: 6px;
+    background-color: white;
+    color: #17A2B8;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--h:hover, .button--h:focus { background-color: #17A2B8; color: white; }
+.button--h:active { transform: scale(0.95); }
+
+/* ---------- Button I: Gelb Solid ---------- */
+.button--i {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #FFC107;
+    color: #212529;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.button--i:hover, .button--i:focus { background-color: #e0a800; }
+.button--i:active { transform: scale(0.95); }
+
+/* ---------- Button J: Hellgrün Solid ---------- */
+.button--j {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #20C997;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.button--j:hover, .button--j:focus { background-color: #1ca586; }
+.button--j:active { transform: scale(0.95); }
+
+/* ---------- Button K: Schwarz Solid ---------- */
+.button--k {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #343A40;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+.button--k:hover, .button--k:focus { background-color: #23272b; }
+.button--k:active { transform: scale(0.95); }
+
+/* ---------- Button L: Weiß mit Schatten ---------- */
+.button--l {
+    padding: 10px 20px;
+    border: 2px solid #CED4DA;
+    border-radius: 6px;
+    background-color: white;
+    color: #212529;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+}
+.button--l:hover, .button--l:focus { box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.button--l:active { transform: scale(0.95); }
+
+/* ---------- Button M: Neon Grün ---------- */
+.button--m {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #39FF14;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--m:hover, .button--m:focus { box-shadow: 0 0 12px #39FF14; }
+.button--m:active { transform: scale(0.95); }
+
+/* ---------- Button N: Pink Outline ---------- */
+.button--n {
+    padding: 10px 20px;
+    border: 2px solid #E83E8C;
+    border-radius: 6px;
+    background-color: white;
+    color: #E83E8C;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--n:hover, .button--n:focus { background-color: #E83E8C; color: white; }
+.button--n:active { transform: scale(0.95); }
+
+/* ---------- Button O: Türkis Solid ---------- */
+.button--o {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #20C997;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--o:hover, .button--o:focus { background-color: #1aa886; }
+.button--o:active { transform: scale(0.95); }
+
+/* ---------- Button P: Grau/Dekorativ ---------- */
+.button--p {
+    padding: 10px 20px;
+    border: 2px solid #ADB5BD;
+    border-radius: 50px;
+    background-color: #E9ECEF;
+    color: #495057;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.button--p:hover, .button--p:focus { background-color: #CED4DA; }
+.button--p:active { transform: scale(0.95); }

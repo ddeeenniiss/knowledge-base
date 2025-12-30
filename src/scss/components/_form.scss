@@ -1,0 +1,49 @@
+form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: sans-serif;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+input,
+select{
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+li:last-child {
+  border-bottom: none;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+pre {
+  background: #eee;
+  padding: 10px;
+  border-radius: 5px;
+}

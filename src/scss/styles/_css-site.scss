@@ -50,3 +50,36 @@
     }
   }
 }
+
+.animate__scale {
+  .box {
+    transform: scale(1);
+
+    &:hover {
+      transform: scale(1.5);
+      transition: transform 1s ease-out;
+    }
+  }
+}
+
+.animate__translate {
+  .box {
+    transform: translate(0px, 0px);
+
+    &:hover {
+      transform: translate(20px, 25px);
+      transition: transform 1s ease-out;
+    }
+  }
+}
+
+.animate__skew {
+  .box {
+    transform: skew(0deg, 0deg);
+
+    &:hover {
+      transform: skew(20deg, 25deg);
+      transition: transform 1s ease-out;
+    }
+  }
+}

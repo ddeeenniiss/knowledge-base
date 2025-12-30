@@ -2,31 +2,31 @@
   "README": "README.md",
   "backend": {
     "php": {
-      "php": "src/backend/php/php.php",
+      "php": "src/backend/php/php.html",
       "phpmailer": {
-        "phpmailer": "src/backend/php/phpmailer/phpmailer.php"
+        "phpmailer": "src/backend/php/phpmailer/phpmailer.html"
       }
     },
     "redaxo": {
-      "redaxo": "src/backend/redaxo/redaxo.php"
+      "redaxo": "src/backend/redaxo/redaxo.html"
     }
   },
   "basics": {
-    "objects": "src/basics/objects.php"
+    "objects": "src/basics/objects.html"
   },
   "frontend": {
     "css": {
-      "css": "src/frontend/css/css.php",
-      "flex": "src/frontend/css/flex.php"
+      "css": "src/frontend/css/css.html",
+      "flex": "src/frontend/css/flex.html"
     },
     "html": {
-      "html": "src/frontend/html/html.php"
+      "html": "src/frontend/html/html.html"
     },
     "js": {
-      "js": "src/frontend/js/js.php"
+      "js": "src/frontend/js/js.html"
     }
   },
   "templates": {
-    "template": "templates/template.php"
+    "template": "templates/template.html"
   }
 }
