@@ -48,7 +48,7 @@ async function loadMD(path) {
 }
 
 async function buildNav() {
-  const res = await fetch('/structure.json');
+  const res = await fetch('structure.json');
   const data = await res.json();
   const nav = document.querySelector('nav ul');
 
