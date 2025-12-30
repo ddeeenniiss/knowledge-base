@@ -31,6 +31,8 @@ git commit -m "" //Nachricht hinzufügen, damit jeder weiß was geändert wurde
 git push //Hochladen der commits auf Remote Server Github
 
 git pull --rebase --autostash //Pullen aller commits, rebasen der eigenen Änderungen auf die externen Änderungen und stashen der Änderungen, die noch nicht committet sind.
+
+npm run build //Startet Projekt
 ```
 
 Wenn direkt auf github etwas geändert wird: 
