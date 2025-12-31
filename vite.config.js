@@ -2,28 +2,30 @@ import { defineConfig } from 'vite';
 import fs from 'fs';
 import path from 'path';
 
-// Plugin to copy src content to dist during build
 function copyContentPlugin() {
   return {
     name: 'copy-content',
     apply: 'build',
-    async generateBundle() {
+    writeBundle() {
       const srcDirs = ['backend', 'frontend', 'basics'];
-      const srcRoot = 'src';
       const distRoot = 'dist';
 
       srcDirs.forEach(dir => {
-        const srcPath = path.join(srcRoot, dir);
-        const distPath = path.join(distRoot, dir);
+        const srcPath = path.resolve('src', dir);
+        const destPath = path.resolve(distRoot, dir);
 
         if (fs.existsSync(srcPath)) {
-          copyDirRecursive(srcPath, distPath);
+          copyDirRecursive(srcPath, destPath);
+          console.log(`✓ Copied ${srcPath} to ${destPath}`);
         }
       });
 
-      // Copy templates folder
-      if (fs.existsSync('templates')) {
-        copyDirRecursive('templates', path.join(distRoot, 'templates'));
+      // Copy templates
+      const templatesSrc = path.resolve('templates');
+      const templatesDist = path.resolve(distRoot, 'templates');
+      if (fs.existsSync(templatesSrc)) {
+        copyDirRecursive(templatesSrc, templatesDist);
+        console.log(`✓ Copied templates to ${templatesDist}`);
       }
     }
   };
@@ -53,10 +55,6 @@ export default defineConfig({
   plugins: [copyContentPlugin()],
   build: {
     outDir: 'dist',
-    emptyOutDir: true,
-    copyPublicDir: true
-  },
-  server: {
-    middlewareMode: false
+    emptyOutDir: true
   }
 });

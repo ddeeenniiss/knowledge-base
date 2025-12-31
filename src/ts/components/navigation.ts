@@ -6,38 +6,49 @@ async function loadMD(path: string) {
     const res = await fetch(`${import.meta.env.BASE_URL}${path}`);
     if (!res.ok) throw new Error("Datei nicht gefunden");
 
-    const text = await res.text();
-    
-    if (path.endsWith('.html')) {
-      document.querySelector(".content")!.innerHTML = text;
+    const text: string = await res.text();
+    const container = document.querySelector(".content");
+    if (!container) return;
+
+    if (path.endsWith(".html")) {
+      container.innerHTML = text;
     } else {
-      document.querySelector(".content")!.innerHTML = marked.parse(text);
+      // marke.parse kann je nach Version ein Promise<string> zurückgeben
+      const html = await marked.parse(text);
+      container.innerHTML = html;
     }
   } catch (err) {
-    document.querySelector(".content")!.innerHTML =
-      "<p style='color:red;'>Fehler: " + err + "</p>";
+    const container = document.querySelector(".content");
+    if (container) {
+      container.innerHTML =
+        "<p style='color:red;'>Fehler: " + (err instanceof Error ? err.message : err) + "</p>";
+    }
   }
 }
+
+type Structure = string | Record<string, any>;
 
 async function buildNav() {
   try {
     const res = await fetch(`${import.meta.env.BASE_URL}structure.json`);
     if (!res.ok) throw new Error("structure.json nicht gefunden");
 
-    const data = await res.json();
+    const data: Record<string, Structure> = await res.json();
     const nav = document.querySelector("nav ul");
-
     if (!(nav instanceof HTMLElement)) return;
 
     addItems(data, nav);
   } catch (err) {
     console.error("Fehler beim Laden der Navigation:", err);
-    document.querySelector(".content")!.innerHTML =
-      "<p style='color:red;'>Navigation konnte nicht geladen werden.</p>";
+    const container = document.querySelector(".content");
+    if (container) {
+      container.innerHTML =
+        "<p style='color:red;'>Navigation konnte nicht geladen werden.</p>";
+    }
   }
 }
 
-function addItems(obj: any, parent: HTMLElement) {
+function addItems(obj: Record<string, Structure>, parent: HTMLElement) {
   for (const key in obj) {
     const li = document.createElement("li");
 
@@ -45,9 +56,9 @@ function addItems(obj: any, parent: HTMLElement) {
       const a = document.createElement("a");
       a.textContent = key;
       a.href = "#";
-      a.onclick = (e) => {
+      a.onclick = async (e) => {
         e.preventDefault();
-        loadMD(obj[key]);
+        await loadMD(obj[key] as string);
       };
       li.appendChild(a);
     } else {
@@ -58,7 +69,7 @@ function addItems(obj: any, parent: HTMLElement) {
 
       const subUl = document.createElement("ul");
       subUl.style.paddingLeft = "15px";
-      addItems(obj[key], subUl);
+      addItems(obj[key] as Record<string, Structure>, subUl);
       li.appendChild(subUl);
     }
 
@@ -66,4 +77,5 @@ function addItems(obj: any, parent: HTMLElement) {
   }
 }
 
+// Navigation direkt beim Laden bauen
 buildNav();

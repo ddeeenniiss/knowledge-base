@@ -2,37 +2,37 @@
   "README": "README.md",
   "backend": {
     "php": {
-      "php": "backend/php/php.html",
+      "php": "src/backend/php/php.html",
       "phpmailer": {
-        "phpmailer": "backend/php/phpmailer/phpmailer.html"
+        "phpmailer": "src/backend/php/phpmailer/phpmailer.html"
       }
     },
     "redaxo": {
-      "redaxo": "backend/redaxo/redaxo.html"
+      "redaxo": "src/backend/redaxo/redaxo.html"
     },
     "theory": {
-      "theory": "backend/theory/theory.html"
+      "theory": "src/backend/theory/theory.html"
     },
-    "formular": "backend/formular.html",
-    "index": "backend/index.html"
+    "formular": "src/backend/formular.html",
+    "index": "src/backend/index.html"
   },
   "basics": {
-    "objects": "basics/objects.html"
+    "objects": "src/basics/objects.html"
   },
   "frontend": {
     "css": {
-      "button": "frontend/css/button.html",
-      "css": "frontend/css/css.html",
-      "flex": "frontend/css/flex.html"
+      "button": "src/frontend/css/button.html",
+      "css": "src/frontend/css/css.html",
+      "flex": "src/frontend/css/flex.html"
     },
     "html": {
-      "html": "frontend/html/html.html"
+      "html": "src/frontend/html/html.html"
     },
     "js": {
-      "js": "frontend/js/js.html"
+      "js": "src/frontend/js/js.html"
     }
   },
   "templates": {
-    "template": "templates/template.html"
+    "template": "src/templates/template.html"
   }
 }
