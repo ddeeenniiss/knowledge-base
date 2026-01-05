@@ -54,7 +54,7 @@ export default defineConfig({
   base: process.env.NODE_ENV === 'production' ? '/knowledge-base/' : '/',
   plugins: [copyContentPlugin()],
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     emptyOutDir: true
   }
 });
