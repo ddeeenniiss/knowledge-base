@@ -8,7 +8,7 @@
       }
     },
     "redaxo": {
-      "redaxo": "public/redaxo.html"
+      "redaxo": "src/backend/redaxo/redaxo.html"
     },
     "theory": {
       "theory": "src/backend/theory/theory.html"

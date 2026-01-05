@@ -8,7 +8,7 @@
       }
     },
     "redaxo": {
-      "redaxo": "src/backend/redaxo/redaxo.html"
+      "redaxo": "public/redaxo.html"
     },
     "theory": {
       "theory": "src/backend/theory/theory.html"
@@ -31,8 +31,5 @@
     "js": {
       "js": "src/frontend/js/js.html"
     }
-  },
-  "templates": {
-    "template": "src/templates/template.html"
   }
 }
