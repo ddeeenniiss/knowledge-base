@@ -48,3 +48,11 @@ p {
 		@include font-size('base');
 	}
 }
+
+  body { display: flex; height: 100vh; }
+  nav { width: 220px; background: linear-gradient(135deg, #e3e7eb, #78b5ea); padding: 10px; overflow-y: auto; }
+  nav ul { list-style: none; padding: 0; }
+  nav li { margin: 5px 0; }
+  nav a { text-decoration: none; color: #333; cursor: pointer; }
+  nav a:hover { text-decoration: underline; }
+  .content { flex: 1; padding: 20px; overflow-y: auto; background: linear-gradient(135deg, #e1e1e1, #dadaf0);}
