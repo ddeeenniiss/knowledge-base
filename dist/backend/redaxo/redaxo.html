@@ -1,0 +1,35 @@
+<h2>Redaxo Adminer</h2>
+<p>Adminer ist ein kompakter Datenbankbrowser, der sich als Alternative zu phpMyAdmin eignet. Er ermöglicht den Zugriff auf verschiedene Datenbanken wie MySQL, PostgreSQL, SQLite und Oracle.
+
+</p>
+<p>Admin + er == jemand, der administriert.</p>
+<p>Typisch für Tabellen ansehen, Inhalte ändern, Datensätze hinzufügen, Sortierungen ändern, debuggen</p>
+
+<h2>SQL = Structured Query Language</h2>
+<p>Sprache, um Daten aus einer Datenbank zu lesen, ändern oder zu löschen</p>
+<p>Die Inhalte liegen in MySQL / MariaDB. PHP benutzt SQL, um diese Daten zu holen.</p>
+<p>"Gib mir diese Spalten aus diesen Tabellen, unter diesen Bedingungen, in dieser Reihenfolge"</p>
+<p>SELECT = Was will ich sehen. Bsp: SELECT name, description -> Zeig mir die Spalten name und description.
+    SELECT * -> Zeig mir alle Spalten
+    SELECT c.id AS category_id, c.step AS category_step, c.name AS category_name, ... -> c.id bedeutet Spalte id aus Tabelle c.
+AS category_id -> Alias</p>
+</p>
+<p>FROM fireconf_categories c -> Die Daten kommen aus der Tabelle fireconf_categories mit dem Alias c. Ein Alias ist hierbei einfach
+    ein lesbarerer Name für eine Tabelle oder eine Spalte.
+    FROM fireconf_categories c LEFT JOIN fireconf_options o ON o.category_id = c.id -> SELECT c.id, o.title
+</p>
+<p>JOIN = Daten aus mehreren Tabellen kombinieren
+    LEFT JOIN fireconf_options o ON o.category_id = c.id -> Hänge Optionen o an Kategorien c, wenn option.category_id = category.id
+
+</p>
+<p>WHERE c.step = 1 -> Filtere nach Kategorien mit Schritt 1
+    WHERE o.subcategory_id IS NOT NULL -> Filtere nach Optionen, die eine Subkategorie haben
+</p>
+<p>ORDER BY c.position, o.position -> Sortiere die Ergebnisse nach einer oder mehreren Spalten</p>
+<p>c.id AS category_id, o.position AS option_position</p>
+
+<p>Merke: SELECT (was) FROM (von) JOIN (verknüpfte Tabellen) WHERE (Filter) ORDER BY (Sortierung)</p>
+
+<p>AdminerEvo ist eine Abzweigung (Fork) von Adminer. Dort sind Fixes gegen SSRF und DoS Probleme aktuell. Die Version ist generell aktueller.</p>
+<p>Importieren = Daten oder ganze Tabellen in die Datenbank hochladen. zB Backup wiederherstellen</p>
+<p>Exportieren = Daten oder ganze Tabellen aus der Datenbank herunterladen. zB Backup erstellen</p>
