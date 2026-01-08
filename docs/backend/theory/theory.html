@@ -1,0 +1,44 @@
+<h2>Asynchronous JavaScript and XML (AJAX):</h2>
+<p>AJAX ermöglicht es, Daten asynchron vom Server zu laden, ohne die Seite neu zu laden. Dies verbessert die Benutzererfahrung durch dynamische Inhalte.</p>
+
+<h2>Vite</h2>
+<p>Vite ist ein modernes Build-Tool, das schnelle Entwicklungsserver und optimierte Produktions-Builds bietet. Es nutzt native ES-Module im Browser für eine schnellere Entwicklungserfahrung.</p>
+
+<h2>Dateistruktur</h2>
+<h3>public</h3>
+<p>Dieser Ordner enthält statische Dateien, die unverändert ins Build-Verzeichnis kopiert werden.
+
+Beispiele: Bilder, Fonts, favicon, robots.txt usw.
+
+Dateien hier kannst du direkt über /dateiname im Browser aufrufen.</p>
+<h3>src</h3>
+<p>Hier kommt dein kompletter Quellcode rein: Komponenten, Styles, Utils, etc.
+
+assets/: Bilder, Icons oder kleine Dateien, die importiert werden.
+
+components/: React- oder Vue-Komponenten.
+
+main.tsx / main.ts: Startpunkt der App, z. B. ReactDOM.render(<App />, document.getElementById('root')).
+
+App.tsx / App.vue: Hauptkomponente deiner Anwendung.</p>
+<h3>vite.config.js</h3>
+<p>Die Konfigurationsdatei für Vite.
+
+Hier kannst du z. B.:
+
+Aliase definieren (@/components → src/components)
+
+Plugins hinzufügen (z. B. für TypeScript-Checking, React, Vue, PWA)
+
+Build-Optionen ändern (Output-Verzeichnis, Minifizierung, etc.)</p>
+<h3>package.json</h3>
+<p>Eine package.json ist eine JSON-Datei (JavaScript Object Notation), die Metadaten über dein Projekt enthält – also quasi eine Art „Rezeptbuch“ für dein Projekt.</p>
+<p>"name": "knowledge-base"	Name deines Projekts.
+"version": "1.0.0"	Versionsnummer, nützlich für Releases oder npm-Pakete.
+"private": true	Verhindert, dass das Projekt versehentlich auf npm veröffentlicht wird.
+"scripts"	Enthält Befehle, die du über npm run .. ausführen kannst.
+//Für die App wichtig sind vor allem:
+"dependencies"	Bibliotheken, die deine App benötigt, um zu laufen (Produktion). Hier z. B. marked für Markdown.
+//Für die Entwicklung wichtig sind:
+"devDependencies"	Entwicklungsbibliotheken, die nur während Entwicklung gebraucht werden (Build-Tools, Compiler etc.). Hier z. B. vite und sass.</p>
+<h3>index.html</h3>

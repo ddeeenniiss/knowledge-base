@@ -1,0 +1,39 @@
+<!-- lt steht für less than und gt für greater than-->
+PHP verwendet &lt;?php ... ?&gt; Tags, um PHP-Code in HTML-Dateien einzubetten. Hier sind einige Grundlagen und Beispiele für die Arbeit mit PHP im Backend.
+
+PHP kennt außerdem den kurzen Ausgabe-Tag &lt;?=, der eine Kurzform für &lt;?php echo ist.
+
+<p>echo 'Hallo Welt'; dient zum Ausgeben von Text oder Variablen auf der Webseite. Ein Semikolon ist hierbei zu verwenden.</p>
+<p>Kommentare in PHP werden mit // für einzeilige Kommentare oder /* ... */ für mehrzeilige Kommentare erstellt.</p>
+<h2>Variablen</h2>
+<p>Variablen in PHP beginnen mit einem $-Zeichen, gefolgt vom Variablennamen. Beispiel: $name = "John"; Die Typen sind dabei dynamisch, daher
+    kein integer, string, float etc. notwendig.</p>
+<h2>Variablen verketten: </h2>
+<p>Um Variablen in PHP zu verketten, verwendet man den Punkt (.) als Verknüpfungsoperator. Beispiel: echo $name . " " . $lastname;
+</p>
+<h2>Arrays</h2>
+<p>Arrays in PHP werden mit dem array()-Konstruktur oder der Kurzsyntax [] erstellt. Beispiel: $fruits = array("Apfel", "Banane", "Orange");
+    oder $fruits = ["Apfel", "Banane", "Orange"];</p>
+    <p>Der Zugriff auf Array-Elemente erfolgt über den Index, z.B. $fruits[0] für "Apfel".</p>
+    <p>Ebenso gibt es assoziative Arrays, bei denen Schlüssel benannt werden, z.B. $person = ["name" => "John", "age" => 30];</p>
+    <p>Der Zugriff hier erfolgt über den Schlüssel, z.B. $person["name"] für "John".</p>
+<h2>Bedingungen</h2>
+<p>Bedingungen in PHP werden mit if, elseif und else abgefragt. Beispiel: if ($age >= 18) { echo "Du bist volljährig"; } else { echo "Du bist minderjährig"; }</p>
+<p>Vergleichsoperatoren sind z.B. ==, !=, &lt;, >, &lt;=, >=. ===, wenn exakt gleicher Typ und Wert verglichen werden sollen.</p>
+<h2>Schleifen</h2>
+<p>Schleifen in PHP können mit for, while und foreach erstellt werden. Beispiel für eine for-Schleife: for ($i = 0; $i < 10; $i++) { echo $i; }</p>
+<p>Beispiel für eine foreach-Schleife: foreach ($fruits as $fruit) { echo $fruit; }</p>
+<h2>Funktionen</h2>
+<p>Funktionen in PHP werden mit dem function-Schlüsselwort definiert. Beispiel: function greet($name) { return "Hallo " . $name; }</p>
+<p>Funktionen können Parameter entgegennehmen und Werte zurückgeben.</p>
+<h2>Includes / Requires: </h2>
+<p>include und require werden verwendet, um externe PHP-Dateien einzubinden. Beispiel: include 'header.php'; oder require 'config.php';</p>
+<p>Der Unterschied besteht darin, dass require einen fatalen Fehler auslöst, wenn die Datei nicht gefunden wird, während include nur eine Warnung ausgibt.</p>
+<h2>Superglobale Variablen</h2>
+<p>PHP bietet superglobale Variablen wie $_GET, $_POST, $_SESSION, $_SERVER, $_FILES und $_COOKIE, um auf Daten aus Formularen, Sitzungen und Cookies zuzugreifen.</p>
+<p>Beispiel: $name = $_POST['name']; um auf einen Wert aus einem POST-Formular zuzugreifen.</p>
+<p>Beispiel: $name = $_GET['name']; um auf einen Wert aus einem GET-Formular zuzugreifen.</p>
+<p>Beispiel: $_SESSION['user'] = "John"; um eine Sitzung zu starten oder auf eine Sitzung zuzugreifen.</p>
+<p>Beispiel: $_SERVER['HTTP_USER_AGENT']; um Informationen über den Browser des Benutzers zu erhalten.</p>
+<p>Beispiel: $_FILES['file']['name']; um auf den Namen einer hochgeladenen Datei zuzugreifen.</p>
+<p>Beispiel: $_COOKIE['user']; um auf einen Wert aus einem Cookie zuzugreifen.</p>

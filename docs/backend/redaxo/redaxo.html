@@ -1,0 +1,144 @@
+<h2>Redaxo Adminer</h2>
+<p>Adminer ist ein kompakter Datenbankbrowser, der sich als Alternative zu phpMyAdmin eignet. Er ermöglicht den Zugriff auf verschiedene Datenbanken wie MySQL, PostgreSQL, SQLite und Oracle.
+
+</p>
+<p>Admin + er == jemand, der administriert.</p>
+<p>Typisch für Tabellen ansehen, Inhalte ändern, Datensätze hinzufügen, Sortierungen ändern, debuggen</p>
+
+<h2>SQL = Structured Query Language</h2>
+<p>Sprache, um Daten aus einer Datenbank zu lesen, ändern oder zu löschen</p>
+<p>Die Inhalte liegen in MySQL / MariaDB. PHP benutzt SQL, um diese Daten zu holen.</p>
+<p>"Gib mir diese Spalten aus diesen Tabellen, unter diesen Bedingungen, in dieser Reihenfolge"</p>
+<h3>SELECT</h3>
+<p>SELECT = Was will ich sehen. Bsp: SELECT name, description -> Zeig mir die Spalten name und description.
+    SELECT * -> Zeig mir alle Spalten
+    SELECT c.id AS category_id, c.step AS category_step, c.name AS category_name, ... -> c.id bedeutet Spalte id aus Tabelle c.
+AS category_id -> Alias</p>
+</p>
+<h3>FROM</h3>
+<p>FROM fireconf_categories c -> Die Daten kommen aus der Tabelle fireconf_categories mit dem Alias c. Ein Alias ist hierbei einfach
+    ein lesbarerer Name für eine Tabelle oder eine Spalte.
+    FROM fireconf_categories c LEFT JOIN fireconf_options o ON o.category_id = c.id -> SELECT c.id, o.title
+</p>
+<h3>JOIN</h3>
+<p>JOIN = Daten aus mehreren Tabellen kombinieren
+    LEFT JOIN fireconf_options o ON o.category_id = c.id -> Hänge Optionen o an Kategorien c, wenn option.category_id = category.id
+
+</p>
+<h3>WHERE</h3>
+<p>WHERE c.step = 1 -> Filtere nach Kategorien mit Schritt 1
+    WHERE o.subcategory_id IS NOT NULL -> Filtere nach Optionen, die eine Subkategorie haben
+</p>
+<h3>ORDER BY</h3>
+<p>ORDER BY c.position, o.position -> Sortiere die Ergebnisse nach einer oder mehreren Spalten</p>
+<p>c.id AS category_id, o.position AS option_position</p>
+
+<h3>Merke: SELECT (was) FROM (von) JOIN (verknüpfte Tabellen) WHERE (Filter) ORDER BY (Sortierung)</h3>
+
+<p>AdminerEvo ist eine Abzweigung (Fork) von Adminer. Dort sind Fixes gegen SSRF und DoS Probleme aktuell. Die Version ist generell aktueller.</p>
+<p>Importieren = Daten oder ganze Tabellen in die Datenbank hochladen. zB Backup wiederherstellen</p>
+<p>Exportieren = Daten oder ganze Tabellen aus der Datenbank herunterladen. zB Backup erstellen</p>
+
+<h2>AddOns</h2>
+<table>
+  <tr>
+    <th>AddOn</th>
+    <th>Zweck</th>
+  </tr>
+  <tr>
+    <td>redaxo</td>
+    <td>Kern Backend von REDAXO</td>
+  </tr>
+  <tr>
+    <td>be_style</td>
+    <td>Stellt das Backend-Design von REDAXO zur Verfügung</td>
+  </tr>
+  <tr>
+    <td>install</td>
+    <td>Installations und Update AddOn für REDAXO</td>
+  </tr>
+  <tr>
+    <td>structure</td>
+    <td>Verwalten von Artikeln/ Inhalten innerhalb der Seiten</td>
+  </tr>
+  <tr>
+    <td>content</td>
+    <td>Verwalten von Artikeln/ Inhalten innerhalb der Seiten</td>
+  </tr>
+  <tr>
+    <td>users</td>
+    <td>Verwalten von Benutzern und Berechtigungen innerhalb des Backends</td>
+  </tr>
+  <tr>
+    <td>media_manager / mediapool</td>
+    <td>Verwalten von Medien (Bilder, Videos, Dateien) innerhalb des Backends</td>
+  </tr>
+  <tr>
+    <td>metainfo</td>
+    <td>Zusätzliche Metadaten für Artikel und Kategorien</td>
+  </tr>
+  <tr>
+    <td>debug</td>
+    <td>Hilft bei Fehlersuche und Anzeige von SQL/PHP Problemen</td>
+  </tr>
+  <tr>
+    <td>cronjob</td>
+    <td>Zeitgesteuerte Aufgaben (zB automatische Backups)</td>
+  </tr>
+  <tr>
+    <td>optimize_tables</td>
+    <td>Datenbank-Optimierung und Wartung</td>
+  </tr>
+  <tr>
+    <td>version</td>
+    <td>Versionierung von Artikeln und Änderungen nachvollziehen. (Button rechts neben Editiermodus in einem Artikel)</td>
+  </tr>
+  <tr>
+    <td>ck5</td>
+    <td>Moderner WYSIWYG-Editor für Artikeltexte (nur für textfieldArea gedacht)</td>
+  </tr>
+  <tr>
+    <td>redactor</td>
+    <td>Alternativer Editor</td>
+  </tr>
+  <tr>
+    <td>sprog</td>
+    <td>Übersetzungen / Sprachhandling im Backend</td>
+  </tr>
+  <tr>
+    <td>yform</td>
+    <td>Formular-Framework - Formulare, Validierungen, Datenbanktabellen</td>
+  </tr>
+  <tr>
+    <td>search_it</td>
+    <td>Erweiterte Textsuche im Frontend</td>
+  </tr>
+  <tr>
+    <td>backup</td>
+    <td>Backup und Wiederherstellung von Daten</td>
+  </tr>
+  <tr>
+    <td>2factor_auth</td>
+    <td>Zwei-Faktor-Authentifizierung für erhöhte Sicherheit</td>
+  </tr>
+  <tr>
+    <td>maintainance</td>
+    <td>Wartungsmodus / Temporäres Deaktivieren des Frontends</td>
+  </tr>
+  <tr>
+    <td>customizer</td>
+    <td>Anpassung von Backend Styles, Farben etc</td>
+  </tr>
+  <tr>
+    <td>cropper</td>
+    <td>Bildzuschneiden und -bearbeiten im Backend</td>
+  </tr>
+  <tr>
+    <td>mblock</td>
+    <td>Bausteine für komplexere Inhalte (flexible Inhaltsblöcke)</td>
+  </tr>
+  <tr>
+    <td>uploader</td>
+    <td>Zusätzliche Upload-Funktionen für Medien</td>
+  </tr>
+</table>
