@@ -1,27 +1,141 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="UTF-8">
-<title>Knowledge Base</title>
-<style>
-  
-</style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Knowledge Base</title>
 
-<nav>
-  <h3>Navigation</h3>
-  <ul>
-    <!-- wird von buildNav gefüllt -->
-  </ul>
-</nav>
+    <!-- Markdown Renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-<div class="content">
-  <h2>Willkommen!</h2>
-  <p>Wähle links ein Thema aus, um die Dateien und Live-Demos zu sehen.</p>
-  <p>Neue Dateien werden automatisch zur Navigation hinzugefügt.</p>
-  <p>Nach und nach werden Inhalte ergänzt.</p>
-</div>
-<script type="module" src="./src/ts/main.ts"></script>
-</body>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        display: flex;
+        height: 100vh;
+      }
+
+      nav {
+        width: 220px;
+        background: linear-gradient(135deg, #e3e7eb, #78b5ea);
+        padding: 10px;
+        overflow-y: auto;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      nav li {
+        margin: 5px 0;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #333;
+        cursor: pointer;
+      }
+
+      nav a:hover {
+        text-decoration: underline;
+      }
+
+      .content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        background: linear-gradient(135deg, #e1e1e1, #dadaf0);
+      }
+
+      .demo-box {
+        width: 100px;
+        height: 100px;
+        background: coral;
+        transition: 0.3s;
+        margin: 10px 0;
+      }
+
+      .demo-box:hover {
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav>
+      <h3>Navigation</h3>
+      <ul>
+        <!-- wird von buildNav gefüllt -->
+      </ul>
+    </nav>
+
+    <div class="content">
+      <h2>Willkommen!</h2>
+      <p>
+        Wähle links ein Thema aus, um die Markdown-Dateien und Live-Demos zu
+        sehen.
+      </p>
+      <p>Neue Dateien werden automatisch zur Navigation hinzugefügt.</p>
+    </div>
+
+    <!-- Navigation & Markdown -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        async function loadMD(path) {
+          try {
+            const res = await fetch(path);
+            if (!res.ok) throw new Error("Datei nicht gefunden");
+            const text = await res.text();
+            document.querySelector(".content").innerHTML =
+              marked.parse(text);
+          } catch (err) {
+            document.querySelector(".content").innerHTML =
+              "<p style='color:red;'>Fehler: " + err.message + "</p>";
+          }
+        }
+
+        async function buildNav() {
+          const res = await fetch("structure.json");
+          const data = await res.json();
+          const nav = document.querySelector("nav ul");
+
+          function addItems(obj, parent) {
+            for (const key in obj) {
+              const li = document.createElement("li");
+
+              if (typeof obj[key] === "string") {
+                const a = document.createElement("a");
+                a.textContent = key;
+                a.onclick = () => loadMD(obj[key]);
+                li.appendChild(a);
+              } else {
+                const folder = document.createElement("strong");
+                folder.textContent = key;
+                li.appendChild(folder);
+
+                const subUl = document.createElement("ul");
+                subUl.style.paddingLeft = "15px";
+                addItems(obj[key], subUl);
+                li.appendChild(subUl);
+              }
+
+              parent.appendChild(li);
+            }
+          }
+
+          addItems(data, nav);
+        }
+
+        buildNav();
+      });
+    </script>
+
+    <!-- Vite Entry -->
+    <script type="module" src="/src/ts/main.ts"></script>
+  </body>
 </html>

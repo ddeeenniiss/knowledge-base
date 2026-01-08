@@ -8,7 +8,7 @@ function copyContentPlugin() {
     apply: 'build',
     writeBundle() {
       const srcDirs = ['backend', 'frontend', 'basics'];
-      const distRoot = 'dist';
+      const distRoot = 'docs';
 
       srcDirs.forEach(dir => {
         const srcPath = path.resolve('src', dir);
@@ -51,8 +51,12 @@ function copyDirRecursive(src, dest) {
 }
 
 export default defineConfig({
+  root: './',
   base: process.env.NODE_ENV === 'production' ? '/knowledge-base/' : '/',
   plugins: [copyContentPlugin()],
+  server: {
+    port: 5173
+  },
   build: {
     outDir: 'docs',
     emptyOutDir: true
