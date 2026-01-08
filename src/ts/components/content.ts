@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 // -------------------------------
 // Einfache Markdown-zu-HTML-Funktion
 // -------------------------------
@@ -52,15 +54,14 @@ async function loadContent(path: string) {
   if (!content) return;
 
   try {
-    const response = await fetch(path);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+    // Basis-Pfad dynamisch ermitteln
+    const base = import.meta.env.BASE_URL || '/';
+    const url = base + path;
 
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const text = await response.text();
-    content.innerHTML = path.endsWith(".md")
-      ? parseMarkdown(text)
-      : text;
+    content.innerHTML = path.endsWith(".md") ? parseMarkdown(text) : text;
   } catch (error) {
     console.error("Fehler beim Laden des Contents:", error);
     content.innerHTML = "<p>Inhalt konnte nicht geladen werden.</p>";

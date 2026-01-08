@@ -1,35 +1,35 @@
 {
-  "README": "/knowledge-base/README.md",
+  "README": "README.md",
   "backend": {
     "php": {
-      "php": "/knowledge-base/backend/php/php.html",
+      "php": "backend/php/php.html",
       "phpmailer": {
-        "phpmailer": "/knowledge-base/backend/php/phpmailer/phpmailer.html"
+        "phpmailer": "backend/php/phpmailer/phpmailer.html"
       }
     },
     "redaxo": {
-      "redaxo": "/knowledge-base/backend/redaxo/redaxo.html"
+      "redaxo": "backend/redaxo/redaxo.html"
     },
     "theory": {
-      "theory": "/knowledge-base/backend/theory/theory.html"
+      "theory": "backend/theory/theory.html"
     },
-    "formular": "/knowledge-base/backend/formular.html",
-    "index": "/knowledge-base/backend/index.html"
+    "formular": "backend/formular.html",
+    "index": "backend/index.html"
   },
   "basics": {
-    "objects": "/knowledge-base/basics/objects.html"
+    "objects": "basics/objects.html"
   },
   "frontend": {
     "css": {
-      "button": "/knowledge-base/frontend/css/button.html",
-      "css": "/knowledge-base/frontend/css/css.html",
-      "flex": "/knowledge-base/frontend/css/flex.html"
+      "button": "frontend/css/button.html",
+      "css": "frontend/css/css.html",
+      "flex": "frontend/css/flex.html"
     },
     "html": {
-      "html": "/knowledge-base/frontend/html/html.html"
+      "html": "frontend/html/html.html"
     },
     "js": {
-      "js": "/knowledge-base/frontend/js/js.html"
+      "js": "frontend/js/js.html"
     }
   }
 }
