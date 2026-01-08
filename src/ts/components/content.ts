@@ -20,7 +20,8 @@ function parseMarkdown(md: string): string {
 // -------------------------------
 async function loadNavigation() {
   try {
-    const response = await fetch("/structure.json");
+    const base = import.meta.env.BASE_URL || '/';
+    const response = await fetch(base + "structure.json");
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
@@ -88,6 +89,8 @@ function buildNavHTML(structure: any[]): string {
 // Initialisierung
 // -------------------------------
 document.addEventListener("DOMContentLoaded", async () => {
+  const base = import.meta.env.BASE_URL || '/';
   await loadNavigation();
-  await loadContent("/frontend/css/css.html"); // Startseite
+  await loadContent(base + "frontend/css/css.html"); // Startseite dynamisch
 });
+
