@@ -1,375 +1,574 @@
-@use '../functions' as *;
-@use '../abstracts' as *;
+@use "../functions" as *;
+@use "../abstracts" as *;
 
 .button {
-	display: inline-flex;
-	border: 0;
-	align-items: center;
-	justify-content: center;
-	gap: var(--gap-3xs);
-	--btn-h: 3rem;
-	--btn-w: fit-content;
-	--btn-px: 1.25rem;
-	--btn-py: 0.75rem;
-	padding: var(--btn-py) var(--btn-px);
-	height: var(--btn-h);
-	width: var(--btn-w);
-	font-weight: 400;
-	background-color: var(--color-red-30);
-	color: var(--color-white);
-	user-select: none;
-	cursor: pointer;
-	transition: background-color var(--duration) var(--easing);
-	@include font-size('sm');
+  display: inline-flex;
+  border: 0;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-3xs);
+  --btn-h: 3rem;
+  --btn-w: fit-content;
+  --btn-px: 1.25rem;
+  --btn-py: 0.75rem;
+  padding: var(--btn-py) var(--btn-px);
+  height: var(--btn-h);
+  width: var(--btn-w);
+  font-weight: 400;
+  background-color: var(--color-red-30);
+  color: var(--color-white);
+  user-select: none;
+  cursor: pointer;
+  transition: background-color var(--duration) var(--easing);
+  @include font-size("sm");
 
-	@include hover {
-		background-color: var(--color-base-black);
-	}
+  @include hover {
+    background-color: var(--color-base-black);
+  }
 }
 
 .button--secondary {
-	background-color: transparent;
-	border: 1px solid var(--color-base-black);
-	color: var(--color-base-black);
-	transition:
-		border-color var(--duration) var(--easing),
-		color var(--duration) var(--easing);
+  background-color: transparent;
+  border: 1px solid var(--color-base-black);
+  color: var(--color-base-black);
+  transition: border-color var(--duration) var(--easing),
+    color var(--duration) var(--easing);
 
-	@include hover {
-		background-color: transparent;
-		color: var(--color-base-red);
-		border-color: var(--color-base-red);
-	}
+  @include hover {
+    background-color: transparent;
+    color: var(--color-base-red);
+    border-color: var(--color-base-red);
+  }
 
-	&--red {
-		border: 1px solid var(--color-red-30);
-		color: var(--color-red-30);
-	}
+  &--red {
+    border: 1px solid var(--color-red-30);
+    color: var(--color-red-30);
+  }
 }
 
 .button--secondary--inverted {
-	background-color: transparent;
-	border: 1px solid var(--color-white);
-	color: var(--color-white);
-	transition:
-		color var(--duration) var(--easing),
-		background-color var(--duration) var(--easing);
+  background-color: transparent;
+  border: 1px solid var(--color-white);
+  color: var(--color-white);
+  transition: color var(--duration) var(--easing),
+    background-color var(--duration) var(--easing);
 
-	@include hover {
-		border-color: var(--color-white);
-		background-color: var(--color-white);
-		color: var(--color-base-red);
-	}
+  @include hover {
+    border-color: var(--color-white);
+    background-color: var(--color-white);
+    color: var(--color-base-red);
+  }
 }
 
 .button--icon {
-	--btn-h: 3.5rem;
-	--btn-w: 3.5rem;
-	padding: 12px;
+  --btn-h: 3.5rem;
+  --btn-w: 3.5rem;
+  padding: 12px;
 
-	@include breakpoint-up('sm') {
-		padding: 0;
-		--btn-h: 4.375rem;
-		--btn-w: 4.375rem;
-	}
+  @include breakpoint-up("sm") {
+    padding: 0;
+    --btn-h: 4.375rem;
+    --btn-w: 4.375rem;
+  }
 
-	@include breakpoint-up('lg') {
-		--btn-h: 6.25rem;
-		--btn-w: 6.25rem;
-	}
+  @include breakpoint-up("lg") {
+    --btn-h: 6.25rem;
+    --btn-w: 6.25rem;
+  }
 }
 
 .button--icon--small {
-	--btn-h: 4.375rem;
-	--btn-w: 4.375rem;
+  --btn-h: 4.375rem;
+  --btn-w: 4.375rem;
 }
 
 .button--icon--xs {
-	--btn-h: 3.5rem;
-	--btn-w: 3.5rem;
-	padding: 12px;
+  --btn-h: 3.5rem;
+  --btn-w: 3.5rem;
+  padding: 12px;
 }
 
 .button--primary-white {
-	background-color: var(--color-white);
-	color: var(--color-base-red);
+  background-color: var(--color-white);
+  color: var(--color-base-red);
 
-	@include hover {
-		background-color: var(--color-base-red);
-		color: var(--color-white);
-	}
+  @include hover {
+    background-color: var(--color-base-red);
+    color: var(--color-white);
+  }
 }
 
 .button--tertiary {
-	background-color: var(--color-base-red);
-	color: var(--color-white);
+  background-color: var(--color-base-red);
+  color: var(--color-white);
 
-	@include hover {
-		background-color: var(--color-grey-60);
-		color: var(--color-base-red);
-	}
+  @include hover {
+    background-color: var(--color-grey-60);
+    color: var(--color-base-red);
+  }
 }
 
 .button--small {
-	--btn-h: 2.5rem;
-	--btn-px: 1.12rem;
-	--btn-py: 0.5rem;
-	@include font-size('sm');
+  --btn-h: 2.5rem;
+  --btn-px: 1.12rem;
+  --btn-py: 0.5rem;
+  @include font-size("sm");
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.button {
-		transition: none;
-	}
+  .button {
+    transition: none;
+  }
 }
 
 .action-button {
-	display: flex;
-	color: var(--color-red-30);
-	background: unset;
-	border: unset;
-	align-self: center;
-	@include font-size('sm');
-	font-weight: 700;
-	cursor: pointer;
-	white-space: nowrap;
+  display: flex;
+  color: var(--color-red-30);
+  background: unset;
+  border: unset;
+  align-self: center;
+  @include font-size("sm");
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .button-row {
-    display: flex;
+  display: flex;
 
-    &--centered {
-        justify-content: center;
-    }
+  &--centered {
+    justify-content: center;
+  }
 }
 
 .button__container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 /* ---------- Button A: Primär Blau ---------- */
 .button--a {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background-color: #007BFF;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--a:hover, .button--a:focus { background-color: #0056b3; }
-.button--a:active { transform: scale(0.95); }
+.button--a:hover,
+.button--a:focus {
+  background-color: #0056b3;
+}
+.button--a:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button B: Grün Outline ---------- */
 .button--b {
-    padding: 10px 20px;
-    border: 2px solid #28A745;
-    border-radius: 6px;
-    background-color: white;
-    color: #28A745;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: 2px solid #28a745;
+  border-radius: 6px;
+  background-color: white;
+  color: #28a745;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--b:hover, .button--b:focus { background-color: #28A745; color: white; }
-.button--b:active { transform: scale(0.95); }
+.button--b:hover,
+.button--b:focus {
+  background-color: #28a745;
+  color: white;
+}
+.button--b:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button C: Farbverlauf Rund ---------- */
 .button--c {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 50px;
-    background: linear-gradient(45deg, #FF6B6B, #FFD93D);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
-.button--c:hover, .button--c:focus { transform: scale(1.05); }
-.button--c:active { transform: scale(0.95); }
+.button--c:hover,
+.button--c:focus {
+  transform: scale(1.05);
+}
+.button--c:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button D: Dezenter Grau ---------- */
 .button--d {
-    padding: 10px 20px;
-    border: 2px solid #6C757D;
-    border-radius: 6px;
-    background-color: #F8F9FA;
-    color: #6C757D;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+  padding: 10px 20px;
+  border: 2px solid #6c757d;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  color: #6c757d;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
-.button--d:hover, .button--d:focus { background-color: #E2E6EA; }
-.button--d:active { transform: scale(0.95); }
+.button--d:hover,
+.button--d:focus {
+  background-color: #e2e6ea;
+}
+.button--d:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button E: Rot Solid ---------- */
 .button--e {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background-color: #DC3545;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #dc3545;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
-.button--e:hover, .button--e:focus { background-color: #a71d2a; }
-.button--e:active { transform: scale(0.95); }
+.button--e:hover,
+.button--e:focus {
+  background-color: #a71d2a;
+}
+.button--e:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button F: Orange Outline ---------- */
 .button--f {
-    padding: 10px 20px;
-    border: 2px solid #FD7E14;
-    border-radius: 6px;
-    background-color: white;
-    color: #FD7E14;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: 2px solid #fd7e14;
+  border-radius: 6px;
+  background-color: white;
+  color: #fd7e14;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--f:hover, .button--f:focus { background-color: #FD7E14; color: white; }
-.button--f:active { transform: scale(0.95); }
+.button--f:hover,
+.button--f:focus {
+  background-color: #fd7e14;
+  color: white;
+}
+.button--f:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button G: Lila Gradient ---------- */
 .button--g {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #6f42c1, #d63384);
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #6f42c1, #d63384);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--g:hover, .button--g:focus { opacity: 0.9; transform: scale(1.05); }
-.button--g:active { transform: scale(0.95); }
+.button--g:hover,
+.button--g:focus {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+.button--g:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button H: Hellblau Outline ---------- */
 .button--h {
-    padding: 10px 20px;
-    border: 2px solid #17A2B8;
-    border-radius: 6px;
-    background-color: white;
-    color: #17A2B8;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: 2px solid #17a2b8;
+  border-radius: 6px;
+  background-color: white;
+  color: #17a2b8;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--h:hover, .button--h:focus { background-color: #17A2B8; color: white; }
-.button--h:active { transform: scale(0.95); }
+.button--h:hover,
+.button--h:focus {
+  background-color: #17a2b8;
+  color: white;
+}
+.button--h:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button I: Gelb Solid ---------- */
 .button--i {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background-color: #FFC107;
-    color: #212529;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #ffc107;
+  color: #212529;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
-.button--i:hover, .button--i:focus { background-color: #e0a800; }
-.button--i:active { transform: scale(0.95); }
+.button--i:hover,
+.button--i:focus {
+  background-color: #e0a800;
+}
+.button--i:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button J: Hellgrün Solid ---------- */
 .button--j {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background-color: #20C997;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #20c997;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
-.button--j:hover, .button--j:focus { background-color: #1ca586; }
-.button--j:active { transform: scale(0.95); }
+.button--j:hover,
+.button--j:focus {
+  background-color: #1ca586;
+}
+.button--j:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button K: Schwarz Solid ---------- */
 .button--k {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background-color: #343A40;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #343a40;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
 }
-.button--k:hover, .button--k:focus { background-color: #23272b; }
-.button--k:active { transform: scale(0.95); }
+.button--k:hover,
+.button--k:focus {
+  background-color: #23272b;
+}
+.button--k:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button L: Weiß mit Schatten ---------- */
 .button--l {
-    padding: 10px 20px;
-    border: 2px solid #CED4DA;
-    border-radius: 6px;
-    background-color: white;
-    color: #212529;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: 2px solid #ced4da;
+  border-radius: 6px;
+  background-color: white;
+  color: #212529;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
-.button--l:hover, .button--l:focus { box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-.button--l:active { transform: scale(0.95); }
+.button--l:hover,
+.button--l:focus {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.button--l:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button M: Neon Grün ---------- */
 .button--m {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background-color: #39FF14;
-    color: black;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #39ff14;
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--m:hover, .button--m:focus { box-shadow: 0 0 12px #39FF14; }
-.button--m:active { transform: scale(0.95); }
+.button--m:hover,
+.button--m:focus {
+  box-shadow: 0 0 12px #39ff14;
+}
+.button--m:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button N: Pink Outline ---------- */
 .button--n {
-    padding: 10px 20px;
-    border: 2px solid #E83E8C;
-    border-radius: 6px;
-    background-color: white;
-    color: #E83E8C;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: 2px solid #e83e8c;
+  border-radius: 6px;
+  background-color: white;
+  color: #e83e8c;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--n:hover, .button--n:focus { background-color: #E83E8C; color: white; }
-.button--n:active { transform: scale(0.95); }
+.button--n:hover,
+.button--n:focus {
+  background-color: #e83e8c;
+  color: white;
+}
+.button--n:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button O: Türkis Solid ---------- */
 .button--o {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    background-color: #20C997;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #20c997;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--o:hover, .button--o:focus { background-color: #1aa886; }
-.button--o:active { transform: scale(0.95); }
+.button--o:hover,
+.button--o:focus {
+  background-color: #1aa886;
+}
+.button--o:active {
+  transform: scale(0.95);
+}
 
 /* ---------- Button P: Grau/Dekorativ ---------- */
 .button--p {
-    padding: 10px 20px;
-    border: 2px solid #ADB5BD;
-    border-radius: 50px;
-    background-color: #E9ECEF;
-    color: #495057;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 10px 20px;
+  border: 2px solid #adb5bd;
+  border-radius: 50px;
+  background-color: #e9ecef;
+  color: #495057;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.button--p:hover, .button--p:focus { background-color: #CED4DA; }
-.button--p:active { transform: scale(0.95); }
+.button--p:hover,
+.button--p:focus {
+  background-color: #ced4da;
+}
+.button--p:active {
+  transform: scale(0.95);
+}
+
+.button--glas {
+  padding: 14px 28px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.button--glas:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+.button--glas:active {
+  transform: scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.button--glas-b {
+  /* Lichtdurchlass */
+  background: rgba(255, 255, 255, 0.15);
+
+  /* Unschärfe = Streuung */
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+
+  /* Glas-Kante */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+
+  /* Lichtreflex */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+  /* Tiefe */
+  color: white;
+}
+
+.button--glas-b:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.35),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.button--q,
+.button--q:focus {
+  user-select: auto;
+}
+
+.button--q {
+  appearance: button;
+  background-color: #1899d6;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  &:active {
+    transform: translateY(4px);
+  }
+
+  &:active::after {
+    bottom: 0;
+  }
+
+  &::after {
+    background-clip: padding-box;
+    background-color: #1cb0f6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+}
+

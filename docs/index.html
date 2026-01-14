@@ -64,7 +64,7 @@
         transform: scale(1.2);
       }
     </style>
-    <script type="module" crossorigin src="/knowledge-base/assets/index-d2df605a.js"></script>
+    <script type="module" crossorigin src="/knowledge-base/assets/index-ef1f7def.js"></script>
     <link rel="stylesheet" href="/knowledge-base/assets/index-1081422e.css">
   </head>
 
@@ -93,8 +93,7 @@
             const res = await fetch(path);
             if (!res.ok) throw new Error("Datei nicht gefunden");
             const text = await res.text();
-            document.querySelector(".content").innerHTML =
-              marked.parse(text);
+            document.querySelector(".content").innerHTML = marked.parse(text);
           } catch (err) {
             document.querySelector(".content").innerHTML =
               "<p style='color:red;'>Fehler: " + err.message + "</p>";
@@ -105,6 +104,9 @@
           const res = await fetch("structure.json");
           const data = await res.json();
           const nav = document.querySelector("nav ul");
+
+          // ← HIER hinzufügen
+          nav.innerHTML = ""; // löscht vorherige Einträge
 
           function addItems(obj, parent) {
             for (const key in obj) {

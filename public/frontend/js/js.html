@@ -1,1 +1,60 @@
+<h2>IntersectionObserver</h2>
+<p>Der IntersectionObserver ermöglicht es, das Sichtbarkeitsverhalten von Elementen im Viewport zu überwachen. Dies ist besonders nützlich für Lazy Loading von Bildern, Infinite Scrolling oder das Auslösen von Animationen, wenn ein Element in den sichtbaren Bereich des Bildschirms gelangt.
+</p>
+<p>Beispiel: Module bei straehle, die in den Bildschirm einfaden</p>
+<pre>
+    document.addEventListener('DOMContentLoaded', () => {
+  const elements = document.querySelectorAll<HTMLElement>('.animate-on-scroll');
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target); // nur einmal animieren
+        }
+      });
+    },
+    {
+      threshold: 0.1 // 10% sichtbar = Animation starten
+    }
+  );
+
+  elements.forEach(el => observer.observe(el));
+});
+</pre>
+
+<h2>DOMContentLoaded</h2>
+<p>Das DOMContentLoaded-Ereignis tritt auf, sobald der HTML-Dokument-Inhalt vollständig geladen und geparst wurde, ohne auf externe Ressourcen wie Bilder oder Skripte zu warten. Es ist nützlich, um sicherzustellen, dass das DOM (zB. Buttons, Listen, Nav Elemente) bereit ist, bevor JavaScript-Operationen ausgeführt werden.</p>
+<pre><code>document.addEventListener('DOMContentLoaded', () => {});
+</code></pre>
+
+<h2>DOM (Document Object Model)</h2>
+<p>ist eine Schnittstelle, um den Inhalt, die Struktur und das Styling eines HTML-Dokuments dynamisch zu verändern. Es repräsentiert das Dokument als Baumstruktur, wobei jedes Element im Baum ein Objekt ist, das über JavaScript manipuliert werden kann. Der Einstiegspunkt dafür ist .document</p>
+
+<h2>Event Listener</h2>
+<p>Ein Event Listener ist eine Funktion, die auftritt, wenn ein bestimmtes Ereignis (z.B. Klick, Hover) auf einem Element passiert. Sie ermöglicht es, auf Benutzerinteraktionen zu reagieren und dynamische Aktionen auszuführen.</p>
+<pre><code>element.addEventListener('click', function() {
+  // Aktion bei Klick
+});
+</code></pre>
+<h2>Beispiel: Button Klick Event Listener</h2>
+<pre><code>document.addEventListener('DOMContentLoaded', () => {
+  const button = document.getElementById('myButton');
+  button.addEventListener('click', () => {
+    alert('Button wurde geklickt!');
+  });
+});
+</code></pre>
+<p>getElementById() ist eine Methode des DOM, um ein Element anhand seiner ID zu finden.</p>
+<p>getElementByClassName() ist eine Methode des DOM, um Elemente anhand ihres Klassennamens zu finden.</p>
+<p>querySelector() ist eine Methode des DOM, um das erste Element zu finden, das einem CSS-Selektor entspricht.</p>
+<p>querySelectorAll() ist eine Methode des DOM, um alle Elemente zu finden, die einem CSS-Selektor entsprechen.</p> 
+<p>getElementByTagName() ist eine Methode des DOM, um alle Elemente zu finden, die einem HTML-Tagnamen entsprechen.</p>
+
+<h2>Schlüsselwort return</h2>
+<p>return verlässt die Funktion sofort.</p>
+<p>zB if (!button) return; // Funktion verlassen, wenn Button nicht gefunden wurde (Guard Clause). Dann wird restlicher Code garnicht erst ausgeführt. Dadurch werden Fehler vermieden, wenn das Element nicht da ist.</p>
+
+
 

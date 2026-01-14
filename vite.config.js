@@ -37,7 +37,9 @@ export default defineConfig({
   plugins: [copyTemplatesPlugin()],
   server: { port: 5173 },
   build: {
-    outDir: 'docs',
-    emptyOutDir: true
-  }
+    outDir: 'docs',   // Ausgabeverzeichnis
+    emptyOutDir: true // leert das Ausgabeverzeichnis "docs" vor dem Build
+  },
+  publicDir: 'public'  // Statischer Inhalt aus "public" wird kopiert
 });
+

@@ -1,21 +1,22 @@
 <h2>img</h2>
-<img src="bild.jpg" alt="Beschreibung des Bildes" title="Text bei Hover">
-<img> → HTML-Tag für Bilder (Self-Closing, kein schlißendes img Tag nötig)
+<div class="image-hover">
+<img src="../../assets/example.jpg" alt="Beschreibung des Bildes" title="Text bei Hover">
+</div>
+<p>HTML-Tag für Bilder (Self-Closing, kein schließendes img Tag nötig)</p>
 
-src ➤ „Source“ ➤ die **Datei/URL des Bildes“
-Angabe als relative URL: "images/logo.png" oder als absolute URL: "https://example.com/logo.png"
-
-alt ➤ „Alternative Text“ ➤ Beschreibung, falls das Bild nicht geladen wird
+<p>src („Source“) ist die Datei/URL des Bildes. Angabe als</p>
+<pre>relative URL: "images/logo.png"</pre> <p>oder als </p><pre>absolute URL: "https://example.com/logo.png"</pre>
+<p>alt „Alternative Text“ ist die Beschreibung, falls das Bild nicht geladen wird.
 Beschreibt das Bild für Screenreader (Menschen mit Sehbehinderung, Pflichtfeld)
-Wichtig für SEO (Suchmaschinen lesen alt aus)
+Wichtig für SEO (Suchmaschinen lesen alt aus)</p>
 
-title ➤ Text erscheint bei hover, Zusatzinformation zum Bild, aber keine Pflicht
+<p>title (Text erscheint bei hover, Zusatzinformation zum Bild, aber keine Pflicht)</p>
 
 <h2>nav </h2>
-&lt;nav&gt; ist ein semantisches HTML-Element, das Navigation enthält.
+<p>&lt;nav&gt; ist ein semantisches HTML-Element, das Navigation enthält.
 Es zeigt wichtige Links, die die Benutzer durch die Hauptstruktur der Website führen.
 Browser, Screenreader und Suchmaschinen erkennen &lt;nav&gt; als Navigationsbereich.
-aria-label: Benennung für mehrere Navigationsbereiche
+aria-label: Benennung für mehrere Navigationsbereiche</p>
   
 <nav aria-label="Hauptnavigation">
   <ul>
@@ -27,26 +28,25 @@ aria-label: Benennung für mehrere Navigationsbereiche
 </nav>
 
 <h2>href </h2>
-href = „Hypertext REFerence“ → Ziel des Links
-Kann sein: URL zu einer anderen Seite, Interner Anker auf derselben Seite (#), Externe URL
+<p>href = „Hypertext REFerence“ = Ziel des Links könnte sein: URL zu einer anderen Seite, Interner Anker auf derselben Seite (#), Externe URL</p>
 
 <a href="#">Hier klicken</a>
 
-(#) = Verweis auf den Seitenanfang / leeren Anker
+<p>(#) = Verweis auf den Seitenanfang / leeren Anker
 Macht die Seite nicht neu, springt zum Top
-Problem: ohne preventDefault() springt die Seite nach oben → nicht ideal
+Problem: ohne preventDefault() springt die Seite nach oben → nicht ideal</p>
 
 
 <a href="/">Startseite</a>
 
-/ = Root der Domain (Startseite der Website)
+<p>/ = Root der Domain (Startseite der Website)
 Absoluter Pfad relativ zur Domain
-Beispiel: https://example.com/ → / verweist darauf
+Beispiel: https://example.com/ → / verweist darauf</p>
 
 <a href="#section-about">Über uns</a>
 
-Springt zu einem Element mit id="section-about"
-Praktisch für One-Page-Websites oder Inhaltsverzeichnisse
+<p>Springt zu einem Element mit id="section-about"
+Praktisch für One-Page-Websites oder Inhaltsverzeichnisse</p>
 
 <section id="section-about">
   <h2>Über uns</h2>

@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const rootDir = './'; // Startordner
-const ignore = ['node_modules', '.git', '.github']; // Ordner ignorieren
+const rootDir = './';
+const ignore = ['node_modules', '.git', '.github', 'docs', 'dist', 'public'];
 
 function walk(dir) {
   const result = {};
@@ -16,15 +16,14 @@ function walk(dir) {
       if (Object.keys(sub).length > 0) {
         result[file] = sub;
       }
-    } else if (file.endsWith('.php')) {
-      result[path.basename(file, '.php')] = path.relative(rootDir, fullPath).replace(/\\/g, '/');
+    } else if (file.endsWith('.php')) { // oder .md, je nach Bedarf
+      result[path.basename(file, path.extname(file))] =
+        path.relative(rootDir, fullPath).replace(/\\/g, '/');
     }
   });
   return result;
 }
 
 const structure = walk(rootDir);
-
-// Speichern als JSON
 fs.writeFileSync('structure.json', JSON.stringify(structure, null, 2));
 console.log('structure.json wurde erstellt!');

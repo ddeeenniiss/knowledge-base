@@ -1,21 +1,21 @@
 <!-- lt steht für less than und gt für greater than-->
-PHP verwendet &lt;?php ... ?&gt; Tags, um PHP-Code in HTML-Dateien einzubetten. Hier sind einige Grundlagen und Beispiele für die Arbeit mit PHP im Backend.
+<h2>PHP Basics</h2>
+<p>PHP verwendet &lt;?php ... ?&gt; Tags, um PHP-Code in HTML-Dateien einzubetten.</p>
 
-PHP kennt außerdem den kurzen Ausgabe-Tag &lt;?=, der eine Kurzform für &lt;?php echo ist.
+<p>Idealerweise lässt sich &lt;?= nutzen, der eine Kurzform für &lt;?php echo darstellt.</p>
 
-<p>echo 'Hallo Welt'; dient zum Ausgeben von Text oder Variablen auf der Webseite. Ein Semikolon ist hierbei zu verwenden.</p>
+<p>echo 'Hallo Welt'; dient zum Ausgeben von Text ('Text') oder Variablen ($variable) auf der Webseite. Ein Semikolon ist hierbei zu verwenden.</p>
 <p>Kommentare in PHP werden mit // für einzeilige Kommentare oder /* ... */ für mehrzeilige Kommentare erstellt.</p>
 <h2>Variablen</h2>
-<p>Variablen in PHP beginnen mit einem $-Zeichen, gefolgt vom Variablennamen. Beispiel: $name = "John"; Die Typen sind dabei dynamisch, daher
-    kein integer, string, float etc. notwendig.</p>
+<p>Variablen in PHP beginnen mit einem $-Zeichen, gefolgt vom Variablennamen. <pre>Beispiel: $name = "John";</pre> 
+<p>Die Typen sind dabei dynamisch, daher kein integer, string, float etc. notwendig.</p>
 <h2>Variablen verketten: </h2>
-<p>Um Variablen in PHP zu verketten, verwendet man den Punkt (.) als Verknüpfungsoperator. Beispiel: echo $name . " " . $lastname;
-</p>
+<p>Um Variablen in PHP zu verketten, verwendet man den Punkt (.) als Verknüpfungsoperator. <pre>Beispiel: echo $name . " " . $lastname;</pre></p>
 <h2>Arrays</h2>
-<p>Arrays in PHP werden mit dem array()-Konstruktur oder der Kurzsyntax [] erstellt. Beispiel: $fruits = array("Apfel", "Banane", "Orange");
-    oder $fruits = ["Apfel", "Banane", "Orange"];</p>
-    <p>Der Zugriff auf Array-Elemente erfolgt über den Index, z.B. $fruits[0] für "Apfel".</p>
-    <p>Ebenso gibt es assoziative Arrays, bei denen Schlüssel benannt werden, z.B. $person = ["name" => "John", "age" => 30];</p>
+<p>Arrays in PHP werden mit dem array()-Konstruktur oder der Kurzsyntax [] erstellt.</p> <pre>Beispiel: $fruits = array("Apfel", "Banane", "Orange");</pre>
+    <p>oder</p> <pre>$fruits = ["Apfel", "Banane", "Orange"];</pre>
+    <p>Der Zugriff auf Array-Elemente erfolgt über den Index</p><pre>z.B. $fruits[0] für "Apfel".</pre>
+    <p>Ebenso gibt es assoziative Arrays, bei denen Schlüssel benannt werden</p> <pre>z.B. $person = ["name" => "John", "age" => 30];</pre>
     <p>Der Zugriff hier erfolgt über den Schlüssel, z.B. $person["name"] für "John".</p>
 <h2>Bedingungen</h2>
 <p>Bedingungen in PHP werden mit if, elseif und else abgefragt. Beispiel: if ($age >= 18) { echo "Du bist volljährig"; } else { echo "Du bist minderjährig"; }</p>
