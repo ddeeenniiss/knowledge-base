@@ -2,34 +2,42 @@
   "README": "README.md",
   "backend": {
     "php": {
-      "php": "backend/php/php.html",
+      "PHP Basics": "backend/php/php.html",
       "phpmailer": {
         "phpmailer": "backend/php/phpmailer/phpmailer.html"
       }
     },
-    "redaxo": {
-      "redaxo": "backend/redaxo/redaxo.html"
+    "Redaxo": {
+      "Redaxo Allgemein": "backend/redaxo/redaxo.html"
     },
-    "theory": {
-      "theory": "backend/theory/theory.html"
+    "bash-commands": {
+      "bash-commands": "backend/bash-commands/bash-commands.html"
     },
-    "formular": "backend/formular.html",
-    "index": "backend/index.html"
+    "Theorie": {
+      "Generelle Theorie": "backend/theory/theory.html"
+    },
+    "Formular ohne AJAX": "backend/formular.html",
+    "Formular mit AJAX": "backend/index.html"
   },
-  "basics": {
-    "objects": "basics/objects.html"
+  "Basics": {
+    "Objekte": "basics/objects.html"
+  },
+  "Theoriewissen": {
+    "general": "theory-knowledge/general.html",
+    "mails": "theory-knowledge/mails.html"
   },
   "frontend": {
     "css": {
-      "button": "frontend/css/button.html",
-      "css": "frontend/css/css.html",
-      "flex": "frontend/css/flex.html"
+      "Button Vorlagen": "frontend/css/button.html",
+      "CSS Styling/ Animationen": "frontend/css/css.html",
+      "CSS Flexbox Layout": "frontend/css/flex.html"
     },
     "html": {
-      "html": "frontend/html/html.html"
+      "HTML Basics": "frontend/html/html.html"
     },
     "js": {
-      "js": "frontend/js/js.html"
+      "JS Basics": "frontend/js/js.html"
     }
   }
+  
 }

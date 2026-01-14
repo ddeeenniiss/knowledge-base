@@ -3,6 +3,9 @@
 <h3>content-box:</h3> 
   <p>Nur Inhalt ist width, padding und border zählen exklusiv zusätzlich</p>
 
+  <h3>Scrollbalken Breite managen in Navigation</h3>
+  <p>scrollbar-gutter: stable;</p>
+  <p>Sorgt dafür, dass die Scrollbar-Breite in der Navigation nicht den Inhalt verschiebt.</p>
 <h2>Animations:</h2>
 
 <!-- Beispiel RotateX mit Hover-Effekt -->
@@ -191,3 +194,79 @@ flip { to { transform: rotateZ(360deg); } }</div>
 <!-- Flexbox Erklärung -->
 <h3>display: flex</h3><p> macht Container zu flexiblen Boxen. Elemente darin können flexibel angeordnet werden.
 </p><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Link zur Flexbox Dokumentation</a>
+
+<h2>Pseudo-Elemente</h2>
+<h3>::before und ::after</h3>
+<p>::before und ::after ermöglichen das Einfügen von Inhalten vor oder nach dem Inhalt eines Elements.
+Sie werden oft für dekorative Zwecke oder zusätzliche Informationen verwendet, ohne das HTML zu verändern.</p>
+<pre><code>.element::before {
+  content: "Vor dem Inhalt";
+  color: blue;
+}
+.element::after {
+  content: "Nach dem Inhalt";
+  color: red;
+}
+</code></pre>
+<h3>::backdrop</h3>
+<p>::backdrop ist ein Pseudo-Element, das auf das Hintergrund-Element eines Modals oder Popups angewendet wird. zB Hintergrund verdunkeln hinter Popup.</p>
+<pre><code>.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+</code></pre>
+<!-- Nochmal Funktion anschauen wie es funktioniert -->
+<div class="card">
+  <div class="box">
+    <button id="openDialog">OPEN DIALOG</button>
+  </div>
+</div>
+
+<div class="dialog-container">
+  <dialog id="dialog">
+    <h2>Dialog Fenster geöffnet</h2>
+    <p>::backdrop Pseudoelement beeinflusst den Hintergrund des dialog Elements</p>
+    <button class="button--q" id="closeDialog">CLOSE DIALOG</button>
+  </dialog>
+</div>
+
+<h2>Pseudo-Klassen</h2>
+<h3>:hover</h3>
+<p>:hover ist ein Pseudo-Klassen-Selektor, der angewendet wird, wenn der Benutzer den Mauszeiger über ein Element bewegt.</p>
+<pre><code>.element:hover {
+  background-color: yellow;
+}
+</code></pre>
+<h3>:focus</h3>
+<p>:focus ist ein Pseudo-Klassen-Selektor, der angewendet wird, wenn ein Element den Fokus erhält, z.B. durch Klicken oder Tabben.</p>
+<pre><code>.element:focus {
+  outline: 2px solid blue;
+}
+</code></pre>
+<h3>:focus-visible</h3>
+<p>:focus-visible ist ein Pseudo-Klassen-Selektor, der angewendet wird, wenn ein Element den Fokus erhält und der Fokus sichtbar ist (z.B. durch Tastatur-Navigation).</p>
+<pre><code>.element:focus-visible {
+  outline: 2px solid blue;
+}
+</code></pre>
+<h3>:active</h3>
+<p>:active ist ein Pseudo-Klassen-Selektor, der angewendet wird, wenn ein Element aktiv ist, z.B. beim gedrückten Klick, .</p>
+<pre><code>.element:active {
+  background-color: green;
+}
+</code></pre>
+<h3>:checked</h3>
+<p>:checked ist ein Pseudo-Klassen-Selektor, der angewendet wird, wenn ein Element (z.B. ein Checkbox oder Radio Button) aktiviert ist.</p>
+<pre><code>.checkbox:checked + .label {
+  font-weight: bold;
+}
+</code></pre>
+
+
+<h2>Listenelemente</h2>
+<h3>list-style-position</h3>
+<p>Bei ul Listen kann mit list-style-position: inside; der Listenpunkt an derselben Linie wie Text angelegt werden.</p>
+<p>mit list-style-position: outside; wird der Listenpunkt außerhalb des Textstarts angelegt</p>
+<ul>
+  <li class="list-style-position--inside">Inside</li>
+  <li class="list-style-position--outside">Outside</li>
+</ul>

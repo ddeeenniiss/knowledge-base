@@ -15,7 +15,7 @@ Neu angelegte Struktur wird in der Navigation rechts direkt hinzugefügt.
 
 ---
 
-## Installation
+<h2>Installation</h2>
 
 Lokale Einrichtung des Projekts:  
 PHP sollte installiert sein für Formulare
@@ -40,21 +40,16 @@ commit reicht. Es dauert immer ca 1min, bis die Änderungen live sind.
 
 ---
 
-## Benutzung
+<h2>Benutzung</h2>
 
 Für schnelle und einfache Erklärungen
 ---
 
-## Git Workflow
+<h2>Git Workflow</h2>
 
 ---
 
-## Struktur
-
-Wird noch besser strukturiert
----
-
-## Suche im Repository
+<h2>Suche im Repository</h2>
 
 Gängig ist die Suche per command + F auf Mac (aktuelle Seite)
 1) In Browser IDE wechseln: github.dev/ eingeben statt github.com/ oder . drücken um repo zu öffnen
