@@ -1,7 +1,8 @@
 # Knowledge Base
 
-Hier entsteht eine Seite für einfache Erklärungen, Beispielen und auch Code direkt zum kopieren.
-Neu angelegte Struktur wird in der Navigation rechts direkt hinzugefügt.
+Zusammenfassung und Erleichterungen von alles möglichem!
+Neue Files in der structure.json mit anlegen!
+Auf systematisches Layout achten!
 
 ---
 
@@ -54,4 +55,48 @@ Für schnelle und einfache Erklärungen
 Gängig ist die Suche per command + F auf Mac (aktuelle Seite)
 1) In Browser IDE wechseln: github.dev/ eingeben statt github.com/ oder . drücken um repo zu öffnen
 2) in Suchleiste nach Begriff suchen. Jedes .md wird mit grünem Kreis + Suchbegriff strukturiert, um navigieren zu können
+---
+
+<h2>Struktur im Verzeichnis</h2>
+
+README.md
+Theoriewissen
+    Generelle Theorie
+        General
+        Objekte
+        Mails
+    Bash-Commands
+        Bash-Commands
+    Git
+        Git Basics
+        Lokales Setup
+        Fixup!
+        Maintainance
+        Rebase + Merge
+Frontend HTML / CSS / JS
+    HTML
+        HTML Basics
+    CSS
+        CSS-Styling
+        Animationen
+        Buttonvorlagen
+    JS
+        JS Basics
+Backend PHP / Redaxo
+    PHP
+        PHP Basics
+        PHP-Mailer
+    Redaxo
+        Redaxo Basics
+    Typo3
+    Formulare
+        Formular ohne AJAX
+        Formular mit AJAX
+Projekte
+    Informationen
+        Kuhnle
+        GL PIM API
+        TSSI
+        Instagram Plugin
+
 ---

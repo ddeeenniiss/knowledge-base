@@ -1,43 +1,54 @@
 {
   "README": "README.md",
-  "backend": {
-    "php": {
+  "Theoriewissen": {
+    "Generelle Theorie":{
+      "General": "theory-knowledge/general.html",
+      "Mails": "theory-knowledge/mails.html",
+      "Objekte": "basics/objects.html"
+    },
+    "Bash-Commands":{
+      "Bash-Commands": "backend/bash-commands/bash-commands.html"
+    },
+    "Git":{
+      "Git Basics": "",
+      "Lokales Setup": "",
+      "Fixup": "",
+      "Maintainance": "",
+      "Rebase + Merge": ""
+    }
+  },
+  "Frontend HTML / CSS / JS": {
+    "HTML": {
+      "HTML Basics": "frontend/html/html.html"
+    },
+    "CSS": {
+      "CSS Styling": "frontend/css/css.html",
+      "CSS Animationen": "frontend/css/css.html",
+      "Button Vorlagen": "frontend/css/button.html",
+      "CSS Flexbox Layout": "frontend/css/flex.html"
+    },
+    "JS": {
+      "JS Basics": "frontend/js/js.html"
+    }
+  },
+  "Backend PHP / Redaxo": {
+    "PHP": {
       "PHP Basics": "backend/php/php.html",
-      "phpmailer": {
+      "PHP-Mailer": {
         "phpmailer": "backend/php/phpmailer/phpmailer.html"
       }
     },
     "Redaxo": {
       "Redaxo Allgemein": "backend/redaxo/redaxo.html"
     },
-    "bash-commands": {
-      "bash-commands": "backend/bash-commands/bash-commands.html"
+    "TYPO3": {
+      "TYPO3 Allgemein": "backend/redaxo/redaxo.html"
     },
     "Theorie": {
-      "Generelle Theorie": "backend/theory/theory.html"
+      "Backend Theorie": "backend/theory/theory.html"
     },
     "Formular ohne AJAX": "backend/formular.html",
     "Formular mit AJAX": "backend/index.html"
-  },
-  "Basics": {
-    "Objekte": "basics/objects.html"
-  },
-  "Theoriewissen": {
-    "general": "theory-knowledge/general.html",
-    "mails": "theory-knowledge/mails.html"
-  },
-  "frontend": {
-    "css": {
-      "Button Vorlagen": "frontend/css/button.html",
-      "CSS Styling/ Animationen": "frontend/css/css.html",
-      "CSS Flexbox Layout": "frontend/css/flex.html"
-    },
-    "html": {
-      "HTML Basics": "frontend/html/html.html"
-    },
-    "js": {
-      "JS Basics": "frontend/js/js.html"
-    }
   }
   
 }
