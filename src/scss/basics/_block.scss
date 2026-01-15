@@ -8,8 +8,8 @@
 	padding-bottom: var(--block-padding-bottom);
 
 	@include breakpoint-up('md') {
-		--block-padding-top: 5rem;
-		--block-padding-bottom: 5rem;
+		--block-padding-top: 2rem;
+		--block-padding-bottom: 2rem;
 	}
 }
 

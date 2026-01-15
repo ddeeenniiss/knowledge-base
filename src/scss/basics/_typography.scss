@@ -26,9 +26,11 @@ h1{
 
 h2{
 	@include font-size('sm');
+	border-bottom: 2px solid black;
 
 	@include breakpoint-up('lg'){
 		@include font-size('md');
+		border-bottom: 3px solid black;
 	}
 }
 
@@ -49,10 +51,18 @@ p {
 	}
 }
 
+pre{
+	background: #fbfdf9;
+    padding: 10px;
+    border-radius: 5px;
+	border: 1px solid black;
+	border-left: 6px solid green;
+}
+
   body { display: flex; height: 100vh; }
   nav { width: 220px; background: linear-gradient(135deg, #e3e7eb, #78b5ea); padding: 10px; overflow-y: auto; }
   nav ul { list-style: none; padding: 0; }
   nav li { margin: 5px 0; }
   nav a { text-decoration: none; color: #333; cursor: pointer; }
   nav a:hover { text-decoration: underline; }
-  .content { flex: 1; padding: 20px; overflow-y: auto; background: linear-gradient(135deg, #e1e1e1, #dadaf0);}
+  .content { flex: 1; overflow-y: auto; background: linear-gradient(135deg, #e1e1e1, #dadaf0);}

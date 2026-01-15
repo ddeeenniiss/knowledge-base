@@ -1,52 +1,172 @@
-<h2>SMTP (Simple Mail Transfer Protocol)</h2>
-<p>ist ein Protokoll zur Übertragung von E-Mails über das Internet. Es wird verwendet, um E-Mails von einem Mail-Client (z.B. Outlook, Thunderbird) an einen Mail-Server zu senden und von dort an den Empfänger weiterzuleiten.</p>
-<p>SMTP ist ein Server-Protokoll, das auf Port 25 (Standard), 587 (TLS/SSL) oder 465 (SSL) lauscht.</p>
-<p>Es wird unter anderen von PHPMailer verwendet.</p>
+<div class="block">
+  <div class="container site-border">
+    <h2>SMTP (Simple Mail Transfer Protocol)</h2>
+    <p>
+      ist ein Protokoll zur Übertragung von E-Mails über das Internet. Es wird
+      verwendet, um E-Mails von einem Mail-Client (z.B. Outlook, Thunderbird) an
+      einen Mail-Server zu senden und von dort an den Empfänger weiterzuleiten.
+    </p>
+    <p>
+      SMTP ist ein Server-Protokoll, das auf Port 25 (Standard), 587 (TLS/SSL)
+      oder 465 (SSL) lauscht.
+    </p>
+    <p>Es wird unter anderen von PHPMailer verwendet.</p>
 
-<h2>TLS (Transport Layer Security)</h2>
-<p>TLS ist ein kryptografisches Protokoll (Transportverschlüsselung), das zur Sicherung von Datenübertragungen über das Internet dient. Es wird häufig in Verbindung mit SMTP verwendet, um E-Mails sicher zu übertragen. TLS verschlüsselt die Kommunikation zwischen dem Mail-Client und dem Mail-Server, um sicherzustellen, dass sensible Informationen nicht abgehört werden können.</p>
+    <h2>TLS (Transport Layer Security)</h2>
+    <p>
+      TLS ist ein kryptografisches Protokoll (Transportverschlüsselung), das zur
+      Sicherung von Datenübertragungen über das Internet dient. Es wird häufig
+      in Verbindung mit SMTP verwendet, um E-Mails sicher zu übertragen. TLS
+      verschlüsselt die Kommunikation zwischen dem Mail-Client und dem
+      Mail-Server, um sicherzustellen, dass sensible Informationen nicht
+      abgehört werden können.
+    </p>
 
-<h2>SSL</h2>
-<p>SSL (Secure Sockets Layer) ist ein kryptografisches Protokoll, das zur Sicherung von Datenübertragungen über das Internet dient. Es wird häufig in Verbindung mit SMTP verwendet, um E-Mails sicher zu übertragen. SSL verschlüsselt die Kommunikation zwischen dem Mail-Client und dem Mail-Server, um sicherzustellen, dass sensible Informationen nicht abgehört werden können.</p>
+    <h2>SSL</h2>
+    <p>
+      SSL (Secure Sockets Layer) ist ein kryptografisches Protokoll, das zur
+      Sicherung von Datenübertragungen über das Internet dient. Es wird häufig
+      in Verbindung mit SMTP verwendet, um E-Mails sicher zu übertragen. SSL
+      verschlüsselt die Kommunikation zwischen dem Mail-Client und dem
+      Mail-Server, um sicherzustellen, dass sensible Informationen nicht
+      abgehört werden können.
+    </p>
 
-<h2>POP3</h2>
-<p>POP3 (Post Office Protocol Version 3) ist ein Protokoll zum Abrufen von E-Mails von einem Mail-Server. Es ermöglicht es Benutzern, ihre E-Mails herunterzuladen und lokal auf ihrem Gerät zu speichern. POP3 ist ein einfaches Protokoll, das keine Synchronisation zwischen dem Mail-Client und dem Mail-Server unterstützt. Sobald die E-Mails heruntergeladen wurden, werden sie normalerweise vom Server gelöscht.</p>
+    <h2>POP3</h2>
+    <p>
+      POP3 (Post Office Protocol Version 3) ist ein Protokoll zum Abrufen von
+      E-Mails von einem Mail-Server. Es ermöglicht es Benutzern, ihre E-Mails
+      herunterzuladen und lokal auf ihrem Gerät zu speichern. POP3 ist ein
+      einfaches Protokoll, das keine Synchronisation zwischen dem Mail-Client
+      und dem Mail-Server unterstützt. Sobald die E-Mails heruntergeladen
+      wurden, werden sie normalerweise vom Server gelöscht.
+    </p>
 
-<h2>IMAP</h2>
-<p>IMAP (Internet Message Access Protocol) ist ein Protokoll zum Abrufen von E-Mails von einem Mail-Server. Im Gegensatz zu POP3 ermöglicht IMAP die Synchronisation zwischen dem Mail-Client und dem Mail-Server. E-Mails bleiben auf dem Server gespeichert, und Benutzer können von verschiedenen Geräten aus auf ihre E-Mails zugreifen. IMAP unterstützt auch Ordnerstrukturen und das Markieren von E-Mails als gelesen oder ungelesen.</p>
+    <h2>IMAP</h2>
+    <p>
+      IMAP (Internet Message Access Protocol) ist ein Protokoll zum Abrufen von
+      E-Mails von einem Mail-Server. Im Gegensatz zu POP3 ermöglicht IMAP die
+      Synchronisation zwischen dem Mail-Client und dem Mail-Server. E-Mails
+      bleiben auf dem Server gespeichert, und Benutzer können von verschiedenen
+      Geräten aus auf ihre E-Mails zugreifen. IMAP unterstützt auch
+      Ordnerstrukturen und das Markieren von E-Mails als gelesen oder ungelesen.
+    </p>
 
-<h2>PHP-Mailer</h2>
-<p>PHPMailer ist eine beliebte Bibliothek für das Senden von E-Mails in PHP. Sie bietet eine einfache und sichere Methode, um E-Mails mit verschiedenen SMTP-Servern zu versenden. PHPMailer unterstützt auch HTML-E-Mails, Anhänge und verschiedene Authentifizierungsmethoden.</p>
+    <h2>PHP-Mailer</h2>
+    <p>
+      PHPMailer ist eine beliebte Bibliothek für das Senden von E-Mails in PHP.
+      Sie bietet eine einfache und sichere Methode, um E-Mails mit verschiedenen
+      SMTP-Servern zu versenden. PHPMailer unterstützt auch HTML-E-Mails,
+      Anhänge und verschiedene Authentifizierungsmethoden.
+    </p>
 
-<h2>Wie wird eine Mail versendet?</h2>
-<p>Formular -> Server -> SMTP-Mailserver -> Internet -> Empfänger-Mailserver -> Postfach</p>
-<p>Um eine E-Mail zu versenden, folgt der Mail-Client dem SMTP-Protokoll. Der Mail-Client sendet die E-Mail an den SMTP-Server, der sie dann an den Empfänger weiterleitet. Dabei werden die E-Mails verschlüsselt übertragen, um sicherzustellen, dass sensible Informationen nicht abgehört werden können.</p>
+    <h2>Wie wird eine Mail versendet?</h2>
+    <p>
+      Formular -> Server -> SMTP-Mailserver -> Internet -> Empfänger-Mailserver
+      -> Postfach
+    </p>
+    <p>
+      Um eine E-Mail zu versenden, folgt der Mail-Client dem SMTP-Protokoll. Der
+      Mail-Client sendet die E-Mail an den SMTP-Server, der sie dann an den
+      Empfänger weiterleitet. Dabei werden die E-Mails verschlüsselt übertragen,
+      um sicherzustellen, dass sensible Informationen nicht abgehört werden
+      können.
+    </p>
 
-<h2>Was ist hosting?</h2>
-<p>Hosting ist der Dienst, bei dem Webseiten und E-Mail-Adressen auf Servern gespeichert und über das Internet zugänglich gemacht werden. Ein Hosting-Anbieter stellt den Speicherplatz, die Bandbreite und die technischen Ressourcen bereit, die für das Betreiben einer Website oder eines E-Mail-Servers erforderlich sind.
-    Vorgang: Du mietest dir Speicherplatz auf einem Server (Webhosting) und kannst dort deine Webseite und E-Mail-Adressen einrichten. Der Hosting-Anbieter kümmert sich um die technische Infrastruktur, Sicherheit und Wartung der Server.</p>
-<h2>Was ist eine Domain?</h2>
-<p>Eine Domain ist ein Name, der auf einen Webserver zeigt. Sie dient als Adresse, unter der eine Website oder E-Mail-Adresse erreichbar ist. Die Domain wird über das DNS (Domain Name System) auf den Server geleitet.</p>
-<h2>DNS (Domain Name System)</h2>
-<p>Das DNS (Domain Name System) ist ein Verzeichnis, das Domains auf IP-Adressen mappiert. Es ermöglicht es Benutzern, Websites und E-Mail-Adressen über menschenlesbare Namen zu erreichen.</p>
-<h2>Was ist ein Webserver?</h2>
-<p>Ein Webserver ist ein Computer, der Webseiten und andere Inhalte über das Internet bereitstellt. Er empfängt Anfragen von Browsern und sendet die entsprechenden Daten zurück.</p>
-<h2>DNS Einträge</h2>
-<p>Für den Versand von E-Mails sind bestimmte DNS-Einträge erforderlich, um sicherzustellen, dass die E-Mails korrekt zugestellt werden und nicht als Spam markiert werden. Die wichtigsten DNS-Einträge für E-Mails sind:</p>
-<ul>
-  <li><strong>MX-Einträge (Mail Exchange):</strong> Diese Einträge geben an, welche Mail-Server für die Domain zuständig sind und in welcher Reihenfolge sie kontaktiert werden sollen.</li>
-  <li><strong>SPF-Einträge (Sender Policy Framework):</strong> Diese Einträge legen fest, welche Server berechtigt sind, E-Mails im Namen der Domain zu senden. Sie helfen dabei, Spoofing und Phishing-Angriffe zu verhindern.</li>
-  <li><strong>DKIM-Einträge (DomainKeys Identified Mail):</strong> Diese Einträge ermöglichen es dem Empfänger-Mailserver, die Echtheit der E-Mail zu überprüfen, indem sie eine digitale Signatur enthalten, die mit dem privaten Schlüssel der Domain erstellt wurde.</li>
-  <li><strong>DMARC-Einträge (Domain-based Message Authentication, Reporting & Conformance):</strong> Diese Einträge legen fest, wie der Empfänger-Mailserver mit E-Mails umgehen soll, die die SPF- und DKIM-Prüfungen nicht bestehen. Sie helfen dabei, die Domain vor Missbrauch zu schützen.</li>
-</ul>
+    <h2>Was ist hosting?</h2>
+    <p>
+      Hosting ist der Dienst, bei dem Webseiten und E-Mail-Adressen auf Servern
+      gespeichert und über das Internet zugänglich gemacht werden. Ein
+      Hosting-Anbieter stellt den Speicherplatz, die Bandbreite und die
+      technischen Ressourcen bereit, die für das Betreiben einer Website oder
+      eines E-Mail-Servers erforderlich sind. Vorgang: Du mietest dir
+      Speicherplatz auf einem Server (Webhosting) und kannst dort deine Webseite
+      und E-Mail-Adressen einrichten. Der Hosting-Anbieter kümmert sich um die
+      technische Infrastruktur, Sicherheit und Wartung der Server.
+    </p>
+    <h2>Was ist eine Domain?</h2>
+    <p>
+      Eine Domain ist ein Name, der auf einen Webserver zeigt. Sie dient als
+      Adresse, unter der eine Website oder E-Mail-Adresse erreichbar ist. Die
+      Domain wird über das DNS (Domain Name System) auf den Server geleitet.
+    </p>
+    <h2>DNS (Domain Name System)</h2>
+    <p>
+      Das DNS (Domain Name System) ist ein Verzeichnis, das Domains auf
+      IP-Adressen mappiert. Es ermöglicht es Benutzern, Websites und
+      E-Mail-Adressen über menschenlesbare Namen zu erreichen.
+    </p>
+    <h2>Was ist ein Webserver?</h2>
+    <p>
+      Ein Webserver ist ein Computer, der Webseiten und andere Inhalte über das
+      Internet bereitstellt. Er empfängt Anfragen von Browsern und sendet die
+      entsprechenden Daten zurück.
+    </p>
+    <h2>DNS Einträge</h2>
+    <p>
+      Für den Versand von E-Mails sind bestimmte DNS-Einträge erforderlich, um
+      sicherzustellen, dass die E-Mails korrekt zugestellt werden und nicht als
+      Spam markiert werden. Die wichtigsten DNS-Einträge für E-Mails sind:
+    </p>
+    <ul>
+      <li>
+        <strong>MX-Einträge (Mail Exchange):</strong> Diese Einträge geben an,
+        welche Mail-Server für die Domain zuständig sind und in welcher
+        Reihenfolge sie kontaktiert werden sollen.
+      </li>
+      <li>
+        <strong>SPF-Einträge (Sender Policy Framework):</strong> Diese Einträge
+        legen fest, welche Server berechtigt sind, E-Mails im Namen der Domain
+        zu senden. Sie helfen dabei, Spoofing und Phishing-Angriffe zu
+        verhindern.
+      </li>
+      <li>
+        <strong>DKIM-Einträge (DomainKeys Identified Mail):</strong> Diese
+        Einträge ermöglichen es dem Empfänger-Mailserver, die Echtheit der
+        E-Mail zu überprüfen, indem sie eine digitale Signatur enthalten, die
+        mit dem privaten Schlüssel der Domain erstellt wurde.
+      </li>
+      <li>
+        <strong
+          >DMARC-Einträge (Domain-based Message Authentication, Reporting &
+          Conformance):</strong
+        >
+        Diese Einträge legen fest, wie der Empfänger-Mailserver mit E-Mails
+        umgehen soll, die die SPF- und DKIM-Prüfungen nicht bestehen. Sie helfen
+        dabei, die Domain vor Missbrauch zu schützen.
+      </li>
+    </ul>
 
-<h3>A-Record</h3>
-<p>Der A-Record (Address Record) ist ein DNS-Eintrag, der eine Domain auf eine IPv4-Adresse verweist. Er wird verwendet, um den Webserver zu identifizieren, auf dem die Website gehostet wird.</p>
-<h3>CNAME</h3>
-<p>Der CNAME-Record (Canonical Name Record) ist ein DNS-Eintrag, der einen Alias-Namen auf einen anderen DNS-Namen verweist. Er wird verwendet, um eine Domain auf eine andere Domain zu verlinken.</p>
-<h3>TTL</h3>
-<p>Der TTL (Time To Live) gibt an, wie lange ein DNS-Eintrag im Cache eines DNS-Servers gespeichert bleibt. Ein kürzerer TTL-Wert bedeutet, dass Änderungen schneller übernommen werden.</p>
-<h3>Nameserver</h3>
-<p>Nameserver sind Server, die für die Verwaltung und Auflösung von DNS-Namen verantwortlich sind. Sie speichern und verwalten die DNS-Einträge einer Domain.</p>
-<h3>Firewall</h3>
-<p>Eine Firewall ist ein Sicherheitssystem, das den Datenverkehr zwischen einem Computer oder Netzwerk und dem Internet überwacht und kontrolliert. Sie kann verwendet werden, um unerwünschte Verbindungen zu blockieren und den Zugriff auf bestimmte Dienste zu beschränken.</p>
+    <h3>A-Record</h3>
+    <p>
+      Der A-Record (Address Record) ist ein DNS-Eintrag, der eine Domain auf
+      eine IPv4-Adresse verweist. Er wird verwendet, um den Webserver zu
+      identifizieren, auf dem die Website gehostet wird.
+    </p>
+    <h3>CNAME</h3>
+    <p>
+      Der CNAME-Record (Canonical Name Record) ist ein DNS-Eintrag, der einen
+      Alias-Namen auf einen anderen DNS-Namen verweist. Er wird verwendet, um
+      eine Domain auf eine andere Domain zu verlinken.
+    </p>
+    <h3>TTL</h3>
+    <p>
+      Der TTL (Time To Live) gibt an, wie lange ein DNS-Eintrag im Cache eines
+      DNS-Servers gespeichert bleibt. Ein kürzerer TTL-Wert bedeutet, dass
+      Änderungen schneller übernommen werden.
+    </p>
+    <h3>Nameserver</h3>
+    <p>
+      Nameserver sind Server, die für die Verwaltung und Auflösung von DNS-Namen
+      verantwortlich sind. Sie speichern und verwalten die DNS-Einträge einer
+      Domain.
+    </p>
+    <h3>Firewall</h3>
+    <p>
+      Eine Firewall ist ein Sicherheitssystem, das den Datenverkehr zwischen
+      einem Computer oder Netzwerk und dem Internet überwacht und kontrolliert.
+      Sie kann verwendet werden, um unerwünschte Verbindungen zu blockieren und
+      den Zugriff auf bestimmte Dienste zu beschränken.
+    </p>
+  </div>
+</div>

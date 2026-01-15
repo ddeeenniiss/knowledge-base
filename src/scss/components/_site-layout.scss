@@ -1,0 +1,8 @@
+@use '../functions' as *;
+@use '../abstracts' as *;
+
+.site-border{
+    padding: var(--space-base);
+    border: 1px solid #c2c2c2;
+    border-radius: .5rem;
+}
