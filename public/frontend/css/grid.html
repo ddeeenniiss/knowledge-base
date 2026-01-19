@@ -1,0 +1,52 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>Grid Layout</h1>
+    <p>Link zum Grid Playground: <a href="https://www.cssgridplayground.com/">CLICK ME</a></p>
+    <h2>Basics</h2>
+    <p>CSS Grid ist ein zweidimensionales Layout-System für das Web.</p>
+    <p>Typische Einsatzfälle sind: Seitenlayouts (Header / Sidebar / Content / Footer), Dashboards, 
+        Galerien & Karten-Layouts, Komplexe responsive Layouts ohne Hacks</p>
+    <h3>Grundprinzip: </h3>
+    <p>Der Grid Container ist das Elternelement und die Grid Items sind die direkten Kindselemente. Nur direkte Kindselemente werden
+        auch zu Grid Items.</p>
+    <pre>display: grid;</pre>
+    <h3>Spalten und Zeilen definieren: </h3>
+    <p>Das wird festgelegt mit <pre>grid-template-columns: 1fr 1fr 200px;</pre> und <pre>grid-template-rows: 1fr 1fr 200px;</pre>. Die Einheiten sind dabei px für genaue Werte, %
+        für Anteile und fr für verfügbaren space. Bei auto bestimmt der Inhalt jeweils die Größe.
+    </p>
+    <h3>Abstand zwischen Items</h3>
+    <p>Das wird gesetzt entweder mit <pre>row-gap: 20px;</pre> für Abstand zwischen Reihen. Andernfalls
+    mit <pre>column-gap: 20px;</pre> für Abstand zwischen Spalten. Beides kombiniert kann auch mit 
+    <pre>gap: 20px;</pre> angegeben werden für Reihen und Spalten.</p>
+    <h3>Grid Items Platzierung</h3>
+    <p>Feste Platzierung eines Grid Items kann man setzen mit 
+    <pre>grid-column: column-start / column-end;</pre> auf dem Kindselement. Das bedeutet das Kindselement geht von 
+    Spalte column-start bis Spalte column-end. Mit 
+    <pre>grid-row: row-start / row-end;</pre> kann der Reihenstart row-start bis Reihenende row-end festgelegt werden.
+    In kombinierter Schreibweise lässt sich auch 
+    <pre>grid-area: row-start / col-start / row-end / col-end;</pre> festlegen.
+    </p>
+    <h3>repeat() Abkürzungsfunktion</h3>
+    <p>Mit der <pre>grid-template-columns: repeat(anzahl, größe);</pre> Funktion lassen sich mehrere gleichartige
+    Zeilen oder Spalten definieren, ohne diese einzeln aufzuschreiben.</p>
+    <h3>repeat() mit minmax() Funktion</h3>
+    <p>Die <pre>minmax(minValue, maxValue)</pre> Funktion lässt ein Kindselement minimal minValue und maximal maxValue 
+    groß werden. Dazwischen reagiert es flexibel je nach Container Größe.</p>
+    <h3>repeat() mit autofit</h3>
+    <p><pre>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</pre> wird verwendet, damit die Spalten sich automatisch
+    an den verfügbaren Platz anpassen. Bsp: Erzeuge so viele Spalten wie möglich und lass sie den restlichen Platz ausfüllen.</p>
+   <h3>Grid Areas - Layouts lesbar machen</h3>
+   <p>Mit <pre>grid-template-areas: "header header"
+                                    "sidebar main"
+                                    "footer footer";</pre> lassen sich Grids definieren. Diese müssen dann noch 
+    per <pre>.header  { grid-area: header; }
+            .sidebar{ grid-area: sidebar; }
+            .main    { grid-area: main; }
+            .footer  { grid-area: footer; }</pre> zugewiesen werden.</p>
+    <h3>Grid Subgrid</h3>
+    <p>Mit <pre>grid-template-columns: subgrid;</pre> lassen sich dieselben Zeilen und Spalten verwenden wie auch 
+    beim parent Element. Die Eigenschaft wird dem child jeweils zugewiesen und wirkt nur auf direkte Kindselemente.
+</p>
+
+</div>
+</div>

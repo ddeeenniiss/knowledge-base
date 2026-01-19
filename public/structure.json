@@ -25,6 +25,7 @@
       "CSS Animationen": "frontend/css/animations.html",
       "Button Vorlagen": "frontend/css/button.html",
       "CSS Flexbox Layout": "frontend/css/flex.html",
+      "CSS Grid Layout": "frontend/css/grid.html",
       "Modul-Vorlangen": "frontend/css/modul-vorlagen.html"
     },
     "JS": {

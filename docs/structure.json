@@ -24,7 +24,8 @@
       "CSS Styling": "frontend/css/css.html",
       "CSS Animationen": "frontend/css/animations.html",
       "Button Vorlagen": "frontend/css/button.html",
-      "CSS Flexbox Layout": "frontend/css/flex.html"
+      "CSS Flexbox Layout": "frontend/css/flex.html",
+      "Modul-Vorlangen": "frontend/css/modul-vorlagen.html"
     },
     "JS": {
       "JS Basics": "frontend/js/js.html"
