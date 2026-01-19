@@ -184,5 +184,89 @@
         </tr>
       </tbody>
     </table>
+    <h2>Was ist .htaccess</h2>
+<p>eine Konfigurationsdatei für Apache Webserver. Ermöglicht serverseitige Regeln ohne Server selbst neu
+    zu konfigurieren
+</p>
+<p>Einsatzgebiete sind z.B. Weiterleitungen (redirect), URL Rewriting, Zugriffsbeschränkungen (z.B. Passwortschutz) und Header Definitionen (CORS, Cache)</p>
+<p>Bei HTTP Basic Auth wird bei Aufruf der Seite nach Benutzername und Passwort gefragt und der Browser zeigt ein Standard-Login-Popup</p>
+<p>Dafür sind .htaccess (im Verzeichnis der Website oder Unterordner) und .htpasswd (enthält verschlüsselte Benutzer und Passwort) wichtig</p>
+<p>Erstellung per <code>htpasswd -c /home/user/.htpasswd kunde</code>. Dann erfolgt eine Datei mit Nutzer und Passwort.</p>
+<p>.htaccess dann im Root der Website erstellen.</p>
+<code># Passwortschutz aktivieren
+      AuthType Basic                            //Nutzt HTTP Basic Auth
+      AuthName "Zugriff nur für Berechtigte"    //Text im Login-Popup
+      AuthUserFile /home/user/.htpasswd         //Pfad zur .htpasswd Datei
+      Require valid-user                        //Nur Benutzer aus .htpasswd
+
+      Schutz nur für /Redaxo
+      <Directory "/relaunch25.firetube.de/redaxo">
+        AuthType Basic
+        AuthName "Redaxo Backend"
+        AuthUserFile /home/username/.htpasswd
+        Require valid-user
+      </Directory>
+</code>
+<h2>Docker</h2>
+<p>Docker erlaubt es, Software in abgeschlossenen Containern zu starten, die alle Abhängigkeiten enthalten, egal auf welchem Rechner. Ein Container ist dabei 
+  ein leichtgewichtiger, isolierter Mini Computer für eine App.
+</p>
+<p>Eine VM virtuelle Maschine dagegen ist ein schwerer Computer mit eigenem OS</p>
+<p>Docker ist viel leichter als eine VM, startet schnell, teilt Ressourcen effizient.</p>
+<p>Docker ist reproduzierbar auf jede Umgebung und unabhängig vom Host System (Linux, Windows, Mac) und auch weitere Abhängigkeiten wie 
+  PHP, Datenbanken, Node laufen alle im selben Container.
+</p>
+<h3>Typischer Workflow mit Docker</h3>
+<p>Image wählen oder bauen: </p>
+<pre>docker pull php:8.2-fpm</pre>
+<p>Container starten</p>
+<pre>docker run -it --rm -p 8080:80 php:8.2-fpm</pre>
+<p>Projekt starten: </p>
+<pre>docker-compose up</pre>
+<h2>DDEV - lokales Entwicklungstool</h2>
+<p>DDEV ist ein lokales Entwicklungswerkzeug, das über Docker eine vollständige, reproduzierbare Webserver-Umgebung bereitstellt – ohne dass ich PHP, DB oder Webserver lokal installieren muss. Es richtet Entwicklungsumgebungen ein, die die Produktionsumgebungen
+   möglichst genau nachbilden zB Webserver, PHP, MySQL, , Mail, nginx/apache usw. Das alles läuft dann in einem Docker Container.
+</p>
+<p>DDEV (CLI-Tool) muss nur installiert sein und Docker (Engine). Kein Setup von PHP, MySQL, Node etc auf dem Rechner notwendig.
+  Die Entwicklungsumgebungen sind leicht reproduzierbar.
+</p>
+<p>Wird vor allem in CMS Systemen und PHP Projekten genutzt.</p>
+<p>DDEV unterstützt Standard CMS wie TYPO3, Redaxo</p>
+<p>Vorteil gegenüber XAMPP, MAMP: ddev ist projektbezogen, XAMPP ist global installiert. DDEV ist versionierbar (da .ddev/config.yaml in git liegt, keine lokalen PHP Versionen), XAMPP nur schwer. DDEV läuft bei allen auf dem selben Repo (da selbe .ddev/config.yaml), XAMPP nur auf dem eigenen Rechner.</p>
+<p>Wichtige Datei: .ddev/config.yaml, dort steht die komplette Beschreibung deiner lokalen Entwicklungsumgebung</p>
+<pre>name: my-project //Projektname
+type: php //Projekttyp
+docroot: public //Ordner, in dem index.php liegt
+php_version: "8.2" //PHP Version im Container
+webserver_type: nginx-fpm
+
+database:
+  type: mariadb //mariadb oder mysql
+  version: "10.6"
+
+use_dns_when_possible: true
+xdebug_enabled: false //debugging erlaubt
+</pre>
+<p>Container starten und Site lokal erreichbar machen</p>
+<pre>ddev start</pre>
+<p>Danach erscheint Website: https://mein-projekt.ddev.site</p>
+<p>Stoppt alle Container</p>
+<pre>ddev stop</pre>
+<p>Neustarten: </p>
+<pre>ddev restart</pre>
+<p>Zusätzlich auch SSH-Zugriff auf Container: </p>
+<pre>ddev ssh</pre>
+<p>Datenbank-Import/-Export: </p>
+<pre>ddev import-db / ddev export-db</pre>
+<h2>Wie spielen Docker + DDEV zusammen?</h2>
+<p>Docker ist die Plattform, die Software in isolierten Containern laufen lässt, 
+  inklusive Webserver, PHP, Datenbanken oder anderer Services – alles unabhängig 
+  vom Host-System (Windows, Linux, Mac). DDEV nutzt Docker, um für jedes Projekt auf Knopfdruck eine 
+  komplette Entwicklungsumgebung bereitzustellen. Dabei liest DDEV die Projektkonfiguration 
+  (.ddev/config.yaml) und sagt Docker, welche Container, Versionen, Ports und Volumes es 
+  starten soll. Docker stellt die Container bereit, DDEV steuert sie und vereinfacht die 
+  Bedienung. Ohne Docker könnte DDEV die Container nicht starten; ohne DDEV müsste man 
+  Docker alles manuell konfigurieren. Zusammen ermöglichen sie schnelle, reproduzierbare 
+  und teamfähige Entwicklungsumgebungen, die auf jedem Rechner gleich laufen.</p>
   </div>
 </div>
