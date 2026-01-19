@@ -1,4 +1,61 @@
 <div class="block">
   <div class="container site-border">
+    <h2>Git Fixup und Autosquash</h2>
+    <p>git fixup und autosquash helfen Commits zu bereinigen und einen sauberen Commit-Verlauf zu erhalten. Sie sind besonders nützlich, wenn man Änderungen an einem bereits existierenden Commit vornehmen möchte, ohne den gesamten Verlauf manuell zu bearbeiten.</p>
+
+    <h2>⚡️ TLDR;</h2>
+    <p>Mit git fixup und git rebase --autosquash lassen sich unnötige Zwischen-Commits vermeiden und ein aufgeräumter Git-Verlauf beibehalten.</p>
+
+    <p>⚠️ Sollte nicht auf dem main-Branch durchgeführt werden</p>
+
+    <pre>git add .</pre>
+
+    <pre>git commit --fixup=&lt;commit-hash&gt;</pre>
+
+
+
+    <p>#  ^ ist hier wichtig, damit der vorherige commit genutzt wird</p>
+
+    <pre>git rebase --interactive --autosquash &lt;commit-hash&gt;^</pre>
+
+    <p># ggf. bearbeiten und mit mit :x speichern</p>
+
+    <p># rebase wird dann durchgeführt</p>
+
+
+
+    <pre>git push --force</pre>
+    <h2>Git Fixup</h2>
+    <p>git commit --fixup ermöglicht es, einen neuen Commit zu erstellen, der als Korrektur für einen früheren Commit gedacht ist. Dabei wird der Commit-Text automatisch so gesetzt, dass er später mit git rebase --autosquash leicht zusammengeführt werden kann.</p>
+
+    <p>Den Hash des zu korrigierenden Commits herausfinden:
+    </p>
+    <pre>git log --oneline</pre>
+    <p>Einen Fixup-Commit erstellen:</p>
+    <pre>git commit --fixup=&lt;commit-hash&gt;</pre>
+    <p>Dies erstellt einen neuen Commit, dessen Nachricht automatisch mit fixup! &lt;ursprüngliche Commit-Nachricht&gt; gesetzt wird.</p>
+
+    <h2>Git Autosquash</h2>
+    <p>Sicherstellen, dass sich der Fixup-Commit auf einem Feature-Branch befindet und noch nicht gepusht wurde.</p>
+
+    <p>Den Rebase mit --autosquash starten:</p>
+
+    <pre>git rebase -i --autosquash &lt;commit-hash&gt;^</pre>
+    <p>Das ^ steht dabei für den vorangegangenen commit.</p>
+
+    <p>Git erkennt die fixup! Commits automatisch und führt sie in die entsprechenden ursprünglichen Commits zusammen.</p>
+
+    <p>Falls notwendig, den Rebase abschließen und fortfahren:</p>
+
+   <pre>git rebase --continue</pre>
+    <p>Beispiel</p>
+    <p>Ursprünglichen Commit erstellen:</p>
+    <pre>git commit -m "Initial commit"</pre>
+    <p>Eine Korrektur durchführen:</p>
+    <pre>git commit --fixup=&lt;commit-hash&gt;</pre>
+    <p>Den Fixup-Commit mit autosquash zusammenführen:</p>
+    <pre>git rebase -i --autosquash &lt;commit-hash&gt;^</pre>
+    <p>Änderungen pushen, wenn schon auf origin ( nicht auf main):</p>
+    <pre>git push --force</pre>
   </div>
 </div>

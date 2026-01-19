@@ -1,0 +1,151 @@
+@use "../functions" as *;
+@use "../abstracts" as *;
+
+.media-parallax {
+  .text-block__text {
+    margin-bottom: rem(32px);
+
+    @include breakpoint-up("lg") {
+      margin-bottom: rem(48px);
+    }
+  }
+}
+
+.media-parallax__image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  img,
+  picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      270deg,
+      rgba(0 0 0 / 0%) 0%,
+      rgba(0 0 0 / 75%) 100%
+    );
+  }
+}
+
+.media-parallax--enabled .media-parallax__image {
+  clip-path: inset(0);
+
+  img {
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
+}
+
+.media-parallax__body {
+  padding-top: 7.5rem;
+  position: relative;
+  height: 100%;
+  color: var(--color-white);
+  display: flex;
+  align-items: flex-start;
+
+  @include breakpoint-up("md") {
+    padding-block: 6rem;
+  }
+
+  @include breakpoint-up("xxl") {
+    align-items: center;
+  }
+}
+
+.media-parallax__container {
+  padding: 20px;
+}
+
+.media-parallax__item {
+  position: relative;
+  min-height: 800px;
+  display: flex;
+  align-items: center;
+
+  &--right-aligned {
+    .media-parallax__image::after {
+      background: linear-gradient(
+        90deg,
+        rgba(0 0 0 / 0%) 0%,
+        rgba(0 0 0 / 75%) 100%
+      );
+    }
+
+    .media-parallax__body {
+      padding-block: 0 7.5rem;
+      align-items: flex-end;
+
+      @include breakpoint-up("xxs") {
+        padding-block: 0;
+      }
+
+      @include breakpoint-up("sm") {
+        padding-block: 0 7.5rem;
+      }
+
+      @include breakpoint-up("md") {
+        padding-block: 6rem;
+        align-items: unset;
+        justify-content: flex-end;
+      }
+
+      @include breakpoint-up("xxl") {
+        align-items: center;
+      }
+    }
+  }
+
+  @include breakpoint-up("md") {
+    min-height: rem(640px);
+  }
+}
+
+.media-parallax__body-inner {
+  max-width: rem(678px);
+}
+
+.media-parallax__description {
+  font-family: var(--font-serif);
+  font-size: rem(36px);
+  line-height: normal;
+  margin-bottom: rem(12px);
+
+  @include breakpoint-up("xl") {
+    @include font-size("xl");
+  }
+}
+
+.media-parallax__subline {
+  @include font-size("sm-xl");
+  font-weight: 700;
+}
+
+.media-parallax__caption {
+  margin-top: 0.75rem;
+  @include font-size("sm");
+  line-height: 1.5;
+  font-weight: 300;
+
+  ul,
+  ol {
+    padding-inline-start: 1.5rem;
+    list-style-type: disc;
+    margin: 0;
+  }
+
+  @include breakpoint-up("xl") {
+    @include font-size("sm-xl");
+    line-height: 1.5;
+  }
+}

@@ -1,59 +1,80 @@
-<h2>img</h2>
-<div class="image-hover">
-<img src="../../assets/example.jpg" alt="Beschreibung des Bildes" title="Text bei Hover">
+<div class="block">
+  <div class="container site-border">
+    <h2>img</h2>
+    <div class="image-hover">
+      <img
+        src="../../assets/example.jpg"
+        alt="Beschreibung des Bildes"
+        title="Text bei Hover"
+      />
+    </div>
+    <p>HTML-Tag für Bilder (Self-Closing, kein schließendes img Tag nötig)</p>
+
+    <p>src („Source“) ist die Datei/URL des Bildes. Angabe als</p>
+    <pre>relative URL: "images/logo.png"</pre>
+    <p>oder als</p>
+    <pre>absolute URL: "https://example.com/logo.png"</pre>
+    <p>
+      alt „Alternative Text“ ist die Beschreibung, falls das Bild nicht geladen
+      wird. Beschreibt das Bild für Screenreader (Menschen mit Sehbehinderung,
+      Pflichtfeld) Wichtig für SEO (Suchmaschinen lesen alt aus)
+    </p>
+
+    <p>
+      title (Text erscheint bei hover, Zusatzinformation zum Bild, aber keine
+      Pflicht)
+    </p>
+
+    <h2>nav</h2>
+    <p>
+      &lt;nav&gt; ist ein semantisches HTML-Element, das Navigation enthält. Es
+      zeigt wichtige Links, die die Benutzer durch die Hauptstruktur der Website
+      führen. Browser, Screenreader und Suchmaschinen erkennen &lt;nav&gt; als
+      Navigationsbereich. aria-label: Benennung für mehrere Navigationsbereiche
+    </p>
+
+    <nav aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="#home">Start</a></li>
+        <li><a href="#about">Über uns</a></li>
+        <li><a href="#services">Leistungen</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+
+    <h2>href</h2>
+    <p>
+      href = „Hypertext REFerence“ = Ziel des Links könnte sein: URL zu einer
+      anderen Seite, Interner Anker auf derselben Seite (#), Externe URL
+    </p>
+
+    <a href="#">Hier klicken</a>
+
+    <p>
+      (#) = Verweis auf den Seitenanfang / leeren Anker Macht die Seite nicht
+      neu, springt zum Top Problem: ohne preventDefault() springt die Seite nach
+      oben → nicht ideal
+    </p>
+
+    <a href="/">Startseite</a>
+
+    <p>
+      / = Root der Domain (Startseite der Website) Absoluter Pfad relativ zur
+      Domain Beispiel: https://example.com/ → / verweist darauf
+    </p>
+
+    <a href="#section-about">Über uns</a>
+
+    <p>
+      Springt zu einem Element mit id="section-about" Praktisch für
+      One-Page-Websites oder Inhaltsverzeichnisse
+    </p>
+
+    <section id="section-about">
+      <h2>Über uns</h2>
+    </section>
+
+    <h2>code explanation:</h2>
+    Zeile x: > ⚠️ Achtung: Vergiss nicht `echo $mform->show();`
+  </div>
 </div>
-<p>HTML-Tag für Bilder (Self-Closing, kein schließendes img Tag nötig)</p>
-
-<p>src („Source“) ist die Datei/URL des Bildes. Angabe als</p>
-<pre>relative URL: "images/logo.png"</pre> <p>oder als </p><pre>absolute URL: "https://example.com/logo.png"</pre>
-<p>alt „Alternative Text“ ist die Beschreibung, falls das Bild nicht geladen wird.
-Beschreibt das Bild für Screenreader (Menschen mit Sehbehinderung, Pflichtfeld)
-Wichtig für SEO (Suchmaschinen lesen alt aus)</p>
-
-<p>title (Text erscheint bei hover, Zusatzinformation zum Bild, aber keine Pflicht)</p>
-
-<h2>nav </h2>
-<p>&lt;nav&gt; ist ein semantisches HTML-Element, das Navigation enthält.
-Es zeigt wichtige Links, die die Benutzer durch die Hauptstruktur der Website führen.
-Browser, Screenreader und Suchmaschinen erkennen &lt;nav&gt; als Navigationsbereich.
-aria-label: Benennung für mehrere Navigationsbereiche</p>
-  
-<nav aria-label="Hauptnavigation">
-  <ul>
-    <li><a href="#home">Start</a></li>
-    <li><a href="#about">Über uns</a></li>
-    <li><a href="#services">Leistungen</a></li>
-    <li><a href="#contact">Kontakt</a></li>
-  </ul>
-</nav>
-
-<h2>href </h2>
-<p>href = „Hypertext REFerence“ = Ziel des Links könnte sein: URL zu einer anderen Seite, Interner Anker auf derselben Seite (#), Externe URL</p>
-
-<a href="#">Hier klicken</a>
-
-<p>(#) = Verweis auf den Seitenanfang / leeren Anker
-Macht die Seite nicht neu, springt zum Top
-Problem: ohne preventDefault() springt die Seite nach oben → nicht ideal</p>
-
-
-<a href="/">Startseite</a>
-
-<p>/ = Root der Domain (Startseite der Website)
-Absoluter Pfad relativ zur Domain
-Beispiel: https://example.com/ → / verweist darauf</p>
-
-<a href="#section-about">Über uns</a>
-
-<p>Springt zu einem Element mit id="section-about"
-Praktisch für One-Page-Websites oder Inhaltsverzeichnisse</p>
-
-<section id="section-about">
-  <h2>Über uns</h2>
-</section>
-
-
-<h2>code explanation: </h2>
-Zeile x: 
-
-> ⚠️ Achtung: Vergiss nicht `echo $mform->show();`

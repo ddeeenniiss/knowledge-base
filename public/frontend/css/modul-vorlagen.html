@@ -1,0 +1,96 @@
+<div class="block">
+  <div class="content__container">
+    <h2>Parallax Modul - Fixierte Bilder die im scrollen sichtbar werden</h2>
+    <p>Bilder sind nicht Teil des normalen Dokuments, sie bleiben fest im Viewport stehen (position: fixed)</p>
+    <p>Container darüber scrollt aber mit Text</p>
+    <p>Bilder werden durch clip-path sichtbar, nur der bereich, der von media-parallax__image überdeckt wird</p>
+    <p>Räumlich ist das Bild ganz unten, dazwischen Overlay und oben der content</p>
+    <P>clip-path schneidet das Bild sozusagen frei</P>
+    <section class="media-parallax media-parallax--enabled block">
+      <header class="text-block">
+        <div class="text-block__container content__container">
+          <div class="text-block__grid">
+            <div class="text-block__item">
+              <h2 class="text-block__title">Lorem ipsum</h2>
+              <p class="text-block__text">
+                Zwischentext: Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
+                minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                lobortis nis.
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="media-parallax__items">
+        <div class="media-parallax__item">
+          <div class="media-parallax__image">
+            <img src="/public/assets/example.jpg" alt="" />
+          </div>
+          <div class="media-parallax__body content__container">
+            <div class="media-parallax__body-inner">
+              <p class="media-parallax__description">
+                Zwischentext: Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod.
+              </p>
+              <p class="media-parallax__subline">Subline</p>
+              <p class="media-parallax__caption">
+                Lorem ipsum dolor sit amet consectetur. Facilisis erat cursus
+                sagittis odio tortor tellus aliquet sed est. Euismod porttitor
+                elit sed eget accumsan.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="media-parallax__item">
+          <div class="media-parallax__image">
+            <img src="/public/assets/example.jpg" alt="" />
+          </div>
+          <div class="media-parallax__body content__container">
+            <div class="media-parallax__body-inner">
+              <p class="media-parallax__subline">Subline</p>
+              <div class="media-parallax__caption">
+                <ul>
+                  <li>
+                    Internen Informationsaustausch und Transparenz laufend
+                    ausbauen
+                  </li>
+                  <li>Jahresgespräche für alle Mitarbeitenden</li>
+                  <li>
+                    Forcierung von Abschlussarbeiten (Techniker, Bachelor und
+                    Master) und Praxissemestern im Unternehmen
+                  </li>
+                  <li>Vorschlagswesen für Mitarbeitende ausbauen</li>
+                  <li>Job-Bike</li>
+                  <li>ÖPNV-Zuschuss</li>
+                  <li>
+                    Prüfung der Flexibilisierung der Arbeitsumgebung und -zeit
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="media-parallax__item media-parallax__item--right-aligned">
+          <div class="media-parallax__image">
+            <img src="/public/assets/example.jpg" alt="" />
+          </div>
+          <div class="media-parallax__body content__container">
+            <div class="media-parallax__body-inner">
+              <p class="media-parallax__description">
+                Zwischentext: Lorem ipsum dolor sit amet, consectetuer
+                adipiscing elit, sed diam nonummy nibh euismod.
+              </p>
+              <p class="media-parallax__caption">
+                Lorem ipsum dolor sit amet consectetur. Facilisis erat cursus
+                sagittis odio tortor tellus aliquet sed est. Euismod porttitor
+                elit sed eget accumsan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

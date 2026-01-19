@@ -47,7 +47,6 @@
 
       .content {
         flex: 1;
-        padding: 20px;
         overflow-y: auto;
         background: linear-gradient(135deg, #e1e1e1, #dadaf0);
       }
@@ -64,8 +63,8 @@
         transform: scale(1.2);
       }
     </style>
-    <script type="module" crossorigin src="/knowledge-base/assets/index-e93f041d.js"></script>
-    <link rel="stylesheet" href="/knowledge-base/assets/index-039cfca1.css">
+    <script type="module" crossorigin src="/knowledge-base/assets/index-125e2a3a.js"></script>
+    <link rel="stylesheet" href="/knowledge-base/assets/index-817688cf.css">
   </head>
 
   <body>
@@ -88,12 +87,22 @@
     <!-- Navigation & Markdown -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        async function loadMD(path) {
+        async function loadFile(path) {
           try {
             const res = await fetch(path);
             if (!res.ok) throw new Error("Datei nicht gefunden");
+
             const text = await res.text();
-            document.querySelector(".content").innerHTML = marked.parse(text);
+            const content = document.querySelector(".content");
+
+            if (path.endsWith(".md")) {
+              content.innerHTML = marked.parse(text);
+            } else if (path.endsWith(".html")) {
+              content.innerHTML = text;
+            } else {
+              content.innerHTML =
+                "<p style='color:red;'>Unbekannter Dateityp</p>";
+            }
           } catch (err) {
             document.querySelector(".content").innerHTML =
               "<p style='color:red;'>Fehler: " + err.message + "</p>";
@@ -115,7 +124,7 @@
               if (typeof obj[key] === "string") {
                 const a = document.createElement("a");
                 a.textContent = key;
-                a.onclick = () => loadMD(obj[key]);
+                a.onclick = () => loadFile(obj[key]);
                 li.appendChild(a);
               } else {
                 const folder = document.createElement("strong");

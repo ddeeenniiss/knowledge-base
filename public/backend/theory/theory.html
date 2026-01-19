@@ -184,5 +184,44 @@
         </tr>
       </tbody>
     </table>
+    <h2>Was ist .htaccess</h2>
+<p>eine Konfigurationsdatei für Apache Webserver. Ermöglicht serverseitige Regeln ohne Server selbst neu
+    zu konfigurieren
+</p>
+<p>Einsatzgebiete sind z.B. Weiterleitungen (redirect), URL Rewriting, Zugriffsbeschränkungen (z.B. Passwortschutz) und Header Definitionen (CORS, Cache)</p>
+<p>Bei HTTP Basic Auth wird bei Aufruf der Seite nach Benutzername und Passwort gefragt und der Browser zeigt ein Standard-Login-Popup</p>
+<p>Dafür sind .htaccess (im Verzeichnis der Website oder Unterordner) und .htpasswd (enthält verschlüsselte Benutzer und Passwort) wichtig</p>
+<p>Erstellung per <code>htpasswd -c /home/user/.htpasswd kunde</code>. Dann erfolgt eine Datei mit Nutzer und Passwort.</p>
+<p>.htaccess dann im Root der Website erstellen.</p>
+<code># Passwortschutz aktivieren
+      AuthType Basic                            //Nutzt HTTP Basic Auth
+      AuthName "Zugriff nur für Berechtigte"    //Text im Login-Popup
+      AuthUserFile /home/user/.htpasswd         //Pfad zur .htpasswd Datei
+      Require valid-user                        //Nur Benutzer aus .htpasswd
+
+      Schutz nur für /Redaxo
+      <Directory "/relaunch25.firetube.de/redaxo">
+        AuthType Basic
+        AuthName "Redaxo Backend"
+        AuthUserFile /home/username/.htpasswd
+        Require valid-user
+      </Directory>
+</code>
+
+<h2>DDEV - lokales Entwicklungstool</h2>
+<p>DDEV ist ein lokales Entwicklungstool, dass auf Docker basiert. Es richtet Entwicklungsumgebungen ein, die die Produktionsumgebungen
+   möglichst genau nachbilden zB PHP, MySQL, nginx/apache usw.
+</p>
+<p>DDEV muss nur installiert sein und zieht die benötigten Docker-Container. Kein Setup von PHP, MySQL, Node etc auf dem Rechner notwendig</p>
+<p>DDEV unterstützt Standard CMS wie TYPO3, Redaxo</p>
+<p>Container starten und Site lokal erreichbar machen</p>
+<pre>ddev start</pre>
+<p>Stoppt alle Container</p>
+<pre>ddev stop</pre>
+<p>Zusätzlich auch SSH-Zugriff auf Container: </p>
+<pre>ddev ssh</pre>
+<p>Datenbank-Import/-Export: </p>
+<pre>ddev import-db / ddev export-db</pre>
+
   </div>
 </div>

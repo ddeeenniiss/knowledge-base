@@ -78,31 +78,5 @@
       Nachdem ein Feature getestet und fertig für den Livegang ist, wird es in
       den main-Branch gemerged.
     </p>
-    <h2>Rebase und Merge</h2>
-    <p>Da wir Merge-Commits in unserer Git-Historie vermeiden wollen, müssen die merges auf eine ganz bestimmte Weise vorgenommen werden.</p>
-
-    <p>Wichtig ist dabei, dass immer ein Rebase durchgeführt wird, damit werden Konflikte weitestgehend vermieden.</p>
-
-    <h2>Branches zusammenzuführen</h2>
-    <p>Die Branches, welche gemerged werden sollen auf den aktuellen Stand bringen</p>
-    <pre>git checkout master</pre>
-
-    <pre>git pull</pre>
-
-    <pre>git checkout feature/example</pre>
-
-    <pre>git pull</pre>
-    <p>Rebase den feature-Branch auf den neuesten Stand von master</p>
-    <pre>git rebase master --no-verify</pre>
-    <p>Wechsel zurück zum master Branch und führe einen Fast-Forward Merge durch, um die Änderungen vom feature Branch in master zu integrieren</p>
-    <pre>git checkout master</pre>
-
-    <pre>git merge --ff-only feature/example</pre>
-
-    <pre>git push</pre>
-    <p>Lösche den lokalen und den Remote feature Branch</p>
-    <pre>git branch -D feature/example</pre>
-
-    <pre>git push origin --delete feature/example</pre>
   </div>
 </div>

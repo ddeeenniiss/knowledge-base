@@ -16,7 +16,14 @@
 	}
 }
 
+// hat noch die weiße Box Styles in form.scss
 .container {
+	margin-inline: auto;
+	width: calc(100% - var(--container-margin) * 2);
+	max-width: var(--container-max-width);
+}
+
+.content__container{
 	margin-inline: auto;
 	width: calc(100% - var(--container-margin) * 2);
 	max-width: var(--container-max-width);

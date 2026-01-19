@@ -1,4 +1,36 @@
 <div class="block">
   <div class="container site-border">
+    <h2>GitLab Maintenance</h2>
+    <p>Sollte der Server neu gestertet werden oder Git aus einem anderen Grund nicht erreichbar sein kann es vorkommen, dass man den Service neu starten muss.</p>
+
+    <p>Dazu gibt es 2 wichtige Befehle welche über eine SSH-Verbindung ausgeführt werden können:</p>
+
+    <p># Status anzeigen</p>
+
+    <pre>gitlab-ctl status</pre>
+
+
+
+    <p># Service starten</p>
+
+    <pre>gitlab-ctl start</pre>
+
+
+
+    <p># Service neu starten</p>
+
+    <pre>gitlab-ctl restart</pre>
+    <p>Sollte das nicht helfen, und die services nicht gestartet werden (fail wird angezeigt):</p>
+
+    <pre>gitlab services fail</pre>
+
+    <pre>sudo systemctl enable gitlab-runsvdir.service</pre>
+
+    <pre>sudo systemctl start gitlab-runsvdir.service</pre>
+    <h2>Wenn im Frontend ein 502 Fehler angezeigt wird:</h2>
+
+    <p># Dauert etwa 3 Minuten</p>
+
+    <pre>sudo gitlab-ctl restart gitlab-pages</pre>
   </div>
 </div>

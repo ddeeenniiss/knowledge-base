@@ -1,0 +1,154 @@
+<div class="block">
+  <div class="container site-border">
+    <h2>Animations:</h2>
+
+    <!-- Beispiel RotateX mit Hover-Effekt -->
+    <h3>transform: rotateX(0deg)</h3>
+    <p>rotiert0 Grad entlang der x-Achse rotateX(0deg)</p>
+    <div class="card-container">
+      <div class="card animate__rotateX">
+        <div class="box">HOVER ME</div>
+      </div>
+      <div class="card">
+        <button class="copy-btn">Copy</button>
+        <pre><code>.animate__rotateX {
+  .box {
+    transform: rotateX(0deg);
+    &:hover {
+      transform: rotateX(360deg);
+      transition: transform 2s ease-out;
+    }
+  }
+}
+</code></pre>
+      </div>
+    </div>
+
+    <!-- Beispiel RotateY mit Hover-Effekt -->
+    <h3>transform: rotateY(0deg)</h3>
+    <p>rotiert0 Grad entlang der x-Achse rotateY(0deg)</p>
+    <div class="card-container">
+      <div class="card animate__rotateY">
+        <div class="box">HOVER ME</div>
+      </div>
+      <div class="card">
+        <button class="copy-btn">Copy</button>
+        <pre><code>
+  .animate__rotateY {
+  .box {
+    transform: rotateY(0deg);
+
+    &:hover {
+      transform: rotateY(360deg);
+      transition: transform 2s ease-out;
+    }
+  }
+}
+</code></pre>
+      </div>
+    </div>
+
+    <!-- Beispiel RotateZ mit Hover-Effekt -->
+    <h3>transform: rotateZ(0deg)</h3>
+    <p>
+      rotiert0 Grad entlang der x-Achse rotateZ(0deg). -360deg gegen den
+      Uhrzeiger
+    </p>
+    <div class="card-container">
+      <div class="card animate__rotateZ">
+        <div class="box">HOVER ME</div>
+      </div>
+      <div class="card">
+        <button class="copy-btn">Copy</button>
+        <pre><code>
+  .animate__rotateZ {
+  .box {
+    transform: rotateZ(0deg);
+
+    &:hover {
+      transform: rotateZ(360deg);
+      transition: transform 2s ease-out;
+    }
+  }
+}
+</code></pre>
+      </div>
+    </div>
+
+    <!-- Beispiel Scale mit Hover-Effekt -->
+    <h3>transform: scale(factor)</h3>
+    <p>
+      skaliert Box um einen Faktor. Die Achsen können auch einzeln angegeben
+      werden scaleX(factor), scaleY(factor). Zusammen einfach scale(factorX,
+      factorY). Ebenso ist die Spiegelung möglich mit negativen Werten
+      scaleX(-1).
+    </p>
+    <div class="card-container">
+      <div class="card animate__scale">
+        <div class="box">HOVER ME</div>
+      </div>
+      <div class="card">
+        <button class="copy-btn">Copy</button>
+        <pre><code>
+  .animate__scale {
+  .box {
+    transform: scale(1);
+
+    &:hover {
+      transform: scale(1.5);
+      transition: transform 2s ease-out;
+    }
+  }
+}
+</code></pre>
+      </div>
+    </div>
+    <!-- Beispiel Translate mit Hover-Effekt -->
+    <h3>transform: translate(x, y)</h3>
+    <p>verschiebt Box in x, y Achse.</p>
+    <div class="card-container">
+      <div class="card animate__translate">
+        <div class="box">HOVER ME</div>
+      </div>
+      <div class="card">
+        <button class="copy-btn">Copy</button>
+        <pre><code>
+  .animate__translate {
+  .box {
+    transform: translate(0px, 0px);
+
+    &:hover {
+      transform: translate(20px, 25px);
+      transition: transform 1s ease-out;
+    }
+  }
+}
+</code></pre>
+      </div>
+    </div>
+
+    <!-- Beispiel Skew mit Hover-Effekt -->
+    <h3>transform: skew(xdeg, ydeg)</h3>
+    <p>verschiebt Box in x, y Winkel.</p>
+    <div class="card-container">
+      <div class="card animate__skew">
+        <div class="box">HOVER ME</div>
+      </div>
+      <div class="card">
+        <button class="copy-btn">Copy</button>
+        <pre><code>
+  .animate__skew {
+  .box {
+    transform: skew(0deg, 0deg);
+
+    &:hover {
+      transform: skew(20deg, 25deg);
+      transition: transform 1s ease-out;
+    }
+  }
+}
+</code></pre>
+      </div>
+    </div>
+  </div>
+</div>

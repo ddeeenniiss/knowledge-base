@@ -10,11 +10,10 @@
       "Bash-Commands": "backend/bash-commands/bash-commands.html"
     },
     "Git":{
-      "Git Basics": "",
-      "Lokales Setup": "",
-      "Fixup": "",
-      "Maintainance": "",
-      "Rebase + Merge": ""
+      "Git Basics": "backend/git/git-basics.html",
+      "Lokales Setup": "backend/git/git-lokales-setup.html",
+      "Fixup": "backend/git/git-fixup.html",
+      "Maintainance": "backend/git/git-maintainance.html"
     }
   },
   "Frontend HTML / CSS / JS": {
@@ -23,7 +22,7 @@
     },
     "CSS": {
       "CSS Styling": "frontend/css/css.html",
-      "CSS Animationen": "frontend/css/css.html",
+      "CSS Animationen": "frontend/css/animations.html",
       "Button Vorlagen": "frontend/css/button.html",
       "CSS Flexbox Layout": "frontend/css/flex.html"
     },
@@ -39,10 +38,10 @@
       }
     },
     "Redaxo": {
-      "Redaxo Allgemein": "backend/redaxo/redaxo.html"
+      "Redaxo Allgemein": "backend/cms/redaxo.html"
     },
     "TYPO3": {
-      "TYPO3 Allgemein": "backend/redaxo/redaxo.html"
+      "TYPO3 Allgemein": "backend/cms/typo3.html"
     },
     "Theorie": {
       "Backend Theorie": "backend/theory/theory.html"
