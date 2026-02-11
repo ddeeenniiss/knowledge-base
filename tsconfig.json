@@ -7,5 +7,5 @@
     "strict": true,
     "esModuleInterop": true
   },
-  "include": ["classes/**/*.ts", "modules/**/*.ts"]
+  "include": ["src/ts/classes/**/*.ts", "src/ts/modules/**/*.ts"]
 }

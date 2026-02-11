@@ -1,6 +1,5 @@
 <div class="block">
   <div class="content__container">
-
     <h2>Slider mit Sliderbuttons</h2>
     <div class="slider">
       <div class="slides">
@@ -15,19 +14,23 @@
       <div class="dots"></div>
     </div>
 
+    <script type="module" src="/dist/classes/slider.js"></script>
+
     <script>
-      const slides = document.querySelector(".slides");
+      const slidesWrapper = document.querySelector(".slides");
+      const prevBtn = document.querySelector(".prev");
+      const nextBtn = document.querySelector(".next");
       let index = 0;
 
-      document.getElementById("next").onclick = () => {
+      nextBtn?.addEventListener("click", () => {
         index = (index + 1) % 3;
-        slides.style.transform = `translateX(-${index * 100}%)`;
-      };
+        slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+      });
 
-      document.getElementById("prev").onclick = () => {
+      prevBtn?.addEventListener("click", () => {
         index = (index + 2) % 3;
-        slides.style.transform = `translateX(-${index * 100}%)`;
-      };
+        slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+      });
     </script>
 
     <h2>Parallax Modul - Fixierte Bilder die im scrollen sichtbar werden</h2>
