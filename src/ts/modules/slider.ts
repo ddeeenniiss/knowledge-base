@@ -1,8 +1,7 @@
 import { Slider } from '../classes/slider';
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll<HTMLElement>('.slider').forEach(sliderEl => {
-    new Slider(sliderEl);
+  document.querySelectorAll<HTMLElement>('.slider').forEach(el => {
+    new Slider(el);
   });
 });
- 
