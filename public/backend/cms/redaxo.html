@@ -146,6 +146,25 @@ AS category_id -> Alias</p>
     <td>Zusätzliche Upload-Funktionen für Medien</td>
   </tr>
 </table>
+<h2>rex_category</h2>
+<p>holt die Kategorie zB per id</p>
+<pre>$data = rex_category::get(313)->getArticles(true, 'priority');</pre>
+<p>holt Kategorie mit ID 313 (Rückgabe ist rex_category Objekt) und greift auf alle online gestellten (true) Artikel zu nach Priorität sortiert.
+  Rückgabe des gesamten ist ein Array von rex_article, die bereits in der Reihenfolge nach Priorität sortiert sind.
+</p>
+<h3>::getId()</h3>
+<p>gibt die ID des Artikels zurück (int)</p>
+<h2>rex_article::getCurrent()</h2>
+<p>gibt den aktuellen Artikel zurück, der gerade im Frontend angezeigt wird als rex_article Object zurück. Nützlich wenn Daten 
+  zur aktuellen Seite ausgegeben werden sollen
+</p>
 
+<h2>Redaxo Addons</h2>
+<p>Zunächst wird unter redaxo/addons/mein-addon/ das gewollte addon angelegt. Der Ordnername ist hierbei
+  der AddOn Key.
+</p>
+<p>Wichtig ist die package.yml. Darin erkennt Redaxo das AddOn. install.sql und uninstall.sql sind für 
+  das installieren und deinstallieren des Addons.
+</p>
 </div>
 </div>

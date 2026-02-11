@@ -1,0 +1,44 @@
+.slider {
+  width: 300px;
+  position: relative;
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+
+.slide {
+  min-width: 100%;               // 👈 jede Slide volle Breite
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  border: 1px solid #ccc;
+}
+
+/* Controls */
+.prev,
+.next {
+  margin-top: 10px;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #aaa;
+  border: none;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #333;
+}

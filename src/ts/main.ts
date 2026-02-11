@@ -6,3 +6,5 @@ import './functions/dialog';
 import './components/content';
 import './components/copy-btn';
 import './components/navigation';
+
+import './modules/slider';

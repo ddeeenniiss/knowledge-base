@@ -40,7 +40,8 @@
       }
     },
     "Redaxo": {
-      "Redaxo Allgemein": "backend/cms/redaxo.html"
+      "Redaxo Allgemein": "backend/cms/redaxo.html",
+      "Redaxo Input/Output": "backend/cms/redaxo_code.html"
     },
     "TYPO3": {
       "TYPO3 Allgemein": "backend/cms/typo3.html"

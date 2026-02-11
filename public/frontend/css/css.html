@@ -181,5 +181,25 @@
       <li class="list-style-position--inside">Inside</li>
       <li class="list-style-position--outside">Outside</li>
     </ul>
+    <h3>dvh - dynamic viewport height</h3>
+    <p>nimmt 1% der tatsächlich sichtbaren Höhe</p>
+    <h3>%selektor - Placeholder Selektor - Silent Selektor</h3>
+    <p>Damit wird Design-Konsistenz erzwungen. Bei Änderung des Selektors werden alle Stellen mitverändert.</p>
+    <p>Erscheint nur dann, wenn jemand die Klasse per @extend verwendet.</p>
+    <p>Muss immer per @extend eingesetzt werden.</p>
+    <pre>
+      %silent-selektor{
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .example{
+        @extend %selektor
+      }
+    </pre>
+    <h3>sticky vs fixed</h3>
+    <p>fixed: Element bleibt an einer festen Position im Viewport, unabhängig von Scrollen.</p>
+    <p>sticky: Element verhält sich wie fixed, sobald es den Viewport verlässt.</p>
   </div>
 </div>
