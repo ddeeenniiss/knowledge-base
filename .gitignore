@@ -12,3 +12,8 @@ logs/
 dist/
 docs/
 build/
+
+# Yarn 
+.yarn
+.yarn/cache
+.yarn/unplugged
