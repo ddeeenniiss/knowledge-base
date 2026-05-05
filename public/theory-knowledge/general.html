@@ -246,6 +246,43 @@
       Abhängigkeitsauflösung. Yarn verwendet eine Datei namens yarn.lock, um die
       genauen Versionen der installierten Pakete zu sperren.
     </p>
+    <h3>node_modules</h3>
+    <p>Das Verzeichnis node_modules enthält alle installierten Abhängigkeiten des Projekts. Es wird nicht versioniert in git, da es 
+      durch die package.json und die yarn.lock reproduzierbar ist und zudem auch viel zu groß wäre. Die node_modules entstehen durch 
+      die packetmanager Befehle wie npm install oder yarn install, die die Abhängigkeiten aus der package.json installieren.
+    </p>
+    <h2>Umgebungen in Workflows</h2>
+    <table>
+    <tr>
+      <th>Umgebung</th>
+      <th>Beschreibung</th>
+    </tr>
+    <tr>
+      <td>Development</td>
+      <td>Entwicklungsumgebung mit lokalem Server</td>
+    </tr>
+    <tr>
+      <td>Staging</td>
+      <td>Testumgebung vor der Produktion</td>
+    </tr>
+    <tr>
+      <td>Production</td>
+      <td>Live-Umgebung für Endnutzer</td>
+    </tr>
+    </table>
+    <h2>CI/CD (Continuous Integration / Continuous Deployment)</h2>
+    <p>CI bedeutet Code wird automatisch getestet / gebaut</p>
+    <p>CD bedeutet Code wird automatisch in die Produktion deployt</p>
+
+    <p>CI /CD ersetzt manuelle Schritte wie Dependencies installieren (npm install oder yarn install), 
+      Projekte bauen (vite build), Code Checks durch ESLint, Prettier und Stylelint, Fehlerfindung, build lokal, FTP /rsync hochladen und 
+      hoffentlich funktioniert es live, Sicherheitstests (npm audit, Snyk), Bilder / Video / JSON Optimierung mit verschiedenen Auflösungen pro 
+      Breakpoint und Gerät / Geschwindigkeits (geht mit vite-plugin-imagemin oder sharp, bei Redaxo media manager und optional Cloudflare, bei typo3 Image Processing Engine), DB Migrationen bei CMS.
+    </p>
+    <p>Es macht zB git push -> automatische Tests und Deployment -> Tests, die optional laufen und
+      Deploy auf staging oder production
+    </p>
+    <p>CODE -> BUILD -> TEST -> DEPLOY</p>
     <h2>Web Client</h2>
     <p>Browser wie Chrome, Firefox, Safari, Edge, Opera</p>
     <h2>Browser</h2>
