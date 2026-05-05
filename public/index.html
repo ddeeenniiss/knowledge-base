@@ -95,15 +95,12 @@
               if (typeof obj[key] === "string") {
                 const a = document.createElement("a");
                 a.textContent = key;
-
-                // ← Hash-basiertes Routing
                 a.href = "#" + obj[key];
                 a.onclick = (e) => {
                   e.preventDefault();
                   window.location.hash = obj[key];
                   loadFile(obj[key]);
                 };
-
                 li.appendChild(a);
               } else {
                 const folder = document.createElement("strong");
@@ -123,7 +120,6 @@
           addItems(data, nav);
         }
 
-        // ← Beim Laden prüfen, ob ein Hash gesetzt ist
         function loadFromHash() {
           const hash = window.location.hash.slice(1);
           if (hash) loadFile(hash);
@@ -136,6 +132,6 @@
     </script>
 
     <!-- Vite Entry -->
-    <script type="module" src="/src/ts/main.ts"></script>
+    <script type="module" src="../src/ts/main.ts"></script>
   </body>
 </html>

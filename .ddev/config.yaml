@@ -1,0 +1,11 @@
+name: knowledge-base
+type: php
+docroot: public
+php_version: "8.2"
+webserver_type: nginx-fpm
+router_http_port: "8080"
+router_https_port: "8443"
+use_dns_when_possible: true
+provider: default
+additional_hostnames: []
+additional_fqdns: []

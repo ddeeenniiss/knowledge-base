@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = './';
-const ignore = ['node_modules', '.git', '.github', 'docs', 'dist', 'public'];
+const ignore = ['node_modules', '.git', '.github', 'docs', 'dist'];
 
 function walk(dir) {
   const result = {};
@@ -16,7 +16,7 @@ function walk(dir) {
       if (Object.keys(sub).length > 0) {
         result[file] = sub;
       }
-    } else if (file.endsWith('.php')) { // oder .md, je nach Bedarf
+    } else if (file.endsWith('.php') || file.endsWith('.html') || file.endsWith('.md')) {
       result[path.basename(file, path.extname(file))] =
         path.relative(rootDir, fullPath).replace(/\\/g, '/');
     }
@@ -25,5 +25,5 @@ function walk(dir) {
 }
 
 const structure = walk(rootDir);
-fs.writeFileSync('structure.json', JSON.stringify(structure, null, 2));
-console.log('structure.json wurde erstellt!');
+fs.writeFileSync('public/structure.json', JSON.stringify(structure, null, 2));
+console.log('public/structure.json wurde erstellt!');
