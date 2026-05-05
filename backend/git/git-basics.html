@@ -1,0 +1,119 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>Git Basics</h1>
+    <h2>Projekt klonen</h2>
+    <p>
+      Um ein Projekt aus einem Git-Repository zu klonen, verwende den folgenden
+      Befehl:
+    </p>
+
+    <p>git clone repository-url</p>
+    <p>
+      Ersetze repository-url durch die URL des Git-Repositorys, das du klonen
+      möchtest. Zum Beispiel:
+    </p>
+
+    <p>git clone https://gitlab.com/username/repository.git</p>
+    <p>
+      Dieser Befehl erstellt ein Verzeichnis mit dem Namen des Repositorys und
+      lädt den gesamten Inhalt des Repositorys in dieses Verzeichnis.
+    </p>
+
+    <h2>Commits erstellen</h2>
+    <p>
+      Wir wollen unsere Commits immer übersichtlich erstellen, daher ein paar
+      Grundregeln:
+    </p>
+
+    <p>
+      Lade deine Änderungen immer in kleinen abgeschlossenen Paketen hoch, in
+      denen die Änderung klar definiert ist.
+    </p>
+
+    <p>Schreibe deine Änderung kurz und knapp in die Commit-Message.</p>
+
+    <p>Füge den Link zum Asana-Ticket in die Commit-Message ein</p>
+
+    <p>Schreibe deine Commits auf englisch.</p>
+
+    <p>Add button hover-effect.</p>
+
+    <p>asana-link</p>
+    <p>
+      Um Änderungen in dein entferntes Repository hochzuladen, verwende den
+      Befehl git push. Wenn du sicherstellen möchtest, dass dein lokaler Branch
+      auf dem neuesten Stand ist und keine Konflikte auftreten, kannst du die
+      Optionen rebase und autostash verwenden.
+    </p>
+
+    <p>
+      Der Befehl git push mit den Optionen rebase und autostash sieht wie folgt
+      aus:
+    </p>
+
+    <p>git pull --rebase --autostash</p>
+
+    <p>Git Commit Nachrichten immer nach folgendem Schema:</p>
+    <ul>
+      <li>Feat: Neues Feature (Funktionalität für User, die Seite kann danach mehr)</li>
+      <li>Fix: Fehlerbehebung</li>
+      <li>Refactor: Umstrukturierung des Codes ohne Verhaltensänderung</li>
+      <li>Docs: Dokumentationsänderungen</li>
+      <li>Module: Neues Modul erstellt</li>
+      <li>Chore: Projekt Konfiguration geändert / package.json geändert</li>
+      <li>Style: Stylingänderungen</li>
+      <li>Revert: Einzelne Schritte rückgängig machen</li>
+    </ul>
+    <h3>git push</h3>
+    <p>
+      --rebase: Diese Option sorgt dafür, dass deine lokalen Änderungen auf die
+      neuesten Änderungen im entfernten Repository angewendet werden. Dadurch
+      wird eine saubere, lineare Historie erstellt.
+    </p>
+
+    <p>
+      --autostash: Diese Option speichert automatisch deine lokalen Änderungen,
+      bevor der Rebase-Prozess beginnt, und stellt sie danach wieder her. Das
+      ist besonders nützlich, wenn du ungespeicherte Änderungen hast.
+    </p>
+
+    <h3>Feature-Branches</h3>
+    <p>
+      Oft sollen neue funktionen implementiert werden, welche nicht direkt live
+      gehen sollen. Dafür eignen sich sogenannte feature-Branches. Soll ein
+      solches feature angelegt werden, wird ein neuer Branch
+      feature/feature-name angelegt.
+    </p>
+
+    <p>
+      Nachdem ein Feature getestet und fertig für den Livegang ist, wird es in
+      den main-Branch gemerged.
+    </p>
+    <h2>Rebase und Merge</h2>
+    <p>Da wir Merge-Commits in unserer Git-Historie vermeiden wollen, müssen die merges auf eine ganz bestimmte Weise vorgenommen werden.</p>
+
+    <p>Wichtig ist dabei, dass immer ein Rebase durchgeführt wird, damit werden Konflikte weitestgehend vermieden.</p>
+
+    <h2>Branches zusammenzuführen</h2>
+    <p>Die Branches, welche gemerged werden sollen auf den aktuellen Stand bringen</p>
+    <pre>git checkout master</pre>
+
+    <pre>git pull</pre>
+
+    <pre>git checkout feature/example</pre>
+
+    <pre>git pull</pre>
+    <p>Rebase den feature-Branch auf den neuesten Stand von master</p>
+    <pre>git rebase master --no-verify</pre>
+    <p>Wechsel zurück zum master Branch und führe einen Fast-Forward Merge durch, um die Änderungen vom feature Branch in master zu integrieren</p>
+    <pre>git checkout master</pre>
+
+    <pre>git merge --ff-only feature/example</pre>
+
+    <pre>git push</pre>
+    <p>Lösche den lokalen und den Remote feature Branch</p>
+    <pre>git branch -D feature/example</pre>
+
+    <pre>git push origin --delete feature/example</pre>
+  </div>
+</div>

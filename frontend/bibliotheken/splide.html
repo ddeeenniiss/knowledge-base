@@ -1,0 +1,56 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>Splide Bibliothek - Vorgefertigte Slider Funktionalität</h1>
+
+    <pre>
+        <code>
+        &lt;section class="nou-slider splide"&gt;
+        </code>
+    </pre>
+    <p>Die splide Klasse markiert das Root Element des Sliders. Im JavaScript wird der Slider darauf initialisiert.
+        zB so:
+    </p>
+    <pre>
+        new Splide('.splide').mount();
+    </pre>
+    <p>Dieses Element enthält alles was zum Slider gehört, also Track, Slides, Pagination (Punkte für jedes Slide) und Pfeile.</p>
+    <pre>&lt;div class="nou-slider__track splide__track"&gt;</pre>
+    <p>splide__track ist das sichtbare Fenster des Sliders. Es enthält die Slide-Liste und bewegt darin die Slides.</p>
+    <pre>
+        &lt;ul class="nou-slider__list splide__list"&gt;
+    </pre>
+    <p>splide__list wird von Splide horizontal bewegt (bewegte Ebene)</p>
+    <pre>&lt;li class="nou-slider__item splide__slide"&gt;</pre>
+    <p>Die splide__slide sind die einzelnen Slides. Jedes li Element ist dabei eins. Daraus wird die Breite der Slides, der Abstand und die
+        Anzahl der sichtbaren Slides (perPage) berechnet.
+    </p>
+    <pre>&lt;div class="nou-slider__image"&gt; und &lt;div class="nou-slider__content"&gt;</pre>
+    <p>In den einzelnen Slides lässt sich dann alles einbauen. Splide selbst interessiert nur splide,
+        splide__track, splide__list und splide__slide
+    </p>
+    <pre>&lt;ul class="nou-slider__pagination splide__pagination"&gt;</pre>
+    <p>Die splide__pagination sind die einzelnen Punkte, die für die Navigation vorliegen unter den Slides</p>
+    <pre>&lt;div class="splide__arrows"&gt;</pre>
+    <p>In splide__arrows liegen die splide__arrow Pfeile. Diese haben nochmal splide__arrow--prev und splide__arrow--next und
+     lösen intern prev() und next() aus. </p>
+     <h2>Gesamtes Mini Gerüst: </h2>
+     <pre>
+        &lt;section class="splide"&gt;
+            &lt;div class="container"&gt;
+                &lt;div class="splide__track"&gt;
+                    &lt;div class="splide__slide"&gt;
+                    &lt;/div&gt;
+                    &lt;div class="splide__slide"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="nou-slider__controls"&gt;
+                    &lt;div class="splide__pagination"&gt;
+                    &lt;/div&gt;
+                    &lt;div class="splide__arrows"&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+     </pre>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>JS - JavaScript</h1>
+    <p>JavaScript ist eine Scriptsprache, nicht typisiert (dynamisch typisiert) und wird interpretiert. Es ist objektorientiert, aber ohne Klassen.</p>
+    <h2>Variablen</h2>
+    <p>Variablen sind Namen für den Ort im Speicher</p>
+    <h2>Kommentare</h2>
+    <p>In JavaScript funktionieren Kommentare durch einen Zeilenkommentar // oder /**/ für mehrzeilige 
+      Kommentare.
+    </p>
+    <h2>Datentypen</h2>
+    <p>JavaScript verwendet intern ganze Zahlen, Gleitkommazahlen, Zeichenketten, Boolesche Werte, Objekte</p>
+    <h2>noscript Tag</h2>
+    <p>wird nur dann ausgeführt, wenn kein JavaScript ausgeführt werden kann</p>
+
+    <h2>Zeichenketten</h2>
+    <p>Zeichenketten werden durch '' oder "" begrenzt. Kompositionen davon werden durch ein + zusammengefügt.</p>
+
+    <h2>Eigenschaften (Propertys)</h2>
+    <p>s.length gibt die Anzahl der Zeichen bzw Elemente als int zurück.</p>
+    <p>[1,2,3].length ist 3, genauso "Abc"</p>
+    <p>s.substring(1,4) gibt einen substring ab Index a bis ausschließlich b</p>
+
+    <h2>Arrays</h2>
+    <p>Arrays sind Listen</p>
+
+    <h2>Sicherheit</h2>
+    <p>JavaScript ist aktiver Code, der im Browser ausgeführt wird. Das ist potentielles Sicherheitsrisiko. Das Grundprinzip
+      der Sicherheit ist Sandbox (eingesperrt ohne Zugriff auf Dateisystem). Jeder Browser führt JS schon in einer Sandbox aus. Weiterhin
+      ist ein Container/VM wie Docker eine sichere Methode.
+    </p>
+    <p>JavaScript kann PopUps öffnen womit man Nutzer fluten kann. Daher wird window.open von Popup Blocker blockiert.</p>
+    <h3>XSS - Cross Site Scripting</h3>
+    <p>Einbinden von schädlichem JavaScript in eine andere, vertrauenswürdige Seite. zB über Formulareingaben oder HTTP Parameter.</p>
+    <p>Um das vorzubeugen muss verhindert werden, dass eingegebene Daten Skripte enthalten können.</p>
+    <h2>IntersectionObserver</h2>
+    <p>
+      Der IntersectionObserver ermöglicht es, das Sichtbarkeitsverhalten von
+      Elementen im Viewport zu überwachen. Dies ist besonders nützlich für Lazy
+      Loading von Bildern, Infinite Scrolling oder das Auslösen von Animationen,
+      wenn ein Element in den sichtbaren Bereich des Bildschirms gelangt.
+    </p>
+    <p>Beispiel: Module bei straehle, die in den Bildschirm einfaden</p>
+    <pre>
+  <code>
+    document.addEventListener('DOMContentLoaded', () => {
+  const elements = document.querySelectorAll&lt;HTMLElement&gt;('.animate-on-scroll');
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target); // nur einmal animieren
+        }
+      });
+    },
+    {
+      threshold: 0.1 // 10% sichtbar = Animation starten
+    }
+  );
+
+  elements.forEach(el => observer.observe(el));
+});
+</code>
+</pre>
+
+    <h2>DOMContentLoaded</h2>
+    <p>
+      Das DOMContentLoaded-Ereignis tritt auf, sobald der HTML-Dokument-Inhalt
+      vollständig geladen und geparst wurde, ohne auf externe Ressourcen wie
+      Bilder oder Skripte zu warten. Es ist nützlich, um sicherzustellen, dass
+      das DOM (zB. Buttons, Listen, Nav Elemente) bereit ist, bevor
+      JavaScript-Operationen ausgeführt werden.
+    </p>
+    <pre><code>document.addEventListener('DOMContentLoaded', () => {});
+</code></pre>
+
+    <h2>DOM (Document Object Model)</h2>
+    <p>
+      ist eine Schnittstelle, um den Inhalt, die Struktur und das Styling eines
+      HTML-Dokuments dynamisch zu verändern. Es repräsentiert das Dokument als
+      Baumstruktur, wobei jedes Element im Baum ein Objekt ist, das über
+      JavaScript manipuliert werden kann. Der Einstiegspunkt dafür ist .document
+    </p>
+    <p>Es gibt dabei drei wirkliche Wurzeln:</p>
+    <ul>
+      <li>window: aktuelles Browserfenster, globales Objekt im Browser. Darauf liegen zB document, localStorage, setTimeout, 
+        console, location zB. window.innerWidth. window ist dabei Standard und muss nicht geschrieben werden.
+      </li>
+      <li>screen: Bildschirminfos wie screen.width (fast nie gebraucht)</li>
+      <li>navigator: Browserinfos / Geräteinfos zB navigator.language</li>
+    </ul>
+
+    <h2>Event Listener</h2>
+    <p>
+      Ein Event Listener ist eine Funktion, die auftritt, wenn ein bestimmtes
+      Ereignis (z.B. Klick, Hover) auf einem Element passiert. Sie ermöglicht
+      es, auf Benutzerinteraktionen zu reagieren und dynamische Aktionen
+      auszuführen.
+    </p>
+    <pre><code>element.addEventListener('click', function() {
+  // Aktion bei Klick
+});
+</code></pre>
+    <h2>Beispiel: Button Klick Event Listener</h2>
+    <pre><code>document.addEventListener('DOMContentLoaded', () => {
+  const button = document.getElementById('myButton');
+  button.addEventListener('click', () => {
+    alert('Button wurde geklickt!');
+  });
+});
+</code></pre>
+    <p>
+      getElementById() ist eine Methode des DOM, um ein Element anhand seiner ID
+      zu finden.
+    </p>
+    <p>
+      getElementByClassName() ist eine Methode des DOM, um Elemente anhand ihres
+      Klassennamens zu finden.
+    </p>
+    <p>
+      querySelector() ist eine Methode des DOM, um das erste Element zu finden,
+      das einem CSS-Selektor entspricht.
+    </p>
+    <p>
+      querySelectorAll() ist eine Methode des DOM, um alle Elemente zu finden,
+      die einem CSS-Selektor entsprechen.
+    </p>
+    <p>
+      getElementByTagName() ist eine Methode des DOM, um alle Elemente zu
+      finden, die einem HTML-Tagnamen entsprechen.
+    </p>
+
+    <h2>Schlüsselwort return</h2>
+    <p>return verlässt die Funktion sofort.</p>
+    <p>
+      zB if (!button) return; // Funktion verlassen, wenn Button nicht gefunden
+      wurde (Guard Clause). Dann wird restlicher Code garnicht erst ausgeführt.
+      Dadurch werden Fehler vermieden, wenn das Element nicht da ist.
+    </p>
+    <h2>const rect = section.getBoundingClientRect();</h2>
+    <p>
+      Gibt ein Objekt mit der Größe und Position eines Elements in Bezug zum Viewport
+      zurück (in dem Fall section).
+    </p>
+    <pre>
+{ top: 120,
+          bottom: 820,
+          left: 0,
+          right: 0,
+          width: 1440,
+          height: 700
+    }
+    </pre>
+    <p>rect.top = 0 bedeutet also, dass das Element genau oben im Viewport beginnt.</p>
+    <p>rect.top = -300 wäre der gescrollte Zustand, also 300px oben raus</p>
+    <h2>const styles = window.getComputedStyle(section);</h2>
+    <p>Damit holt man sich alle berechneten CSS Werte eines Elements. Also zB margin-top</p>
+    <h2>const marginTop = parseFloat(styles.marginTop) || 0;</h2>
+    <p>wandelt einen String in eine Fließkommazahl (Number) um. Also 20px in 20 und 1.5em in 1.5, auto wird zu
+      NaN, daher || 0
+    </p>
+  </div>
+</div>

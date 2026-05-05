@@ -1,0 +1,662 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>HTML (HyperText Markup Language)</h1>
+    <p>HTML ist die Standard Markup Language für Webseiten. HTML beschreibt die Struktur einer Website.</p>
+    <pre>
+      <!DOCTYPE html> <!-- Deklariert das HTML Dokument -->
+      <head> <!-- Metainformationen der Website -->
+        <title>Titel der Website</title>
+      </head>
+      <body> <!-- Inhalt der Website -->
+        <h1>Höchstrangige semantische Überschrift der Seite</h1>
+        <p>Ein Absatz mit Text</p>
+      </body>
+    </pre>
+    <h2>img</h2>
+    <div class="image-hover">
+      <img
+        src="../../assets/example.jpg"
+        alt="Beschreibung des Bildes"
+        title="Text bei Hover"
+      />
+    </div>
+    <p>HTML-Tag für Bilder (Self-Closing, kein schließendes img Tag nötig)</p>
+
+    <p>src („Source“) ist die Datei/URL des Bildes. Angabe als</p>
+    <pre>relative URL: "images/logo.png"</pre>
+    <p>oder als</p>
+    <pre>absolute URL: "https://example.com/logo.png"</pre>
+    <p>
+      alt „Alternative Text“ ist die Beschreibung, falls das Bild nicht geladen
+      wird. Beschreibt das Bild für Screenreader (Menschen mit Sehbehinderung,
+      Pflichtfeld) Wichtig für SEO (Suchmaschinen lesen alt aus)
+    </p>
+
+    <p>
+      title (Text erscheint bei hover, Zusatzinformation zum Bild, aber keine
+      Pflicht)
+    </p>
+    <h3>Größen von Bildern in Webseiten</h3>
+    <p>Allgemein sollten Bilder immer komprimiert werden. 1000kB = 1MB</p>
+    <p>Kleine Bilder liegen bei &lt;100kB</p>
+    <p>Content Bilder liegen bei 150-300kB</p>
+    <p>Hero Bilder liegen bei 300-500kB</p>
+
+    <h3>Image Maps</h3>
+    <p>Mit Image Maps kann man auf ein Bild klicken und auf verschiedene Bereiche des Bilder verlinken.
+      Dafür einfach ein img Tag anlegen mit usemap Referenz auf die Map, sowie ein map Tag mit klickbaren
+      Bereichen (areas). Dafür gibt es rect, circle, poly und default (ganzer Bereich).
+      Bei circle sind die ersten beiden Koordinaten der Mittelpunkt und der dritte Wert ist der Radius.
+    </p>
+    <pre>
+      <img src="" alt="" usemap="#mapname">
+      <map name="mapname">
+        <area shape="rect" coords="34, 44, 270, 350" alt="Computer" href="">
+        <area shape="circle" coords="337, 300, 44" alt="Phone" href="">
+      </map>
+    </pre>
+    <h2>nav</h2>
+    <p>
+      &lt;nav&gt; ist ein semantisches HTML-Element, das Navigation enthält. Es
+      zeigt wichtige Links, die die Benutzer durch die Hauptstruktur der Website
+      führen. Browser, Screenreader und Suchmaschinen erkennen &lt;nav&gt; als
+      Navigationsbereich. aria-label: Benennung für mehrere Navigationsbereiche
+    </p>
+
+    <nav aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="#home">Start</a></li>
+        <li><a href="#about">Über uns</a></li>
+        <li><a href="#services">Leistungen</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </nav>
+
+
+    <h2>Links</h2>
+    <p>Links werden mit einem &lt;a&gt; Tag erstellt. Das Attribut href gibt den Link an.</p>
+    <p>target="" bestimmt dabei, wo der Link geöffnet wird. Standard ist immer _self (gleiches Fenster).
+      _blank öffnet den Link in einem neuen Tab oder Fenster. _blank sollte immer mit rel="noopener" oder rel="noreferrer" kombiniert werden, um phishing Angriffe zu vermeiden. _parent öffnet das Dokument im übergeordneten Frame. Das ist dann
+      relevant, wenn der Link in einem iframe eingebettet ist. Dann greift _parent auf das übergeordnete Dokument zu und wirkt quasi wie _self.
+      <pre>
+          <iframe src="">
+            <a href="" target="_parent">Link</a>
+          </iframe>
+      </pre>
+      _top öffnet das Dokument im gesamten Fensterbereich. Das ist relevant bei mehreren Verschachtelungen von iframes. _top greift auf das oberste Dokument zu und öffnet den Link dort wie _self.
+    </p>
+    <h2>href</h2>
+    <p>
+      href = „Hypertext REFerence“ = Ziel des Links könnte sein: URL zu einer
+      anderen Seite, Interner Anker auf derselben Seite (#), Externe URL
+    </p>
+
+    <a href="#">Hier klicken</a>
+
+    <p>
+      (#) = Verweis auf den Seitenanfang / leeren Anker Macht die Seite nicht
+      neu, springt zum Top Problem: ohne preventDefault() springt die Seite nach
+      oben → nicht ideal
+    </p>
+
+    <a href="/">Startseite</a>
+
+    <p>
+      / = Root der Domain (Startseite der Website) Absoluter Pfad relativ zur
+      Domain Beispiel: https://example.com/ → / verweist darauf
+    </p>
+
+    <a href="#section-about">Springe zu Element mit id="section-about"</a>
+
+    <p>
+      Springt zu einem Element mit id="section-about" Praktisch für
+      One-Page-Websites oder Inhaltsverzeichnisse
+    </p>
+    <p>Dasselbe geht auch mit Anker Links auf externe Seiten mit href="externeSeite.html#id"</p>
+
+    <section id="section-about">
+      <h2>Über uns</h2>
+    </section>
+
+    <h3>mailto:</h3>
+    <p>Um direkt auf eine Email Adresse zu verlinken, kann man im href-Attribut direkt die Email verlinken:
+      <pre><a href="mailto:email@example.de">Email senden</a></pre>
+    </p>
+
+    <h2>code explanation:</h2>
+    Zeile x: > ⚠️ Achtung: Vergiss nicht `echo $mform->show();`
+  <h2>HTML Attribute</h2>
+  <p>Attribute liefern zusätzliche Informationen zu den HTML Elementen.</p>
+  <h2>Überschriften</h2>
+  <p>Ein &lt;h1&gt; bis &lt;h6&gt; Tag ist eine Überschrift die nach Wichtigkeit der Semantik geordnet ist.
+    Eine h1 gibt es pro Seite nur einmal. h2 bis h6 können für Unterpunkte verwendet werden. Aber immer nachfolgend und nicht zB h2 auf h4,
+    da dies die semantische Struktur der Seite durcheinander bringt. Suchmaschinen und Screenreader nutzen die Semantik, um die Struktur einer Seite zu verstehen.
+  </p>
+  <h2>Horizontale Linie
+  </h2>
+  <p>eine horizontale Linie wird mit einem
+    <pre>&lt;hr&gt;</pre> Tag dargestellt. Es ist Self-Closing und stellt einen
+    thematischen Bruch dar.
+  </p>
+  <h2>Umbrüche</h2>
+  <p>Ein &lt;br&gt; Tag erzeugt einen Zeilenumbruch. Es ist ein Self-Closing Tag.</p>
+  <h2>&lt;pre&gt; Tag - vordefinierte Formatierung</h2>
+  <p>Das pre Tag gibt Text mit einer vordefinierten Breite aus mit Leerzeichen und Umbrüchen.</p>
+  <h2>Formatierungselemente</h2>
+  <p><b>bold Schrift mit b Tag. Dicke Schrift ohne semantische Bedeutung</b></p>
+  <p><strong>strong Schrift mit strong Tag. Ähnlich zu bold, aber mit semantischer Bedeutung. Wichtiger Inhalt.</strong></p>
+  <p><i>italic Schrift mit i Tag. Kursiv formatiert ohne sematische Bedeutung.</i></p>
+  <p><sub>Untere Schriftzeile sub als Subscript</sub> und <sup>Hochgestellte Schriftzeile sup als Superscript</sup>. Kann für Formeln, Potenzen,
+  Fußnoten verwendet werden.</p>
+  <p><em>emphasized Text mit em Tag. Semantische Betonung des Textes für Screenreader.</em></p>
+  <p><mark>Markierter Text, optisch hervorgehoben wie mit Textmarker durch mark Tag</mark></p>
+  <p><small>Kleiner Text mit small Tag</small></p>
+  <p><del>Durchgestrichener Text mit del Tag. Oft für veraltete/ entfernte Inhalte verwendet.</del></p>
+  <p><ins>Unterstrichener Text mit ins Tag. Oft für hinzugefügte Inhalte verwendet.</ins></p>
+  <p><u>Unterstrichener Text mit u Tag, nur optisch.</u></p>
+  <p><blockquote>Ein blockquote Tag dient zur Formatierung von Zitaten.</blockquote></p>
+  <p>Ein bdo Tag schreibt Text von rechts nach links.<bdo dir="rtl">Rechts nach links</bdo></p>
+
+  <h2>Kommentare</h2>
+  <p>Kommentare in HTML werden mit &lt;!-- Kommentar --&gt; geschrieben. Sie werden vom Browser ignoriert
+    und dienen zur Dokumentation oder zum temporären Auskommentieren von Code.
+  </p>
+  <h2>picture Tag</h2>
+  <p>Das picture Tag erlaubt es, verschiedene Bilder für verschiedene Bildschirmgrößen oder -auflösungen zu verwenden. 
+    Es ermöglicht die Angabe von mehreren source Tags mit unterschiedlichen media Attributen, um responsive Bilder zu erstellen.
+    Das img Tag innerhalb des picture Tags dient als Fallback, falls keine der angegeben Bedingungen erfüllt ist.
+  </p>
+  <pre>
+    <picture>
+      <source media="(min-width:800px)" srcset="img.png">
+      <source media="(min-width:400px)" srcset="img-small.png">
+      <img src="default.png" alt="Fallback für source Elemente">
+
+    </picture>
+  </pre>
+  <p>src ist dabei immer die echte Bild URL die der Browser lädt</p>
+  <p>srcset sucht sich je nach Bildschirmgröße und Netzwerk das passende aus. srcset funktioniert nur mit src sinnvoll</p>
+  <p>Machmal wird hinter src-set ein 1x bzw 2x gesetzt. Der Browser wählt sich bei hochauflösenden Displays hier dann das größere Bild
+    mit 2x aus. Die Bilder haben dort immer verschiedene Auflösung
+  </p>
+  <h2>HTML Favicon</h2>
+  <p>Ein Favicon ist ein kleines Bild, das in der Browserleiste oder im Tab angezeigt wird. Es wird
+    als link Tag im head Bereich der HTML Seite definiert. Klassische Benennung ist immer favicon.ico
+  </p>
+  <pre>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  </pre>
+  <h2>table</h2>
+    <pre>
+      <table>
+        <tr>
+          <th>Erste Reihe links hervorgehoben</th>
+          <td>Erste Reihe zweite Spalte</td>
+        </tr>
+        <tr>
+          <td>Zweite Reihe erste Spalte</td>
+          <td>Zweite Reihe zweite Spalte</td>
+        </tr>
+      </table>
+    </pre>
+    <p>Jede Tabellenzelle ist eine &lt;td&gt; table data. tr steht für table row und th für table header. table header sind 
+      bold und zentriert (über css anpassen).
+    </p>
+    <h2>li - list item</h2>
+    <p>erzeugt einen Marker (Bullet Point) für Listenelemente, da es ein list-item Display Type hat.</p>
+   <h2>Block Elemente</h2>
+   <p>Block Elemente belegen die gesamte Breite des Elterncontainers und beginnen immer in einer neuen Zeile. Abstand vor und nach dem Element wird
+    automatisch hinzugefügt. Beispiele sind &lt;div&gt;, section, article, header, footer, nav, ul, ol, table und p.
+   </p>
+   <p>p steht für paragraph und definiert einen Absatz.</p>
+   <p>div steht für division und definiert einen Abschnitt im HTML Dokument. Es wird als Container für andere HTML Elemente verwendet. Attribute style, class
+    und id sind üblich. Ein div Element kann mit margin: auto; zentriert werden.
+   </p>
+   <table>
+    <tr><th>Element</th><th>Display Type</th></tr>
+    <tr><td>div</td><td>block</td></tr>
+    <tr><td>p</td><td>block</td></tr>
+    <tr><td>h1 - h6</td><td>block</td></tr>
+    <tr><td>section</td><td>block</td></tr>
+    <tr><td>article</td><td>block</td></tr>
+    <tr><td>aside</td><td>block</td></tr>
+    <tr><td>header</td><td>block</td></tr>
+    <tr><td>footer</td><td>block</td></tr>
+    <tr><td>main</td><td>block</td></tr>
+    <tr><td>nav</td><td>block</td></tr>
+    <tr><td>form</td><td>block</td></tr>
+    <tr><td>fieldset</td><td>block</td></tr>
+    <tr><td>legend</td><td>block</td></tr>
+    <tr><td>address</td><td>block</td></tr>
+    <tr><td>blockquote</td><td>block</td></tr>
+    <tr><td>pre</td><td>block</td></tr>
+    <tr><td>hr</td><td>block</td></tr>
+    <tr><td>ul</td><td>block</td></tr>
+    <tr><td>ol</td><td>block</td></tr>
+    <tr><td>li</td><td>block</td></tr>
+    <tr><td>dl</td><td>block</td></tr>
+    <tr><td>dt</td><td>block</td></tr>
+    <tr><td>dd</td><td>block</td></tr>
+    <tr><td>details</td><td>block</td></tr>
+    <tr><td>span</td><td>inline</td></tr>
+    <tr><td>a</td><td>inline</td></tr>
+    <tr><td>strong</td><td>inline</td></tr>
+    <tr><td>em</td><td>inline</td></tr>
+    <tr><td>b</td><td>inline</td></tr>
+    <tr><td>i</td><td>inline</td></tr>
+    <tr><td>small</td><td>inline</td></tr>
+    <tr><td>abbr</td><td>inline</td></tr>
+    <tr><td>cite</td><td>inline</td></tr>
+    <tr><td>code</td><td>inline</td></tr>
+    <tr><td>sub</td><td>inline</td></tr>
+    <tr><td>sup</td><td>inline</td></tr>
+    <tr><td>label</td><td>inline</td></tr>
+    <tr><td>iframe</td><td>inline</td></tr>
+    <tr><td>canvas</td><td>inline</td></tr>
+    <tr><td>video</td><td>inline</td></tr>
+    <tr><td>audio</td><td>inline</td></tr>
+    <tr><td>img</td><td>inline-block</td></tr>
+    <tr><td>input</td><td>inline-block</td></tr>
+    <tr><td>textarea</td><td>inline-block</td></tr>
+    <tr><td>select</td><td>inline-block</td></tr>
+    <tr><td>button</td><td>inline-block</td></tr>
+    <tr><td>li</td><td>list-item</td></tr>
+
+
+   </table>
+   <h2>Inline Elemente</h2>
+   <p>Inline Elemente beginnen nicht in einer neuen Zeile und belegen nur so viel Platz wie nötig.</p>
+   <p>Beispiele sind span, a, i, img, textarea, var</p>
+   <p>Inline Elemente dürfen kein Blockelement enthalten. Browser würden automatisch das inline Element 
+    vorher schließen und das Blockelement danach öffnen. width und height funktionieren nicht. margin und padding
+    funktionieren nicht korrekt.
+   </p>
+   <p>span ist ein Inline Container, der für die Formatierung von Text innerhalb von anderen Elementen verwendet wird.</p>
+
+   <h2>inline-block Elemente</h2>
+   <p>width, height, margin und padding funktionieren vollständig</p>
+   <p></p>
+   <h2>Buttons</h2>
+   <p>Ein Button ist ein klickbares Element, das seine Funktion dann erhält, wenn man ihm eine Aktion zuweist.</p>
+   <p>Um einen Button zu deaktivieren, kann man das Attribut disabled hinzufügen. Eine Aktion wird durch JavaScript oder CSS ausgelöst zB durch 
+    onclick="alert('Button geklickt!')".
+   </p>
+   <p>Ein Button hat mehrere type Attribute. Ein type="button" ist der Standardtyp, type="submit" sendet ein Formular ab, type="reset" setzt Formularfelder zurück.</p>
+   <pre>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset Form</button>
+   </pre>
+   <h2>Iframes - Anzeigen einer Webseite in einer Webseite</h2>
+   <p>Eine iframe (inline frame) bindet ein Dokument in das aktuelle HTML Dokument ein.</p>
+   <pre>
+    <iframe src="url" title="description"></iframe>
+   </pre>
+   <p>Standardmäßig hat ein iframe einen Rand. src="" ist die Quelle des eingebundenen Dokuments. Höhe und Breite des iframes
+    sollten entsprechend angepasst werden, damit der Inhalt vollständig angezeigt wird. title empfiehlt sich ebenso, damit Screenreader den Inhalt des iframes verstehen.
+   </p>
+  <h3>Iframe - Zieliframe für einen Link</h3>
+  <p>Ein iframe kann als Zieliframe für einen Link verwendet werden. Das target Attribut des Links muss sich auf das name Attribut des iframes beziehen.</p>
+  <pre>
+    <iframe src="" name="iframe_a" title="">
+      <a href="" target="iframe_a">Link Name
+      </a>
+    </iframe>
+  </pre>
+  <h2>script Tag</h2>
+  <p>Das script Tag wird verwendet, um ein clientseitiges Skript in eine HTML einzubauen. zB für Bildverarbeitung,
+    Formularvalidierung, Animationen und dynamische Inhaltsänderungen. Mit JavaScript können auch src Attribute 
+    geändert werden.
+  </p>
+  <h2>noscript Tag</h2>
+  <p>Das noscript Tag wird verwendet, um Inhalte anzuzeigen, wenn JavaScript im Browser deaktiviert ist.</p>
+  <pre>
+    <noscript>JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript</noscript>
+  </pre>
+  <h2>HTML Dateipfade</h2>
+  <pre><img src="picture.jpg" alt="Bild">
+  <p>Die Datei picture.jpg befindet sich im gleichen Verzeichnis wie die aktuelle Seite.</p></pre>
+  <pre><img src="images/picture.jpg" alt="Bild">
+  <p>Die Datei picture.jpg befindet sich im Ordner images im aktuellen Ordner.</p></pre>
+  <pre><img src="/images/picture.jpg" alt="Bild">
+  <p>Die Datei picture.jpg befindet sich im Root-Verzeichnis im Ordner images.</p></pre>
+  <pre><img src="../picture.jpg" alt="Bild">
+  <p>Die Datei picture.jpg befindet sich im Ordner eine Ebene über dem aktuellen Ordner.</p></pre>
+  <h3>Absolute Pfade</h3>
+  <p>Ein absoluter Pfad beginnt immer mit einem Schrägstrich und ist im Root-Verzeichnis des Servers.</p>
+  <h3>Relative Pfade</h3>
+  <p>Ein relativer Pfad ist ein Pfad, der relativ zum aktuellen Dokument ist. Er beginnt nicht mit einem Schrägstrich.</p>
+  <pre><img src="/images/picture.jpg" alt="Bild">
+  <p>Verweist auf eine Datei im Ordner images, der sich im aktuellen Ordner befindet.</p>
+<p>relative Pfade sollten bevorzugt werden, da sie nicht an die Basis URL gebunden sind. Alle Links funktionieren sowohl auf 
+  dem Computer (localhost) als auch auf dem Server, solange die relative Struktur der Dateien gleich bleibt.
+</p></pre>
+<h2>head Element</h2>
+<p>Das head Element enthält Metadaten über die HTML Seite, wie z.B. den Titel, inline Stylesheets, Skripte. </p>
+<h3>title Tag</h3>
+<p>Das title Tag definiert den Titel der HTML Seite, der in der Browserleiste angezeigt wird.
+  Der Inhalt eines Seitentitels ist für die Suchmaschinenoptimierung (SEO) wichtig, da Suchmaschinen den Titel verwenden, um die Relevanz einer Seite für Suchanfragen zu bestimmen.
+</p>
+<h3>link Tag</h3>
+<p>Das link Tag wird verwendet, um externe Ressourcen wie Stylesheets zu verlinken.</p>
+<pre>
+  <link rel="stylesheet" href="styles.css">
+</pre>
+<h2>meta Tag</h2>
+<p>Das meta Tag wird verwendet, um Metadaten über die HTML Seite zu definieren wie z.B:</p>
+<pre><meta charset="UTF-8"></pre>
+<p>für die Zeichencodierung der Seite</p>
+<pre><meta name="keywords" content="HTML, CSS, JavaScript"></pre>
+<p>für die Definition von Suchbegriffen (Keywords) für die Suchmaschinenoptimierung (SEO)</p>
+<pre><meta name="description" content="HTML Tutorial"></pre>
+<p>für die Beschreibung der Webseite</p>
+<pre><meta name="viewport" content="width=device-width, initial-scale=1.0"></pre>
+<p>für die responsive Darstellung auf mobilen Geräten.</p>
+<h3>base Tag</h3>
+<p>Das base Tag definiert einen Standard Link für alle relativ verlinkten Ressourcen auf der Seite.</p>
+<pre><base href="https://www.basislink.de/"></pre>
+<p>alle weiteren Links schließen sich nun auf diesen Standard Link auf und vervollständigen diesen.</p>
+<h2>Tags für Benutzereingaben</h2>
+<p>Dienen für SEO Suchmaschinenoptimierung, sauberer Struktur, Wartbarkeit und Barrierefreiheit. Sie beschreiben den Inhalt.</p>
+<h3>code Tag</h3>
+<p>Das code Tag wird verwendet, um Quellcode anzuzeigen. Um Leerzeichen und Zeilenumbrüche zu erhalten, 
+  sollte das code Tag innerhalb eines pre Tags verwendet werden.
+</p>
+<h3>kbd Tag</h3>
+<p>Das kbd Tag wird verwendet, um Tastatureingaben anzuzeigen. Der Inhalt wird per default in der monospace
+  Schriftart dargestellt.
+</p>
+<pre>
+  <p>Save the document by pressing <kbd>Ctrl + S</kbd></p>
+</pre>
+<h3>samp Tag</h3>
+<p>Das samp Tag wird verwendet, um Ausgaben von Programmen oder Systemen anzuzeigen.</p>
+<pre>
+  <p>Fehler: <samp>File not found. Press F1 to continue. </samp></p>
+</pre>
+<h3>var Tag</h3>
+<p>Das var Tag wird verwendet, um Variablen zu definieren. Der Inhalt wird per default in kursiver Schrift dargestellt.</p>
+<pre>
+  <p>Variable <var>a</var> ist 3 und <var>b</var> ist 5.</p>
+</pre>
+<h2>Semantische HTML Tags</h2>
+<h3>NICHT semantische HTML Tags</h3>
+<p>Hierzu gehören div und span. Sie sagen nichts über den Inhalt aus und dienen nur zur Container-Strukturierung.</p>
+  <h3>Semantische HTML Tags</h3>
+  <p>Semantische HTML Tags sind Tags, die den Inhalt und die Struktur der Seite beschreiben. Sie sind für Suchmaschinenoptimierung (SEO), 
+    Barrierefreiheit und die Wartbarkeit des Codes wichtig.
+  </p>
+  <h4>section Tag</h4>
+  <p>definiert einen Abschnitt einer Seite. Wird bei Modulen verwendet, da sie zusammen viele Abschnitte einer Seite bilden.</p>
+  <h4>article Tag</h4>
+  <p>definiert einen eigenständigen Inhalt einer Seite, der für sich allein sinnvoll ist. Ein article Tag kann innerhalb eines section Tags liegen.</p>
+  <h4>header Tag</h4>
+  <p>definiert den Header einer Seite oder eines Abschnitts. Enthält typischerweise Überschriften, Logo, Info zu Autoren</p>
+  <h4>footer Tag</h4>
+  <p>definiert den Footer einer Seite oder eines Abschnitts. Enthält typischerweise Urheberrechte, Kontaktinformationen, Sitemap</p>
+  <h4>nav Tag</h4>
+  <p>definiert eine Reihe von Navigationselementen innerhalb einer Seite.</p>
+  <h4>aside Tag</h4>
+  <p>definiert einen Inhalt, der sich vom Hauptinhalt der Seite unterscheidet. Typischerweise für Seitenleisten verwendet. Inhalt sollte indirekten
+    Zusammenhang zum Hauptinhalt haben.
+  </p>
+  <h4>figure Tag</h4>
+  <p>kennzeichnet ein in sich abgeschlossenes und eigenständigesElement wie Illustrationen, Diagramme, Fotos. Oft auch mit Bildunterschrift zusammen. Wenn es kein eigenständiges
+    Bild ist, dann kann lediglich img verwendet werden. Nicht verwenden bei icons im Button, keine Eigenständigkeit.
+  </p>
+  <p>zugehörig gibt es das figcaption Tag, das eine Beschriftung für das figure Element darstellt.</p>
+  <h4>img Tag</h4>
+  <p>definiert ein Bild in einer Seite. Bild ist Teil des Inhalts und benötigt keine Bildunterschrift.</p>
+  <p>Für Bilder ist es empfohlen, immer ein width und height anzugeben.</p>
+  <h2>htm Endungen</h2>
+  <p>In den 80/ 90er Jahren wurde die Endung .htm verwendet, da Dateiendungen nur 3 Zeichen lang sein durften. 
+    Das hat sich bis heute etabliert und kann ohne Nachteile verwendet werden. Wenn der Content-Type: text/html festgelegt
+    ist, dann ist die Endung irrelevant.
+  </p>
+  <h2>HTML Zeichenentitäten</h2>
+  <p>spezielle Kombinationen, die in HTML verwendet werden, um Sonderzeichen darzustellen, die sonst nicht im HTML erlaubt sind.</p>
+  <pre>
+    &nbsp; = non-breaking space (geschütztes Leerzeichen),
+    &lt; = kleiner als (<),
+    &gt; = größer als (>),
+    &amp; = kaufmännisches Und (&),
+    &quot; = Anführungszeichen ("),
+    &apos; = Apostrohph ('),
+    &euro; = Eurozeichen,
+    &copy; = Copyright-Zeichen
+  </pre>
+  <h2>canvas Tag</h2>
+  <p>Das canvas Tag wird verwendet, um dynamische Grafiken und Animationen auf einer Website darzustellen.
+    Grafiken können dynamisch mit JavaScript gezeichnet und aktualisiert werden.
+  </p>
+  <p>Ein Canvas Element bekommt immer eine ID und eine Breite und Höhe.</p>
+  <pre>
+    <canvas id="myCanvas" width="200" height="200"></canvas>
+  </pre>
+  <p>Mit JavaScript kann man auf das Canvas Element zugreifen und darin Grafiken zeichnen. Alles in einem
+    script Tag.
+  </p>
+  <pre>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.moveTo(0,0);
+    ctx.lineTo(200,100);
+    ctx.stroke();
+  </pre>
+  <p>Für einen Kreis wäre es:</p>
+  <pre>
+    ctx.beginPath();
+    ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+    ctx.stroke();
+  </pre>
+  <p>Das Canvas Element selbst lässt sich per css stylen. Aber alles was direkt per
+    JavaScript gezeichnet wird, wird über den Kontext gesteuert.
+  </p>
+  <pre>
+    ctx.font = "30px Arial";
+    ctx.fillText = ("Hello World", 10, 50); //Inhalt und Position
+    ctx.strokeText = ("Hello World", 10, 50); //Inhalt und Position nur umrandet
+  </pre>
+  <p>Es lassen sich auch Gradienten umsetzen.</p>
+  <pre>
+    var gradient = ctx.createLinearGradient(0, 0, 200, 0);
+    gradient.addColorStop(0, "red"); // Bei 0% rot
+    gradient.addColorStop(1, "white"); // Bei 100% weiß
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(10, 10, 150, 80); // Rechteck mit Farbverlauf
+  </pre>
+  <p>Es können auch Bilder eingezeichnet werden.</p>
+  <pre>
+    var img = document.getElementById("scream");
+    ctx.drawImage(img, 10, 10); //Bild und Position
+  </pre>
+  <h2>video Tag</h2>
+  <p>Das video Tag wird verwendet, um Videos auf einer HTML Seite anzuzeigen.</p>
+  <pre>
+    <video src="" width="200" height="200" controls>
+      <source src="" type="video/mp4">
+    </video>
+  </pre>
+  <p>Das controls Attribut fügt Videosteuerungselemente wie Wiedergabe, Pause und Lautstärke hinzu.</p>
+  <p>Das width und height Attribut sollte immer hinzugefügt werden, um die korrekte Darstellung des Videos zu 
+    gewährleisten und ein flackern der Seite beim laden zu vermeiden. Es können auch mehrere source Tags mit unterschiedlichen
+    Videoformaten hinzugefügt werden, um die Kompatibilität mit verschiedenen Browsern zu gewährleisten.
+  </p>
+  <h3>Das source Tag</h3>
+  <p>Das source Tag wird verwendet, um alternative Videoquellen anzugeben. Es kann mehrere source Tags in einem video Tag enthalten, um 
+    die Kompatibilität mit verschiedenen Browsern zu gewährleisten. Ein src und type Attribut sind erforderlich.
+  </p>
+  <h3>autoplay Attribut</h3>
+  <p>Das autoplay Attribut sorgt dafür, dass das Video automatisch abgespielt wird, sobald die Seite geladen ist.</p>
+  <h3>muted Attribut</h3>
+  <p>Das muted Attribut sorgt dafür, dass das Video stumm abgespielt wird.</p>
+  <h3>Video abspielen mit JavaScript</h3>
+  <pre>
+    <button onclick="playPause()">Play/Pause</button>
+    <video id="video1" width="200" height="200" controls>
+      <source src="movie.mp4" type="video/mp4">
+    </video>
+    <script>
+      var video = document.getElementById("video1");
+
+      function playPause(){
+        if(video.paused){
+          video.play();
+        } else{
+          video.pause();
+        }
+      }
+    </script>
+  </pre>
+  <h3>track Tag</h3>
+  <p>Das track Tag wird für Untertitel und andere Textspuren in Videos verwendet.</p>
+  <p>Die Tracks sind im WebVTT-Format (.vtt-Dateien) formatiert.</p>
+  <h3>audio Tag</h3>
+  <p>Das audio Tag wird verwendet, um Audioinhalte auf einer Website abzuspielen.</p>
+  <pre>
+    <audio controls>
+      <source src="audio.ogg" type="audio/ogg">
+    </audio>
+  </pre>
+  <p>Das controls Attribut fügt Audiosteuerungselemente wie Wiedergabe, Pause und Lautstärke hinzu.</p>
+  <p>Mit dem source Tag können alternative Audioquellen angegeben werden, um die Kompatibilität mit verschiedenen Browsern zu gewährleisten.</p>
+  <p>Empfehlende Formate sind mp3 und wav. ogg wird nicht von safari unterstützt.</p>
+  <h3>HTML Plugins</h3>
+  <p>HTML Plugins sind Computerprogramme, die die Funktionalität von Browsern erweitern.</p>
+  <p>Beispiele sind Java Applets, Microsoft ActiveX Controls, scannen nach Viren und Überprüfung einer Bank ID.</p>
+  <h3>object Tag</h3>
+  <p>Das object Tag wird verwendet, um externe Objekte (auch Plugins) in HTML Dokumente einzubinden.</p>
+  <pre>
+    <object data="snippet.html" type=""></object>
+  </pre>
+  <h3>embed Element</h3>
+  <p>Das embed Element wird verwendet, um externe Inhalte in HTML einzubinden.</p>
+  <h2>Youtube Videos abspielen</h2>
+  <p>Youtube zeigt beim speichern oder abspielen eines Videos eine ID an. Diese
+    ID kann verwendet werden, um auf das Video zu verweisen. Dafür einfach die ID in die URL einfügen
+    und dann in einem iframe Tag einbinden.
+  </p>
+  <pre>
+    <iframe src="https://youtube.com/id"></iframe>
+  </pre>
+  <p>Mit autoplay Attribut kann das Video automatisch abgespielt werden.</p>
+  <pre>
+    <iframe src="https://www.youtube.com/embed/id?autoplay=1&mute=1"></iframe>
+  </pre>
+  <h3>Endlosschleife einfügen</h3>
+  <p>Mit loop=0 wird das Video nur einmal abgespielt und mit loop=1 wird es in einer Endlosschleife abgespielt.</p>
+  <h3>controls Element</h3>
+  <p>Mit dem controls Element kann man die Steuerung des Videos ein- oder ausschalten.
+    controls=0 schaltet die Steuerung aus, controls=1 schaltet die Steuerungselemente ein.
+  </p>
+  <h2>Web APIs</h2>
+  <p>API steht für Application Programming Interface (Anwendungsprogrammierschnittstelle).</p>
+  <p>Eine Web API ist eine Schnittstelle, die es Webanwendungen ermöglicht, mit externen Diensten zu kommunizieren.
+    Web APIs können die Funktionalität von Browsern erweitern, komplexe Funktionen vereinfachen und eine einfache Syntax für 
+    komplexen Code bereitstellen. Beispiele sind die Geolocation API, die Fetch API, die Web Storage API etc.
+  </p>
+  <p>Eine der wichtigsten APIs sind folgende: (genaueres auf w3schools)</p>
+  <ol>
+    <li>Geolocation API: wird verwendet, um den aktuellen Standort des Benutzers zu ermitteln per Breiten und Längengrade.</li>
+    <li>Drag and Drop API: wird verwendet, um die Nutzung von Drag and Drop Funktionen in Browsern zu ermöglichen.</li>
+    <li>Web Storage API: wird verwendet, um Daten im Browser mit Key/Value Paaren zu speichern.</li>
+    <li>Web Workers API: wird verwendet, um JavaScript im Hintergrund auszuführen, ohne die Seitenleistung zu beeinträchtigen. Benutzer können weiterhin
+      alle gewünschten Aktionen ausführen, während der Web Worker im Hintergrund läuft.
+    </li>
+    <li>Server-Sent Events API: wird verwendet, um automatisch Aktualisierungen vom Server zu erhalten.</li>
+    <li>Canvas API: wird verwendet, um 2D und 3D Grafiken in HTML Dokumenten zu zeichnen.
+    </li>
+  </ol>
+  <p>Die getCurrentPosition() Methode der Geolocation API wird verwendet, um den aktuellen Standort des Benutzers abzurufen. Die 
+    watchPosition() Methode verfolgt die Position des Benutzers kontinuierlich und ruft eine Callback-Funktion auf, wenn sich die Position ändert. Die clearWatch() Methode
+    beendet die Verfolgung der Position des Benutzers, die mit watchPosition() gestartet wurde.
+  </p>
+  
+  <p>Wichtig ist dabei die Browserkompatibilität zu prüfen und eine robuste Fehlerbehandlung hinzuzufügen. Zudem sollte immer die Benutzerberechtigung
+    eingeholt werden, bevor auf sensible Informationen wie Standortdaten zugegriffen wird.
+  </p>
+  <h2>title Attribut</h2>
+  <p>wird verwendet, um zusätzliche Informationen oder Erklärungen zu einem Element zu geben oder um Abkürzungen zu erklären (auszuschreiben).
+    Es ist nicht für die Barrierefreiheit gedacht, da Screenreader es nicht zuverlässig vorlesen. Es wird hauptsächlich als Tooltip (Zusatzinformation)verwendet, der angezeigt wird,
+    wenn der Benutzer mit der Maus über das Element fährt. Generell optional, außer bei iframes, abbr (Pflicht).
+  </p>
+  <h2>Accessibility (Barrierefreiheit) / ARIA (Accessible Rich Internet Applications)</h2>
+  <h3>Accessivility Tree</h3>
+  <p>Browser haben neben dem DOM Tree auch einen Accessibility Tree, der Informationen über die Barrierefreiheit des Inhalt enthält. Dieser kann in den Devtools
+    unter Elements -> Accessibility eingesehen werden.</p>
+  <h4>aria-hidden="true"</h4>
+  <p>Über aria-hidden="true" kann man ein Element und all seine Kinder aus dem Accessibility Tree ausblenden. Der Screenreader liest das also nicht vor.
+    Wird dann verwendet, wenn ein Element redundant ist, also wenn es bereits einen Text gibt, der dasselbe aussagt. Auch unsichtbare Elemente sollten
+    damit versehen werden.
+  </p>
+  <p>ACHTUNG: Nicht auf fokussierbaren Elementen verwenden.</p>
+  <p>Es ist unnötig, dass Attribut zu setzen, wenn ein HTML hidden Attribut verwendet wird und ebenso wenn das Element mit display: none; oder visibility: hidden; 
+    versehen ist, da diese Elemente automatisch aus dem Accessibility Tree entfernt werden.
+  </p>
+  <p>values: true, false, undefined (default)</p>
+  <pre>
+    <button>
+      <span class="" aria-hidden="true">Icon</span>
+      Suche
+    </button>
+  </pre>
+  <p>Hier würde der Screenreader das Icon nicht vorlesen, da es mit aria-hidden="true" ausgeblendet ist. Er würde nun vorlesen
+    "Suche Button". Wenn Text und Icon dasselbe aussagen, dann sollte das Icon nicht vorgelesen werden.
+  </p>
+  <h4>aria-current: page</h4>
+  <p>wird verwendet, um dem Screenreader mitzuteilen, dass es sich um die aktuelle Seite handelt.</p>
+  <h4>aria-label="Beschreibung / Anweisung" </h4>
+  <p>aria-label wird verwendet, um eine Beschreibung oder Anweisung für ein Element zu geben, die vom Screenreader vorgelesen wird.
+    Es wird im Accessibility Tree als Name des Elements angegeben.</p>
+    <p>verwendet wird es, wenn ein Element keine sichtbare Beschriftung hat, z.B. Icon Buttons, Schließen Buttons, SVG, Bilder, Hintergründe</p>
+    <h4>aria-labelledby=""</h4>
+    <p>aria-labelledby verweist auf ein anderes Element, das als Label für das aktuelle Element dient. Das andere Element muss eine id haben, die im aria-labelledby referenziert wird.
+      aria-labelledby ist vorzuziehen gegenüber aria-label, da es die Beziehung zwischen den Elementen im Accessibility Tree herstellt und damit die Struktur der Seite besser verständlich macht.
+      Zudem überschreibt es aria-label, da es vorgezogen wird, wenn beide vorhanden sind. Anwendung bei Dialogen, Formulargruppen und Regionen.
+    </p>
+    <pre>
+      <h2 id="dialog-title">Bewerbungsformular</h2>
+      <div role="dialog" aria-labelledby="dialog-title"></div>
+    </pre>
+    <h4>aira-describedby=""</h4>
+    <p>aria-describedby verweist auf ein anderes Element, das als Beschreibung für das aktuelle Element dient. Das andere Element muss eine id haben, die im aria-describedby referenziert wird.
+      Es ersetzt kein aria-label und dient nur als Zusatzinformation.
+    </p>
+    <pre>
+      <p id="dialog-description">Bitte füllen Sie alle Pflichtfelder aus.</p>
+      <div role="dialog" aria-describedby="dialog-description"></div>
+    </pre>
+    <h4>aria-live=""</h4>
+    <p>aria-live gibt an, ob sich der Inhalt eines Elements dynamisch ändert. Es wird verwendet, um Screenreader zu informieren, dass sich der Inhalt eines Elements verändert hat und der Screenreader den Inhalt
+      sofort vorlesen soll. Es gibt drei Werte: off (default), polite und assertive. Polite wird dann vorgelesen, wenn gerade nichts anderes vorgelesen wird. Assertive wird sofort vorgelesen, auch wenn etwas anderes
+      vorgelesen wurde.
+    </p>
+    <h4>aria-expanded=""</h4>
+    <p>aria-expanded wird für aufklappbare Elemente verwendet. Es gibt an, ob ein Element aufgeklappt (true) oder zugeklappt (false) ist.</p>
+    <h4>aria-controls=""</h4>
+    <p>aria-controls verweist auf ein anderes Element, das von diesem Element kontrolliert wird. Das andere Element muss eine id haben, die im aria-controls referenziert wird.</p>
+    <pre>
+      <button aria-expanded="false" aria-controls="panel1" id="accordion1">Mehr Infos</button>
+      <div id="panel1">Inhalt</div>
+    </pre>
+    <h4>role</h4>
+    <p>HTML hat bereits eine eingebaute Rolle (role) für jedes Element. Ein button Tag hat z.B. die Rolle "button". Problem ist nun bei div, span, denn 
+      diese haben die Rolle "generic" und sagen dem Screenreader nichts über die Funktion des Elements aus. Mit role kann man die Rolle eines Elements ändern,
+      damit der Screenreader die Funktion des Elements besser verstehen kann. Es sollte immer die sematisch passende Rolle gewählt werden.
+    </p>
+    <p>Sollte vor allem bei eigenen Komponenten verwendet werden wie Tabs, Accordions, Modals, Dropdowns, Tooltips. Ebenso bei Fehlerausgaben, z.B bei Validierungen.
+    </p>
+    <p>Wenn es bereits ein natives HTML Element gibt, das die gewünschte Rolle hat, sollte dieses verwendet werden, da es stabiler und weniger fehleranfällig ist.</p>
+    <p>Hier alle Rollen mit Erklärung:</p>
+    <table>
+      <tr><th>Rolle</th><th>Beschreibung</th><th>Wann anwenden?</th><th>Worauf anwenden?</th></tr>
+      <tr><td>alert</td><td>Zeigt eine Warnung an. Hat keinen Fokus.</td><td>ungültiger Wert in einem Formularfeld, Login Session läuft bald ab, Verbindung zum Server ging verloren. Nur, wenn die unmittelbare Aufmerksamkeit des Benutzers erforderlich ist und nur bei dynamischen Inhalten. Sofort vorgelesene Fehlermeldung.</td><td>Auf dem Element, welches die Warnung darstellt.</td></tr>
+      <tr><td>alertdialog</td><td>Zeigt ein Dialog an, der eine Warnung darstellt. Mischung aus alert und dialog. Muss ein fokussierendes Steuerelement haben (schließen, bestätigen, abbrechen).</td><td>Bei Dialogfeldern, die eine Warnung darstellen. Sofortige Aufmerksamkeit des Nutzers einfordern.</td><td></td></tr>
+      <tr><td>dialog</td><td>Zeigt ein Anwendungsdialogfeld an, das den Inhalt vom Rest der Webanwendung oder der Seite trennt. Hier dann mit aria-labelledby und aria-describedby arbeiten</td><td>Bei Dialogen, z.B. bei einem Bestätigungsdialog. Es ist empfohlen, aria-modal="true" zu setzen bei Modals.</td><td>Auf dem Dialogelement.</tr>td></tr>
+      <tr><td>status</td><td>Zeigt den Status einer Anwendung an. Hat keinen Fokus.</td><td>Bei dynamischen Statusmeldungen, z.B. "Datei wird hochgeladen". Nicht dringende Statusmeldungen.</td><td>Auf dem Element, welches den Status darstellt.</td></tr>
+      <tr><td>tooltip</td><td>Für echte ARIA konforme Tooltips. Wird nach einer kurzen Zeit automatisch angezeigt.
+      </td></tr>
+      <tr><td>menu, menuitem</td><td>Bei echten Application Menüs</td></tr>
+    </table>
+</div>
+</div>

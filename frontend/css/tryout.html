@@ -1,0 +1,91 @@
+<div class="block">
+  <div class="content__container">
+    <h1>Wie am besten Bilder stylen?</h1>
+    <p>
+      img { max-width: 100%; height: auto; display: block; min-width: 0;
+      //wichtig bei Flex Containern}
+    </p>
+    <p>Flexbox img hat standardmäßig min-width: auto;</p>
+
+    <p>
+      wenn Bild variabel sein soll, dann flex: 1; min-width: 0; max-width: 100%;
+      height: auto;
+    </p>
+
+    <p>Wenn min-width und max-width gesetzt sind, dann gewinnt min-width</p>
+
+    <h2>aspect-ratio</h2>
+    <p>
+      benötigt nur eine dimension, die andere wird automatisch berechnet. zB so:
+      height: 200px; aspect-ratio: 16 / 9;
+    </p>
+    <p>oder responsive an container: width: 100%; aspect-ratio: 16 / 9;</p>
+    <p>
+      Mit parent dann: .container { max-width: 800px; } .box { width: 100%;
+      aspect-ratio: 16 / 9; }
+    </p>
+    <p>
+      oder pro breakpoint: .box { width: 100%; aspect-ratio: 1 / 1; } @media
+      (min-width: 768px) { .box { aspect-ratio: 16 / 9; } } @media (min-width:
+      1200px) { .box { aspect-ratio: 21 / 9; } }
+    </p>
+
+    <h2>Responsive mit grid</h2>
+    <p>
+      .grid { display: grid; grid-template-columns: repeat(auto-fit,
+      minmax(250px, 1fr)); } .box { width: 100%; aspect-ratio: 16 / 9; }
+    </p>
+
+    <h2>Wann Flexbox und wann Grid?</h2>
+    <p>
+      Flexbox = 1 Dimension (Reihe ODER Spalte) und wenn Content ausgerichtet
+      werden soll
+    </p>
+    <p>Grid bei Spalten und Zeilen oder komplexen Layouts.</p>
+
+    <h2>Niemals vw und vh auf html oder body setzen</h2>
+    <p>
+      100vw bedeutet die komplette Bildschirmbreite. Dazu kommt aber noch die
+      Scrollbar on top. Somit entsteht overflow-x.
+    </p>
+
+    <h2>dvh für mobile headerbars nutzen</h2>
+    <p>
+      dynamic viewport height ersetzt den Platz für viewport Elemente von
+      Browsern wie zB Suchleiste, sobald diese durch scrollen verschwinden.
+    </p>
+
+    <h2>min Funktion für section wrapper</h2>
+    <p>
+      Anstatt width: 100% und max-width: 1920px zu nutzen, kann man auch width:
+      min(100%, 1920px) nutzen
+    </p>
+    <h2>lieber margin: 0 auto; anstatt margin-inline: auto; setzen</h2>
+    <p>Setzt direkt alles.</p>
+
+    <h2>Standard margin oder padding</h2>
+    <p>Margin-top und Margin-bottom: Standardmäßig haben h1-h6, p, ul, ol,</p>
+    <p>margin hat body, figure</p>
+    <p>padding-left: standardmäßig haben das ul, ol</p>
+    <p>padding hat button</p>
+    <p>padding und border hat input</p>
+
+    <h2>Perfekte reset Datei</h2>
+    <p>
+      /* 1. Box sizing (sehr wichtig) */ *, *::before, *::after { box-sizing:
+      border-box; } /* 2. Default margin entfernen */ body, h1, h2, h3, h4, h5,
+      h6, p, ul, ol, figure, blockquote { margin: 0; } /* 3. Body Setup */ body
+      { line-height: 1.5; -webkit-font-smoothing: antialiased; } /* 4. Listen
+      reset */ ul, ol { padding: 0; list-style: none; } /* 5. Bilder */ img,
+      picture { max-width: 100%; display: block; } /* 6. Form Elemente */ input,
+      button, textarea, select { font: inherit; } /* 7. Links */ a {
+      text-decoration: none; color: inherit; }
+    </p>
+
+    <h2>Chrome Responsive Modus</h2>
+    <p>Preset Modus: device-simulated viewport area inkl Scrollbar Reservierung (1920px werden zu 1905px).
+      Dieser Modus simuliert die tatsächliche Viewportgröße inkl der Scrollbar, was zu einer reduzierten Breite führt.
+    </p>
+    <p>Resize Modus: Layout Viewport per größer ziehen mit Maus: kein device-simulated layer (1920px bleiben 1920px).</p>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="block">
+  <div class="container site-border">
+    
+    <h2>Live Demo zum Flexbox üben auf <a href="https://flexbox.tech">https://flexbox.tech</a></h2>
+flex: 1;
+
+== Inhalt egal, Platz für alle Elemente gleich groß
+
+flex-grow: 1;
+flex-shrink: 1;
+flex-basis: 0;
+
+1 1 auto → Inhalt beeinflusst Größe, aber ein Element ist immer an den Inhalt gebunden, wenn also ein sehr langes Wort auftritt, dann wird das Element mindestens so groß wie der Inhalt.
+
+flex-basis hat höhere Priorität als width, wenn beides gesetzt ist.
+
+flex-grow überschreibt die width, wenn spalten gleich groß sind.
+
+flex-grow: 1 lässt Elemente wachsen und flex-shrink: 1 schrumpfen
+
+
+<p>flex auto; bedeutet flex-grow: 1, flex-shrink: 1, flex-basis: auto;</p>
+<p>Die einzelnen Größen richten sich nach ihrem Inhalt.</p>
+
+<p>flex none; ist flex 0 0 auto; und für fixe Sidebars zB geeignet.</p>
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+.main {
+  width: 2000px;
+  height: 300px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.main div {
+
+  flex: 1;
+}
+</style>
+</head>
+<body>
+
+<div class="main">
+  <div style="background-color:coral;">RED</div>
+  <div style="background-color:lightblue;">BLUE</div>  
+  <div style="background-color:lightgreen;">Green div with more content.</div>
+</div>
+
+Hier 2 Boxen nebeneinander, die im mobile umbrechen:
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  font-size: 30px;
+  text-align: center;
+  gap: 20px;
+}
+
+.flex-item-left {
+  background-color: #f1f1f1;
+  padding: 10px;
+  flex: calc(50% - 10px);
+}
+
+.flex-item-right {
+  background-color: dodgerblue;
+  padding: 10px;
+  flex: calc(50% - 10px);
+  min-width: 360px;
+}
+
+/* Responsive layout - makes a one column-layout instead of a two-column layout */
+@media (max-width: 800px) {
+  .flex-item-right, .flex-item-left {
+    flex: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<h1>Responsive Flexbox</h1>
+
+<p>In this example, we change the percentage of flex to create different layouts for different screen sizes.</p>
+<p><b>Resize the browser window to see that the direction changes when the 
+screen size is 800px or smaller.</b></p>
+
+<div class="flex-container">
+  <div class="flex-item-left">1</div>
+  <div class="flex-item-right">2</div>
+</div>
+
+<p>Ist display:flex gesetzt, so überschreibt es display: block; Die Kindselemente werden dann zu flex items</p>
+
+<h2>flex-direction:</h2>
+<p>Gibt an, wie die Hauptachse ausgerichtet ist. default ist horizontal.
+  values: row, column
+</p>
+<h2>justify-content:</h2>
+<p>justify-content gibt an, wie die Elemente auf der Hauptachse verteilt werden. Die Hauptachse richtet sich nach der
+  flex-direction Eigenschaft und ist Standard horizontal. 
+  values: flex-start, center, flex-end, space-between, space-around, space-evenly.
+</p>
+<h2>align-items: </h2>
+<p>align-items gibt an, wie die Elemente auf der Querachse verteilt werden. default ist hierbei align-items: stretch, 
+  was die Elemente streckt (wenn keine feste Größe gesetzt ist).
+  values: flex-start, center, flex-end, baseline, stretch
+</p>
+
+<h2>align-self: </h2>
+<p>align-self richtet nur das aktuelle Kind aus.
+  values: flex-start, center, flex-end
+</p>
+
+<h2>flex-wrap: </h2>
+<p>flex-wrap bricht Elemente automatisch um, wenn zu wenig Platz im container vorhanden ist.</p>
+</body>
+</html>
+
+</div>
+</div>
