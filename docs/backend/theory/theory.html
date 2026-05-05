@@ -6,7 +6,12 @@
       neu zu laden. Dies verbessert die Benutzererfahrung durch dynamische
       Inhalte.
     </p>
+    <p>Wird gesteuert über JavaScript Objekt XMLHttpRequest</p>
 
+    <h2>Websockets</h2>
+    <p>Für Echtzeitübertragungen wie Chats, Live-Updates, Multiplayer Games, Börsenkurse. Diese sind bidirektional,
+      asynchron und dauerhaft offen.
+    </p>
     <h2>Vite</h2>
     <p>
       Vite ist ein modernes Build-Tool, das schnelle Entwicklungsserver und
@@ -54,6 +59,7 @@
       die nur während Entwicklung gebraucht werden (Build-Tools, Compiler etc.).
       Hier z. B. vite und sass.
     </p>
+    <p>"publish:prod": "sh rsync.prod.sh" führt per shell das sh (shellskript) aus.</p>
     <h3>index.html</h3>
 
     <h2>Fehlercodes</h2>
@@ -184,6 +190,16 @@
         </tr>
       </tbody>
     </table>
+    <h2>HTTP Methoden GET und POST</h2>
+    <h3>GET Methode</h3>
+    <p>Bei der GET Methode werden die Eingabefelder in der URL mitgegeben. Dabei trennt ein & (&amp;) Zeichen die Feldnamen.
+      Ein = Zeichen trennt Name von Wert und ? leitet einen Datenteil ein.
+    </p>
+    <p>Nachteile sind Sicherheit, da sensible Daten wie Passwörter in der URL stehen.</p>
+
+    <h3>POST Methode</h3>
+    <p>Mit POST werden Daten im Body versendet, somit sind sie nicht in der URL sichtbar. Genutzt wird POST für Formularabsendungen, Benutzererstellungen und für das
+      hochladen von Daten. Es gibt hierbei keine Größenbeschränkung wie bei GET.</p>
     <h2>Was ist .htaccess</h2>
 <p>eine Konfigurationsdatei für Apache Webserver. Ermöglicht serverseitige Regeln ohne Server selbst neu
     zu konfigurieren
@@ -225,14 +241,14 @@
 <pre>docker-compose up</pre>
 <h2>DDEV - lokales Entwicklungstool</h2>
 <p>DDEV ist ein lokales Entwicklungswerkzeug, das über Docker eine vollständige, reproduzierbare Webserver-Umgebung bereitstellt – ohne dass ich PHP, DB oder Webserver lokal installieren muss. Es richtet Entwicklungsumgebungen ein, die die Produktionsumgebungen
-   möglichst genau nachbilden zB Webserver, PHP, MySQL, , Mail, nginx/apache usw. Das alles läuft dann in einem Docker Container.
+   möglichst genau nachbilden zB Webserver, PHP, MySQL, , Mail, nginx/apache usw. Das alles läuft dann in einem Docker Container. Mit ddev sind keine Docker Skills nötig.
 </p>
 <p>DDEV (CLI-Tool) muss nur installiert sein und Docker (Engine). Kein Setup von PHP, MySQL, Node etc auf dem Rechner notwendig.
   Die Entwicklungsumgebungen sind leicht reproduzierbar.
 </p>
 <p>Wird vor allem in CMS Systemen und PHP Projekten genutzt.</p>
 <p>DDEV unterstützt Standard CMS wie TYPO3, Redaxo</p>
-<p>Vorteil gegenüber XAMPP, MAMP: ddev ist projektbezogen, XAMPP ist global installiert. DDEV ist versionierbar (da .ddev/config.yaml in git liegt, keine lokalen PHP Versionen), XAMPP nur schwer. DDEV läuft bei allen auf dem selben Repo (da selbe .ddev/config.yaml), XAMPP nur auf dem eigenen Rechner.</p>
+<p>DDEV ist älteren Modellen vorzuziehen, da jedes Projekt mit eigenen Konfigurationen laufen kann. Vorteil gegenüber XAMPP, MAMP: ddev ist projektbezogen, XAMPP ist global installiert. DDEV ist versionierbar (da .ddev/config.yaml in git liegt, keine lokalen PHP Versionen), XAMPP nur schwer. DDEV läuft bei allen auf dem selben Repo (da selbe .ddev/config.yaml), XAMPP nur auf dem eigenen Rechner.</p>
 <p>Wichtige Datei: .ddev/config.yaml, dort steht die komplette Beschreibung deiner lokalen Entwicklungsumgebung</p>
 <pre>name: my-project //Projektname
 type: php //Projekttyp
@@ -247,6 +263,16 @@ database:
 use_dns_when_possible: true
 xdebug_enabled: false //debugging erlaubt
 </pre>
+<p>ddev Version checken</p>
+<pre>ddev -v</pre>
+<p>ddev Hilfeseite mit allen Befehlen aufrufen</p>
+<pre>ddev --help</pre>
+<p>ddev Projekt mit Konfiguration erstellen</p>
+<pre>ddev config</pre>
+<p>PHP Version festlegen oder ändern</p>
+<pre>ddev config --php-version 8.4</pre>
+<p>Welche Prozesse laufen gerade bei ddev?</p>
+<pre>ddev describe</pre>
 <p>Container starten und Site lokal erreichbar machen</p>
 <pre>ddev start</pre>
 <p>Danach erscheint Website: https://mein-projekt.ddev.site</p>
@@ -268,5 +294,12 @@ xdebug_enabled: false //debugging erlaubt
   Bedienung. Ohne Docker könnte DDEV die Container nicht starten; ohne DDEV müsste man 
   Docker alles manuell konfigurieren. Zusammen ermöglichen sie schnelle, reproduzierbare 
   und teamfähige Entwicklungsumgebungen, die auf jedem Rechner gleich laufen.</p>
+  <h2>Sessions</h2>
+  <p>Sessions sind ein Mechanismus zur Speicherung von Benutzerdaten über mehrere Seitenaufrufe hinweg. Sie ermöglichen es, Daten zwischen verschiedenen Seitenaufrufen zu speichern, z.B. Login-Status, Warenkorb-Inhalte etc. Sessions sind immer
+    an eine spezifische Sitzung gebunden, die durch eine eindeutige Session-ID identifiziert wird (Browser, Benutzer). Diese Session-ID wird in der Regel in einem Cookie gespeichert, damit sie bei jedem Seitenaufruf automatisch mitgesendet wird. Auf dem Server werden die Session-Daten in einer Datenbank gespeichert.
+    Eine Session hält solange bis die Session abläuft (z.B. nach 30 Minuten Inaktivität) oder explizit gelöscht wird (z.B. Logout) bzw Browser geschlossen wird.<br>
+    Anwendung: Immer dann, wenn Daten über mehrere Seitenaufrufe hinweg verfügbar sein sollen. Also Warenkorb, Login-Zustand, Benutzererkennung, zwischengespeicherte Formulardaten, temporäre Statusinformationen.
+  </p>
+  
   </div>
 </div>

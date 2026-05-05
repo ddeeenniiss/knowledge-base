@@ -1,7 +1,7 @@
 <div class="block">
   <div class="container site-border">
     <h1>Redaxo CMS</h1>
-    <p>Hier der Link zur Redaxo Dokumentation: <a href="https://redaxo.org/cms/ueberblick/">CLICK ME</a></p>
+    <p>Hier der Link zur Redaxo Dokumentation: <a href="https://redaxo.org/doku/5.x/">CLICK ME</a></p>
     <h2>Redaxo Adminer</h2>
 <p>Adminer ist ein kompakter Datenbankbrowser, der sich als Alternative zu phpMyAdmin eignet. Er ermöglicht den Zugriff auf verschiedene Datenbanken wie MySQL, PostgreSQL, SQLite und Oracle.
 
@@ -43,47 +43,91 @@ AS category_id -> Alias</p>
 <p>Importieren = Daten oder ganze Tabellen in die Datenbank hochladen. zB Backup wiederherstellen</p>
 <p>Exportieren = Daten oder ganze Tabellen aus der Datenbank herunterladen. zB Backup erstellen</p>
 
-<h2>AddOns</h2>
+<h2>Installer</h2>
+<p>Im Installer können AddOns heruntergeladen werden. Bei einer Aktualisierung eines AddOns wird automatisch ein
+  Backup der alten AddOn Verzeichnisse erstellt. Diese werden unter redaxo/data/addons/install abgelegt.
+</p>
+<p>Im Bereich "Vorhandene aktualisieren" wird aufgelistet, welche AddOns und Bestandteile aktualisiert werden können.
+</p>
+
+<h2>AddOns = Erweiterung</h2>
+<p>Addons werden über den Installer Downloadbereich installiert. Eigene AddOns werden ins Verzeichnis /redaxo/src/addons/ hochgeladen.
+  Ordnername sollte identisch mit dem AddOn-Key sein, der in der package.yml hinterlegt ist.
+</p>
+<p>Bei Klick auf installieren eines AddOns wird es technisch eingerichtet zB kopieren von CSS und JS Dateien, das Anlegen von 
+  Datenbanken durchgeführt und die install.php wird ausgeführt. Danach kann es aktiviert (Redaxo lädt das AddOn bei jedem Request und die Funktionen 
+  stehen zur Verfügung) und anschließend verwendet werden.
+</p>
+<h3>Update</h3>
+<p>Bei einem Update immer die Hinweise im Installer beachten und vorab ein Backup machen (empfohlen).</p>
+<h3>Reinstallation</h3>
+<p>Bei Problemen mit einem AddOn kann das AddOn reinstalliert werden. Dabei wird das AddOn erneut installiert und 
+  Einstellungen und Dateien werden korrigiert. Vom Core werden die Bedingungen aus der package.yml neu geprüft und die
+  install.php, install.sql werden geladen und die Assets frisch kopiert.
+</p>
+<h3>Deinstallation</h3>
+<p>Das AddOn oder das PlugIn entfernt seine angelegten Dateien und Tabellen vollständig. Einige AddOns behalten
+  die Daten jedoch weiterhin.
+</p>
+<table>
+  <tr><th>Kategorie</th><th>Beschreibung</th></tr>
+  <tr><td>System AddOn</td><td>Bestandteile des Core Systems. Diese sind systemrelevant und können nicht
+    gelöscht werden. Ein AddOn ist immer eine eigenständige Erweiterung.
+  </td></tr>
+  <tr><td>System Plugin (stroke Symbol links)</td><td>Diese gehören zu einen AddOn und können nicht gelöscht werden. "Plug in" heißt so viel wie einstecken, also eine
+    kleine Erweiterung zu einem AddOn, die hinzugefügt wird.
+  </td></tr>
+  <tr><td>Löschbare AddOns</td><td>Das sind AddOns aus dem Installer Store. Diese sind installierbar, deaktivierbar und löschbar.</td></tr>
+</table>
 <table>
   <tr>
     <th>AddOn</th>
     <th>Zweck</th>
   </tr>
   <tr>
-    <td>redaxo</td>
-    <td>Kern Backend von REDAXO</td>
+    <td>redaxo (System Plugin)</td>
+    <td>Kern Backend von REDAXO. Liefert das Default-Design des Backend.</td>
   </tr>
   <tr>
-    <td>be_style</td>
+    <td>phpmailer</td><td>Bindet die PHPMailer-Klasse ein für den Versand von Emails.</td>
+  </tr>
+  <tr>
+    <td>be_style (System AddOn)</td>
     <td>Stellt das Backend-Design von REDAXO zur Verfügung</td>
   </tr>
   <tr>
-    <td>install</td>
-    <td>Installations und Update AddOn für REDAXO</td>
+    <td>install (System AddOn)</td>
+    <td>Veröffentlichung und Download von AddOns</td>
   </tr>
   <tr>
-    <td>structure</td>
+    <td>structure (System AddOn)</td>
     <td>Verwalten von Artikeln/ Inhalten innerhalb der Seiten</td>
   </tr>
   <tr>
-    <td>content</td>
+    <td>content (System AddOn)</td>
     <td>Verwalten von Artikeln/ Inhalten innerhalb der Seiten</td>
   </tr>
   <tr>
-    <td>users</td>
+    <td>users (System AddOn)</td>
     <td>Verwalten von Benutzern und Berechtigungen innerhalb des Backends</td>
   </tr>
   <tr>
-    <td>media_manager / mediapool</td>
+    <td>media_manager / mediapool (System AddOn)</td>
     <td>Verwalten von Medien (Bilder, Videos, Dateien) innerhalb des Backends</td>
   </tr>
   <tr>
-    <td>metainfo</td>
-    <td>Zusätzliche Metadaten für Artikel und Kategorien</td>
+    <td>metainfo (System AddOn)</td>
+    <td>Stellt Metadaten für Artikel und Kategorien zur Verfügung</td>
   </tr>
+  <tr><td>project (System AddOn)</td>
+  <td></td></tr>
   <tr>
     <td>debug</td>
     <td>Hilft bei Fehlersuche und Anzeige von SQL/PHP Problemen</td>
+  </tr>
+  <tr>
+    <td>history</td>
+    <td>Versionierung von Artikeln</td>
   </tr>
   <tr>
     <td>cronjob</td>
@@ -95,7 +139,10 @@ AS category_id -> Alias</p>
   </tr>
   <tr>
     <td>version</td>
-    <td>Versionierung von Artikeln und Änderungen nachvollziehen. (Button rechts neben Editiermodus in einem Artikel)</td>
+    <td>Versionierung von Artikeln und Änderungen nachvollziehen. (Button rechts (Uhr) neben Editiermodus in einem Artikel).
+      Links ist aktuelle Version (wählbar auch zu Arbeitsversion). Rechts sind alle Versionen wählbar per Dropdown. Liveversionen können auch
+      zu Arbeitsversion übernommen werden und andersrum.
+    </td>
   </tr>
   <tr>
     <td>ck5</td>
@@ -118,8 +165,8 @@ AS category_id -> Alias</p>
     <td>Erweiterte Textsuche im Frontend</td>
   </tr>
   <tr>
-    <td>backup</td>
-    <td>Backup und Wiederherstellung von Daten</td>
+    <td>backup (System AddOn)</td>
+    <td>Backup und Wiederherstellung von Daten / älteren Versionen</td>
   </tr>
   <tr>
     <td>2factor_auth</td>
@@ -130,8 +177,8 @@ AS category_id -> Alias</p>
     <td>Wartungsmodus / Temporäres Deaktivieren des Frontends</td>
   </tr>
   <tr>
-    <td>customizer</td>
-    <td>Anpassung von Backend Styles, Farben etc</td>
+    <td>customizer (System Plugin)</td>
+    <td>Anpassung von Backend Styles, Farben, Code Highlighting, Link zum Frontend</td>
   </tr>
   <tr>
     <td>cropper</td>
@@ -145,7 +192,116 @@ AS category_id -> Alias</p>
     <td>uploader</td>
     <td>Zusätzliche Upload-Funktionen für Medien</td>
   </tr>
+  <tr>
+    <td>blÖcks</td>
+    <td>Module / Blöcke online, offline schalten. Per Drag&Drop verschieben, sowie kopieren, ausschneiden
+      und einfügen</td>
+  </tr>
 </table>
 
+<h3>Installation eigener AddOns</h3>
+<p>Eigene AddOns können direkt aus der REDAXO Installation in den Downloadbereich hochgeladen und zum Download
+  bereit gestellt werden. Dafür wird ein API Key benötigt. Für einen Nutzername und
+  API-Key sollte ein Konto unter MyREDAXO redaxo.org/myredaxo/login angelegt werden. Dort lässt sich dann ein API-Key erstellen, den man 
+  für verschiedene Aktionen benötigt, um diese durchführen zu können. Dieser API-Key sollte nicht weitergegeben werden, da man mit dem Key und dem
+  eigenen Login Versionen veröffentlichen, löschen oder ändern kann. Das AddOn, welches man veröffentlichen will, muss existieren. Dafür muss der 
+  API-Key in den Installer Einstellungen eingetragen werden. Nur dadurch kann erkannt werden, zu welchen AddOns man
+  Zugriff hat. Die Module sind dann lokal in der Redaxo Installation verfügbar. Um diese öffentlich zu machen müssen sie in den AddOn Store hochgeladen werden. Dafür
+  müssen sie allerdings kompatibel, dokumentiert und getestet sein.
+</p>
+<p>Meine Packages (Installer - linker Reiter): Unter "Core & Packages - Eigene hochladen" lassen sich nun AddOns einsehen, die bereits registriert sind
+  und auch in der lokalen Installation vorhanden sind. Wenn ein AddOn hochgeladen werden möchte, dann muss genau dieses in der lokalen Installation
+  zur Verfügung stehen.
+</p>
+<p>Um ein AddOn zu veröffentlichen oder eine neue Version aufzuspielen, wählt man das gewünschte AddOn in der Liste aus. Mit + lässt sich eine
+  neue Version erstellen.
+</p>
+<p>Versionen werden direkt aus dem lokalen AddOn selbst herangezogen (package.yml). </p>
+<p>Manche Dateien werden bei der Entwicklung benötigt, die im eigentlichen AddOn nicht erforderlich sind. Diese Dateien
+  kann man in der package.yml auf ignorieren setzen.
+</p>
+<pre>
+  installer_ignore:
+  - node_modules
+  - .env
+  - src
+</pre>
+<h4>Vorgehen hierzu: </h4>
+<p>Erstellung des AddOn Keys: Jedes AddOn hat eine eindeutige Kennung (key), diese ist auch der Ordnername. Um einen
+  passenden Key zu registrieren und auch die Bezeichnung und Beschreibung des AddOns festzulegen, muss unter "Meine Addons" eine
+  AddOn Definition mit dem passenden Key angelegt werden.
+</p>
+
+<h2>REX_ARTICLE[]</h2>
+<p>setzt den Inhalt des aktuellen Artikels ein. Dieser besteht aus einer Liste von slices. Jede slice
+  ist dabei eingefügtes Modul mit seinen Werten. Dieser Inhalt wird dann
+  an genau dieser Stelle gerendert.
+</p>
+<h2>REX_TEMPLATE[key=]</h2>
+<p>gibt die ID des genannten Templates zurück und lädt das Template</p>
+<h2>rex_category</h2>
+<p>holt die Kategorie zB per id</p>
+<pre>$data = rex_category::get(313)->getArticles(true, 'priority');</pre>
+<p>holt Kategorie mit ID 313 (Rückgabe ist rex_category Objekt) und greift auf alle online gestellten (true) Artikel zu nach Priorität sortiert.
+  Rückgabe des gesamten ist ein Array von rex_article, die bereits in der Reihenfolge nach Priorität sortiert sind.
+</p>
+<pre>$navLevel1 = rex_category::getRootCategories(true);</pre>
+<p>holt alle Kategorien des obersten Levels, die online geschalten sind (true).</p>
+<h3>::getId()</h3>
+<p>gibt die ID des Artikels zurück (int)</p>
+<h2>rex_article::getCurrent()</h2>
+<p>gibt den aktuellen Artikel zurück, der gerade im Frontend angezeigt wird als rex_article Object zurück. Nützlich wenn Daten 
+  zur aktuellen Seite ausgegeben werden sollen
+</p>
+
+<h2>Redaxo Addons</h2>
+<p>Zunächst wird unter redaxo/addons/mein-addon/ das gewollte addon angelegt. Der Ordnername ist hierbei
+  der AddOn Key.
+</p>
+<p>Wichtig ist die package.yml. Darin erkennt Redaxo das AddOn. install.sql und uninstall.sql sind für 
+  das installieren und deinstallieren des Addons.
+</p>
+<h2>clang - Content Language</h2>
+<p>Jede Sprache bekommt in Redaxo eine ID. Also deutsch = 1, englisch = 2 usw. Diese IDs stehen in der
+  Tabelle rex_clang
+</p>
+<p>$currentLang = rex_clang::getCurrentId(); liefert die aktuell aufgerufene Sprache.</p>
+<h2>rex_getUrl(int $article_id, int $clang_id)</h2>
+<p>erzeugt eine URL für diesen Artikel, aber in Sprache $clang_id</p>
+<h2>rex_request('func', 'string');</h2>
+<p>Holt den Request-Parameter func als sicheren String aus GET/POST oder COOKIE. index.php?page=example&func=edit zB ergibt
+  $func = "edit";. Intern wird ungefähr so gesucht: $_POST['name'] ?? $_GET['name'] ?? $_COOKIE['name']
+</p>
+<p>Macht Typprüfung, Filterung und Casting. SQL-Injection verhindert man erst mit:
+rex_sql + Prepared Statements</p>
+<h2>$sqlCategories = rex_sql::factory();</h2>
+<p>Redaxo erstellt ein SQL-Objekt mit dem Datenbankabfragen ausgeführt werden können.</p>
+<h2>$sqlCategories->setQuery("SELECT id FROM database ORDER BY position ASC");</h2>
+<p>Hole id aus der Datenbank database aufsteigend. setQuery führt eine SQL Abfrage durch. Gespeichert werden die ids (Result Set)
+  in $sqlCategories 
+</p>
+<h2>hasNext()</h2>
+<p>Prüft ob es noch eine weitere Zeile im SQL Ergebnis gibt. Gibt true oder false zurück.</p>
+<h2>Redaxo Umzug einer Seite</h2>
+<p>Eine Redaxo Seite besteht immer aus Dateisystem (Dateien und Ordner, die per FTP hochgeladen werden), aus der Datenbank (MySQL) die die Inhalte, Struktur, Module und Einstellungen
+  enthält und aus der Server Konfiguration (PHP Version, Domain, Pfade, etc).
+</p>
+<p>Vorgehen wäre:</p>
+<ol>
+  <li>Branch für inside.at in Gitlab erstellen (Fork Kopie) und umbenennen</li>
+  <li>Subdomain für relaunch.inside.at erstellen</li>
+  <li>Redaxo Anleitung mit Redaxo Setup durchgehen</li>
+  <li>straehle.de auf relaunch.inside.at übernehmen (Import per Backup Addon)</li>
+  <li>Prüfen ob alle Dateien übernommen wurde, in der config.yml in safe mode gehen und privater Tab</li>
+</ol>
+<p>Alle relevanten Dateien auf den neuen Server kopieren per Transmit. Das sind redaxo/, assets/, media/, zusätzliche Ordner für
+  Addons oder Funktionen, index.php und .htaccess (Hier darauf achten diese vollständig zu übernehmen) und alle versteckten Dateien.
+  Die .htaccess kommt immer in den root, bei dem die Domain drauf zeigt.
+</p>
+<p>Es bietet sich an in der config.yml in Zeile 3 in den safe mode zu gehen. Desweiteren immer in privatem Tag aufrufen.</p>
+<p>Mögliche Fehlerquellen: Google Bot bzw Google Analytics: die müsste man im Head und default auskommentieren, wenn sie erstmal nicht benötigt werden.
+  Fehler in dessen Skripte können nachfolgende Skripte blockieren, was zu einem weißen Bildschirm führen kann. Selbiges auch mit Cookiebot. Ebenso könnte es sein, dass die 
+  .htaccess nicht vollständig übernommen wurde, was zu einem Fehler führen kann.
+</p>
 </div>
 </div>

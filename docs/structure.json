@@ -4,7 +4,8 @@
     "Generelle Theorie":{
       "General": "theory-knowledge/general.html",
       "Mails": "theory-knowledge/mails.html",
-      "Objekte": "basics/objects.html"
+      "Objekte": "theory-knowledge/objects.html",
+      "Visual Studio Code": "theory-knowledge/vsc.html"
     },
     "Bash-Commands":{
       "Bash-Commands": "backend/bash-commands/bash-commands.html"
@@ -20,12 +21,18 @@
     "HTML": {
       "HTML Basics": "frontend/html/html.html"
     },
+    "Bibliotheken":{
+      "Splide": "frontend/bibliotheken/splide.html"
+    },
     "CSS": {
       "CSS Styling": "frontend/css/css.html",
       "CSS Animationen": "frontend/css/animations.html",
       "Button Vorlagen": "frontend/css/button.html",
       "CSS Flexbox Layout": "frontend/css/flex.html",
       "CSS Grid Layout": "frontend/css/grid.html",
+      "SCSS": "frontend/css/scss.html",
+      "SASS": "frontend/css/sass.html",
+      "Browser": "frontend/css/browser.html",
       "Modul-Vorlangen": "frontend/css/modul-vorlagen.html"
     },
     "JS": {
@@ -40,7 +47,8 @@
       }
     },
     "Redaxo": {
-      "Redaxo Allgemein": "backend/cms/redaxo.html"
+      "Redaxo Allgemein": "backend/cms/redaxo.html",
+      "Redaxo Input/Output": "backend/cms/redaxo_code.html"
     },
     "TYPO3": {
       "TYPO3 Allgemein": "backend/cms/typo3.html"

@@ -1,6 +1,662 @@
 <div class="block">
   <div class="container site-border">
-    <h1>TYPO3 Basics</h1>
-    
+    <h1>TYPO3</h1>
+    <p>
+      Die Dokumentation für TYPO3 gibts hier:
+      <a
+        href="https://docs.typo3.org/m/typo3/tutorial-getting-started/13.4/en-us/Index.html#start"
+        >CLICK ME</a
+      >
+    </p>
+    <h2>Was genau ist TYPO3?</h2>
+    <p>
+      TYPO3 ist ein Enterprise Content Management System (CMS). Geschrieben in
+      PHP und nutzt MySQL / MariaDB. Hauptsächlich für mittelgroße bis große
+      Websites, die komplexe Strukturen, Rechte und Multilingualität benötigen.
+      Open Source, sehr erweiterbar über Extensions.
+    </p>
+    <h2>Wofür wird TYPO3 genutzt?</h2>
+    <p>
+      Verwaltung von Websites ohne direkten Codezugriff. Mehrsprachige Websites.
+      Große Content-Strukturen (Seiten, Kategorien, Inhalte). Benutzer- und
+      Rechteverwaltung (Redakteure vs. Admins). Integration mit Dritt-Systemen
+      über Extensions und APIs. Vorteile sind vor allem die Verschachtelung von
+      Modulen und im Gegensatz zu Redaxo sind viele Optionen, die man erst
+      hinzufügen muss, voreingestellt.
+    </p>
+    <h2>Seitenstruktur</h2>
+    <p>
+      Bei Kuhnle werden die Partials (Inhaltsblöcke) unter
+      packages/kuhnle_theme/resources/private/pageview/partials/ gespeichert.
+      Die eigentliche Seitenstruktur wird unter
+      packages/kuhnle_theme/Resources/Private/PageView/Layouts/Default.html
+      definiert. Hier werden die Seitenlayouts und die Einbindung der Partials
+      festgelegt.
+    </p>
+    <h2>Backend Schnittstelle</h2>
+    <h3>Navigation links</h3>
+    <p>Die Navigation ist aufgeteilt in Hauptmodule und Untermodule.</p>
+    <h3>Dashboard</h3>
+    <p>
+      Überblick über den Systembericht, Letzte Changes, SEO (Search Engine
+      Optimization) für Optimierungen der Seiten und Systemnachrichten
+    </p>
+    <h4>Web</h4>
+    <p>
+      Alles was direkt mit Webseiten zutun hat. Zentrale für Redakteure, um
+      Seiten, Inhalte und Infos zu verwalten. Das Dropdown enthält widerum
+      Untermodule
+    </p>
+    <h4>Page</h4>
+    <p>
+      Seitenbaum und Struktur der Website. Inhalte können hier eingefügt werden.
+      Seiten können erstellt und bearbeitet werden.
+    </p>
+    <p>
+      Im Unterbaum davon können Optionen per Drag and Drop hinzugefügt werden.
+      Dazu gehören: - neue Inhaltsseiten (müssen per Rechtsklick -> Enable
+      aktiviert werden), - Backend User Section für Benutzerinformationen und
+      Optionen/Zugriffsrechte für den eingeloggten Redakteur/Administrator, die
+      rechts oben eingesehen werden können (Benutzername, Avatar, Sprachwahl,
+      Abmelden, Profil bearbeiten, Shortcuts), - Shortcut (Verweise auf andere
+      interne Seiten), - Mounts (Verweise auf eine andere Seite oder anderen
+      Seitenbaum), - External Link (Link zu externer Seite), - Folder (Ordner
+      für Dateien, Bilder, etc), - Menu Separator (Hat keinen eigenen Inhalt,
+      sondern dient nur zur optischen Trennung von Seiten im Seitenbaum, dient
+      auch als Platzhalter)
+    </p>
+    <h4>View</h4>
+    <p>
+      Zeigt die Website in der Frontend Ansicht an. Content kann direkt
+      verändert werden.
+    </p>
+    <h4>List</h4>
+    <p>
+      Datenbanktabellen der aktuell gewählten Seite (News, Dateien, etc.) auf
+      niedriger Ebene. Hier können Extensions / eigene Tabellen direkt editiert
+      werden.
+    </p>
+    <h4>XLS Importer</h4>
+    <p>Import von Tabellenkalkulationsdaten für Tabellen</p>
+    <h4>Forms</h4>
+    <p>
+      Verwaltung von Formularen und deren Daten durch einen Formulareditor.
+      Formulare können erstellt werden und beliebig in Seiten eingebunden
+      werden.
+    </p>
+    <h4>Indexing</h4>
+    <p>
+      Verwaltung der Suchindexe für die Website. Statistiken zu den indexierten
+      Seiten können eingesehen werden. Die Indexierung muss in TypoScript
+      aktiviert sein.
+    </p>
+    <h4>Info</h4>
+    <p>
+      Detailinfos zu Seiten: Metadaten, Zugriffsrechte, Versionen,
+      Seitenaufrufen und ein Änderungsprotokoll, das das Durchsuchen der
+      Seitenhistorie ermöglicht.
+    </p>
+    <h4>Recycler</h4>
+    <p>
+      Verwaltung von gelöschten Inhalten und Dateien. Können wiederhergestellt
+      werden oder entgültig gelöscht werden.
+    </p>
+    <h3>File</h3>
+    <h4>Filelist</h4>
+    <p>
+      Dateiverwaltung für alle Dateien der Website in TYPO3. Ermöglicht Zugriff
+      auf Dateiverzeichnisse und hochladen, kopieren, verschieben und löschen
+      von Dateien.
+    </p>
+    <h3>Site Management</h3>
+    <h4>Sites</h4>
+    <p>Verwaltung der Einstiegspunkte für Websites.</p>
+    <h4>Settings</h4>
+    <p>Einstellungen für die Website und die TYPO3-Instanz</p>
+    <h4>Page TSConfig</h4>
+    <p>
+      Konfiguration der Seiteneinstellungen und Optionsanzeige und Editoren in
+      TypoScript
+    </p>
+    <h4>TypoScript</h4>
+    <p>
+      Konfiguration der Website-Struktur und Darstellung in TypoScript.
+      Möglichkeiten zur Rohbearbeitung und TypoScript Baumstruktur und einen
+      Konstanten-Editor.
+    </p>
+    <h3>Admin Tools</h3>
+    <h4>Maintainance</h4>
+    <p>Wartungsaufgaben für die TYPO3-Instanz</p>
+    <h4>Settings</h4>
+    <p>Allgemeine Einstellungen für die TYPO3-Instanz</p>
+    <h4>Upgrade</h4>
+    <p>Upgrade der TYPO3-Instanz auf eine neuere Version</p>
+    <h4>Environment</h4>
+    <p>Informationen über die Umgebung der TYPO3-Instanz</p>
+    <h4>Content Security Policy</h4>
+    <p>Konfigurationen der Content Security Policy</p>
+    <h4>Extensions</h4>
+    <p>
+      Verwaltung von Extensions für TYPO3. Umfasst Plugins, Module,
+      Klassenerweiterungen, Konfigurationscode usw.
+    </p>
+    <h3>System</h3>
+    <h4>Permissions</h4>
+    <p>
+      Verwaltung der Berechtigungen für Benutzer und Gruppen. Benutzer als
+      Eigentümer, Redakteure etc festlegen.
+    </p>
+    <h4>Backend Users</h4>
+    <p>Verwaltung der Backend-Benutzer und deren Zugriffsrechten</p>
+    <h4>Reactions</h4>
+    <p>Verwaltung von Reaktionen auf Inhalten (z.B Likes etc)</p>
+    <h4>Webhooks</h4>
+    <p>Verwaltung von Webhooks für externe Systeme</p>
+    <h4>Log</h4>
+    <p>
+      System- und Benutzer-Logs für Debugging und Überwachung. Zugriff auf das
+      komplette Änderungsprotokoll.
+    </p>
+    <h2>Datei Hierarchie erstellen</h2>
+    <p>
+      In Typo kann per Drag and Drop einfach eine neue Datei in den Seitenbaum
+      gezogen werden.
+    </p>
+    <h2>Sprachübersetzung</h2>
+    <p>
+      Unter Sites - Languages lässt sich eine neue Sprache anlegen. Im Entry
+      Point wird dabei das Sprachkürzel eingerichtet. zB /de/ für deutsch.
+    </p>
+    <p>
+      Nachdem die Sprache eingestellt ist kann diese Sprache nun in den Pages
+      ausgewählt werden. Die Inhalte müssen dann alle übersetzt werden. Zudem
+      ist es wichtig die Sprache unter dem Reiter Access auf visible zu stellen.
+    </p>
+    <h2>Rechtesystem</h2>
+    <p>
+      In Typo3 gibt es Rechte auf Typo Inhaltsseiten und auf Typo Inhaltsblöcke.
+      Rechte sind dazu immer einer Personengruppe zugeordnet wie zB Redakteuren
+      oder Admin.
+    </p>
+    <p>
+      Erstellt wird ein Zugang für eine Gruppe unter Backend Users. Diese
+      Personengruppe hat dann immer einen Benutzername zB admin und ein
+      zugehöriges Passwort dafür. Rechte für diese Gruppe für Inhaltsseiten
+      werden unter List - + erstellt.
+    </p>
+    <p>
+      Für Redakteure bieten sich Rechtezugriff auf Dashboard, Pages, View, List,
+      Files und Settings an
+    </p>
+    <p>
+      tables listing ist das Recht Tabellen zu sehen und tables modify das Recht
+      Tabellen zu bearbeiten.
+    </p>
+    <p>
+      Damit Redakteure auch Rechte für Inhaltsblöcke haben muss unter Access die
+      Rechte rekursiv für die Unterseiten vergeben werden.
+    </p>
+    <p>
+      Zugriff auf die Seiten werden bei List - DB Mounts erteilt. Also welche
+      Seiten dann auch bearbeitbar sein sollen von dieser Benutzergruppe
+    </p>
+    <h2>Extensions installieren</h2>
+    <p>
+      Unter Extensions werden alle aufgelistet. Oben links kann man den Reiter
+      wechseln auf Get Extensions, um Extensions zu suchen und zu installieren.
+    </p>
+
+    <h2>Modulerstellung</h2>
+    <p>
+      Ein Modul wird direkt mit Fluid Templates erstellt. In Typo3 benutzt man
+      Fluid als Template Engine, also Input erzeugt Output. Dabei steht f: für
+      Fluid ViewHelpers. Das sind vordefinierte Funktionen, um Bedingungen,
+      Schleifen, Variablen, Links, Bilder usw in Templates zu nutzen. zB: f:if,
+      f:for, f:render, f:image, f:media in Tags. Sie funktionieren ähnlich wie
+      PHP, nur direkt im Template HTML integriert.
+    </p>
+    <p>frontend.html und backend-preview.html bei Kuhnle.</p>
+    <h3>frontend.html</h3>
+    <p>Jeder Modul-Inhalt wird in einem section Tag ausgegeben.</p>
+    <p>Es folgen ein paar Erklärungen zu Fluid Templates:</p>
+    <ul>
+      <li>
+        f:if condition="{card.image.0}": If-ViewHelper in Fluid, also wie if in
+        PHP oder JavaScript. condition="{card.image.0} prüft, ob das erste Bild
+        existiert. Fallunterscheidung wird hier mit f:then und f:else gemacht
+      </li>
+      <li>
+        f:for each="{page.images}" as="img" iteration="i": For-ViewHelper in
+        Fluid, also wie for in PHP oder JavaScript. each="{page.images}"
+        iteriert über alle Bilder im Array. as="img" gibt das aktuelle Bild in
+        der Schleife als Variable mit Name img aus. iteration="i" gibt die
+        aktuelle Iteration als Variable i aus, zB für die Nummerierung der
+        Bilder.
+      </li>
+      <li>
+        f:variable name="myVariable" value="{card.title}": Variable myVariable
+        wird erstellt mit dem Wert card.title
+      </li>
+      <li>
+        f:render partial="Button" arguments="{data: card}": rendert ein Fluid
+        Partial Template, um es einzubinden. zB Header, Footer. partial="Button"
+        ist dabei der Name des Partial-Templates ohne .html. arguments="{data:
+        card}" übergibt Argumente an das Partial Template, hier die Variable
+        card als data.
+      </li>
+      <li>
+        f:image image="{card.image.0}" alt="{card.image.0.alternative}": Fluid
+        ViewHelper, um TYPO3-Bilder aus FAL (File Abstraction Layer) auszugeben.
+        image="{card.image.0}" greift auf das erste Bild des Objekts card zu.
+        alt="{card.image.0.alternative} ist der Alternativtext des Bildes.
+        Weitere Attribute können sein: class, width, height, fileExtension
+      </li>
+      <li>f:media: rendert ein TYPO3 Media-Element (Video, Audio)</li>
+      <li>
+        f:format.*: Pipe-Operatoren z.B. für String-Formatierungen.
+        f:format.trim() zB entfernt alle Leerzeichen am Anfang und Ende eines
+        Strings.
+      </li>
+    </ul>
+    <p>Hier ein paar Erklärungen zu Parametern:</p>
+    <ul>
+      <li>id="c{data.uid}": eindeutige ID pro Content Element, zB: c123</li>
+      <li>
+        container {data.layout_size}: bestimmt Containerbreite, zB:
+        container--large
+      </li>
+      <li>
+        image="{card.image.0}: card ist das aktuelle Objekt aus der Schleife
+        f:for each="{data.imagetextlist_cards}" as="card". 0 greift auf das
+        erste Bild zu, das im Objekt Array gespeichert ist.
+        alt="{card.image.0.alternative}" greift auf den Alternativtext dieses
+        Bildes zu.
+      </li>
+    </ul>
+    <h3>backend-preview.html</h3>
+    <p>
+      f:layout name="Preview" - Dieses Modul benutzt das Layout Preview.html
+    </p>
+
+    <h2>Labels.xlf</h2>
+    <p>
+      zentrale Datei für Texte, die im System übersetzbar sein sollen.
+      trans-unit Tag zeigt je nach Spracheinstellung deutsch oder englisch
+    </p>
+
+    <h2>EditorInterface.yaml</h2>
+    <p>
+      Definiert, wie das Content-Element im Backend aussieht. Also welche Felder
+      es gibt, in welcher Reihenfolge, welche Typen (Input, Select, Checkbox
+      etc) und wie Redakteure Inhalte bearbeiten.
+    </p>
+    <pre>
+name: sternundhuber/diagram-2025 //Interner Identifier
+typeName: sternundhuber_diagram-2025
+group: common
+prefixFields: false
+prefixType: none
+fields:
+  - identifier: select
+    type: Select
+    label: Hintergrundfarbe
+    renderType: selectSingle
+    items:
+      - label: 'Weiß'
+        value: one
+      - label: 'Gelb'
+        value: two
+      - label: 'Schwarz'
+        value: three
+
+  - identifier: header
+    useExistingField: true
+    label: Überschrift
+    type: Text
+
+  - identifier: bodytext
+    useExistingField: true
+    type: Textarea
+    enableRichtext: true
+    label: Text
+
+  - identifier: textWidth
+    type: Checkbox
+    label: Text breiter machen
+    renderType: checkboxToggle
+    default: 0
+
+  - identifier: backgroundWidth
+    type: Checkbox
+    label: Hintergrund breiter laufen lassen
+    renderType: checkboxToggle
+    default: 0
+
+  - identifier: instaPosts
+    type: Collection
+    maxitems: 3
+    appearance:
+    collapseAll: true
+    levelLinksPosition: both
+    fields:
+    - identifier: url
+      type: Text
+      label: Instagram Link
+</pre
+    >
+    <ul>
+      <li>
+        name (string): eindeutiger Name, der sich aus dem Namen des Anbieters
+        und dem Namen des Inhaltsblocks zusammensetzt. Wird getrennt durch ein
+        /, ist mindestens 3 Zeichen lang und wird kleingeschrieben.
+        Blocktrennungen sind durch einen Bindestrich zu trennen. name:
+        &lt;anbietername&gt;/&lt;inhaltsblockname&gt;
+      </li>
+      <li>
+        title (string): Der Titel des Inhaltsblock wird in der labels.xlf
+        definiert unter dem Schlüsselwort title
+        <pre>
+          &lt;trans-unit id="title" resname="title">
+              &lt;source&gt;Titel&lt;/source&gt;        
+          &lt;/trans-unit&gt;
+        </pre>
+      </li>
+      <li>
+        typeName: Interner TYPO3 Typ des Content Elements, für Fluid Template
+        Mapping
+      </li>
+      <li>
+        group: Gruppe, die beim Redakteur erscheint, wenn man auf "+ Content"
+        klickt. common = normal, menu = Menüelemente, forms = Formularelemente
+      </li>
+      <li>
+        prefixFields (bool): beide name Teile werden per default in ein Präfix
+        umgewandelt, bei dem alle Bindestriche entfernt und die Teile mit einem
+        Unterstrich verbunden werden, um Namenskonflikte zu vermeiden. Um Felder
+        zwischen Inhaltsblöcken besser wiederzuverwenden, kann es sinnvoll sein,
+        diese Option zu deaktivieren.
+        <pre>
+          prefixFields: false
+        </pre>
+      </li>
+      <li>
+        prefixType (string): legt fest, wie das Feld mit einem Präfix versehen
+        wird, falls diese Option (prefixFields) aktiviert ist. prefixType: full
+        wäre {data.sternundhuber_diagram_2025_textLeft} none ist kein Prefix,
+        type wäre der typeName als Prefix, identifier entsprechend
+        {data.textLeft}
+      </li>
+      <li>
+        fields: komplette Editor Oberfläche: enthält Select Felder, Textfelder,
+        TextArea Felder, Checkboxen, Collections.
+        <ul>
+          <li>
+            Das - bedeutet neues Feld im Array /ein neues Feld im Backend.
+            Intern wäre das:
+            <pre>
+              fields = [
+                0 => [identifier => header],
+                1 => [identifier => subheader],
+                ]
+            </pre>
+            <p>
+              Es ist dabei ob das - in derselben Zeile steht wie identifier. Es
+              kann auch davor stehen.
+            </p>
+          </li>
+          <li>
+            identifier: interner Name des Feldes. Damit wird darauf zugegriffen.
+            zB wenn identifier: select ist, dann {data.select} für den Zugriff
+          </li>
+          <li>
+            type: bestimmt die Art des Feldes. zB Select für Dropdown, Text für
+            Input, Textarea für Textarea, Checkbox für Toggle
+          </li>
+          <li>label: das sieht der Redakteur im Backend als Benennung</li>
+          <li>
+            renderType: welche Art von Feld gerendert wird. selectSingle für
+            einfache Auswahl
+          </li>
+          <li>
+            items: Optionen mit Feldern label und value. Label ist der Text im
+            Backend und value ist der Wert, der gespeichert wird.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3>Vorlagen für Felder:</h3>
+    <h3>Textfeld</h3>
+    <pre>
+      fields:
+        - identifier: header 
+          useExistingField: true //wenn es das feld schon gibt
+          type: Text 
+          label: Beschriftung
+    </pre>
+
+    <h3>TextArea</h3>
+    <pre>
+      fields:
+        - identifier: bodytext 
+          useExistingField: true //wenn es das feld schon gibt
+          type: Text 
+          enableRichtext: true
+          label: Beschriftung
+    </pre>
+    <p>
+      Bei Richtext Editor immer auch noch f:format.html und f:format.nl2br tags
+      verwenden um die ausgabe
+    </p>
+    <p>
+      Ebenso darauf achten dass Texte in div liegen und nicht in p tags, sonst
+      gibt es dreifach p tags aus
+    </p>
+
+    <h3>Bild</h3>
+    <pre>
+      fields:
+        - identifier: image
+          label: Bild
+          type: File
+          minitems: 1
+          maxitems: 1
+    </pre>
+
+    <h3>Button</h3>
+    <pre>
+      - identifier: buttontext
+        type: Text
+        label: Button Text
+      
+      - identifier: buttonlink
+        type: Link
+        label: Button Link
+    </pre>
+    <h3>Link</h3>
+    <pre>
+      - identifier: header_link
+        useExistingField: true
+        type: Link
+        label: Verlinkung
+    </pre>
+    <h3>Select</h3>
+    <pre>
+      - identifier: mediaSelect
+        type: Select
+        label: Lottie / Video 
+        renderType: selectSingle //selectMultipleSideBySide für mehrere
+        items:
+          - label: 'The first'
+            value: one
+          - label: 'The second'
+            value: two
+    </pre>
+    <h3>File</h3>
+    <pre>
+      - identifier: image
+        type: File
+        minItems: 1
+        maxItems: 1
+        allowed: common-media-types, "mp4, json"
+
+    </pre>
+    <h3>Collection</h3>
+    <p>
+      Eine Collection ist ein Feldtyp, der mehrere Einträge von demselben Typ
+      speichert, also eine Liste oder ein Array innerhalb eines Content
+      Elements. Jedes Feld kann wieder Unterfelder haben.
+    </p>
+    <pre>
+      - identifier: socialLinks
+        type: Collection
+        labelField: href
+        appearance: //Backend Darstellung der Collection
+        collapseAll: true //Alle Einträge sind per default zusammengeklappt
+        minitems: 7
+        maxitems: 7
+        fields:
+          - identifier: href
+            type: Text
+            label: href eingeben
+          - identifier: src
+            type: File
+            allowed: svg, png
+            label: src quelle
+          - identifier: alt
+            type: Text
+            label: alt Text
+          - identifier: url
+            type: Link
+            label: Link
+    </pre>
+    <h3>Neue identifier Namen</h3>
+    <p>
+      Bei neuen identifier Namen müssen diese im TYPO3 Backend noch hinterlegt
+      werden unter Maintainance -> Analyze Database Structure
+    </p>
+
+    <h3>Typo3 Content Blöcke</h3>
+    <p>
+      vereinfachter komponentenbasierter Ansatz von Inhaltsblöcken. Die yaml
+      Datei dient als zentrale Definition.
+    </p>
+    <h3>Format Befehle</h3>
+    <p>
+      f:format.html = behandelt den Text als html, ohne würde alles escaped
+      werden (&lt;)
+    </p>
+    <p>
+      f:format.nl2br = wandelt \n zu <br />, also kann man im html die br sehen.
+      Ohne wäre der Text in einer Zeile
+    </p>
+    <h3>Redakteuren Rechte geben für PageContent</h3>
+    <p>
+      Dafür in Typo unter Backend Users -> Backend User Groups -> Redakteure
+      alles unter PageContent freigeben
+    </p>
+    <p>Ebenso müssen die CType freigegeben werden. Unter Explicitly allow field values werden die Module sichtbar 
+      gemacht für Redakteure.zB Diagrams 2025 [tt_content:CType:sternundhuber_diagrams-2025]
+    </p>
+
+    <h2>TYPO3 Indexed Search</h2>
+    <p>Extension key: indexed_search</p>
+    <p>
+      Ist eine Systemerweiterung, die den Seiteninhalt indexiert, DB-basierte
+      Volltextsuche bietet und ein Plugin zur Anzeige der Suche hat. Die
+      Seitenindexierung kann man sich vorstellen als Unterteilung der Seite in
+      einzelne Blöcke und speichert die Inhalte in Tabellen. Bei der Suche geht
+      es die Tabellen durch und findet dann direkt den Index zur Seite, auf der
+      der gesuchte Begriff vorkommt. Das Indexieren ist also nur eine
+      Vorbereitung, damit die Suche schnell und effizient ist.
+    </p>
+    <p>
+      Auf Typo einfach über Kategorie: Plugins auswählen und Search / Indexed
+      Search einfügen.
+    </p>
+    <p>
+      Die Priorität liegt hierbei bei title Daten, danach meta Schlüsselwörter,
+      danach meta Beschreibug und danach body
+    </p>
+    <p>Um die Indexed Search im Plugin zu überschreiben, werden die Private/IndexedSearch angelegt.</p>
+    <h2>Eigene Templates überschreiben</h2>
+    <p>
+      Unter vbv_theme/Resources/Private/ lassen sich Seiteninhalte
+      überschreiben. Resources/Private ist dabei der Frontend-Rendering-Bereich
+      (FLUID). Alles darin ist nicht direkt im Browser zugänglich, sondern wird
+      von TYPO3 gerendert und ausgegeben.
+    </p>
+    <p>Überschrieben wird nie über den Core, sondern immer über die Sitepackage</p>
+    <p>Form.html ist für das Suchformular</p>
+    <p>Rules.html ist für die Suchregeln</p>
+    <p>Searchresult.html ist für das Suchergebnis</p>
+    <p>Bei Templates/Search/ liegt: </p>
+    <p>Search.html für die Hauptsuchseite</p>
+    <p>Form.html für das rendern vom Suchformular</p>
+    <p>SearchResult.html für die Liste der Ergebnisse</p>
+    <p>NoTypoScript.html ist eine Fehlerseite wenn kein TypoScript definiert ist.</p>
+    <p>Templates/Administration ist für Backend. Übersicht vom Index, externe Dateien, Suchstatistiken,
+      einzelne Suchbegriffe, etc
+    </p>
+    <h3>Einbinden von Bildern</h3>
+    <p>Bilder können in TYPO3 bei einer Seite über die "Edit Page Properties" > Resources > Media eingepflegt werden.</p>
+    <p>Nach der Pflege muss die Seite allerdings nochmal aufgerufen werden, weil erst dann der Suchindex richtig indexiert wird.</p>
+    <h3>Templates</h3>
+    <p>
+      Hier liegen Haupttemplates, Plugin-Layouts, Einstiegspunkte für die
+      Darstellung der Inhalte.
+    </p>
+    <h3>Partials</h3>
+    <p>
+      Partials sind wiederverwendbare Template-Teile, die in anderen Templates
+      wieder verwendet werden können. zb Header und Footer.
+    </p>
+    <h3>Layouts</h3>
+    <p>
+      Layouts sind die grundlegenden Strukturen für die Darstellung der Inhalte.
+      Sie definieren den allgemeinen Aufbau einer Seite. Also zB Header, danach
+      main content und danach Footer.
+    </p>
+    <h3>Language</h3>
+    <p>
+      Hier kommen Texte und Übersetzungen für die verschiedenen Sprachen rein.
+    </p>
+    <h3>Indexed Search Ausgabe in der Konsole</h3>
+    <p>Der wichtigste Wert ist das rating. Dieses gibt an, wie gut ein Ergebnis zur Sucheingabe passt.</p>
+    <p>Durch Wortstamm-Matching (Stemming) werden verwandte Wörter gefunden. Bei Führungskräfte zB
+      Führung und Kräfte.
+    </p>
+    <p>Sehr hoch gewichtet wird der Titel, dann der Seitentyp/ Struktur, dann die Content-Häufigkeit und Kontext. Description
+      ist dabei höher gewichtet als keyword, meta Felder und Abstract.
+    </p>
+    <h3>Passwortschutz für Seite (.htaccess)</h3>
+    <p>Bei VBV ist der Frontend Schutz lediglich auskommentiert. Dafür müsste ein neues Passwort und Nutzer angelegt werden bei
+      https://www.redim.de/blog/passwortschutz-mit-htaccess-einrichten und diese dann für die aktuelle .htpasswd ersetzen.
+    </p>
+    <p>Die .htaccess liegt im /public_html Verzeichnis und sieht für alle 2025 Unterseiten bei VBV so aus: </p>
+    <pre>
+      <If "%{REQUEST_URI} =~m#^/2025(?:/.*)?$#">
+        AuthType Basic
+        AuthName "Geschützter Bereich"
+          AuthUserFile /home/j06wm45m40jl/public_html/.htpasswd
+        Require valid-user
+      </If>
+    </pre>
+    Die .htpasswd Nutzer und Passwort dann oben generieren lassen und verschlüsselt in die .htpasswd ersetzen.
+    <p>Erklärung der .htaccess Regeln: </br>
+      Die %{REQUEST_URI} enthält den Pfad der angeforderten URL. Das =~ bedeutet: "Passt auf diesen regulären Ausdruck?" und das 
+      m#...# ist die Begrenzung des regulären Ausdrucks. Jetzt wird geprüft:
+    </p>
+    <p>^/2025(?:/.*)?$</p>
+    <ul>
+      <li>^ ist der Anfang der URL</li>
+      <li>/2025 muss genau so beginnen</li>
+      <li>(?:/.*)? ist optional für alles was darauf folgt</li>
+      <li>$ ist das Ende der URL</li>
+    </ul>
+    <p>Die Bedingung ist true für /2025/ aber falsch für /2024/, /20250/, etc</p>
+    <p>Wenn der Regex stimmt, werden die Direktiven an aktiviert. AuthType Basic zeigt das
+      Popup für die Passworteingabe an. AuthName ist der Text, der im Popup angezeigt wird. AuthUserFile gibt den Pfad zur
+      .htpasswd an. Require valid-user bedeutet, dass jeder Benutzer, der in der .htpasswd steht, Zugriff hat.
+    </p>
   </div>
 </div>
