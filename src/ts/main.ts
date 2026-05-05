@@ -1,5 +1,4 @@
 import '../scss/main.scss';
-
 import './functions/hover-once';
 import './functions/dialog';
 

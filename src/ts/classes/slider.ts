@@ -15,31 +15,48 @@ export class Slider {
     this.prevBtn = sliderEl.querySelector<HTMLButtonElement>('.prev')!;
     this.nextBtn = sliderEl.querySelector<HTMLButtonElement>('.next')!;
     this.dotsContainer = sliderEl.querySelector<HTMLElement>('.dots')!;
+    // proceed with initialization; guard checks are later used
 
     this.init();
   }
 
   init() {
     // Dots erzeugen
-    this.slides.forEach((_, i) => {
-      const dot = document.createElement('button');
-      dot.className = 'dot';
-      dot.type = 'button';
-      dot.addEventListener('click', () => this.goTo(i));
-      this.dotsContainer.appendChild(dot);
-      this.dots.push(dot);
-    });
+    if (this.dotsContainer) {
+      this.slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.type = 'button';
+        dot.addEventListener('click', () => this.goTo(i));
+        this.dotsContainer.appendChild(dot);
+        this.dots.push(dot);
+      });
+    }
 
-    this.prevBtn.addEventListener('click', () => this.goTo(this.index - 1));
-    this.nextBtn.addEventListener('click', () => this.goTo(this.index + 1));
+    if (this.prevBtn) {
+      try {
+        this.prevBtn.addEventListener('click', () => {
+          this.goTo(this.index - 1);
+        });
+      } catch (err) {}
+    }
+    if (this.nextBtn) {
+      try {
+        this.nextBtn.addEventListener('click', () => {
+          this.goTo(this.index + 1);
+        });
+      } catch (err) {}
+    }
 
     this.goTo(0);
   }
 
   goTo(i: number) {
     this.index = (i + this.slides.length) % this.slides.length;
-    this.slidesWrapper.style.transform = `translateX(-${this.index * 100}%)`;
+    if (this.slidesWrapper) {
+      this.slidesWrapper.style.transform = `translateX(-${this.index * 100}%)`;
+    }
     this.dots.forEach(d => d.classList.remove('active'));
-    this.dots[this.index].classList.add('active');
+    if (this.dots[this.index]) this.dots[this.index].classList.add('active');
   }
 }

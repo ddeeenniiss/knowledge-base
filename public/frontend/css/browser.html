@@ -1,0 +1,34 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>Browser Rendering der verschiedenen Engines</h1>
+    <h2>Safari</h2>
+    <p>Safari basiert auf WebKit, hier die Doku: <a href="https://webkit.org">CLICK ME</a></p>
+    <p>Bekannte Bugs werden hier dokumentiert: <a href="https://bugs.webkit.org/">BUGS WEBKIT</a></p>
+    <p>Hier ein Link zur Browserkompatibilität: <a href="https://developer.mozilla.org">MDN</a></p>
+    <p>Ansammlung von Safari Bugs: <a href="https://github.com/philipwalton/flexbugs">GITHUB DOKU</a></p>
+
+    <h3>Häufige Fehler bei Safari: </h3>
+    <p>Flexbox + Overflow: display: flex; overflow: auto; Container wird zu groß / Scroll funktioniert nicht</p>
+    <p>Lösung: min-width: 0; min-height: 0;</p>
+
+    <p>Mobile Safari berechnet vh oft falsch</p>
+    <p>Lösung: height: 100dvh;</p>
+
+    <p>SVGs können in Safari falsche Größen haben</p>
+    <p>Lösung: flex-shrink: 0; oder width: 100%; height: auto;</p>
+
+    <p>line-height in rem angeben. Sollte immer als Faktor angegeben werden, da safari anders rendert. Dieser berechnet sich durch
+      Lineheight in px / Schriftgröße. zB 55 / 50 = 1.1
+    </p>
+
+    <p>Bei Safari und Flexbox immer min-width: 0; und width: ..px; und eine max-width begrenzung. Oder direkt flex
+      0 0 width; 
+    </p>
+
+    <h2>Chrome</h2>
+    <p>Chrome basiert auf Blink</p>
+
+    <h2>Mozilla Firefox</h2>
+    <p>Firefox basiert auf Gecko.</p>
+  </div>
+</div>

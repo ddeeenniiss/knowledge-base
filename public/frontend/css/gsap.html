@@ -1,0 +1,73 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>GSAP (GreenSock Animation Platform)</h1>
+    <p>
+      GSAP ist eine leistungsstarke JavaScript-Bibliothek für anspruchsvolle
+      Animationen im Web.
+    </p>
+    <h2>Verwendung in Projekten</h2>
+    <p>Einfach einbinden per script</p>
+    <pre>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </pre>
+    <h2>Tweening - in betweening</h2>
+    <p>
+      Ein Tween ist die Animation von einem Startwert zu einem Endwert über eine
+      bestimmte Zeit. Zwischenzustände werden automatisch berechnet. Getweent werden können x, y, opacity, scale, rotation (in Grad), color, svg Attribute, scroll Positionen,
+      Canvas Werte, JavaScript Objekte etc.
+    </p>
+    <pre>
+      gsap.to(".box", {
+        x: 300,     //in Pixel nach rechts
+        xPercent: 900, // 900% der eigenen Breite nach rechts, also bei 50px 900% von 50px = 450px
+        yPercent: 100, // 100% der eigenen Höhe nach unten
+        scale: 2, //verdoppelt die Größe, scaleX und scaleY gibts auch
+        opacity: 0.5, // halbtransparent
+        transformOrigin: "100% 0%", // Ursprung der Transformation ist die obere rechte Ecke
+        duration: 1 //in Sekunden
+        rotationX: 360, //Drehung um die X-Achse
+      });
+    </pre>
+    <p>Start ist die aktuelle Position und das Ende ist bei x=300. Die Dauer ist insgesamt bei 1 Sekunde. GSAP berechnet
+      alle Zwischenwerte automatisch.
+    </p>
+    <h3>to()</h3>
+    <p>Die to() Methode animiert vom aktuellen Zustand zu einem Endwert.</p>
+    <h3>from()</h3>
+    <p>Die from() Methode animiert von einem Startwert zum aktuellen Zustand.</p>
+    <h3>fromTo()</h3>
+    <p>Start und Endwert werden explizit angegeben.</p>
+    <h3>onUpdate()</h3>
+    <p>Callback-Funktion, die bei jedem Frame der Animation aufgerufen wird, an dem sich 
+      der animierte Wert ändert.
+    </p>
+    <pre>
+      const progress = document.querySelector('.progress'); //Fortschrittsleiste
+      const label = document.querySelector('.label'); //Label für Prozentanzeige
+
+      slider.addEventListener('input', function() { //bei jeder Änderung des Sliders
+        gsap.to(progress, {
+          width: `${this.value}%`, //aktueller Slider Wert in Prozent
+          duration: 0.2,
+          onUpdate: function(){
+            label.textContent = `${Math.round(gsap.getProperty(progress, 'width'))}%`; //liest aktuelle animierte Breite aus
+          }
+        });
+      });
+    </pre>
+    <h3>yoyo, repeat, onComplete Eigenschaft</h3>
+    <p>Die yoyo Eigenschaft sorgt dafür, dass die Animation nochmal rückwärts abgespielt wird.</p>
+    <pre>
+      let box = document.querySelector('.box');
+
+      gsap.to(box, {
+        duration: 1,
+        x: 200,
+        repeat: 2, //bei -1 unendlich oft wiederholen
+        yoyo: true, //nach jedem Durchlauf rückwärts abspielen
+        delay: 1, //1 Sekunde Verzögerung vor Start
+        onComplete: () => { alert('Animation finished!')}
+      })
+    </pre>
+  </div>
+</div>

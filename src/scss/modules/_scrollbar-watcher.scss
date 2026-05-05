@@ -1,0 +1,17 @@
+.scrollbar-watcher{
+    height: 10px;
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    background-color: red;
+    scale: 0 1;
+    transform-origin: left;
+
+    animation: scrollbar-watcher linear;
+    animation-timeline: scroll();
+}
+
+@keyframes scrollbar-watcher {
+    to { scale: 1 1; }
+}

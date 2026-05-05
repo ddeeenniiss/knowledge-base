@@ -1,10 +1,14 @@
 <div class="block">
   <div class="content__container">
+    <!-- overflow-y: auto muss vom content weg für Funktionalität -->
+    <section class="scrollbar-watcher"></section>
+
     <h2>Slider mit Sliderbuttons</h2>
     <div class="slider">
       <div class="slides">
         <div class="slide">Slide 1</div>
         <div class="slide">Slide 2</div>
+        <div class="slide">Slide 3</div>
         <div class="slide">Slide 3</div>
       </div>
 
@@ -14,8 +18,8 @@
       <div class="dots"></div>
     </div>
 
-    <!-- Vite injectiert die gebauten Module automatisch -->
-    <script type="module" src="/src/ts/modules/slider.ts"></script>
+    <!-- Load app entry (bundles modules including slider) -->
+    <script type="module" src="/src/ts/main.ts"></script>
 
     <h2>Parallax Modul - Fixierte Bilder die im scrollen sichtbar werden</h2>
     <p>

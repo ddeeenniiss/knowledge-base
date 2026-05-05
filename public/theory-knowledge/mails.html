@@ -31,6 +31,20 @@
       Mail-Server, um sicherzustellen, dass sensible Informationen nicht
       abgehört werden können.
     </p>
+    <p>Ein SSL-Zertifikat ist im Grunde dein digitaler Sicherheitsausweis für eine Website. Es sorgt dafür, dass die Verbindung zwischen Browser und Server verschlüsselt und vertrauenswürdig ist (Firmenprüfung, ob
+      diese Firma wirklich existiert / Ansprechpartner vorhanden?).
+      Erkennbar an https. Diese Verschlüsselung ist Pflicht für moderne Websites, gerade bei Daten (Passwörter, Formulare, Login etc.), damit diese nicht mitgelesen werden können. Das
+      verhindert Man-in-the-Middle Angriffe und ist ebenso wichtig für das SEO Ranking.
+    </p>
+    <p>Es gibt verschiedene Arten von SSL-Zertifikaten:</p>
+    <ul>
+      <li>Domain SSL (Domain Validated SSL): gilt für eine Domain, keine Firmenüprüfung, nur Besitz der Domain wird geprüft</li>
+      <li>Domain SSL Wildcard: gilt für eine Domain und alle Subdomains</li>
+      <li>Organisation SSL: gilt für eine Domain, Firmenprüfung, Firmename wird im Zertifikat angezeigt
+      </li>
+      <li>Organisation SSL Wildcard: kombiniert Firmenprüfung und SSL für alle Subdomains</li>
+      <li>Extended SSL: Sehr hohe Vertrauensstufe und noch strengere Firmenprüfung</li>
+    </ul>
 
     <h2>POP3</h2>
     <p>
@@ -84,11 +98,46 @@
       und E-Mail-Adressen einrichten. Der Hosting-Anbieter kümmert sich um die
       technische Infrastruktur, Sicherheit und Wartung der Server.
     </p>
+
+    <h2>Domains</h2>
+    <p>Eine Domain ist die Internetadresse einer Website. Ohne Domains müsste jede Website über eine IP Adresse aufgerufen werden. 
+      Eine Domain besteht aus Subdomain, Hauptdomain und Domainendung (Top-Level-Domain).
+    </p>
+    <p>Die TLD geben Hinweise auf Herkunft, Zweck oder Zielgruppe einer Website. Länderspezifische TLDs wie zB .de richten sich an Nutzer
+      des jeweiligen Landes und erzeugen Vertrauen und sind besser für lokale Suchmaschinen (SEO).
+
+    </p>
+    <p>Neue TLDs wie .shop, .blog etc können direkt zeigen worum es auf der Website geht.</p>
+    <p>Generische TLDs wie .com (kommerziell), .org (Organisation), .net (network) sind universell und für globale Unternehmen geeignet.</p>
+
+    <h2>Subdomains</h2>
+    <p>Eine Subdomain ist eine Unterdomain einer Hauptdomain. zB www.relaunch.inside.at für die Hauptdomain inside.at</p>
+    <h2>Welche Anbieter gibt es für hosting?</h2>
+    <p>Host Europe: solide, aber nicht der beste und eher altbacken.</p>
+    <p>Hostinger: sehr zu empfehlen.</p>
+    <p>Für Typo3 Projekte sind managed Cloud / VPS Anbieter besonders geeignet. zB Hetzner oder netcup</p>
+    <h2>Host Europe erklärt:</h2>
+    <h3>KIS (Kundeninformationssystem)</h3>
+    <h3>Neue Subdomain erreichbar machen: </h3>
+    <ul>
+      <li>Subdomain anlegen</li>
+      <li>DNS Einträge konfigurieren: A-Record (muss auf IP-Adresse zeigen) oder CNAME (zeigt auf Hauptdomain)</li>
+      <li>Zielverzeichnis der Subdomain festlegen</li>
+      <li>SSL Zertifikat für HTTPS</li>
+      <li>Erreichbarkeit testen per ping</li>
+    </ul>
+    <h3>Domainservices</h3>
+    <p>Hier sind nur „echte“ Domains, die als Domainprodukt gebucht sind, aufgelistet.</p>
     <h2>Was ist eine Domain?</h2>
     <p>
       Eine Domain ist ein Name, der auf einen Webserver zeigt. Sie dient als
       Adresse, unter der eine Website oder E-Mail-Adresse erreichbar ist. Die
       Domain wird über das DNS (Domain Name System) auf den Server geleitet.
+    </p>
+    <h3>CPANEL</h3>
+    <p>cPanel ist eine Webhosting-Verwaltungsoberfläche (Control Panel), mit der du einen Server oder Webspace bedienen kannst, ohne Linux-Kommandos lernen zu müssen.
+      Damit kann man Domains, Subdomains hinzufügen, Weiterleitungen einrichten, Dateien verwalten, Datenbanken anlegen, Benutzer verwalten, Mailkonten erstellen,
+      SSL-Zertifikate verwalten, Backups erstellen.
     </p>
     <h2>DNS (Domain Name System)</h2>
     <p>
@@ -125,6 +174,9 @@
         Einträge ermöglichen es dem Empfänger-Mailserver, die Echtheit der
         E-Mail zu überprüfen, indem sie eine digitale Signatur enthalten, die
         mit dem privaten Schlüssel der Domain erstellt wurde.
+        DomainKeys Identified Mail
+
+        Es sorgt dafür, dass E-Mails echt sind und unterwegs nicht manipuliert wurden.
       </li>
       <li>
         <strong
@@ -168,5 +220,30 @@
       Sie kann verwendet werden, um unerwünschte Verbindungen zu blockieren und
       den Zugriff auf bestimmte Dienste zu beschränken.
     </p>
+    <h2>Spam Ordner</h2>
+    <p>Der Spam Ordner schützt vor unerwünschten, potentiell gefährlichen oder verdächtigen Emails (info@kostenlos-gewinnspiel.de). Filtert 
+      Emails heraus, die von unbekannten Absendern kommen (Mails die über Server ohne SPF/ DKIM kommen), bestimmte Schlüsselwörter enthalten oder von Servern
+      gesendet werden, die für Spam bekannt sind. Ebenso verdächtige Anhänge (.exe, .zip, .scr) können darin landen.
+    </p>
+    <h2>Ursache für Weiterleitung auf www finden</h2>
+    <p>1. curl -I relaunch.inside.at im Terminal prüfen.</p>
+    <p>Wenn ja, dann .htaccess im Webroot prüfen auf Weiterleitung.</p>
+    <p>2. DNS Einträge prüfen (A Record und CNAME)</p>
+
+    <h2>YRewrite Domain</h2>
+    <p>Hier einfach https://relaunch.inside.at/ setzen, um www auszuschließen.</p>
+
+    <h2>Cash Probleme</h2>
+    <p>Manchmal könnte der Cash Agenturbezogen sein, dieser löscht sich dann erst nach 24 Stunden. In diesem Fall müsste Joachim kontaktiert werden,
+      damit der Admin den Cache manuell löscht.
+    </p>
+    <p>Man kann auch unter chrome://net-internals/#hsts unter Delete domain security policies HTTPS für eine domain erzwingen, auch dadurch
+      können Fehler oder Cache Probleme behoben werden.
+    </p>
+
+    <h2>phpMyAdmin</h2>
+    <p>Bei Umzügen nur im Notfall verwenden. Da Redaxo Setup gewisse Sicherheitsmechanismen setzt, damit nichts gelöscht unnötig gelöscht wird und
+      auch die Datenbank nicht beschädigt wird.</p>
+
   </div>
 </div>

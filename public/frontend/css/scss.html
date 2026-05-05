@@ -1,0 +1,89 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>SCSS (Sassy CSS)</h1>
+    <p>SCSS ist eine Erweiterung von CSS, die zusätzliche Funktionen wie Variablen, Verschachtelung und Mixins bereitstellt.</p>
+    <h2>Maps</h2>
+    <p>Maps sind eine Datenstruktur in SCSS, die Schlüssel-Wert-Paare speichert und verwendet werden kann, um komplexe Daten zu organisieren</p>
+    <pre>
+        $colors: (
+            'red': #ff2756,
+            'teal': #449fa9,
+            ..
+        );
+    </pre>
+    <p>Das ist jetzt die Map 'colors', die verwendet werden kann, um Farben in SCSS zu verwalten.</p>
+
+    <h2>CSS Variablen generieren</h2>
+    <p>SCSS Maps können verwendet werden, um CSS Variablen dynamisch zu generieren. Dafür wird die Map durchlaufen und für jede Farbe eine
+        CSS Variable erstellt.
+    </p>
+    <pre>
+        :root{
+            @each $key, $value in $colors{
+                --color-#{$key}: #{$value};
+            }
+        }
+    </pre>
+    <p>:root sorgt dafür, dass alle Klassen global verfügbar sind. @each ist hier die SCSS-Iterationsschleife über alle Farben. #{$key} ist die String-Interpolation.</p>
+    <h2>Utility Classes erstellen</h2>
+    <pre>
+        @each $key, $value in $colors{
+            .text-#{$key}{
+                color: #{$value};
+            }
+            .bg-#{$key}{
+                background-color: #{$value};
+            }
+        }
+    </pre>
+    <h2>SCSS Dateien/ Module importieren</h2>
+    <p>Mit @use werden SCSS Module in andere SCSS Dateien importiert. Die Module werden in separate Dateien organisiert, um die Wiederverwendbarkeit und Struktur der Stylesheets zu verbessern.</p>
+    <h2>Eingebaute SCSS Module</h2>
+    <h3>sass:string</h3>
+    <p>Funktionen für Strings, zB string.length("Hallo") oder string.insert()</p>
+    <h3>sass:list</h3>
+    <p>Funktionen für Listen, zB list.join($a, $b), list.nth($list, 2)</p>
+    <pre>
+        @use "sass:list';
+        $colors: red, blue, green;
+        $second-color: list.nth($colors, 2); //blue
+    </pre>
+    <h2>@mixin Vorlage</h2>
+    <p>Ein @mixin ist eine wiederverwendbare SCSS-Funktion, die in anderen SCSS-Dateien aufgerufen werden kann.</p>
+    <pre>
+        @mixin fancy-border($color){
+            border: 2px solid $color;
+        }
+
+        .button{
+            @include fancy-border(red);
+        }
+    </pre>
+    <h3>Beispiel als _breakpoints.scss</h3>
+    <pre>
+        @use 'sass:map';
+
+        $breakpoints: (
+            'md': '768px',
+            'lg': '1024px',
+        );
+
+        @mixin breakpoint-up($size){
+            @if not map.get($breakpoints, $size){ //1
+                @warn "Breakpoint \"#{$size}\" not available.";
+            }
+
+            $breakpoint-value: map.get($breakpoints, $size); //2
+
+            @media screen and (min-width: $breakpoint-value){ //3
+                @content;
+            }
+        }
+    </pre>
+    <p>'sass:map' bringt Funktionen für Map Operationen</p>
+    <p>1. prüft, ob der angegebene Breakpoint ($size) in der Map $breakpoints existiert. Wenn nicht, gibt Sass eine Warnung</p>
+    <p>2. Holt den Pixelwert für den breakpoint
+    </p>
+    <p>3. Erstellt eine Media Query</p>
+  </div>
+</div>

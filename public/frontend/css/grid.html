@@ -29,6 +29,8 @@
     <h3>repeat() Abkürzungsfunktion</h3>
     <p>Mit der <pre>grid-template-columns: repeat(anzahl, größe);</pre> Funktion lassen sich mehrere gleichartige
     Zeilen oder Spalten definieren, ohne diese einzeln aufzuschreiben.</p>
+    <p>Usecase: Wir wollen ein Grid mit vielen 300px Kacheln responsive machen. Dafür gibt es einen Shortcut:</p>
+    <p>grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));</p>
     <h3>repeat() mit minmax() Funktion</h3>
     <p>Die <pre>minmax(minValue, maxValue)</pre> Funktion lässt ein Kindselement minimal minValue und maximal maxValue 
     groß werden. Dazwischen reagiert es flexibel je nach Container Größe.</p>
@@ -47,6 +49,26 @@
     <p>Mit <pre>grid-template-columns: subgrid;</pre> lassen sich dieselben Zeilen und Spalten verwenden wie auch 
     beim parent Element. Die Eigenschaft wird dem child jeweils zugewiesen und wirkt nur auf direkte Kindselemente.
 </p>
+<h3>grid-auto-rows: </h3>
+<p>legt eine default Größe fest für alle Reihen.</p>
+<p>values: auto, fit-content() (wie Inhalt, nur mit max Größe), max-content, min-content, minmax(), %</p>
+<p>Usecase: Wir wollen einen zu kurzen content über die ganze Seite füllen.</p>
+<p>grid-template-rows: auto 1fr auto; Das lässt header und footer in ihrer höhe und weitet den content auf Seitenhöhe.</p>
+<h3>grid-auto-flow: </h3>
+<p>legt fest, wie Elemente in das grid eingefügt werden. </p>
+<p>grid-auto-flow: column fügt Elemente spaltenweise ein.</p>
+<p>grid-auto-flow: row fügt Elemente zeilenweise ein.</p>
+    <h3>grid Eigenschaft </h3>
+    <p>Grundsyntax: grid: rows / columns;</p>
+    <p>grid: grid-template-rows, grid-template-columns, grid-template-areas, grid-auto-rows, grid-auto-columns, grid-auto-flow
+    </p>
+    <p>2 Zeilen (100px, 1fr), 2 Spalten (200px, 1fr)</p>
+    <pre>grid:
+        "header header" 100px
+        "sidebar content" 1fr
+        / 200px 1fr;</pre>
+    <p>Ist equivalent zu grid-template-areas, grid-template-rows, grid-template-columns</p>
+    <p>Die grid Eigenschaft setzt nicht: gap, justify-items, align-items, place-items, justify-content, align-content</p>
 
 </div>
 </div>
