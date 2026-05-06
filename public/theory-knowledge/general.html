@@ -277,12 +277,22 @@
     <p>CI /CD ersetzt manuelle Schritte wie Dependencies installieren (npm install oder yarn install), 
       Projekte bauen (vite build), Code Checks durch ESLint, Prettier und Stylelint, Fehlerfindung, build lokal, FTP /rsync hochladen und 
       hoffentlich funktioniert es live, Sicherheitstests (npm audit, Snyk), Bilder / Video / JSON Optimierung mit verschiedenen Auflösungen pro 
-      Breakpoint und Gerät / Geschwindigkeits (geht mit vite-plugin-imagemin oder sharp, bei Redaxo media manager und optional Cloudflare, bei typo3 Image Processing Engine), DB Migrationen bei CMS.
+      Breakpoint und Gerät / Geschwindigkeits (geht mit vite-plugin-imagemin, vite-imagetools oder sharp, bei Redaxo media manager und optional Cloudflare oder AddOn media_negotiator oder AddOn yakamara/roadie oder AddOn focuspoint oder
+      man baut sich eigenes Template die das übernimmt, bei typo3 Image Processing Engine oder eigenes fluid ViewHelper dafür. Es gibt auch dafür schon Erweiterungen wie EXT:image_autoresize, EXT:picture), DB Migrationen bei CMS.
+    </p>
+    <p>Ein ViewHelper kümmert sich dann um AVIF, WebP und JPG, srcset, sizes, lazy loading</p>
+    <p>Media Manager ansich benötigt definierte Medientypen wie hero, teaser und thumb. Redaxo generiert die Varianten dann automatisch
+      beim Aufruf.
     </p>
     <p>Es macht zB git push -> automatische Tests und Deployment -> Tests, die optional laufen und
       Deploy auf staging oder production
     </p>
     <p>CODE -> BUILD -> TEST -> DEPLOY</p>
+    <h2>Redaxo Media Manager</h2>
+    <p>Der Media Manager erzeugt Bildvarianten basierend auf den definierten Medientypen.</p>
+    <p>Ein Template wie pictureTag() entscheidet, wie sie in HTML kombiniert werden. Er übernimmt die responsive Logik für die Bildgrößen, steuert den Aufbau des
+      picture Tags und die WebP / AVIF Fallbacks. SVG Sonderfall beachten.
+    </p>
     <h2>Web Client</h2>
     <p>Browser wie Chrome, Firefox, Safari, Edge, Opera</p>
     <h2>Browser</h2>

@@ -9,8 +9,9 @@
     <p>Wird gesteuert über JavaScript Objekt XMLHttpRequest</p>
 
     <h2>Websockets</h2>
-    <p>Für Echtzeitübertragungen wie Chats, Live-Updates, Multiplayer Games, Börsenkurse. Diese sind bidirektional,
-      asynchron und dauerhaft offen.
+    <p>
+      Für Echtzeitübertragungen wie Chats, Live-Updates, Multiplayer Games,
+      Börsenkurse. Diese sind bidirektional, asynchron und dauerhaft offen.
     </p>
     <h2>Vite</h2>
     <p>
@@ -48,18 +49,104 @@
       Metadaten über dein Projekt enthält – also quasi eine Art „Rezeptbuch“ für
       dein Projekt.
     </p>
+
+    <p>"name": "knowledge-base" Name deines Projekts.</p>
     <p>
-      "name": "knowledge-base" Name deines Projekts. "version": "1.0.0"
-      Versionsnummer, nützlich für Releases oder npm-Pakete. "private": true
-      Verhindert, dass das Projekt versehentlich auf npm veröffentlicht wird.
-      "scripts" Enthält Befehle, die du über npm run .. ausführen kannst. //Für
-      die App wichtig sind vor allem: "dependencies" Bibliotheken, die deine App
-      benötigt, um zu laufen (Produktion). Hier z. B. marked für Markdown. //Für
-      die Entwicklung wichtig sind: "devDependencies" Entwicklungsbibliotheken,
-      die nur während Entwicklung gebraucht werden (Build-Tools, Compiler etc.).
-      Hier z. B. vite und sass.
+      "version": "1.0.0" Versionsnummer, nützlich für Releases oder npm-Pakete.
     </p>
-    <p>"publish:prod": "sh rsync.prod.sh" führt per shell das sh (shellskript) aus.</p>
+    <p>
+      "private": true Verhindert, dass das Projekt versehentlich auf npm
+      veröffentlicht wird.
+    </p>
+    <p>
+      Die script section "scripts" Enthält Befehle, die du über den package manager yarn ..
+      ausführen kannst.
+    </p>
+    <table>
+      <tr>
+        <th>script name / command alias</th>
+        <th>command</th>
+        <th>Erklärung</th>
+      </tr>
+      <tr>
+        <td>"dev":</td>
+        <td>"vite"</td>
+        <td>
+          Startet den Entwicklungsserver und öffnet lokalen Server über localhost. Ebenso wird hot module reload aktiviert
+          für sofortige Änderungen im Browser.
+        </td>
+      </tr>
+      <tr>
+        <td>"build":</td>
+        <td>"vite build"</td>
+        <td>
+          Baut die Produktionsversion deiner App. Vite kompiliert Projekt, bündelt sass und optimiert Assets
+        </td>
+      </tr>
+      <tr>
+        <td>"preview":</td>
+        <td>"vite preview"</td>
+        <td>
+          Startet eine lokale Vorschau der Build Version. Output aus dist/ wird lokal simuliert
+        </td>
+      </tr>
+      <tr>
+        <td>"preinstall":</td>
+        <td>"npx only-allow yarn"</td>
+        <td>
+          Erlaubt nur yarn als package manager. 
+        </td>
+      </tr>
+    </table>
+    <p>
+      "publish:prod": "sh rsync.prod.sh" führt per shell das sh (shellskript)
+      aus.
+    </p>
+
+    <p>Für die App wichtig sind vor allem:</p>
+    <table>
+      <tr>
+        <th>dependency section</th>
+        <th>dependency name /package</th>
+        <th>version</th>
+        <th>Erklärung</th>
+      </tr>
+      <tr>
+        <td>"dependencies":</td>
+        <td>"marked":</td>
+        <td>"^17.0.1"</td>
+        <td>
+          Liste aller Laufzeitabhängigkeiten im Projekt, die für das korrekte
+          Laufen notwendig sind (Production). marked ist eine Bibliothek, die
+          Markdown in HTML umwandelt. Die Version "^17.0.1" bedeutet, dass jede
+          Version ab 17.0.1, aber unter 18.0.0 akzeptabel ist.
+        </td>
+      </tr>
+    </table>
+
+    <p>Für die Entwicklung wichtig sind vor allem:</p>
+    <table>
+      <tr>
+        <th>dev dependency section</th>
+        <th>dependency name /package</th>
+        <th>version</th>
+        <th>Erklärung</th>
+      </tr>
+      <tr>
+        <td>"devDependencies":</td>
+        <td>"vite":</td>
+        <td>"^4.0.0"</td>
+        <td>vite ist ein Dev Server und Build Tool.</td>
+        <td>"devDependencies":</td>
+        <td>"typescript":</td>
+        <td>"^5.9.3"</td>
+        <td>typescript ist eine Erweiterung für JavaScript.</td>
+        <td>"devDependencies":</td>
+        <td>"sass":</td>
+        <td>"^1.70.0"</td>
+        <td>sass ist eine Erweiterung für css.</td>
+      </tr>
+    </table>
     <h3>index.html</h3>
 
     <h2>Fehlercodes</h2>
@@ -192,65 +279,118 @@
     </table>
     <h2>HTTP Methoden GET und POST</h2>
     <h3>GET Methode</h3>
-    <p>Bei der GET Methode werden die Eingabefelder in der URL mitgegeben. Dabei trennt ein & (&amp;) Zeichen die Feldnamen.
-      Ein = Zeichen trennt Name von Wert und ? leitet einen Datenteil ein.
+    <p>
+      Bei der GET Methode werden die Eingabefelder in der URL mitgegeben. Dabei
+      trennt ein & (&amp;) Zeichen die Feldnamen. Ein = Zeichen trennt Name von
+      Wert und ? leitet einen Datenteil ein.
     </p>
-    <p>Nachteile sind Sicherheit, da sensible Daten wie Passwörter in der URL stehen.</p>
+    <p>
+      Nachteile sind Sicherheit, da sensible Daten wie Passwörter in der URL
+      stehen.
+    </p>
 
     <h3>POST Methode</h3>
-    <p>Mit POST werden Daten im Body versendet, somit sind sie nicht in der URL sichtbar. Genutzt wird POST für Formularabsendungen, Benutzererstellungen und für das
-      hochladen von Daten. Es gibt hierbei keine Größenbeschränkung wie bei GET.</p>
+    <p>
+      Mit POST werden Daten im Body versendet, somit sind sie nicht in der URL
+      sichtbar. Genutzt wird POST für Formularabsendungen, Benutzererstellungen
+      und für das hochladen von Daten. Es gibt hierbei keine Größenbeschränkung
+      wie bei GET.
+    </p>
     <h2>Was ist .htaccess</h2>
-<p>eine Konfigurationsdatei für Apache Webserver. Ermöglicht serverseitige Regeln ohne Server selbst neu
-    zu konfigurieren
-</p>
-<p>Einsatzgebiete sind z.B. Weiterleitungen (redirect), URL Rewriting, Zugriffsbeschränkungen (z.B. Passwortschutz) und Header Definitionen (CORS, Cache)</p>
-<p>Bei HTTP Basic Auth wird bei Aufruf der Seite nach Benutzername und Passwort gefragt und der Browser zeigt ein Standard-Login-Popup</p>
-<p>Dafür sind .htaccess (im Verzeichnis der Website oder Unterordner) und .htpasswd (enthält verschlüsselte Benutzer und Passwort) wichtig</p>
-<p>Erstellung per <code>htpasswd -c /home/user/.htpasswd kunde</code>. Dann erfolgt eine Datei mit Nutzer und Passwort.</p>
-<p>.htaccess dann im Root der Website erstellen.</p>
-<code># Passwortschutz aktivieren
+    <p>
+      eine Konfigurationsdatei für Apache Webserver. Ermöglicht serverseitige
+      Regeln ohne Server selbst neu zu konfigurieren
+    </p>
+    <p>
+      Einsatzgebiete sind z.B. Weiterleitungen (redirect), URL Rewriting,
+      Zugriffsbeschränkungen (z.B. Passwortschutz) und Header Definitionen
+      (CORS, Cache)
+    </p>
+    <p>
+      Bei HTTP Basic Auth wird bei Aufruf der Seite nach Benutzername und
+      Passwort gefragt und der Browser zeigt ein Standard-Login-Popup
+    </p>
+    <p>
+      Dafür sind .htaccess (im Verzeichnis der Website oder Unterordner) und
+      .htpasswd (enthält verschlüsselte Benutzer und Passwort) wichtig
+    </p>
+    <p>
+      Erstellung per <code>htpasswd -c /home/user/.htpasswd kunde</code>. Dann
+      erfolgt eine Datei mit Nutzer und Passwort.
+    </p>
+    <p>.htaccess dann im Root der Website erstellen.</p>
+    <pre>
+      # Passwortschutz aktivieren
       AuthType Basic                            //Nutzt HTTP Basic Auth
       AuthName "Zugriff nur für Berechtigte"    //Text im Login-Popup
       AuthUserFile /home/user/.htpasswd         //Pfad zur .htpasswd Datei
       Require valid-user                        //Nur Benutzer aus .htpasswd
 
       Schutz nur für /Redaxo
-      <Directory "/relaunch25.firetube.de/redaxo">
+      &lt;Directory "/relaunch25.firetube.de/redaxo"&gt;
         AuthType Basic
         AuthName "Redaxo Backend"
         AuthUserFile /home/username/.htpasswd
         Require valid-user
-      </Directory>
-</code>
-<h2>Docker</h2>
-<p>Docker erlaubt es, Software in abgeschlossenen Containern zu starten, die alle Abhängigkeiten enthalten, egal auf welchem Rechner. Ein Container ist dabei 
-  ein leichtgewichtiger, isolierter Mini Computer für eine App.
-</p>
-<p>Eine VM virtuelle Maschine dagegen ist ein schwerer Computer mit eigenem OS</p>
-<p>Docker ist viel leichter als eine VM, startet schnell, teilt Ressourcen effizient.</p>
-<p>Docker ist reproduzierbar auf jede Umgebung und unabhängig vom Host System (Linux, Windows, Mac) und auch weitere Abhängigkeiten wie 
-  PHP, Datenbanken, Node laufen alle im selben Container.
-</p>
-<h3>Typischer Workflow mit Docker</h3>
-<p>Image wählen oder bauen: </p>
-<pre>docker pull php:8.2-fpm</pre>
-<p>Container starten</p>
-<pre>docker run -it --rm -p 8080:80 php:8.2-fpm</pre>
-<p>Projekt starten: </p>
-<pre>docker-compose up</pre>
-<h2>DDEV - lokales Entwicklungstool</h2>
-<p>DDEV ist ein lokales Entwicklungswerkzeug, das über Docker eine vollständige, reproduzierbare Webserver-Umgebung bereitstellt – ohne dass ich PHP, DB oder Webserver lokal installieren muss. Es richtet Entwicklungsumgebungen ein, die die Produktionsumgebungen
-   möglichst genau nachbilden zB Webserver, PHP, MySQL, , Mail, nginx/apache usw. Das alles läuft dann in einem Docker Container. Mit ddev sind keine Docker Skills nötig.
-</p>
-<p>DDEV (CLI-Tool) muss nur installiert sein und Docker (Engine). Kein Setup von PHP, MySQL, Node etc auf dem Rechner notwendig.
-  Die Entwicklungsumgebungen sind leicht reproduzierbar.
-</p>
-<p>Wird vor allem in CMS Systemen und PHP Projekten genutzt.</p>
-<p>DDEV unterstützt Standard CMS wie TYPO3, Redaxo</p>
-<p>DDEV ist älteren Modellen vorzuziehen, da jedes Projekt mit eigenen Konfigurationen laufen kann. Vorteil gegenüber XAMPP, MAMP: ddev ist projektbezogen, XAMPP ist global installiert. DDEV ist versionierbar (da .ddev/config.yaml in git liegt, keine lokalen PHP Versionen), XAMPP nur schwer. DDEV läuft bei allen auf dem selben Repo (da selbe .ddev/config.yaml), XAMPP nur auf dem eigenen Rechner.</p>
-<p>Wichtige Datei: .ddev/config.yaml, dort steht die komplette Beschreibung deiner lokalen Entwicklungsumgebung</p>
-<pre>name: my-project //Projektname
+      &lt;/Directory&gt;
+    </pre>
+    <h2>Docker</h2>
+    <p>
+      Docker erlaubt es, Software in abgeschlossenen Containern zu starten, die
+      alle Abhängigkeiten enthalten, egal auf welchem Rechner. Ein Container ist
+      dabei ein leichtgewichtiger, isolierter Mini Computer für eine App.
+    </p>
+    <p>
+      Eine VM virtuelle Maschine dagegen ist ein schwerer Computer mit eigenem
+      OS
+    </p>
+    <p>
+      Docker ist viel leichter als eine VM, startet schnell, teilt Ressourcen
+      effizient.
+    </p>
+    <p>
+      Docker ist reproduzierbar auf jede Umgebung und unabhängig vom Host System
+      (Linux, Windows, Mac) und auch weitere Abhängigkeiten wie PHP,
+      Datenbanken, Node laufen alle im selben Container.
+    </p>
+    <h3>Typischer Workflow mit Docker</h3>
+    <p>Image wählen oder bauen:</p>
+    <pre>docker pull php:8.2-fpm</pre>
+    <p>Container starten</p>
+    <pre>docker run -it --rm -p 8080:80 php:8.2-fpm</pre>
+    <p>Projekt starten:</p>
+    <pre>docker-compose up</pre>
+    <h2>DDEV - lokales Entwicklungstool</h2>
+    <p>
+      DDEV ist ein lokales Entwicklungswerkzeug, das über Docker eine
+      vollständige, reproduzierbare Webserver-Umgebung bereitstellt – ohne dass
+      ich PHP, DB oder Webserver lokal installieren muss. Es richtet
+      Entwicklungsumgebungen ein, die die Produktionsumgebungen möglichst genau
+      nachbilden zB Webserver, PHP, MySQL, , Mail, nginx/apache usw. Das alles
+      läuft dann in einem Docker Container. Mit ddev sind keine Docker Skills
+      nötig.
+    </p>
+    <p>
+      DDEV (CLI-Tool) muss nur installiert sein und Docker (Engine). Kein Setup
+      von PHP, MySQL, Node etc auf dem Rechner notwendig. Die
+      Entwicklungsumgebungen sind leicht reproduzierbar.
+    </p>
+    <p>Wird vor allem in CMS Systemen und PHP Projekten genutzt.</p>
+    <p>DDEV unterstützt Standard CMS wie TYPO3, Redaxo</p>
+    <p>
+      DDEV ist älteren Modellen vorzuziehen, da jedes Projekt mit eigenen
+      Konfigurationen laufen kann. Vorteil gegenüber XAMPP, MAMP: ddev ist
+      projektbezogen, XAMPP ist global installiert. DDEV ist versionierbar (da
+      .ddev/config.yaml in git liegt, keine lokalen PHP Versionen), XAMPP nur
+      schwer. DDEV läuft bei allen auf dem selben Repo (da selbe
+      .ddev/config.yaml), XAMPP nur auf dem eigenen Rechner.
+    </p>
+    <p>
+      Wichtige Datei: .ddev/config.yaml, dort steht die komplette Beschreibung
+      deiner lokalen Entwicklungsumgebung
+    </p>
+    <pre>
+name: my-project //Projektname
 type: php //Projekttyp
 docroot: public //Ordner, in dem index.php liegt
 php_version: "8.2" //PHP Version im Container
@@ -262,44 +402,59 @@ database:
 
 use_dns_when_possible: true
 xdebug_enabled: false //debugging erlaubt
-</pre>
-<p>ddev Version checken</p>
-<pre>ddev -v</pre>
-<p>ddev Hilfeseite mit allen Befehlen aufrufen</p>
-<pre>ddev --help</pre>
-<p>ddev Projekt mit Konfiguration erstellen</p>
-<pre>ddev config</pre>
-<p>PHP Version festlegen oder ändern</p>
-<pre>ddev config --php-version 8.4</pre>
-<p>Welche Prozesse laufen gerade bei ddev?</p>
-<pre>ddev describe</pre>
-<p>Container starten und Site lokal erreichbar machen</p>
-<pre>ddev start</pre>
-<p>Danach erscheint Website: https://mein-projekt.ddev.site</p>
-<p>Stoppt alle Container</p>
-<pre>ddev stop</pre>
-<p>Neustarten: </p>
-<pre>ddev restart</pre>
-<p>Zusätzlich auch SSH-Zugriff auf Container: </p>
-<pre>ddev ssh</pre>
-<p>Datenbank-Import/-Export: </p>
-<pre>ddev import-db / ddev export-db</pre>
-<h2>Wie spielen Docker + DDEV zusammen?</h2>
-<p>Docker ist die Plattform, die Software in isolierten Containern laufen lässt, 
-  inklusive Webserver, PHP, Datenbanken oder anderer Services – alles unabhängig 
-  vom Host-System (Windows, Linux, Mac). DDEV nutzt Docker, um für jedes Projekt auf Knopfdruck eine 
-  komplette Entwicklungsumgebung bereitzustellen. Dabei liest DDEV die Projektkonfiguration 
-  (.ddev/config.yaml) und sagt Docker, welche Container, Versionen, Ports und Volumes es 
-  starten soll. Docker stellt die Container bereit, DDEV steuert sie und vereinfacht die 
-  Bedienung. Ohne Docker könnte DDEV die Container nicht starten; ohne DDEV müsste man 
-  Docker alles manuell konfigurieren. Zusammen ermöglichen sie schnelle, reproduzierbare 
-  und teamfähige Entwicklungsumgebungen, die auf jedem Rechner gleich laufen.</p>
-  <h2>Sessions</h2>
-  <p>Sessions sind ein Mechanismus zur Speicherung von Benutzerdaten über mehrere Seitenaufrufe hinweg. Sie ermöglichen es, Daten zwischen verschiedenen Seitenaufrufen zu speichern, z.B. Login-Status, Warenkorb-Inhalte etc. Sessions sind immer
-    an eine spezifische Sitzung gebunden, die durch eine eindeutige Session-ID identifiziert wird (Browser, Benutzer). Diese Session-ID wird in der Regel in einem Cookie gespeichert, damit sie bei jedem Seitenaufruf automatisch mitgesendet wird. Auf dem Server werden die Session-Daten in einer Datenbank gespeichert.
-    Eine Session hält solange bis die Session abläuft (z.B. nach 30 Minuten Inaktivität) oder explizit gelöscht wird (z.B. Logout) bzw Browser geschlossen wird.<br>
-    Anwendung: Immer dann, wenn Daten über mehrere Seitenaufrufe hinweg verfügbar sein sollen. Also Warenkorb, Login-Zustand, Benutzererkennung, zwischengespeicherte Formulardaten, temporäre Statusinformationen.
-  </p>
-  
+</pre
+    >
+    <p>ddev Version checken</p>
+    <pre>ddev -v</pre>
+    <p>ddev Hilfeseite mit allen Befehlen aufrufen</p>
+    <pre>ddev --help</pre>
+    <p>ddev Projekt mit Konfiguration erstellen</p>
+    <pre>ddev config</pre>
+    <p>PHP Version festlegen oder ändern</p>
+    <pre>ddev config --php-version 8.4</pre>
+    <p>Welche Prozesse laufen gerade bei ddev?</p>
+    <pre>ddev describe</pre>
+    <p>Container starten und Site lokal erreichbar machen</p>
+    <pre>ddev start</pre>
+    <p>Danach erscheint Website: https://mein-projekt.ddev.site</p>
+    <p>Stoppt alle Container</p>
+    <pre>ddev stop</pre>
+    <p>Neustarten:</p>
+    <pre>ddev restart</pre>
+    <p>Zusätzlich auch SSH-Zugriff auf Container:</p>
+    <pre>ddev ssh</pre>
+    <p>Datenbank-Import/-Export:</p>
+    <pre>ddev import-db / ddev export-db</pre>
+    <h2>Wie spielen Docker + DDEV zusammen?</h2>
+    <p>
+      Docker ist die Plattform, die Software in isolierten Containern laufen
+      lässt, inklusive Webserver, PHP, Datenbanken oder anderer Services – alles
+      unabhängig vom Host-System (Windows, Linux, Mac). DDEV nutzt Docker, um
+      für jedes Projekt auf Knopfdruck eine komplette Entwicklungsumgebung
+      bereitzustellen. Dabei liest DDEV die Projektkonfiguration
+      (.ddev/config.yaml) und sagt Docker, welche Container, Versionen, Ports
+      und Volumes es starten soll. Docker stellt die Container bereit, DDEV
+      steuert sie und vereinfacht die Bedienung. Ohne Docker könnte DDEV die
+      Container nicht starten; ohne DDEV müsste man Docker alles manuell
+      konfigurieren. Zusammen ermöglichen sie schnelle, reproduzierbare und
+      teamfähige Entwicklungsumgebungen, die auf jedem Rechner gleich laufen.
+    </p>
+    <h2>Sessions</h2>
+    <p>
+      Sessions sind ein Mechanismus zur Speicherung von Benutzerdaten über
+      mehrere Seitenaufrufe hinweg. Sie ermöglichen es, Daten zwischen
+      verschiedenen Seitenaufrufen zu speichern, z.B. Login-Status,
+      Warenkorb-Inhalte etc. Sessions sind immer an eine spezifische Sitzung
+      gebunden, die durch eine eindeutige Session-ID identifiziert wird
+      (Browser, Benutzer). Diese Session-ID wird in der Regel in einem Cookie
+      gespeichert, damit sie bei jedem Seitenaufruf automatisch mitgesendet
+      wird. Auf dem Server werden die Session-Daten in einer Datenbank
+      gespeichert. Eine Session hält solange bis die Session abläuft (z.B. nach
+      30 Minuten Inaktivität) oder explizit gelöscht wird (z.B. Logout) bzw
+      Browser geschlossen wird.<br />
+      Anwendung: Immer dann, wenn Daten über mehrere Seitenaufrufe hinweg
+      verfügbar sein sollen. Also Warenkorb, Login-Zustand, Benutzererkennung,
+      zwischengespeicherte Formulardaten, temporäre Statusinformationen.
+    </p>
   </div>
 </div>
