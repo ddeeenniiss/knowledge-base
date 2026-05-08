@@ -414,7 +414,7 @@ xdebug_enabled: false //debugging erlaubt
     <pre>ddev config --php-version 8.4</pre>
     <p>Welche Prozesse laufen gerade bei ddev?</p>
     <pre>ddev describe</pre>
-    <p>Container starten und Site lokal erreichbar machen</p>
+    <p>Container starten und Site lokal erreichbar machen. Dieser Befehl ist global immer gleich.</p>
     <pre>ddev start</pre>
     <p>Danach erscheint Website: https://mein-projekt.ddev.site</p>
     <p>Stoppt alle Container</p>
@@ -425,6 +425,12 @@ xdebug_enabled: false //debugging erlaubt
     <pre>ddev ssh</pre>
     <p>Datenbank-Import/-Export:</p>
     <pre>ddev import-db / ddev export-db</pre>
+
+    <pre>ddev launch /redaxo
+    </pre>
+    <p>besteht aus zwei Teilen. ddev launch öffnet die Projekt URL im Browser und /redaxo ist der Pfad
+      innerhalb der Seite. Bringt letzlich auf https://Lift-2-go.ddev.site/redaxo
+    </p>
     <h2>Wie spielen Docker + DDEV zusammen?</h2>
     <p>
       Docker ist die Plattform, die Software in isolierten Containern laufen

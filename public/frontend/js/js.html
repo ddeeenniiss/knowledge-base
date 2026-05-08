@@ -95,7 +95,7 @@
     <h2>Event Listener</h2>
     <p>
       Ein Event Listener ist eine Funktion, die auftritt, wenn ein bestimmtes
-      Ereignis (z.B. Klick, Hover) auf einem Element passiert. Sie ermöglicht
+      Event (z.B. Klick, Hover) auf einem Element passiert. Sie ermöglicht
       es, auf Benutzerinteraktionen zu reagieren und dynamische Aktionen
       auszuführen.
     </p>
@@ -103,6 +103,67 @@
   // Aktion bei Klick
 });
 </code></pre>
+<p>Der erste Parameter ist der Event-Type, der zweite die Funtion, die ausgeführt wird, wenn das Event eintritt.</p>
+<p>Man unterscheidet grob verschiedene Kategorien von Events:</p>
+<table>
+  <tr>
+    <th>
+      Kategorie
+    </th>
+    <th>
+      Event-Type
+    </th>
+    <th>
+      Beschreibung
+    </th>
+    <th>
+      Beispiele
+    </th>
+  </tr>
+  <tr>
+    <td>Maus-Events</td><td>click</td><td>Wird ausgelöst, wenn der Nutzer auf ein Element klickt</td><td></td>
+    <td></td><td>dblclick</td><td>Wird ausgelöst, wenn der Nutzer auf ein Element doppelt klickt</td><td></td>
+    <td></td><td>mousemove</td><td>Wird ausgelöst, wenn der Nutzer über ein Element bewegt.</td><td></td>
+    <td></td><td>mousedown</td><td>Wird ausgelöst, sobald eine Maustaste gedrückt wird (ohne loslassen)</td><td></td>
+    <td></td><td>mouseup</td><td>Wird ausgelöst, sobald eine Maustaste losgelassen wird.</td><td></td>
+  </tr>
+  <tr>
+    <td>Keyboard-Events</td><td>keydown</td><td>Wird ausgelöst, sobald eine Taste gedrückt wird.</td><td></td>
+    <td></td><td>keyup</td><td>Wird ausgelöst, sobald eine Taste losgelassen wird.</td><td></td>
+  </tr>
+  <tr>
+    <td>Window-Events</td><td>resize</td><td>Wird ausgelöst, sobald die Browser-Fenstergröße geändert wird.</td><td></td>
+    <td></td><td>scroll</td><td>Wird ausgeführt, sobald der Benutzer den Inhalt eines Elements scrollt.</td><td></td>
+    <td></td><td>load</td><td>Wird ausgeführt, sobald die Seite geladen ist (Heute durch DOMContentLoaded ersetzt)</td><td></td>
+  </tr>
+  <tr>
+    <td>Form-/Input-Events</td><td>input</td><td>Wird ausgelöst bei jeder Änderung eines Input Elements</td><td></td>
+    <td></td><td>change</td><td>Wird ausgelöst, sobald ein Input Eingabe abgeschlossen wurde.</td><td></td>
+    <td></td><td>submit</td><td>Wird ausgelöst, sobald ein Formular abgesendet wird.</td><td></td>
+    <td></td><td>focus</td><td>Wird ausgelöst, sobald ein Element Fokus erhält. (Bei Input Klick oder Tab gedrückt)</td><td></td>
+    <td></td><td>blur</td><td>Wird ausgelöst, sobald ein Element den Fokus verliert.</td><td></td>
+  </tr>
+  <tr>
+    <td>Touch-/Pointer-Events</td><td>touchstart</td><td>Wird ausgelöst, sobald der Finger den Bildschirm berührt.</td><td></td>
+    <td></td><td>touchmove</td><td>Wird ausgelöst, sobald der Finger sich auf dem Bildschirm bewegt.</td><td></td>
+    <td></td><td>pointerdown</td><td>Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) auf ein Element geklickt wird.</td><td></td>
+    <td></td><td>pointermove</td><td>Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) über ein Element bewegt wird.</td><td></td>
+    <td></td><td>pointerup</td><td>Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) von einem Element losgelassen wird.</td><td></td>
+  </tr>
+  <tr>
+    <td>Drag&Drop-Events</td><td>dragstart</td><td>Wird ausgeführt, sobald das Ziehen eines Elements begonnen wird.</td><td></td>
+    <td></td><td>dragover</td><td>Wird ausgelöst, sobald das Ziehen eines Elements über ein anderes Element gezogen wird.</td><td></td>
+    <td></td><td>drop</td><td>Wird ausgelöst, sobald ein gezogenes Element abgelegt wird.</td><td></td>
+  </tr>
+  <tr>
+    <td>Clipboard-Events</td><td>copy</td><td>Wird ausgelöst, sobald ein Nutzer etwas kopiert.</td><td></td>
+    <td></td><td>paste</td><td>Wird ausgelöst, sobald ein Nutzer etwas einfügt.</td><td></td>
+  </tr>
+  <tr>
+    <td>Animations-/Transition-Events</td><td>animationend</td><td>Wird ausgelöst, sobald eine CSS Animation beendet ist.</td><td></td>
+    <td></td><td>transitionend</td><td>Wird ausgelöst, sobald eine CSS Transition beendet ist.</td><td></td>
+  </tr>
+</table>
     <h2>Beispiel: Button Klick Event Listener</h2>
     <pre><code>document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById('myButton');

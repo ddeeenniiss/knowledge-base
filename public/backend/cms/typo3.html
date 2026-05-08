@@ -564,7 +564,8 @@ fields:
       Ist eine Systemerweiterung, die den Seiteninhalt indexiert, DB-basierte
       Volltextsuche bietet und ein Plugin zur Anzeige der Suche hat. Die
       Seitenindexierung kann man sich vorstellen als Unterteilung der Seite in
-      einzelne Blöcke und speichert die Inhalte in Tabellen. Bei der Suche geht
+      einzelne Blöcke und speichert die Inhalte in Tabellen. Die Wörter einer Seite 
+      werden gezählt, gewichtet und in die DB eingefügt.Bei der Suche geht
       es die Tabellen durch und findet dann direkt den Index zur Seite, auf der
       der gesuchte Begriff vorkommt. Das Indexieren ist also nur eine
       Vorbereitung, damit die Suche schnell und effizient ist.
@@ -573,10 +574,59 @@ fields:
       Auf Typo einfach über Kategorie: Plugins auswählen und Search / Indexed
       Search einfügen.
     </p>
-    <p>
-      Die Priorität liegt hierbei bei title Daten, danach meta Schlüsselwörter,
+    <p>Das Plugin prüft zunächst, ob das gesuchte Wort in der Indextabelle vorkommt, 
+      wenn ja, dann werden alle Seiten aufgelistet, die mit dem Wort in Verbindung stehen.
+      Die Priorität liegt hierbei bei anhand von Faktoren wie der Position des Wortes auf
+      der Seite oder seiner Häufigkeit, title Daten, danach meta Schlüsselwörter,
       danach meta Beschreibug und danach body
     </p>
+    <ol>
+      <li>Title Daten</li>
+      <li>Meta Schlüsselwörter</li>
+      <li>Meta Beschreibung</li>
+      <li>Body</li>
+    </ol>
+    <p>Ebenso relevant sind Wortzählung und Häufigkeit auf einer Seite. Klein und Großschreibung
+      sind irrelevant.
+    </p>
+    <p>Das Such Frontend Plugin ist auf Funktionalität optimiert, nicht auf Geschwindigkeit. Auf Websites
+      mit vielen Seiten ist es langsam, weil es jedes Mal den gesamten Baum durchläuft, um eine Liste der 
+      zugänglichen Seiten zu erstellen.
+    </p>
+    <h3>Eine Seite neu indexieren</h3>
+    <p>In der Seitenleiste unter Web > Indexing kann eingesehen werden, ob eine Seite bereits indexiert ist. Falls
+      nicht, dann einmal vom Typo Backend ausloggen und die gewünschte Seite im Frontend aufrufen. Danach wieder 
+      einloggen und nun sollte die Seite indexiert sein.
+    </p>
+    <h3>Seite nicht indexieren bzw nicht in Suche anzeigen</h3>
+    <p>Soll eine bestimmte Seite nicht in der Suche angezeigt werden, kann dies unter "Set Page Propertys" > "Behaviour" > "Include in Search"
+      getoggelt werden. Soll die Seite nicht indexiert werden, kann dies unter "SEO" > "Index this page" festgelegt werden.
+    </p>
+    <h3>Generelle Statistiken von Indexing</h3>
+    <p>Unter Indexing > General statistics lassen sich allgemeine Statistiken zum Indexing anzeigen.</p>
+    <table>
+      <tr>
+        <th>Eigenschaft</th><th>Wert</th><th>Erklärung</th>
+      </tr>
+      <tr>
+        <td>index_phash</td><td>107</td><td>Anzahl der indexierten Seiten (phash = page hash)</td>
+        <td>index_words</td><td>4212</td><td>Anzahl indexierter Wörter</td>
+        <td>index_rel</td><td>107</td><td>Beziehungen zw Wörtern und Seiten in Relationstabelle</td>
+        <td>index_grlist</td><td>107</td><td>Zugriff pro Seite (jede Seite hat einen Permission Eintrag)</td>
+        <td>index_section</td><td>107</td><td>Strukturinformationen (pro Seite einer)</td>
+        <td>index_fulltext</td><td>107</td><td>gespeicherter Volltext pro Dokument</td>
+
+        <td>TYPO3 page (0)</td><td>	107 / 107</td><td>alle indexierten Seiten sind Typo3 Seiten</td>
+      </tr>
+    </table>
+    <h3>Konfiguration um alle Seiten zu indexieren</h3>
+    <p>In der setup.typoscript sollte folgendes eingetragen werden, damit alle Seiten indexiert werden. Damit
+      werden die Seiten beim nächsten Aufruf indexiert.
+    </p>
+    <pre> page.config.index_enable = 1</pre>
+    <h3>Content aus der Suche ausschließen</h3>
+    <p>Das geht über HTML Markers: </p>
+    <p>The marker is <!--TYPO3SEARCH_begin--> or <!--TYPO3SEARCH_end--></p>
     <p>Um die Indexed Search im Plugin zu überschreiben, werden die Private/IndexedSearch angelegt.</p>
     <h2>Eigene Templates überschreiben</h2>
     <p>
