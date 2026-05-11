@@ -124,6 +124,20 @@
       Möglichkeiten zur Rohbearbeitung und TypoScript Baumstruktur und einen
       Konstanten-Editor.
     </p>
+    <p>Es gibt im Backend verschiedene Bereiche unter TypoScript:</p>
+    <table>
+      <tr>
+        <th>Bereich</th><th>Wofür</th>
+      </tr>
+      <tr>
+        <td>Title</td><td>Name/ Titel der Seite. Dient zur Orientierung im Backend.</td>
+        <td>Description</td><td>Beschreibung der Seite. Ebenfalls nur dokumentativ.</td>
+        <td>Constants</td><td>Konstanten/ Variablen, die im Setup verwendet werden.</td>
+        <td>Setup</td><td>Setup Konfiguration für die Seite. Dort greift man auf die Konstanten
+          zu.
+        </td>
+      </tr>
+    </table>
     <h3>Admin Tools</h3>
     <h4>Maintainance</h4>
     <p>Wartungsaufgaben für die TYPO3-Instanz</p>
@@ -557,7 +571,26 @@ fields:
     <p>Ebenso müssen die CType freigegeben werden. Unter Explicitly allow field values werden die Module sichtbar 
       gemacht für Redakteure.zB Diagrams 2025 [tt_content:CType:sternundhuber_diagrams-2025]
     </p>
-
+    <h2>Suchoptionen in TYPO3</h2>
+    <p>Es gilt zunächst zu unterscheiden was benötigt wird: </p>
+    <table>
+      <tr>
+        <th>Möglichkeit</th><th>Beschreibung</th>
+      </tr>
+      <tr><td>Core-Lösung: </td><td>EXT:indexed_search, geeignet für kleine bis mittelgroße Websites mit
+        grundlegenden Suchanforderungen.
+      </td></tr>
+      <tr><td>Fortgeschrittene Extensions und externe Suchmaschinen:</td><td>Lösungen wie Solr, ke_search oder Elasticsearch-basierte Extensions, die für größere Websites entwickelt wurden, die bessere Performance, Skalierbarkeit und fortgeschrittene Funktionen wie Facettensuche benötigen.</td></tr>
+    </table>
+    <h2>Apache Solr für TYPO3</h2>
+      <p>Geeignet für mittelgroße (500 -2000 Seiten) bis große Websites (ab 2000 Seiten)mit erweiterten Suchanforderungen. Sie bietet hohe Performance und schnelle Ergebnisse.
+        Facettensuche, Synonyme und Relevanzbewertung sind möglich. Allerdings erfordert die Suche die Einrichtung eines externen Solr-Servers. 
+        Zudem höherer Wartungs und Konfigurationsaufwand.
+      </p>
+    <h2>EXT: ke_search</h2>
+    <p>Geeignet für kleine bis mittelgroße Websites, die zusätzlich Facettensuche und flexible Indexierung aus Datenbankeinträgen benötigen. 
+      Die Suche ist nicht so leistungsstark wie Solr für großangelegte Projekte. Die Leistung hängt hier von der Größe der Datenbank ab.
+    </p>
     <h2>TYPO3 Indexed Search</h2>
     <p>Extension key: indexed_search</p>
     <p>
@@ -570,6 +603,10 @@ fields:
       der gesuchte Begriff vorkommt. Das Indexieren ist also nur eine
       Vorbereitung, damit die Suche schnell und effizient ist.
     </p>
+    <p>Einschränkungen: Leistung nimmt bei großen Websites ab und es ist keine integrierte 
+      Facettensuche (Suche mit Filteroptionen) vorhanden.
+    </p>
+    <p>Die Suche findet einzelne Wörter, sowie Wortkombinationen oder einzelne Wortstücke.</p>
     <p>
       Auf Typo einfach über Kategorie: Plugins auswählen und Search / Indexed
       Search einfügen.
@@ -587,7 +624,8 @@ fields:
       <li>Body</li>
     </ol>
     <p>Ebenso relevant sind Wortzählung und Häufigkeit auf einer Seite. Klein und Großschreibung
-      sind irrelevant.
+      sind irrelevant. Zudem ist auch die Hierarchie entscheidend, also die Position der Seite im 
+      Seitenbaum, in der ein Wort gefunden wird.
     </p>
     <p>Das Such Frontend Plugin ist auf Funktionalität optimiert, nicht auf Geschwindigkeit. Auf Websites
       mit vielen Seiten ist es langsam, weil es jedes Mal den gesamten Baum durchläuft, um eine Liste der 
@@ -636,17 +674,22 @@ fields:
       von TYPO3 gerendert und ausgegeben.
     </p>
     <p>Überschrieben wird nie über den Core, sondern immer über die Sitepackage</p>
+    <p>Extensions/IndexedSearch enthält die Fluid Templates, die für die Suchfunktion
+      benötigt werden. Bearbeitet werden müssen nur Search.html, Form.html, Default.html und Searchresult.html
+    </p>
+    <p>Layouts/Default.html ist ein Grundgerüst für die Indexed Search</p>
     <p>Form.html ist für das Suchformular</p>
     <p>Rules.html ist für die Suchregeln</p>
     <p>Searchresult.html ist für das Suchergebnis</p>
     <p>Bei Templates/Search/ liegt: </p>
-    <p>Search.html für die Hauptsuchseite</p>
-    <p>Form.html für das rendern vom Suchformular</p>
+    <p>Search.html ist das Template für die Hauptsuchseite. Wird vom Plugin genutzt. Rendert die Eingabe und die Ergebnisse von der Searchresult.html. Hier wird auch festgelegt, wie Metadaten verwendet werden.</p>
+    <p>Form.html für das rendern vom Suchformular. Wird von Search.html genutzt. Bestimmt Markup von der Sucheingabe.</p>
     <p>SearchResult.html für die Liste der Ergebnisse</p>
     <p>NoTypoScript.html ist eine Fehlerseite wenn kein TypoScript definiert ist.</p>
     <p>Templates/Administration ist für Backend. Übersicht vom Index, externe Dateien, Suchstatistiken,
       einzelne Suchbegriffe, etc
     </p>
+    <p>Weitere gute Informationen: <a href="https://t3planet.de/blog/typo3-indexed-search/#c4611">t3planet.de CLICK ME</a></p>
     <h3>Einbinden von Bildern</h3>
     <p>Bilder können in TYPO3 bei einer Seite über die "Edit Page Properties" > Resources > Media eingepflegt werden.</p>
     <p>Nach der Pflege muss die Seite allerdings nochmal aufgerufen werden, weil erst dann der Suchindex richtig indexiert wird.</p>
@@ -708,5 +751,92 @@ fields:
       Popup für die Passworteingabe an. AuthName ist der Text, der im Popup angezeigt wird. AuthUserFile gibt den Pfad zur
       .htpasswd an. Require valid-user bedeutet, dass jeder Benutzer, der in der .htpasswd steht, Zugriff hat.
     </p>
+    <h2>Page Properties - Seiteneigenschaften</h2>
+    <h3>General</h3>
+    <p>Dieser Bereich enthält allgemeine Einstellungen für die Seite. Hier wird der Seitentyp einer Seite festgelegt:
+    </p>
+    <table>
+	<thead>
+		<tr>
+			<th>Typ</th>
+			<th>Erklärung</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Standard</td>
+			<td>Normale Inhaltsseite mit Inhaltselementen, Frontend-Ausgabe und Menüeinbindung.</td>
+		</tr>
+		<tr>
+			<td>Backend User Section</td>
+			<td>Geschützter Bereich für eingeloggte Backend-Benutzer, z. B. für Intranet-/Extranet-Inhalte.</td>
+		</tr>
+		<tr>
+			<td>Standard Page Template</td>
+			<td>Spezialseite für Vorlagen- oder Template-Strukturen innerhalb von TYPO3.</td>
+		</tr>
+		<tr>
+			<td>Shortcut</td>
+			<td>Weiterleitung auf eine andere TYPO3-Seite innerhalb der Website.</td>
+		</tr>
+		<tr>
+			<td>Mount Point</td>
+			<td>Bindet einen anderen Seitenbaum virtuell an dieser Stelle ein.</td>
+		</tr>
+		<tr>
+			<td>Link to External URL</td>
+			<td>Menüpunkt, der auf eine externe URL verweist.</td>
+		</tr>
+		<tr>
+			<td>Folder</td>
+			<td>Organisationsseite ohne Frontend-Ausgabe, z. B. für Datensätze oder SysFolder.</td>
+		</tr>
+		<tr>
+			<td>Recycler</td>
+			<td>Papierkorb für gelöschte Seiten und Inhalte.</td>
+		</tr>
+		<tr>
+			<td>Menu Separator</td>
+			<td>Visueller Trenner innerhalb von Menüs ohne eigene Seite oder Inhalt.</td>
+		</tr>
+	</tbody>
+</table>
+<p>Der Seitentitel wird im Frontend als Titel der Seite angezeigt und ebenso im title Tag verwendet.</p>
+<p>Der nav_title wird im Frontend als Navigationstitel angezeigt. Wenn er ausgefüllt ist, wird er bevorzugt. Genutzt
+  wird er zB wenn der Seitentitel zu lang ist. Dann wird im Menü der nav_title angezeigt und im Browserfenster der
+  title.
+</p>
+<p>subtitle kann als weiteres Feld verwendet werden. zB zentrale Subline auf einer Seite. Einfach direkt im fluid verwenden
+  mit {data.subtitle}. Das Feld ist bereits in der pages Tabelle und muss somit nicht nochmal in der EditorInterface.yaml definiert
+  werden.
+</p>
+<h3>SEO</h3>
+<p>Dieser Bereich wird verwendet für Suchmaschinenoptiomierung. Das Title for search engines [seo_title] Feld wird verwendet
+  für den title Tag im HTML, wenn es ausgefüllt ist. Ansonsten wird der Seitentitel verwendet. Es empfiehlt sich, hier ein Keyword
+  im Titel miteinzubauen, welches die Seite gut beschreibt.
+</p>
+<p>Description [description] Feld: Wird für die Beschreibung eines Suchergebnisses verwendet. Also zB wenn auf Google ein Ergebnis
+  gefunden wurde. Auch hier empfiehlt es sich relevante Keywords zu verwenden, die für die Seite relevant sind.
+</p>
+<p>Index this page [no_index]: Wenn aktiviert, wird die Seite von Suchmaschinen wie Indexed Search indexiert.</p>
+<p>Follow this page [no_follow]: Wenn aktiviert, dann crawlen Suchmaschinen die Links auf dieser Seite. Also die verlinkten Seiten
+  werden besucht. Dadurch werden die Seiten besser verstanden. Default für alle Informativen Seiten. Eher nicht für Login, Konto, Suchergebnisseiten,
+  Filterseiten etc.
+</p>
+<p>Canonical link [canonical_link]: Ist ein SEO-Hinweis für Google, der sagt:
+„Diese Seite ist vielleicht eine Kopie – die Originalseite ist diese hier.“ Google mag keine doppelten Inhalte.
+Wenn zwei Seiten fast gleich sind, z. B.:
+/produkte/produkt-a
+/produkte/produkt-a?ref=newsletter, dann fragt sich Google:
+„Welche Seite soll ich im Ranking anzeigen?“. Der canonical link sagt dann, dass diese Seite als Original behandelt werden soll.
+Wird zB bei Sortierung, Suche und
+Tracking-Parameter benutzt.</p>
+<p>Change frequency [sitemap_changefreq]: Gibt der Suchmaschine an, wie oft sich der Inhalt der Seite ändert.</p>
+<p>Priority [sitemap_priority]: Gibt an, wie wichtig die Seite im Gegensatz zu anderen Seiten ist.</p>
+
+
+Hier weiter machen: https://docs.typo3.org/c/typo3/cms-seo/12.4/en-us/Editor/Index.html#for-editors
+
+
   </div>
 </div>
