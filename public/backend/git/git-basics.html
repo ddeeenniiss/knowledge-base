@@ -1,9 +1,32 @@
 <div class="block">
   <div class="container site-border">
     <h1>Git Basics</h1>
+    <p>Eine super Dokumentation für Git gibt es <a href="https://learngitbranching.js.org/?locale=de_DE" target="_blank">HIER</a>
+    </p>
+    <p>Git ist ein Versionskontroll System, dass Änderungen in Schritten als Commits in einem Historienbaum sammeln, so kann immer
+      eingesehen werden wer zu welchem Zeitpunkt welche Änderung gemacht hat.
+    </p>
+
+    <h2>Aus Ordner ein Git-Repository machen: </h2>
+    <p>Das macht man mit git init. Damit wird myproject/.git erstellt, indem commit-history, branches, konfigurationen, logs, referenzen, HEAD und Objekte stehen.
+      Danach funktionieren git add, commit, branch etc. Bei einem clone wird das nicht benötigt, dann ist bereits .git enthalten.
+    </p>
+    <h2>Alle Einstellungen einsehen: </h2>
+    <p>git config --list</p>
+
+    <h2>Branchnamen einsehen</h2>
+    <p>mit git branch lassen sich alle branches anzeigen</p>
+    <p>mit git branch -m production benennt man den aktuellen branch zu production um</p>
+    <p>auf remote bringt man das ganze mit git push -u origin "branchname"</p>
+
+    <h2>Status abrufen: </h2>
+    <p>git status zeigt den aktuellen Branch an, welche Änderungen zum commit vorgemerkt sind
+      (gestaged / Staging Area) und
+      welche nicht.
+    </p>
     <h2>Projekt klonen</h2>
     <p>
-      Um ein Projekt aus einem Git-Repository zu klonen, verwende den folgenden
+      Um ein Projekt aus einem Git-Remote-Repository zu klonen, verwende den folgenden
       Befehl:
     </p>
 
@@ -20,7 +43,7 @@
     </p>
 
     <h2>Commits erstellen</h2>
-    <p>
+    <p>Ein Commit ist immer ein Snapshot der aktuellen Änderungen.
       Wir wollen unsere Commits immer übersichtlich erstellen, daher ein paar
       Grundregeln:
     </p>
