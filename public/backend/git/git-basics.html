@@ -24,6 +24,25 @@
       (gestaged / Staging Area) und
       welche nicht.
     </p>
+
+    <h2>Was bedeutet unstaged, staged, untracked, tracked?</h2>
+      <table>
+        <th>
+          <td>Begriff: </td><td>Bedeutung: </td>
+        </th>
+        <tr>
+          <td>unstaged</td><td>Nicht zum commit vorgemerkt / kein git add ausgeführt</td>
+        </tr>
+        <tr>
+          <td>staged</td><td>Zum commit vorgemerkt / git add ausgeführt</td>
+        </tr>
+        <tr>
+          <td>untracked</td><td>Datei ist git noch nicht bekannt. Muss erst commitet werden.</td>
+        </tr>
+        <tr>
+          <td>tracked</td><td>Datei wurde committet und ist git nun bekannt.</td>
+        </tr>
+      </table>
     <h2>Projekt klonen</h2>
     <p>
       Um ein Projekt aus einem Git-Remote-Repository zu klonen, verwende den folgenden
@@ -138,5 +157,17 @@
     <pre>git branch -D feature/example</pre>
 
     <pre>git push origin --delete feature/example</pre>
+
+    <h2>Visuelle Darstellung wie git funktioniert: </h2>
+    <h3>Working Directory: </h3>
+    
+    <h3>Staging Area: </h3>
+    <p>Eine Art Warteraum, die auf vorgemerkte Änderungen wartet. Alle Dateien in der Staging Area sagen git, dass sie für den
+      nächsten commit vorgemerkt werden sollen. Mit git add wird ein File gestaged. Mit git restore --staged Filename wird es
+      unstaged.
+    </p>
+    <h3>Local Repository: </h3>
+
+    <h3>Remote Repository: </h3>
   </div>
 </div>
