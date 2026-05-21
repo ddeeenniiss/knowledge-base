@@ -6,6 +6,7 @@
       neu zu laden. Dies verbessert die Benutzererfahrung durch dynamische
       Inhalte.
     </p>
+    <!-- Änderung -->
     <p>Wird gesteuert über JavaScript Objekt XMLHttpRequest</p>
 
     <h2>Websockets</h2>
@@ -19,6 +20,40 @@
       optimierte Produktions-Builds bietet. Es nutzt native ES-Module im Browser
       für eine schnellere Entwicklungserfahrung.
     </p>
+    <h3>Vite Dev Modus (lokal)</h3>
+    <p>Im Entwicklungsmodus startet Vite einen lokalen Entwicklungsserver, der Hot Module Replacement (HMR) aktiviert.
+      Dadurch werden ES-Module direkt im Browser geladen, ohne ein bundling dafür zu benötigen. ES-Module (ECMAScript Modules)sind das standardisierte
+      Modulsystem von JavaScript. Der Browser erkennt ES Module anhand von type="module". ES Module besitzen auch immer import / export Statements, damit
+      sie als Module erkannt werden. Eine main.ts ist dabei immer der Einstiegspunkt für den Browser. Diese wird auch als ES Modul geladen, darin liegen aber
+      alle weiteren Module, die ebenso ES Module sind. Zusammen bildet sind dann ein Modulnetzwerk
+    </p>
+
+    <h3>Vite Build Modus</h3>
+    <p>Sobald vite build ausgeführt wird, passieren folgende Dinge: </p>
+    <ol>
+      <li>JavaScript Code wird gebündelt, die ES Module werden zusammengeführt, ungenützter Code wird entfernt, 
+        und die Dateien werden für die Produktion optimiert
+      </li>
+      <li>TypeScript wird zu JavaScript kompiliert und gebündelt. Generell landen alle JavaScript chunks, css, bilder und fonts
+        immer in /dist/assets/
+      </li>
+      <li>SCSS wird zu CSS kompiliert und gebündelt, minifiziert und evtl. in JS eingebettet.</li>
+      <li>HTML wird als Entry File anaysiert, Assets bekommen hashing und imports werden korrekt
+        auf gebundelte Dateien umgeleitet.
+      </li>
+    </ol>
+
+    <h3>Wie erkenne ich Vite?</h3>
+    <p>In der package.json stehen unter scripts die verwendeten Befehle. Darunter wäre dann auch "build": "vite build"</p>
+
+    <h2>Staging Server</h2>
+    <h3>rsync.sh bei Bosch Sensortec</h3>
+    <p>Hier läuft local -> build -> rsync -> preview server</p>
+    <p>Vite baut deine App. rsync schiebt sie auf einen Server. Staging ist der Server dazwischen.</p>
+    <p>REMOTE_SERVER=ssh-123456-dev@sternundhuber.com ist der Zielserver.</p>
+    <p>REMOTE_PATH=www_preview ist der Zielordner auf dem Server.</p>
+    <p>DIRECTORY=dist/ ist der lokale Build Ordner</p>
+    <p>URL=https://preview.nou-digital-workbench.de/ ist die URL zur Preview</p>
 
     <h2>Dateistruktur</h2>
     <h3>public</h3>
