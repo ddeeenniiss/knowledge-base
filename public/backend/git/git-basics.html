@@ -14,8 +14,14 @@
     <h2>Alle Einstellungen einsehen: </h2>
     <p>git config --list</p>
 
+    <h2>Branches</h2>
+    <p>Ein branch ist ein Verweis auf einen bestimmten commit. Er sichert die Arbeit, die in diesen commit &
+      den Vorgängern steckt. Ein default Hauptbranch wird meist main genannt bzw früher master.
+    </p>
     <h2>Branchnamen einsehen</h2>
     <p>mit git branch lassen sich alle branches anzeigen</p>
+    <p>mit git branch newBranch erstellt sich ein neuer branch mit Name newBranch.
+    </p>
     <p>mit git branch -m production benennt man den aktuellen branch zu production um</p>
     <p>auf remote bringt man das ganze mit git push -u origin "branchname"</p>
 
@@ -43,6 +49,41 @@
           <td>tracked</td><td>Datei wurde committet und ist git nun bekannt.</td>
         </tr>
       </table>
+    <h2>Commit eines anderen Branches übernehmen: </h2>
+    <p>Mit git cherry-pick lassen sich commits eines anderen Branches auf den aktuell ausgechekten Branch übernehmen.
+      git cherry-pick commitHash
+    </p>
+
+    <h2>git log</h2>
+    <p>Mit git log lassen sich alle Hashes der letzten commits auflisten.</p>
+    <img src="/public/assets/screenshots/git_log.png" alt="Abbildung zu git log">
+    <p>Dabei ist HEAD->production der aktuelle lokale Stand</p>
+    <p>origin/production ist der letzte bekannte Stand des Branches production auf Remote Repository</p>
+    <p>Insgesamt sind alle aufgelisteten Branches (2 lokal und 2 remote) auf dem selben Stand. </p>
+
+    <h2>Dach Operator ^</h2>
+    <p>main^ = direkter Vorgänger des commits, auf den main zeigt</p>
+    <p>main^^ = Vorvorgänger des commits, auf den main zeigt</p>
+
+    <h2>Tilde Operator ~</h2>
+    <p>geht eine Anzahl n an Schritten zurück, zB git checkout HEAD~4 für 4 commits zurück.</p>
+    <h2>Änderungen rückgängig machen: </h2>
+    <p>Sind die Änderungen noch nicht auf dem Remote Repository, also nicht gepushed, dann empfiehlt sich: </p>
+    <h3>git reset --soft HEAD^</h3>
+    <p>
+      git reset bewegt den Zeiger zurück und kann commits verschwinden lassen.
+    </p>
+    <p>Dabei kann unterschieden werden zwischen git reset</p>
+    <ul>
+      <li>--soft: letzter commit wird entfernt und Änderungen bleiben gestaged</li>
+      <li>--mixed: letzter commit wird entfernt und Änderungen bleiben nicht gestaged</li>
+      <li>--hard: letzter commit wird entfernt und Änderungen sind entfernt</li>
+    </ul>
+
+    <p>sollten die Änderungen bereits gepushed sein so empfiehlt sich keine Änderung der Historie, sondern: </p>
+    <h3>git revert</h3>
+    <p>erstellt einen neuen commit, der einen alten commit rückgängig macht</p>
+
     <h2>Projekt klonen</h2>
     <p>
       Um ein Projekt aus einem Git-Remote-Repository zu klonen, verwende den folgenden
@@ -62,7 +103,8 @@
     </p>
 
     <h2>Commits erstellen</h2>
-    <p>Ein Commit ist immer ein Snapshot der aktuellen Änderungen.
+    <p>Ein Commit ist immer ein Snapshot der aktuellen Änderungen, die auf das local Repository
+      übertragen werden.
       Wir wollen unsere Commits immer übersichtlich erstellen, daher ein paar
       Grundregeln:
     </p>
@@ -78,15 +120,23 @@
 
     <p>Schreibe deine Commits auf englisch.</p>
 
-    <p>Add button hover-effect.</p>
+    <p>Beispiel: Style: Add more padding to container of text module. #asanaTicketLink</p>
 
-    <p>asana-link</p>
     <p>
       Um Änderungen in dein entferntes Repository hochzuladen, verwende den
       Befehl git push. Wenn du sicherstellen möchtest, dass dein lokaler Branch
       auf dem neuesten Stand ist und keine Konflikte auftreten, kannst du die
       Optionen rebase und autostash verwenden.
     </p>
+
+    <h3>git rebase</h3>
+    <p>mit git rebase -i zeigt Git jedem einzelnen commit, der durch rebase kopiert werden
+      würde (Hashes & Kommentare).
+    </p>
+    <p>mit git -i HEAD~3 können die letzten 3 commits neu geordnet werden und auch gedropt (gelöscht)
+      werden.
+    </p>
+    <p>Im vim Editor muss für das bearbeiten i für insert mode eingegeben werden.</p>
 
     <p>
       Der Befehl git push mit den Optionen rebase und autostash sieht wie folgt
@@ -106,7 +156,7 @@
       <li>Style: Stylingänderungen</li>
       <li>Revert: Einzelne Schritte rückgängig machen</li>
     </ul>
-    <h3>git push</h3>
+    
     <p>
       --rebase: Diese Option sorgt dafür, dass deine lokalen Änderungen auf die
       neuesten Änderungen im entfernten Repository angewendet werden. Dadurch
@@ -131,6 +181,15 @@
       Nachdem ein Feature getestet und fertig für den Livegang ist, wird es in
       den main-Branch gemerged.
     </p>
+
+    <h2>Branch wechseln: </h2>
+    <p>mit git checkout branchName wird der branch gewechselt. Dabei wird HEAD auf den angegebenen Branch gesetzt und das Working Directory wird auf
+      den Stand dieses Branches aktualisiert. HEAD ist immer ein Zeiger auf den aktuell ausgecheckten Branch (HEAD -> production). Production zeigt wiederum
+      auf einen commit. 
+      Dieser ist immer mit * gekennzeichnet.</p>
+      <p>Sonderfall: Detached HEAD: Wenn direkt ein commit ausgecheckt wird (git checkout a238fds), dann zeigt HEAD direkt auf diesen Commit (HEAD -> a238fds). Dann
+        ist man nicht mehr auf einem branch, somit wären neue commits losgelöst.
+      </p>
     <h2>Rebase und Merge</h2>
     <p>Da wir Merge-Commits in unserer Git-Historie vermeiden wollen, müssen die merges auf eine ganz bestimmte Weise vorgenommen werden.</p>
 

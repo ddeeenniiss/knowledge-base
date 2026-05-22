@@ -727,7 +727,7 @@ fields:
     </p>
     <p>Die .htaccess liegt im /public_html Verzeichnis und sieht für alle 2025 Unterseiten bei VBV so aus: </p>
     <pre>
-      <If "%{REQUEST_URI} =~m#^/2025(?:/.*)?$#">
+      <If %{REQUEST_URI} =~m#^/2025(?:/.*)?$#>
         AuthType Basic
         AuthName "Geschützter Bereich"
           AuthUserFile /home/j06wm45m40jl/public_html/.htpasswd

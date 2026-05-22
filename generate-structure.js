@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const rootDir = './';
-const ignore = ['node_modules', '.git', '.github', 'docs', 'dist'];
+const rootDir = './public';
+const ignore = [];
 
 function walk(dir) {
   const result = {};

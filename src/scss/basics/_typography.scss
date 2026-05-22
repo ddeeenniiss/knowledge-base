@@ -5,11 +5,32 @@
 @use '../variables' as *;
 @use '../functions' as *;
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a2623;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid #0b0f17;
+}
+
 h1,
 h2,
 h3{
+	color: white;
 	font-family: var(--font-inter);
 	font-weight: var(--font-weight-bold);
+}
+
+.container{
+	h1, h2, h3{
+		color: black;
+	}
 }
 
 h2, h3{
@@ -42,6 +63,10 @@ h3{
 	}
 }
 
+strong{
+	color: white;
+}
+
 p {
 	@include font-size('xs');
 	font-weight: var(--font-weight-thin);
@@ -58,11 +83,3 @@ pre{
 	border: 1px solid black;
 	border-left: 6px solid green;
 }
-
-  body { display: flex; height: 100vh; }
-  nav { width: 220px; background: linear-gradient(135deg, #e3e7eb, #78b5ea); padding: 10px; overflow-y: auto; }
-  nav ul { list-style: none; padding: 0; }
-  nav li { margin: 5px 0; }
-  nav a { text-decoration: none; color: #333; cursor: pointer; }
-  nav a:hover { text-decoration: underline; }
-  .content { flex: 1; overflow-y: auto; background: linear-gradient(135deg, #e1e1e1, #dadaf0);}
