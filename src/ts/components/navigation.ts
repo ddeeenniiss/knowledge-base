@@ -77,5 +77,38 @@ function addItems(obj: Record<string, Structure>, parent: HTMLElement) {
   }
 }
 
+// Navigate from search results
+document.addEventListener('search:navigate', async (e: Event) => {
+  const { path, id, text, type } = (e as CustomEvent).detail as {
+    path: string;
+    id?: string;
+    text: string;
+    type: string;
+  };
+  await loadMD(path);
+
+  requestAnimationFrame(() => {
+    const container = document.querySelector('.content');
+    if (!container) return;
+
+    // 1. Try by id attribute
+    if (id) {
+      const byId = document.getElementById(id);
+      if (byId) { byId.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+    }
+
+    // 2. Match heading by text content (headings without ids)
+    if (type === 'h1' || type === 'h2' || type === 'h3') {
+      const headings = container.querySelectorAll<HTMLElement>('h1, h2, h3');
+      for (const h of headings) {
+        if (h.textContent?.trim().replace(/\s+/g, ' ') === text) {
+          h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      }
+    }
+  });
+});
+
 // Navigation direkt beim Laden bauen
 buildNav();

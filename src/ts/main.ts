@@ -5,5 +5,8 @@ import './functions/dialog';
 import './components/content';
 import './components/copy-btn';
 import './components/navigation';
+import { initSearch } from './components/search';
 
 import './modules/slider';
+
+initSearch();
