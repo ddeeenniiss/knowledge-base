@@ -1,10 +1,11 @@
 {
   "Theoriewissen": {
     "Generelle Theorie":{
-      "General": "theory-knowledge/general.html",
+      "Allgemein": "theory-knowledge/general.html",
       "Mails": "theory-knowledge/mails.html",
       "Objekte": "theory-knowledge/objects.html",
-      "Visual Studio Code": "theory-knowledge/vsc.html"
+      "Visual Studio Code": "theory-knowledge/vsc.html",
+      "Alles rund um Farben": "theory-knowledge/colors.html"
     },
     "Bash-Commands":{
       "Bash-Commands": "backend/bash-commands/bash-commands.html"

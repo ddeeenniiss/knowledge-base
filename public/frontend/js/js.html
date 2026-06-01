@@ -1,20 +1,119 @@
 <div class="block">
   <div class="container site-border">
     <h1>JS - JavaScript</h1>
-    <p>JavaScript ist eine Scriptsprache, nicht typisiert (dynamisch typisiert) und wird interpretiert. Es ist objektorientiert, aber ohne Klassen.</p>
+
+    <p>
+      Vorab: Immer so wenig JS wie möglich schreiben. Ist besser für die
+      Performance, Wartbarkeit und Benutzererfahrung, SEO.
+    </p>
+    <p>
+      JavaScript ist eine Scriptsprache, nicht typisiert (dynamisch typisiert)
+      und wird interpretiert. Es ist objektorientiert, aber ohne Klassen.
+    </p>
+    <h2>Wie strukturiert man JavaScript?</h2>
+    <p>Am besten nach State, DOM-Zugriffe, Events und UI-Updates.</p>
+    <p>Dabei die States zentral halten, zB so:</p>
+    <pre>
+      const state = {
+        isOpen: false,
+        isMobile: false
+      };
+    </pre>
+    <p>Klassendeklarationen einmal ganz oben.</p>
+    <h2>Event Bubbling</h2>
+    <p>
+      Eine gute Doku für Event Bubbling gibt es
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Event_bubbling"
+        target="_blank"
+        >HIER</a
+      >
+    </p>
+    <p>
+      Wenn ein Ereignis (zB Klick) auf einem Element ausgelöst wird, wird es
+      zunächst auf diesem Element behandelt und dann an das übergeordnete
+      Element weitergeleitet.
+    </p>
+    <h2>closest()</h2>
+    <p>
+      Die closest() Methode sucht das nächste Eltern- oder Geschwisterelement.
+      Bei Klick Events läuft durch Event Bubbling der Klick auf allen
+      Eltern-Elementen durch. Somit reagiert das nächste Element, welches die
+      closest Klasse hat.
+    </p>
+    <h2>stopPropagation() => Vermehrung stoppen</h2>
+    <p>
+      Manchmal kann Event Bubbling auch zu unerwünschten Effekten führen. Mit
+      stopPropagation() verhindert man das hoch bubblen eines Events zu Parent
+      Elementen.
+    </p>
+    <pre>
+      video.addEventListener("click", (event) => {
+        event.stopPropagation();
+      });
+    </pre>
+    <h2>Event Capture</h2>
+    <p>
+      Event Capture ist wie Event Bubbling, aber in umgekehrter Richtung. In den
+      meisten Fällen kann Event Bubbling verwendet werden. Das Event feuert hier
+      zuerst auf dem übergeordneten Element geht dann immer tiefer in das DOM.
+      Um Event Capture zu aktivieren muss die capture Option auf
+      addEventListener gesetzt werden
+    </p>
+    <pre>
+      container.addEventListener("click", handleClick, { capture: true });
+    </pre>
+    <h2>Event Delegation => Event Weiterleitung</h2>
+    <p>
+      Wenn wir viele Kinds-Elemente in einem Parent Element haben, dann könnte
+      man auf jedes einzelne Kind-Element einen Event Listener setzen. Man
+      könnte aber auch nur einen Event Listener auf das Parent Element setzen
+      und dann mit Event Bubbling hochbubblen. Das richtige Element wird durch
+      event.target erkannt.
+    </p>
+    <h2>event Objekt</h2>
+    <p>
+      event ansich ist einfach ein Objekt mit Informationen über das Ereignis. Hier eine 
+      Übersicht:
+    </p>
+    <img src="/public/assets/screenshots/console.log(event).png" alt="Übersicht über event Objekt Ausgabe">
+    <h2>event.target</h2>
+    <p>
+      event.target gibt das Element zurück, wo das Event gestartet wurde. Der
+      Browser erkennt das Element anhand der Position auf dem Bildschirm.
+    </p>
+
+    <h2>event.currentTarget</h2>
+    <p>
+      event.currentTarget gibt das Element zurück, auf dem der Listener sitzt.
+      Meist ein Parent Element.
+    </p>
+    <h2>State statt DOM-Chaos</h2>
+    <pre>
+      const state = {
+        isMenuOpen: false
+      }
+    </pre>
     <h2>Variablen</h2>
     <p>Variablen sind Namen für den Ort im Speicher</p>
     <h2>Kommentare</h2>
-    <p>In JavaScript funktionieren Kommentare durch einen Zeilenkommentar // oder /**/ für mehrzeilige 
-      Kommentare.
+    <p>
+      In JavaScript funktionieren Kommentare durch einen Zeilenkommentar // oder
+      /**/ für mehrzeilige Kommentare.
     </p>
     <h2>Datentypen</h2>
-    <p>JavaScript verwendet intern ganze Zahlen, Gleitkommazahlen, Zeichenketten, Boolesche Werte, Objekte</p>
+    <p>
+      JavaScript verwendet intern ganze Zahlen, Gleitkommazahlen, Zeichenketten,
+      Boolesche Werte, Objekte
+    </p>
     <h2>noscript Tag</h2>
     <p>wird nur dann ausgeführt, wenn kein JavaScript ausgeführt werden kann</p>
 
     <h2>Zeichenketten</h2>
-    <p>Zeichenketten werden durch '' oder "" begrenzt. Kompositionen davon werden durch ein + zusammengefügt.</p>
+    <p>
+      Zeichenketten werden durch '' oder "" begrenzt. Kompositionen davon werden
+      durch ein + zusammengefügt.
+    </p>
 
     <h2>Eigenschaften (Propertys)</h2>
     <p>s.length gibt die Anzahl der Zeichen bzw Elemente als int zurück.</p>
@@ -25,14 +124,26 @@
     <p>Arrays sind Listen</p>
 
     <h2>Sicherheit</h2>
-    <p>JavaScript ist aktiver Code, der im Browser ausgeführt wird. Das ist potentielles Sicherheitsrisiko. Das Grundprinzip
-      der Sicherheit ist Sandbox (eingesperrt ohne Zugriff auf Dateisystem). Jeder Browser führt JS schon in einer Sandbox aus. Weiterhin
-      ist ein Container/VM wie Docker eine sichere Methode.
+    <p>
+      JavaScript ist aktiver Code, der im Browser ausgeführt wird. Das ist
+      potentielles Sicherheitsrisiko. Das Grundprinzip der Sicherheit ist
+      Sandbox (eingesperrt ohne Zugriff auf Dateisystem). Jeder Browser führt JS
+      schon in einer Sandbox aus. Weiterhin ist ein Container/VM wie Docker eine
+      sichere Methode.
     </p>
-    <p>JavaScript kann PopUps öffnen womit man Nutzer fluten kann. Daher wird window.open von Popup Blocker blockiert.</p>
+    <p>
+      JavaScript kann PopUps öffnen womit man Nutzer fluten kann. Daher wird
+      window.open von Popup Blocker blockiert.
+    </p>
     <h3>XSS - Cross Site Scripting</h3>
-    <p>Einbinden von schädlichem JavaScript in eine andere, vertrauenswürdige Seite. zB über Formulareingaben oder HTTP Parameter.</p>
-    <p>Um das vorzubeugen muss verhindert werden, dass eingegebene Daten Skripte enthalten können.</p>
+    <p>
+      Einbinden von schädlichem JavaScript in eine andere, vertrauenswürdige
+      Seite. zB über Formulareingaben oder HTTP Parameter.
+    </p>
+    <p>
+      Um das vorzubeugen muss verhindert werden, dass eingegebene Daten Skripte
+      enthalten können.
+    </p>
     <h2>IntersectionObserver</h2>
     <p>
       Der IntersectionObserver ermöglicht es, das Sichtbarkeitsverhalten von
@@ -73,9 +184,21 @@
       das DOM (zB. Buttons, Listen, Nav Elemente) bereit ist, bevor
       JavaScript-Operationen ausgeführt werden.
     </p>
+    <p>
+      Ist dann nötig, wenn JS direkt im Head steht, da dann das JS durchläuft
+      ohne dass die HTML Elemente schon da sind. Unnötig, wenn Skript am Ende
+      nach HTML steht.
+    </p>
     <pre><code>document.addEventListener('DOMContentLoaded', () => {});
 </code></pre>
-
+    <h2>defer</h2>
+    <p>
+      Eine Alternative zu DOMContentLoaded ist defer. Während DOMContentLoaded
+      das Skript blockiert, bis das DOM geladen ist, ermöglicht defer das Laden
+      des Skripts im Hintergrund, während das HTML geparst wird. Das Skript wird
+      erst ausgeführt, wenn das DOM vollständig geladen ist, aber es blockiert
+      nicht den Parsing-Prozess.
+    </p>
     <h2>DOM (Document Object Model)</h2>
     <p>
       ist eine Schnittstelle, um den Inhalt, die Struktur und das Styling eines
@@ -85,8 +208,11 @@
     </p>
     <p>Es gibt dabei drei wirkliche Wurzeln:</p>
     <ul>
-      <li>window: aktuelles Browserfenster, globales Objekt im Browser. Darauf liegen zB document, localStorage, setTimeout, 
-        console, location zB. window.innerWidth. window ist dabei Standard und muss nicht geschrieben werden.
+      <li>
+        window: aktuelles Browserfenster, globales Objekt im Browser. Darauf
+        liegen zB document, localStorage, setTimeout, console, location zB.
+        window.innerWidth. window ist dabei Standard und muss nicht geschrieben
+        werden.
       </li>
       <li>screen: Bildschirminfos wie screen.width (fast nie gebraucht)</li>
       <li>navigator: Browserinfos / Geräteinfos zB navigator.language</li>
@@ -95,75 +221,178 @@
     <h2>Event Listener</h2>
     <p>
       Ein Event Listener ist eine Funktion, die auftritt, wenn ein bestimmtes
-      Event (z.B. Klick, Hover) auf einem Element passiert. Sie ermöglicht
-      es, auf Benutzerinteraktionen zu reagieren und dynamische Aktionen
+      Event (z.B. Klick, Hover) auf einem Element passiert. Sie ermöglicht es,
+      auf Benutzerinteraktionen zu reagieren und dynamische Aktionen
       auszuführen.
     </p>
     <pre><code>element.addEventListener('click', function() {
   // Aktion bei Klick
 });
 </code></pre>
-<p>Der erste Parameter ist der Event-Type, der zweite die Funtion, die ausgeführt wird, wenn das Event eintritt.</p>
-<p>Man unterscheidet grob verschiedene Kategorien von Events:</p>
-<table>
-  <tr>
-    <th>
-      Kategorie
-    </th>
-    <th>
-      Event-Type
-    </th>
-    <th>
-      Beschreibung
-    </th>
-    <th>
-      Beispiele
-    </th>
-  </tr>
-  <tr>
-    <td>Maus-Events</td><td>click</td><td>Wird ausgelöst, wenn der Nutzer auf ein Element klickt</td><td></td>
-    <td></td><td>dblclick</td><td>Wird ausgelöst, wenn der Nutzer auf ein Element doppelt klickt</td><td></td>
-    <td></td><td>mousemove</td><td>Wird ausgelöst, wenn der Nutzer über ein Element bewegt.</td><td></td>
-    <td></td><td>mousedown</td><td>Wird ausgelöst, sobald eine Maustaste gedrückt wird (ohne loslassen)</td><td></td>
-    <td></td><td>mouseup</td><td>Wird ausgelöst, sobald eine Maustaste losgelassen wird.</td><td></td>
-  </tr>
-  <tr>
-    <td>Keyboard-Events</td><td>keydown</td><td>Wird ausgelöst, sobald eine Taste gedrückt wird.</td><td></td>
-    <td></td><td>keyup</td><td>Wird ausgelöst, sobald eine Taste losgelassen wird.</td><td></td>
-  </tr>
-  <tr>
-    <td>Window-Events</td><td>resize</td><td>Wird ausgelöst, sobald die Browser-Fenstergröße geändert wird.</td><td></td>
-    <td></td><td>scroll</td><td>Wird ausgeführt, sobald der Benutzer den Inhalt eines Elements scrollt.</td><td></td>
-    <td></td><td>load</td><td>Wird ausgeführt, sobald die Seite geladen ist (Heute durch DOMContentLoaded ersetzt)</td><td></td>
-  </tr>
-  <tr>
-    <td>Form-/Input-Events</td><td>input</td><td>Wird ausgelöst bei jeder Änderung eines Input Elements</td><td></td>
-    <td></td><td>change</td><td>Wird ausgelöst, sobald ein Input Eingabe abgeschlossen wurde.</td><td></td>
-    <td></td><td>submit</td><td>Wird ausgelöst, sobald ein Formular abgesendet wird.</td><td></td>
-    <td></td><td>focus</td><td>Wird ausgelöst, sobald ein Element Fokus erhält. (Bei Input Klick oder Tab gedrückt)</td><td></td>
-    <td></td><td>blur</td><td>Wird ausgelöst, sobald ein Element den Fokus verliert.</td><td></td>
-  </tr>
-  <tr>
-    <td>Touch-/Pointer-Events</td><td>touchstart</td><td>Wird ausgelöst, sobald der Finger den Bildschirm berührt.</td><td></td>
-    <td></td><td>touchmove</td><td>Wird ausgelöst, sobald der Finger sich auf dem Bildschirm bewegt.</td><td></td>
-    <td></td><td>pointerdown</td><td>Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) auf ein Element geklickt wird.</td><td></td>
-    <td></td><td>pointermove</td><td>Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) über ein Element bewegt wird.</td><td></td>
-    <td></td><td>pointerup</td><td>Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) von einem Element losgelassen wird.</td><td></td>
-  </tr>
-  <tr>
-    <td>Drag&Drop-Events</td><td>dragstart</td><td>Wird ausgeführt, sobald das Ziehen eines Elements begonnen wird.</td><td></td>
-    <td></td><td>dragover</td><td>Wird ausgelöst, sobald das Ziehen eines Elements über ein anderes Element gezogen wird.</td><td></td>
-    <td></td><td>drop</td><td>Wird ausgelöst, sobald ein gezogenes Element abgelegt wird.</td><td></td>
-  </tr>
-  <tr>
-    <td>Clipboard-Events</td><td>copy</td><td>Wird ausgelöst, sobald ein Nutzer etwas kopiert.</td><td></td>
-    <td></td><td>paste</td><td>Wird ausgelöst, sobald ein Nutzer etwas einfügt.</td><td></td>
-  </tr>
-  <tr>
-    <td>Animations-/Transition-Events</td><td>animationend</td><td>Wird ausgelöst, sobald eine CSS Animation beendet ist.</td><td></td>
-    <td></td><td>transitionend</td><td>Wird ausgelöst, sobald eine CSS Transition beendet ist.</td><td></td>
-  </tr>
-</table>
+    <p>
+      Der erste Parameter ist der Event-Type, der zweite die Funtion, die
+      ausgeführt wird, wenn das Event eintritt.
+    </p>
+    <p>Man unterscheidet grob verschiedene Kategorien von Events:</p>
+    <table>
+      <tr>
+        <th>Kategorie</th>
+        <th>Event-Type</th>
+        <th>Beschreibung</th>
+        <th>Beispiele</th>
+      </tr>
+      <tr>
+        <td>Maus-Events</td>
+        <td>click</td>
+        <td>Wird ausgelöst, wenn der Nutzer auf ein Element klickt</td>
+        <td></td>
+        <td></td>
+        <td>dblclick</td>
+        <td>Wird ausgelöst, wenn der Nutzer auf ein Element doppelt klickt</td>
+        <td></td>
+        <td></td>
+        <td>mousemove</td>
+        <td>Wird ausgelöst, wenn der Nutzer über ein Element bewegt.</td>
+        <td></td>
+        <td></td>
+        <td>mousedown</td>
+        <td>
+          Wird ausgelöst, sobald eine Maustaste gedrückt wird (ohne loslassen)
+        </td>
+        <td></td>
+        <td></td>
+        <td>mouseup</td>
+        <td>Wird ausgelöst, sobald eine Maustaste losgelassen wird.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Keyboard-Events</td>
+        <td>keydown</td>
+        <td>Wird ausgelöst, sobald eine Taste gedrückt wird.</td>
+        <td></td>
+        <td></td>
+        <td>keyup</td>
+        <td>Wird ausgelöst, sobald eine Taste losgelassen wird.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Window-Events</td>
+        <td>resize</td>
+        <td>Wird ausgelöst, sobald die Browser-Fenstergröße geändert wird.</td>
+        <td></td>
+        <td></td>
+        <td>scroll</td>
+        <td>
+          Wird ausgeführt, sobald der Benutzer den Inhalt eines Elements
+          scrollt.
+        </td>
+        <td></td>
+        <td></td>
+        <td>load</td>
+        <td>
+          Wird ausgeführt, sobald die Seite geladen ist (Heute durch
+          DOMContentLoaded ersetzt)
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Form-/Input-Events</td>
+        <td>input</td>
+        <td>Wird ausgelöst bei jeder Änderung eines Input Elements</td>
+        <td></td>
+        <td></td>
+        <td>change</td>
+        <td>Wird ausgelöst, sobald ein Input Eingabe abgeschlossen wurde.</td>
+        <td></td>
+        <td></td>
+        <td>submit</td>
+        <td>Wird ausgelöst, sobald ein Formular abgesendet wird.</td>
+        <td></td>
+        <td></td>
+        <td>focus</td>
+        <td>
+          Wird ausgelöst, sobald ein Element Fokus erhält. (Bei Input Klick oder
+          Tab gedrückt)
+        </td>
+        <td></td>
+        <td></td>
+        <td>blur</td>
+        <td>Wird ausgelöst, sobald ein Element den Fokus verliert.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Touch-/Pointer-Events</td>
+        <td>touchstart</td>
+        <td>Wird ausgelöst, sobald der Finger den Bildschirm berührt.</td>
+        <td></td>
+        <td></td>
+        <td>touchmove</td>
+        <td>
+          Wird ausgelöst, sobald der Finger sich auf dem Bildschirm bewegt.
+        </td>
+        <td></td>
+        <td></td>
+        <td>pointerdown</td>
+        <td>
+          Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) auf ein Element
+          geklickt wird.
+        </td>
+        <td></td>
+        <td></td>
+        <td>pointermove</td>
+        <td>
+          Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) über ein
+          Element bewegt wird.
+        </td>
+        <td></td>
+        <td></td>
+        <td>pointerup</td>
+        <td>
+          Wird ausgeführt, sobald ein Zeiger (z.B. Maus, Finger) von einem
+          Element losgelassen wird.
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Drag&Drop-Events</td>
+        <td>dragstart</td>
+        <td>
+          Wird ausgeführt, sobald das Ziehen eines Elements begonnen wird.
+        </td>
+        <td></td>
+        <td></td>
+        <td>dragover</td>
+        <td>
+          Wird ausgelöst, sobald das Ziehen eines Elements über ein anderes
+          Element gezogen wird.
+        </td>
+        <td></td>
+        <td></td>
+        <td>drop</td>
+        <td>Wird ausgelöst, sobald ein gezogenes Element abgelegt wird.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Clipboard-Events</td>
+        <td>copy</td>
+        <td>Wird ausgelöst, sobald ein Nutzer etwas kopiert.</td>
+        <td></td>
+        <td></td>
+        <td>paste</td>
+        <td>Wird ausgelöst, sobald ein Nutzer etwas einfügt.</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Animations-/Transition-Events</td>
+        <td>animationend</td>
+        <td>Wird ausgelöst, sobald eine CSS Animation beendet ist.</td>
+        <td></td>
+        <td></td>
+        <td>transitionend</td>
+        <td>Wird ausgelöst, sobald eine CSS Transition beendet ist.</td>
+        <td></td>
+      </tr>
+    </table>
     <h2>Beispiel: Button Klick Event Listener</h2>
     <pre><code>document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById('myButton');
@@ -202,8 +431,8 @@
     </p>
     <h2>const rect = section.getBoundingClientRect();</h2>
     <p>
-      Gibt ein Objekt mit der Größe und Position eines Elements in Bezug zum Viewport
-      zurück (in dem Fall section).
+      Gibt ein Objekt mit der Größe und Position eines Elements in Bezug zum
+      Viewport zurück (in dem Fall section).
     </p>
     <pre>
 { top: 120,
@@ -214,13 +443,20 @@
           height: 700
     }
     </pre>
-    <p>rect.top = 0 bedeutet also, dass das Element genau oben im Viewport beginnt.</p>
+    <p>
+      rect.top = 0 bedeutet also, dass das Element genau oben im Viewport
+      beginnt.
+    </p>
     <p>rect.top = -300 wäre der gescrollte Zustand, also 300px oben raus</p>
     <h2>const styles = window.getComputedStyle(section);</h2>
-    <p>Damit holt man sich alle berechneten CSS Werte eines Elements. Also zB margin-top</p>
+    <p>
+      Damit holt man sich alle berechneten CSS Werte eines Elements. Also zB
+      margin-top
+    </p>
     <h2>const marginTop = parseFloat(styles.marginTop) || 0;</h2>
-    <p>wandelt einen String in eine Fließkommazahl (Number) um. Also 20px in 20 und 1.5em in 1.5, auto wird zu
-      NaN, daher || 0
+    <p>
+      wandelt einen String in eine Fließkommazahl (Number) um. Also 20px in 20
+      und 1.5em in 1.5, auto wird zu NaN, daher || 0
     </p>
   </div>
 </div>
