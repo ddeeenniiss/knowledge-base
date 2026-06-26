@@ -1042,5 +1042,58 @@ xdebug_enabled: false //debugging erlaubt
       verfügbar sein sollen. Also Warenkorb, Login-Zustand, Benutzererkennung,
       zwischengespeicherte Formulardaten, temporäre Statusinformationen.
     </p>
+    <h2>Bilder zuschneiden</h2>
+    <p>Hier eignet sich crop zum zuschneiden. Einfach 
+      ffmpeg -i 000060.png \
+-vf "crop=1920:800:960:1360" \
+/Users/dennisbonna/Desktop/test_crop.png
+    </p>
+    <p>Basis wäre crop=WIDTH:HEIGHT:X:Y</p>
+    <p>WIDTH: Breite des zugeschnittenen Bildes</p>
+    <p>HEIGHT: Höhe des zugeschnittenen Bildes</p>
+    <p>X: X-Position des zugeschnittenen Bereichs</p>
+    <p>Y: Y-Position des zugeschnittenen Bereichs</p>
+
+    <p>Ein verwendetes skript ist zum Beispiel:
+      for f in *.png; do
+  ffmpeg -y -i "$f" \
+  -vf "crop=1280:720:1280:1440" \
+  "/Users/dennisbonna/Desktop/straehle-images/${f%.png}_1280x720.png"
+done
+    </p>
+    <p>Das hat alle Bilder unten mitte zugeschnitten und gleichbenannt mit 1280x720 in den
+      erstellten Ordner verschoben.
+    </p>
+    <p>
+      Oder direkt skript welches unterordner und alle Modelle erzeugt:
+      OUTPUT="/Users/dennisbonna/Desktop/straehle-images"
+
+for dir in */; do
+  model="${dir%/}"
+
+  echo "▶ Processing: $model"
+
+  mkdir -p "$OUTPUT/$model"
+
+  for f in "$dir"*.png; do
+    [ -e "$f" ] || continue
+
+    filename=$(basename "$f" .png)
+
+    ffmpeg -y -i "$f" \
+    -vf "crop=1280:720:1280:1440" \
+    "$OUTPUT/$model/${filename}_1280x720.png"
+  done
+
+done
+    </p>
+    <h2>Konvertieren in avif</h2>
+    <p>
+      mkdir -p ~/Desktop/siteco-avif
+
+for file in siteco_SL11_LED*.png; do
+    avifenc --min 20 --max 20 --speed 6 "$file" "$HOME/Desktop/siteco-avif/${file%.png}.avif"
+done
+    </p>
   </div>
 </div>

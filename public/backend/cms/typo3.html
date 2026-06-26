@@ -836,7 +836,104 @@ Tracking-Parameter benutzt.</p>
 
 
 Hier weiter machen: https://docs.typo3.org/c/typo3/cms-seo/12.4/en-us/Editor/Index.html#for-editors
+<h3>tt_content</h3>
+<p>tt_content ist die zentrale Datenbanktabelle / Struktur für Inhaltselemente in TYPO3, also jedes Inhaltselement (Content Element) ist in tt_content gespeichert. Es
+  verhält sich ähnlich wie ein Objekt, ist aber eine Konfigurationsstruktur, die TYPO3 interpretiert.
+</p>
+<p>tt_content.vierwd_siteco_scroll_animation -> "Wenn CType = vierwd_sitece_scroll_animation, dann..."</p>
+
+<h3>Wie arbeitet Typo3?</h3>
+<p>In der tt_content Datenbanktabelle werden die Inhaltselemente angeschaut. Je nach CType wird entschieden welches Element es ist. 
+  TypoScript sagt dann wie das Element verarbeitet wird. Der DataProcessor bereitet die Daten entsprechend auf und das
+  Fluid Template rendert das HTML.
+</p>
+
+ <h3>Wie wird ein Content Element allgemein mit Flexform und dataProcessor gebaut?</h3>
+ <ol>
+  <li>Registrierung eines neuen Content Elements mit scroll-animation.php unter packages/vierwd_siteco/Configuration/FCE/scroll-animation.php. Hier wird Typo gesagt: Es gibt
+    einen neuen CType: vierwd_siteco_scroll_animation mit einem Titel, Beschreibung, verwendetes Template, verwendete tcaType
+  </li>
+  <li>Bau des Backend Formulars über scroll-animation.xml bei packages/vierwd_siteco/Configuration/FlexForms/scroll-animation.xml. Dadurch weiß Typo was im Backend angezeigt werden soll</li>
+  <li>Ausfüllen der Redakteurfelder in Typo</li>
+  <li>Typo speichert die Werte. Normale Datenbankfelder landen direkt in tt_content. FlexForm Werte landen gesammelt als XML in tt_content.pi_flexform</li>
+  <li>Typo3 rendert das Content Element Template ScrollAnimation.tpl unter packages/vierwd_siteco/Resources/Private/Templates/FCE/ScrollAnimation.tpl. Dabei
+    stehen Daten direkt aus tt_content per data. zur Verfügung und Daten aus der FlexForm per settings. Daten aus einem dataProcessor greift man über die hinterlegte Variable im 
+    dataProcessor zB rooms
+  </li>
+  <li>Der dataProcessor unter packages/vierwd_siteco/Classes/Frontend/Processing/RoomsProcessor.php nimmt diese Daten und gibt diese als rooms zurück. Er liest also
+    $cObj->data['pi_flexform'], wandelt die verschachtelte XML in php um und legt sie in $processedData['rooms'] ab.
+  </li>
+ </ol>
+
+<h3>File Abstraction Layer (FAL)</h3>
+<p>TYPO3 speichert Dateien über die FAL. Ein Feld enthält also Referenzen auf Dateien und nicht die Datei selbst.</p>
+
+<h3>CType</h3>
+<p>Content Types sind zB text, image, textmedia (Text und Bild), vierwd_siteco_scroll_animation (custom Element).
+  Der CType gibt TYPO Auskunft welches Inhaltselement es ist. Wenn Typo einen Datensatz mit vierwd_siteco_scroll_animation findet, dann
+  schaut es in der Typo3 Konfiguration nach, ob es Definitionen für tt_content.vierwd_siteco_scroll_animation gibt.
+</p>
+
+<h3>FlexForm (XML) -> Bei Siteco</h3>
+  <p>Hier werden Struktur und Eingabefelder definiert im Backend, die der Redakteur eingibt. Dabei wird auch jeweils der Typ definiert, also
+    zum Beispiel (Input (input), Select (select), Checkbox (check), Section etc..)
+  </p>
+  <p>FlexForm speichert Daten zB theme dark oder light als XML in tt_content.pi_flexform</p>
+  <p>Redakteur soll diese Eingaben ändern können, statisch pro Content Element und werden
+    direkt im DB Feld gespeichert (tt_content.pi_flexform)
+  </p>
+
+  <h3>$data und $settings</h3>
+  <p>$data steht für die Werte aus den Inhaltselementen von tt_content. Diese Werte kommen direkt aus den
+    Datenbankspalten.
+  </p>
+  <p>$data enthält zB uid: 123, header: hallo, bodytext: text, CType: textmedia etc. Zugreifbar dann per
+    data.uid oder data.header
+  </p>
+  <p>$settings steht für die Werte aus FlexForm (wenn sie mit settings. beginnen). Also für Konfigurationswerte, nicht
+    den eigentlichen Datensatz. Diese Werte existieren nicht als Spalten in tt_content
+  </p>
+  <p>pi_flexform ist der Ort, an dem Typo die FlexForm Werte als XML speichert</p>
+  <h3>DataProcessor</h3>
+  <p>TYPO3 berechnet strukturiert Daten für die Ausgabe. DataProcessor läuft zur Renderzeit</p>
+  <p>wandelt FileReferences in URLs/Objekte um</p>
+  <pre>tt_content.vierwd_siteco_scroll_animation.dataProcessing.20 = TYPO3\CMS\Frontend\DataProcessing\FilesProcessor</pre>
+  <p>Bedeutet für Inhaltselemente vom Typ vierwd_siteco_scroll_animation führe zuerst den FilesProcessor aus (Der Filesprozessor ist als vollständiger
+    PHP Klassenname angegeben (kein Pfad!)). Die 20 steht für die Reihenfolge.
+    TYPO arbeitet erst die 10, dann die 20, dann die 30 ab. Können aber beliebige Zahlen sein.
+  </p>
+  <pre>tt_content.vierwd_siteco_scroll_animation.dataProcessing.20.references.fieldname = assets</pre>
+  <p>Der Processor bekommt die Information fieldname = assets und lädt die Daten aus diesem Feld. assets ist ein Feld im Content Element, also header zB = "Überschrift"
+    und assets = [Bild1, Bild2, Bild3]. heißt ladeDateienAusFeld('assets');
+  </p>
+  <pre>tt_content.vierwd_siteco_scroll_animation.dataProcessing.20.as = frames</pre>
+  <p>Daten werden unter frames abgelegt.</p>
+  <h4>sDEF, lDEF, vDEF und el</h4>
+  <ul>
+    <li>sDEF steht für Sheet Default: Eine Seite kann mehrere Sheets besitzen zB sDEF, animation, SEO</li>
+  <li>lDEF steht für Language Default: FlexForms unterstützen Übersetzungen, daher gibt es Sprachebenen. Bei zwei dann zB
+    lDEF und lEN.
+  </li>
+<li>vDEF steht für Value Default. Auch hier können mehrere Informationen in diesem Feld abgelegt werden. zB vDEF = Kitchen, vSEC = nochwas</li>
+<li>el steht für Elements und wird bei verschachtelten Strukturen verwendet. zB rooms -> el -> room_1, room_2, room_3. Innerhalb jedes Raumes gibt es wieder
+  el für overline, title, position, sticky..
+  <img src="/public/assets/screenshots/flexform_structure.png" alt="Flexform Struktur">
+</li></ul>
+
+  <h4>FilesProcessor</h4>
+  <p>Der FilesProcessor ist ein TYPO3-Core-Processor, der Dateien lädt. Er löst Referenzen aus dem Feld die per FAL gespeichert werden und
+    liefert echte Dateiobjekte.
+  </p>
+
+  <h3>Vendor</h3>
+  <p>Ein Vendor steht in PHP/Composer für den Hersteller / Entwickler / Namensraum einer Code-Bibliothek oder Extension</p>
+  <p>zB Vendor/Package/Module/Class</p>
+  <p>Offiziell bei TYPO gibts TYPO3\CMS\Frontend\. Dabei steht TYPO3 für den Vendor, CMS für Paket, Frontend für Modul</p>
 
 
+  <h3>Browsersync</h3>
+  <p>ist eine Entwicklungs-Tool für Live-Reloading im Browser. Sorgt dafür, dass sich deine Website im Browser automatisch aktualisiert bei Änderungen.
+    Nur für lokales arbeiten.
+  </p>
   </div>
 </div>
