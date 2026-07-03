@@ -1,235 +1,245 @@
 <div class="block">
   <div class="container site-border">
-    <h1>Git Basics</h1>
-    <p>Eine super Dokumentation für Git gibt es <a href="https://learngitbranching.js.org/?locale=de_DE" target="_blank">HIER</a>
-    </p>
-    <p>Um die Git Graph Extension besser zu verstehen, klicke <a href="https://de.linkedin.com/pulse/git-graph-vscode-extension-visualizing-your-commit-tan-tran-minh-lahmc?tl=de" target="_blank">HIER</a>
-    </p>
-    <p>Git ist ein Versionskontroll System, dass Änderungen in Schritten als Commits in einem Historienbaum sammeln, so kann immer
-      eingesehen werden wer zu welchem Zeitpunkt welche Änderung gemacht hat.
-    </p>
-    <img src="/public/assets/screenshots/git_overview.jpeg" alt="Abbildung zu git Befehlen">
+	<h1>Git Basics</h1>
+	<p>Eine super Dokumentation für Git gibt es <a href="https://learngitbranching.js.org/?locale=de_DE" target="_blank">HIER</a>
+	</p>
+	<p>Um die Git Graph Extension besser zu verstehen, klicke <a href="https://de.linkedin.com/pulse/git-graph-vscode-extension-visualizing-your-commit-tan-tran-minh-lahmc?tl=de" target="_blank">HIER</a>
+	</p>
+	<p>Git ist ein Versionskontroll System, dass Änderungen in Schritten als Commits in einem Historienbaum sammeln, so kann immer
+	  eingesehen werden wer zu welchem Zeitpunkt welche Änderung gemacht hat.
+	</p>
+	<img src="/public/assets/screenshots/git_overview.jpeg" alt="Abbildung zu git Befehlen">
 
-    <h2>Aus Ordner ein Git-Repository machen: </h2>
-    <p>Das macht man mit git init. Damit wird myproject/.git erstellt, indem commit-history, branches, konfigurationen, logs, referenzen, HEAD und Objekte stehen.
-      Danach funktionieren git add, commit, branch etc. Bei einem clone wird das nicht benötigt, dann ist bereits .git enthalten.
-    </p>
-    <h2>Alle Einstellungen einsehen: </h2>
-    <p>git config --list</p>
+	<h2>Aus Ordner ein Git-Repository machen: </h2>
+	<p>Das macht man mit git init. Damit wird myproject/.git erstellt, indem commit-history, branches, konfigurationen, logs, referenzen, HEAD und Objekte stehen.
+	  Danach funktionieren git add, commit, branch etc. Bei einem clone wird das nicht benötigt, dann ist bereits .git enthalten.
+	</p>
+	<h2>Alle Einstellungen einsehen: </h2>
+	<p>git config --list</p>
 
-    <h2>Branches</h2>
-    <p>Ein branch ist ein Verweis auf einen bestimmten commit. Er sichert die Arbeit, die in diesen commit &
-      den Vorgängern steckt. Ein default Hauptbranch wird meist main genannt bzw früher master.
-    </p>
-    <h2>Branchnamen einsehen</h2>
-    <p>mit git branch lassen sich alle branches anzeigen</p>
-    <p>mit git branch newBranch erstellt sich ein neuer branch mit Name newBranch.
-    </p>
-    <p>mit git branch -m production benennt man den aktuellen branch zu production um</p>
-    <p>auf remote bringt man das ganze mit git push -u origin "branchname"</p>
+	<h2>Branches</h2>
+	<p>Ein branch ist ein Verweis auf einen bestimmten commit. Er sichert die Arbeit, die in diesen commit &
+	  den Vorgängern steckt. Ein default Hauptbranch wird meist main genannt bzw früher master.
+	</p>
+	<h2>Branchnamen einsehen</h2>
+	<p>mit git branch lassen sich alle branches anzeigen</p>
+	<p>mit git branch newBranch erstellt sich ein neuer branch mit Name newBranch.
+	</p>
+	<p>mit git branch -m production benennt man den aktuellen branch zu production um</p>
+	<p>auf remote bringt man das ganze mit git push -u origin "branchname"</p>
 
-    <h2>Status abrufen: </h2>
-    <p>git status zeigt den aktuellen Branch an, welche Änderungen zum commit vorgemerkt sind
-      (gestaged / Staging Area) und
-      welche nicht.
-    </p>
+	<h3>Branch umbenennen</h3>
+	<p>git branch -m old-name new-name</p>
 
-    <h2>Was bedeutet unstaged, staged, untracked, tracked?</h2>
-      <table>
-        <th>
-          <td>Begriff: </td><td>Bedeutung: </td>
-        </th>
-        <tr>
-          <td>unstaged</td><td>Nicht zum commit vorgemerkt / kein git add ausgeführt</td>
-        </tr>
-        <tr>
-          <td>staged</td><td>Zum commit vorgemerkt / git add ausgeführt</td>
-        </tr>
-        <tr>
-          <td>untracked</td><td>Datei ist git noch nicht bekannt. Muss erst commitet werden.</td>
-        </tr>
-        <tr>
-          <td>tracked</td><td>Datei wurde committet und ist git nun bekannt.</td>
-        </tr>
-      </table>
-    <h2>Commit eines anderen Branches übernehmen: </h2>
-    <p>Mit git cherry-pick lassen sich commits eines anderen Branches auf den aktuell ausgechekten Branch übernehmen.
-      git cherry-pick commitHash
-    </p>
+	<h2>Status abrufen: </h2>
+	<p>git status zeigt den aktuellen Branch an, welche Änderungen zum commit vorgemerkt sind
+	  (gestaged / Staging Area) und
+	  welche nicht.
+	</p>
 
-    <h2>git log</h2>
-    <p>Mit git log lassen sich alle Hashes der letzten commits auflisten.</p>
-    <img src="/public/assets/screenshots/git_log.png" alt="Abbildung zu git log">
-    <p>Dabei ist HEAD->production der aktuelle lokale Stand</p>
-    <p>origin/production ist der letzte bekannte Stand des Branches production auf Remote Repository</p>
-    <p>Insgesamt sind alle aufgelisteten Branches (2 lokal und 2 remote) auf dem selben Stand. </p>
+	<h2>Was bedeutet unstaged, staged, untracked, tracked?</h2>
+	  <table>
+		<th>
+		  <td>Begriff: </td><td>Bedeutung: </td>
+		</th>
+		<tr>
+		  <td>unstaged</td><td>Nicht zum commit vorgemerkt / kein git add ausgeführt</td>
+		</tr>
+		<tr>
+		  <td>staged</td><td>Zum commit vorgemerkt / git add ausgeführt</td>
+		</tr>
+		<tr>
+		  <td>untracked</td><td>Datei ist git noch nicht bekannt. Muss erst commitet werden.</td>
+		</tr>
+		<tr>
+		  <td>tracked</td><td>Datei wurde committet und ist git nun bekannt.</td>
+		</tr>
+	  </table>
+	<h2>Commit eines anderen Branches übernehmen: </h2>
+	<p>Mit git cherry-pick lassen sich commits eines anderen Branches auf den aktuell ausgechekten Branch übernehmen.
+	  git cherry-pick commitHash
+	</p>
 
-    <h2>Dach Operator ^</h2>
-    <p>main^ = direkter Vorgänger des commits, auf den main zeigt</p>
-    <p>main^^ = Vorvorgänger des commits, auf den main zeigt</p>
+	<h2>git log</h2>
+	<p>Mit git log lassen sich alle Hashes der letzten commits auflisten.</p>
+	<img src="/public/assets/screenshots/git_log.png" alt="Abbildung zu git log">
+	<p>Dabei ist HEAD->production der aktuelle lokale Stand</p>
+	<p>origin/production ist der letzte bekannte Stand des Branches production auf Remote Repository</p>
+	<p>Insgesamt sind alle aufgelisteten Branches (2 lokal und 2 remote) auf dem selben Stand. </p>
 
-    <h2>Tilde Operator ~</h2>
-    <p>geht eine Anzahl n an Schritten zurück, zB git checkout HEAD~4 für 4 commits zurück.</p>
-    <h2>Änderungen rückgängig machen: </h2>
-    <p>Sind die Änderungen noch nicht auf dem Remote Repository, also nicht gepushed, dann empfiehlt sich: </p>
-    <h3>git reset --soft HEAD^</h3>
-    <p>
-      git reset bewegt den Zeiger zurück und kann commits verschwinden lassen.
-    </p>
-    <p>Dabei kann unterschieden werden zwischen git reset</p>
-    <ul>
-      <li>--soft: letzter commit wird entfernt und Änderungen bleiben gestaged</li>
-      <li>--mixed: letzter commit wird entfernt und Änderungen bleiben nicht gestaged</li>
-      <li>--hard: letzter commit wird entfernt und Änderungen sind entfernt</li>
-    </ul>
+	<h2>Dach Operator ^</h2>
+	<p>main^ = direkter Vorgänger des commits, auf den main zeigt</p>
+	<p>main^^ = Vorvorgänger des commits, auf den main zeigt</p>
 
-    <p>sollten die Änderungen bereits gepushed sein so empfiehlt sich keine Änderung der Historie, sondern: </p>
-    <h3>git revert</h3>
-    <p>erstellt einen neuen commit, der einen alten commit rückgängig macht</p>
+	<h2>Tilde Operator ~</h2>
+	<p>geht eine Anzahl n an Schritten zurück, zB git checkout HEAD~4 für 4 commits zurück.</p>
+	<h2>Änderungen rückgängig machen: </h2>
+	<p>Sind die Änderungen noch nicht auf dem Remote Repository, also nicht gepushed, dann empfiehlt sich: </p>
+	<h3>git reset --soft HEAD^</h3>
+	<p>
+	  git reset bewegt den Zeiger zurück und kann commits verschwinden lassen.
+	</p>
+	<p>Dabei kann unterschieden werden zwischen git reset</p>
+	<ul>
+	  <li>--soft: letzter commit wird entfernt und Änderungen bleiben gestaged</li>
+	  <li>--mixed: letzter commit wird entfernt und Änderungen bleiben nicht gestaged</li>
+	  <li>--hard: letzter commit wird entfernt und Änderungen sind entfernt</li>
+	</ul>
 
-    <h2>Projekt klonen</h2>
-    <p>
-      Um ein Projekt aus einem Git-Remote-Repository zu klonen, verwende den folgenden
-      Befehl:
-    </p>
+	<p>sollten die Änderungen bereits gepushed sein so empfiehlt sich keine Änderung der Historie, sondern: </p>
+	<h3>git revert</h3>
+	<p>erstellt einen neuen commit, der einen alten commit rückgängig macht</p>
 
-    <p>git clone repository-url</p>
-    <p>
-      Ersetze repository-url durch die URL des Git-Repositorys, das du klonen
-      möchtest. Zum Beispiel:
-    </p>
+	<h2>Projekt klonen</h2>
+	<p>
+	  Um ein Projekt aus einem Git-Remote-Repository zu klonen, verwende den folgenden
+	  Befehl:
+	</p>
 
-    <p>git clone https://gitlab.com/username/repository.git</p>
-    <p>
-      Dieser Befehl erstellt ein Verzeichnis mit dem Namen des Repositorys und
-      lädt den gesamten Inhalt des Repositorys in dieses Verzeichnis.
-    </p>
+	<p>git clone repository-url</p>
+	<p>
+	  Ersetze repository-url durch die URL des Git-Repositorys, das du klonen
+	  möchtest. Zum Beispiel:
+	</p>
 
-    <h2>Commits erstellen</h2>
-    <p>Ein Commit ist immer ein Snapshot der aktuellen Änderungen, die auf das local Repository
-      übertragen werden.
-      Wir wollen unsere Commits immer übersichtlich erstellen, daher ein paar
-      Grundregeln:
-    </p>
+	<p>git clone https://gitlab.com/username/repository.git</p>
+	<p>
+	  Dieser Befehl erstellt ein Verzeichnis mit dem Namen des Repositorys und
+	  lädt den gesamten Inhalt des Repositorys in dieses Verzeichnis.
+	</p>
 
-    <p>
-      Lade deine Änderungen immer in kleinen abgeschlossenen Paketen hoch, in
-      denen die Änderung klar definiert ist.
-    </p>
+	<h2>Commits erstellen</h2>
+	<p>Ein Commit ist immer ein Snapshot der aktuellen Änderungen, die auf das local Repository
+	  übertragen werden.
+	  Wir wollen unsere Commits immer übersichtlich erstellen, daher ein paar
+	  Grundregeln:
+	</p>
 
-    <p>Schreibe deine Änderung kurz und knapp in die Commit-Message.</p>
+	<p>
+	  Lade deine Änderungen immer in kleinen abgeschlossenen Paketen hoch, in
+	  denen die Änderung klar definiert ist.
+	</p>
 
-    <p>Füge den Link zum Asana-Ticket in die Commit-Message ein</p>
+	<p>Schreibe deine Änderung kurz und knapp in die Commit-Message.</p>
 
-    <p>Schreibe deine Commits auf englisch.</p>
+	<p>Füge den Link zum Asana-Ticket in die Commit-Message ein</p>
 
-    <p>Beispiel: Style: Add more padding to container of text module. #asanaTicketLink</p>
+	<p>Schreibe deine Commits auf englisch.</p>
 
-    <p>
-      Um Änderungen in dein entferntes Repository hochzuladen, verwende den
-      Befehl git push. Wenn du sicherstellen möchtest, dass dein lokaler Branch
-      auf dem neuesten Stand ist und keine Konflikte auftreten, kannst du die
-      Optionen rebase und autostash verwenden.
-    </p>
+	<p>Beispiel: Style: Add more padding to container of text module. #asanaTicketLink</p>
 
-    <h3>git rebase</h3>
-    <p>mit git rebase -i zeigt Git jedem einzelnen commit, der durch rebase kopiert werden
-      würde (Hashes & Kommentare).
-    </p>
-    <p>mit git -i HEAD~3 können die letzten 3 commits neu geordnet werden und auch gedropt (gelöscht)
-      werden.
-    </p>
-    <p>Im vim Editor muss für das bearbeiten i für insert mode eingegeben werden.</p>
+	<p>
+	  Um Änderungen in dein entferntes Repository hochzuladen, verwende den
+	  Befehl git push. Wenn du sicherstellen möchtest, dass dein lokaler Branch
+	  auf dem neuesten Stand ist und keine Konflikte auftreten, kannst du die
+	  Optionen rebase und autostash verwenden.
+	</p>
 
-    <p>
-      Der Befehl git push mit den Optionen rebase und autostash sieht wie folgt
-      aus:
-    </p>
+	<h3>git rebase</h3>
+	<p>mit git rebase -i zeigt Git jedem einzelnen commit, der durch rebase kopiert werden
+	  würde (Hashes & Kommentare).
+	</p>
+	<p>mit git -i HEAD~3 können die letzten 3 commits neu geordnet werden und auch gedropt (gelöscht)
+	  werden.
+	</p>
+	<p>Im vim Editor muss für das bearbeiten i für insert mode eingegeben werden.</p>
 
-    <p>git pull --rebase --autostash</p>
+	<p>
+	  Der Befehl git push mit den Optionen rebase und autostash sieht wie folgt
+	  aus:
+	</p>
 
-    <p>Git Commit Nachrichten immer nach folgendem Schema:</p>
-    <ul>
-      <li>Feat: Neues Feature (Funktionalität für User, die Seite kann danach mehr)</li>
-      <li>Fix: Fehlerbehebung</li>
-      <li>Refactor: Umstrukturierung des Codes ohne Verhaltensänderung</li>
-      <li>Docs: Dokumentationsänderungen</li>
-      <li>Module: Neues Modul erstellt</li>
-      <li>Chore: Projekt Konfiguration geändert / package.json geändert</li>
-      <li>Style: Stylingänderungen</li>
-      <li>Revert: Einzelne Schritte rückgängig machen</li>
-    </ul>
-    
-    <p>
-      --rebase: Diese Option sorgt dafür, dass deine lokalen Änderungen auf die
-      neuesten Änderungen im entfernten Repository angewendet werden. Dadurch
-      wird eine saubere, lineare Historie erstellt.
-    </p>
+	<p>git pull --rebase --autostash</p>
 
-    <p>
-      --autostash: Diese Option speichert automatisch deine lokalen Änderungen,
-      bevor der Rebase-Prozess beginnt, und stellt sie danach wieder her. Das
-      ist besonders nützlich, wenn du ungespeicherte Änderungen hast.
-    </p>
+	<p>Git Commit Nachrichten immer nach folgendem Schema:</p>
+	<ul>
+	  <li>Feat: Neues Feature (Funktionalität für User, die Seite kann danach mehr)</li>
+	  <li>Fix: Fehlerbehebung</li>
+	  <li>Refactor: Umstrukturierung des Codes ohne Verhaltensänderung</li>
+	  <li>Docs: Dokumentationsänderungen</li>
+	  <li>Module: Neues Modul erstellt</li>
+	  <li>Chore: Projekt Konfiguration geändert / package.json geändert</li>
+	  <li>Style: Stylingänderungen</li>
+	  <li>Revert: Einzelne Schritte rückgängig machen</li>
+	</ul>
+	
+	<p>
+	  --rebase: Diese Option sorgt dafür, dass deine lokalen Änderungen auf die
+	  neuesten Änderungen im entfernten Repository angewendet werden. Dadurch
+	  wird eine saubere, lineare Historie erstellt.
+	</p>
 
-    <h3>Feature-Branches</h3>
-    <p>
-      Oft sollen neue funktionen implementiert werden, welche nicht direkt live
-      gehen sollen. Dafür eignen sich sogenannte feature-Branches. Soll ein
-      solches feature angelegt werden, wird ein neuer Branch
-      feature/feature-name angelegt.
-    </p>
+	<p>
+	  --autostash: Diese Option speichert automatisch deine lokalen Änderungen,
+	  bevor der Rebase-Prozess beginnt, und stellt sie danach wieder her. Das
+	  ist besonders nützlich, wenn du ungespeicherte Änderungen hast.
+	</p>
 
-    <p>
-      Nachdem ein Feature getestet und fertig für den Livegang ist, wird es in
-      den main-Branch gemerged.
-    </p>
+	<h3>Feature-Branches</h3>
+	<p>
+	  Oft sollen neue funktionen implementiert werden, welche nicht direkt live
+	  gehen sollen. Dafür eignen sich sogenannte feature-Branches. Soll ein
+	  solches feature angelegt werden, wird ein neuer Branch
+	  feature/feature-name angelegt.
+	</p>
 
-    <h2>Branch wechseln: </h2>
-    <p>mit git checkout branchName wird der branch gewechselt. Dabei wird HEAD auf den angegebenen Branch gesetzt und das Working Directory wird auf
-      den Stand dieses Branches aktualisiert. HEAD ist immer ein Zeiger auf den aktuell ausgecheckten Branch (HEAD -> production). Production zeigt wiederum
-      auf einen commit. 
-      Dieser ist immer mit * gekennzeichnet.</p>
-      <p>Sonderfall: Detached HEAD: Wenn direkt ein commit ausgecheckt wird (git checkout a238fds), dann zeigt HEAD direkt auf diesen Commit (HEAD -> a238fds). Dann
-        ist man nicht mehr auf einem branch, somit wären neue commits losgelöst.
-      </p>
-    <h2>Rebase und Merge</h2>
-    <p>Da wir Merge-Commits in unserer Git-Historie vermeiden wollen, müssen die merges auf eine ganz bestimmte Weise vorgenommen werden.</p>
-    <p>Bei einem merge wird immer ein externer branch zum aktuellen branch gemerged. Ich befinde mich also auf dem branch, auf dem ich etwas von einem anderen branch haben will.</p>
-    <p>Wichtig ist dabei, dass immer ein Rebase durchgeführt wird, damit werden Konflikte weitestgehend vermieden.</p>
+	<p>
+	  Nachdem ein Feature getestet und fertig für den Livegang ist, wird es in
+	  den main-Branch gemerged.
+	</p>
 
-    <h2>Branches zusammenzuführen</h2>
-    <p>Die Branches, welche gemerged werden sollen auf den aktuellen Stand bringen</p>
-    <pre>git checkout master</pre>
+	<h2>Branch wechseln: </h2>
+	<p>mit git checkout branchName wird der branch gewechselt. Dabei wird HEAD auf den angegebenen Branch gesetzt und das Working Directory wird auf
+	  den Stand dieses Branches aktualisiert. HEAD ist immer ein Zeiger auf den aktuell ausgecheckten Branch (HEAD -> production). Production zeigt wiederum
+	  auf einen commit. 
+	  Dieser ist immer mit * gekennzeichnet.</p>
+	  <p>Sonderfall: Detached HEAD: Wenn direkt ein commit ausgecheckt wird (git checkout a238fds), dann zeigt HEAD direkt auf diesen Commit (HEAD -> a238fds). Dann
+		ist man nicht mehr auf einem branch, somit wären neue commits losgelöst.
+	  </p>
+	<h2>Rebase und Merge</h2>
+	<p>Da wir Merge-Commits in unserer Git-Historie vermeiden wollen, müssen die merges auf eine ganz bestimmte Weise vorgenommen werden.</p>
+	<p>Bei einem merge wird immer ein externer branch zum aktuellen branch gemerged. Ich befinde mich also auf dem branch, auf dem ich etwas von einem anderen branch haben will.</p>
+	<p>Wichtig ist dabei, dass immer ein Rebase durchgeführt wird, damit werden Konflikte weitestgehend vermieden.</p>
 
-    <pre>git pull</pre>
+	<h2>Branches zusammenzuführen</h2>
+	<p>Die Branches, welche gemerged werden sollen auf den aktuellen Stand bringen</p>
+	<pre>git checkout master</pre>
 
-    <pre>git checkout feature/example</pre>
+	<pre>git pull</pre>
 
-    <pre>git pull</pre>
-    <p>Rebase den feature-Branch auf den neuesten Stand von master</p>
-    <pre>git rebase master --no-verify</pre>
-    <p>Wechsel zurück zum master Branch und führe einen Fast-Forward Merge durch, um die Änderungen vom feature Branch in master zu integrieren</p>
-    <pre>git checkout master</pre>
+	<pre>git checkout feature/example</pre>
 
-    <pre>git merge --ff-only feature/example</pre>
+	<pre>git pull</pre>
+	<p>Rebase den feature-Branch auf den neuesten Stand von master</p>
+	<pre>git rebase master --no-verify</pre>
+	<p>Wechsel zurück zum master Branch und führe einen Fast-Forward Merge durch, um die Änderungen vom feature Branch in master zu integrieren</p>
+	<pre>git checkout master</pre>
 
-    <pre>git push</pre>
-    <p>Lösche den lokalen und den Remote feature Branch</p>
-    <pre>git branch -D feature/example</pre>
+	<pre>git merge --ff-only feature/example</pre>
 
-    <pre>git push origin --delete feature/example</pre>
+	<pre>git push</pre>
+	<p>Lösche den lokalen und den Remote feature Branch</p>
+	<pre>git branch -D feature/example</pre>
 
-    <h2>Visuelle Darstellung wie git funktioniert: </h2>
-    <h3>Working Directory: </h3>
-    
-    <h3>Staging Area: </h3>
-    <p>Eine Art Warteraum, die auf vorgemerkte Änderungen wartet. Alle Dateien in der Staging Area sagen git, dass sie für den
-      nächsten commit vorgemerkt werden sollen. Mit git add wird ein File gestaged. Mit git restore --staged Filename wird es
-      unstaged.
-    </p>
-    <h3>Local Repository: </h3>
+	<pre>git push origin --delete feature/example</pre>
 
-    <h3>Remote Repository: </h3>
+	<h2>Visuelle Darstellung wie git funktioniert: </h2>
+	<h3>Working Directory: </h3>
+	
+	<h3>Staging Area: </h3>
+	<p>Eine Art Warteraum, die auf vorgemerkte Änderungen wartet. Alle Dateien in der Staging Area sagen git, dass sie für den
+	  nächsten commit vorgemerkt werden sollen. Mit git add wird ein File gestaged. Mit git restore --staged Filename wird es
+	  unstaged.
+	</p>
+	<h3>Local Repository: </h3>
+
+	<h3>Remote Repository: </h3>
+
+	<h3>Code auf GitHub übertragen</h3>
+	<p>Zuerst wird ein Repository auf GitHub erstellt. Anschließend wird das lokale Repository mit dem Remote-Repository verbunden.
+	  Dafür wird der Link der Seite kopiert und anschließen folgender Befehl ausgeführt:
+	</p>
+	<pre>git remote add origin [link]</pre>
+	<p>origin ist der Name des Remote-Repositorys (github)</p>
   </div>
 </div>
