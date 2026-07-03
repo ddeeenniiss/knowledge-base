@@ -27,6 +27,10 @@
     </p>
     <p>mit git branch -m production benennt man den aktuellen branch zu production um</p>
     <p>auf remote bringt man das ganze mit git push -u origin "branchname"</p>
+    <p>wird remote ein branch erstellt, so ist dieser nicht mit git branch ersichtlich. remote branches
+      lassen sich mit git branch -a anzeigen. Mit git checkout neuerBranch wird der branch auch lokal erstellt
+      und mit origin/feature/neuerBranch verknüpft.
+    </p>
 
     <h2>Status abrufen: </h2>
     <p>git status zeigt den aktuellen Branch an, welche Änderungen zum commit vorgemerkt sind
@@ -130,6 +134,14 @@
       Befehl git push. Wenn du sicherstellen möchtest, dass dein lokaler Branch
       auf dem neuesten Stand ist und keine Konflikte auftreten, kannst du die
       Optionen rebase und autostash verwenden.
+    </p>
+
+    <p>git push --force überschreibt den remote Branch mit dem lokalen Branch und ignoriert
+      Änderungen, die auf dem Remote Branch gemacht wurden.
+    </p>
+
+    <p>git push --force-with-lease überschreibt den remote Branch mit dem lokalen Branch nur dann, wenn 
+      niemand anderes den remote Branch seit dem letzen Pull verändert hat.
     </p>
 
     <h3>git rebase</h3>
