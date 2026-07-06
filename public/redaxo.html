@@ -81,3 +81,48 @@ echo MBlock::show(2, $grid->show());
 if (!empty($data['left_text'])): ?>
     <div class="text-block__text"><?= $data['left_text']; ?></div>
 <?php endif; ?>
+
+
+<h2>mform</h2>
+
+<p>mform ist ein AddOn, dass dir beim Erstellen von Eingabeformularen für Module hilft.
+    Du musst also nicht alles selbst in HTML bauen, sondern kannst über eine PHP-API Felder
+    generieren.
+
+    Einbindung:
+
+    use FriendsOfRedaxo\MForm;
+
+    $mform = new MForm();
+</p>
+<p>$mform->addFieldsetArea('Inhalt');
+    $mform->addTextField(1, ['label' => 'Überschrift', 'full' => true]);
+    $mform->addTextAreaField(2, ['label' => 'Text', 'rows' => 6]);
+</p>
+<h3>Bilder</h3>
+
+<p>Für Bilder gibt es das MediaField, das die Auswahl von Bildern aus der Mediathek ermöglicht.
+    <br>
+    $mform->addMediaField(3, ['label' => 'Bild', 'full' => true]);
+</p>
+
+<h3>Links</h3>
+<p>$mform->addLinkField(6, ['label' => 'Seitenlink']);</p>
+
+<h3>Checkbox</h3>
+<p>$mform->addCheckboxField(7, ['label' => 'Aktivieren?']);</p>
+
+<h3>Dropdown:</h3>
+<p>$mform->addSelectField(8, ['label' => 'Auswahl']);
+    ->setOptions(['opt1' => 'Option 1', 'opt2' => 'Option 2']);
+</p>
+
+<h2>Methoden</h2>
+<p>rex_escape() schützt vor XSS, indem Sonderzeichen umgewandelt werden.</p>
+<p>nl2br() wandelt Zeilenumbrüche in br Tags um.</p>
+<p>rex_getUrl() erzeugt eine URL aus einer Artikel-ID. Mit rex_getUrl(5) wird daraus
+    die richtige URL für den Artikel mit der ID 5.
+
+    Falls man zu einem Bereich im selben Artikel springen möchte, geht das so:
+    $btnLink = rex_getUrl(5), '#kontakt';
+</p>
