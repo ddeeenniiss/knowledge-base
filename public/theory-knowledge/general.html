@@ -376,11 +376,36 @@
       Abhängigkeitsauflösung. Yarn verwendet eine Datei namens yarn.lock, um die
       genauen Versionen der installierten Pakete zu sperren.
     </p>
+    <p>Ein yarn install liest die package.json und die yarn.lock, lädt alle benötigten Pakete aus dem 
+      npm-Registry herunter, legt den Ordner node_modules an und verknüpft alle Abhängigkeiten miteinander.
+
+    </p>
+
+    <h3>Node.js</h3>
+    <p>
+      Node.js ist eine Laufzeitumgebung, die es ermöglicht, JavaScript außerhalb des Browsers auszuführen.
+      Es kann also der Entwicklungsserver gestartet werden, Build Prozesse ausgeführt werden und npm/yarn verwendet werden.
+    </p>
+
     <h3>node_modules</h3>
     <p>Das Verzeichnis node_modules enthält alle installierten Abhängigkeiten des Projekts. Es wird nicht versioniert in git, da es 
       durch die package.json und die yarn.lock reproduzierbar ist und zudem auch viel zu groß wäre. Die node_modules entstehen durch 
       die packetmanager Befehle wie npm install oder yarn install, die die Abhängigkeiten aus der package.json installieren.
     </p>
+
+    <h3>nvm (Node Version Manager)</h3>
+    <p>nvm ermöglicht es, mehrere Node-Versionen gleichzeitig installiert zu haben. Mit nvm use kann die node Version
+      für das aktuelle Terminal gewechselt werden. Die aktuelle Version steht immer in der .nvmrc, daraus zieht nvm die 
+      Information für die aktuelle Version. nvm use liest die .nvmrc und aktiviert automatisch
+      die passende Version.
+    </p>
+    <h3>Wieso muss nach git clone immer yarn install ausgeführt werden?</h3>
+    <p>Das liegt daran, dass die Bibliotheken nicht mit Git versioniert werden. Der node_modules Ordner
+      liegt nicht im git, da die Datei viel zu groß werden kann. Darin liegen tausende Dateien. Ein Projekt
+      enthält stattdessen die package.json und die yarn.lock, die die Abhängigkeiten und deren Versionen definieren, also eine
+      Art Anleitung.
+    </p>
+
     <h2>Umgebungen in Workflows</h2>
     <table>
     <tr>
