@@ -914,6 +914,11 @@
         Require valid-user
       &lt;/Directory&gt;
     </pre>
+	<h3>Nutzer und Passwort bei .htpasswd ändern</h3>
+	<p>Einfach folgenden command ausführen mit neuem nutzer und Passwort: </p>
+	<pre>htpasswd -nbB bbt-user '5%lKs23!o9Kr'</pre>
+	<p>Dann den Output in die .htpasswd einfügen.</p>
+	
     <h2>Docker</h2>
     <p>
       Docker erlaubt es, Software in abgeschlossenen Containern zu starten, die
@@ -1095,5 +1100,21 @@ for file in siteco_SL11_LED*.png; do
     avifenc --min 20 --max 20 --speed 6 "$file" "$HOME/Desktop/siteco-avif/${file%.png}.avif"
 done
     </p>
+
+	<h2>Vue</h2>
+	<h3>Vorteile: </h3>
+	<p>Website aktualisiert sich bei Änderungen selbst. Eine Website besteht hier aus vielen kleinen
+		Komponenten, die wiederverwendbar sind. Somit ist der Code sauberer und übersichtlicher. Zudem findet mit
+		vue deutlich weniger DOM Manipulation statt.
+	</p>	
+
+	<h2>Neues git Projekt anlegen</h2>
+	<p>Erstelle zuerst ein Projekt auf git mit einer readme.md und öffne dann das Terminal. Dort führst du
+		yarn create vite . aus, das erstellt das vite Projekt im aktuellen Ordner. In den Optionen vom Terminal
+		einfach "Ignore files and continue" wählen.
+	</p>
+	<p>
+		Lege im projekt eine yarnrc.yml an und schreibe nodeLinker: node-modules an und mache yarn install
+	</p>
   </div>
 </div>
