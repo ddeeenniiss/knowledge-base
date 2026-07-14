@@ -1,0 +1,57 @@
+<div class="block">
+  <div class="container site-border">
+    <h1>Redaxo Template Allgemein</h1>
+
+    <h2>Struktur Erklärung</h2>
+    <p>
+      In Redaxo selbst gibt es einen core unter public/redaxo/src/core. Dieser
+      sollte nicht bearbeitet werden, da bei Updates alles überschrieben werden
+      würde.
+    </p>
+    <p>
+      Unter public/redaxo/src/addons werden Inhalte eigentlich bearbeitet. Hier
+      liegt in diesem Fall das Addon project, welches die Inhalte wie zB footer
+      überschreibt.
+    </p>
+    <h3>Backend Module</h3>
+    <p>
+      Unter public/redaxo/src/core/fragments/core/footer.php liegen die Backend
+      Module. zB die footer.php wird nur im Redaxo Backend verwendet. Das sind
+      core Module, die die Redaxo Seite per se strukturieren. Die gehören also
+      allgemein zu Redaxo und nicht zu einem spezifischen Projekt wie zB Menges
+      & Partner. Wird erkannt an der Klasse rex-global-footer.
+    </p>
+
+    <h3>Frontend Module</h3>
+    <p>
+      Generell im Addon project liegen module und templates. Unter
+      public/redaxo/src/addons/project/templates/inc_footer.php zB liegen die
+      Module, die letzlich im Frontend für den Kunden sichtbar sind.
+    </p>
+
+    <h2>Tailwind Klassen (ist im Redaxo Template immer eingebunden)</h2>
+    <table>
+      <tr>
+        <th>Abkürzung</th>
+        <th>Bedeutung</th>
+      </tr>
+      <tr>
+        <td>py</td>
+        <td>padding-block</td>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+    </table>
+
+    <h2>Farbklassen Definitionen</h2>
+    <p>Bei Tailwind gibt es eine feste Konvention:</p>
+    <pre>text-{color} erzeugt immer color: var(--color-{color}).</pre>
+    <p>Für text-white gilt dann also:</p>
+    <pre>
+.text-white { 
+			color: var(--color-white); 
+		 }</pre
+    >
+  </div>
+</div>

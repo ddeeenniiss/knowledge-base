@@ -1,27 +1,30 @@
 {
   "Theoriewissen": {
-    "Generelle Theorie":{
+    "Generelle Theorie": {
       "Allgemein": "theory-knowledge/general.html",
       "Mails": "theory-knowledge/mails.html",
       "Objekte": "theory-knowledge/objects.html",
       "Visual Studio Code": "theory-knowledge/vsc.html",
       "Alles rund um Farben": "theory-knowledge/colors.html"
     },
-    "Bash-Commands":{
+    "Bash-Commands": {
       "Bash-Commands": "backend/bash-commands/bash-commands.html"
     },
-    "Git":{
+    "Git": {
       "Git Basics": "backend/git/git-basics.html",
       "Lokales Setup": "backend/git/git-lokales-setup.html",
       "Fixup": "backend/git/git-fixup.html",
       "Maintainance": "backend/git/git-maintainance.html"
+    },
+    "Redaxo Template": {
+      "General": "backend/redaxo-template/general.html"
     }
   },
   "Frontend HTML / CSS / JS": {
     "HTML": {
       "HTML Basics": "frontend/html/html.html"
     },
-    "Bibliotheken":{
+    "Bibliotheken": {
       "Splide": "frontend/bibliotheken/splide.html"
     },
     "CSS": {
@@ -56,5 +59,4 @@
     "Formular ohne AJAX": "backend/formular.html",
     "Formular mit AJAX": "backend/index.html"
   }
-  
 }
