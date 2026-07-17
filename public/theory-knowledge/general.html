@@ -419,10 +419,89 @@
     </p>
     <p>CODE -> BUILD -> TEST -> DEPLOY</p>
     <h2>Redaxo Media Manager</h2>
-    <p>Der Media Manager erzeugt Bildvarianten basierend auf den definierten Medientypen.</p>
+    <p>Der Media Manager erlaubt das Anpassen von Grafiken basierend auf den definierten Medientypen. Jeder Mediatyp kann beliebig viele Effekte enthalten, die auf das aktuelle Medium angewendet werden. Zum Einbinden eines Mediums muss dazu der Mediatyp in der URL notiert werden.</p>
     <p>Ein Template wie pictureTag() entscheidet, wie sie in HTML kombiniert werden. Er übernimmt die responsive Logik für die Bildgrößen, steuert den Aufbau des
       picture Tags und die WebP / AVIF Fallbacks. SVG Sonderfall beachten.
     </p>
+
+	<h3>Medientypen: </h3>
+	<table>
+		<tr>
+			<th>Medientyp</th><th>Beschreibung</th>
+		</tr>
+		<tr>
+			<td>Bild: Abgerundete Ecken</td><td>Beschneidet Bilder an allen 4 Ecken. Ist aber nur für Dateien zu empfehlen, die kein css unterstützen, ansonsten immer border-radius per css legen. </td>
+		</tr>
+		<tr>
+			<td>Bild: Arbeitsfläche</td><td>Eine Arbeitsfläche erzeugt einen Canvas um ein bestehendes Bild. Bsp 600x600px Bild, aber 2000x2000px Canvas. Das Bild lässt sich darin flexibel ausrichten. Die Canvasfläche kann farbig oder auch
+				transparent eingestellt werden.
+			</td>
+		</tr>
+		<tr>
+			<td>Bild: Beschneiden</td><td>Bilder lassen sich px genau zuschneiden. Über einen Offset in % lässt sich festlegen welcher Teil des Bildes bestehen bleibt.</td>
+		</tr>
+		<tr>
+			<td>Bild: Bild platzieren / Wasserzeichen</td><td>Ein zweites Bild wird hier über das eigentliche Bild gelegt. Das ausgewählte Bild sollte bereits richtig zugeschnitten sein. Ausrichtung wird direkt im Medientyp festgelegt.</td>
+		</tr>
+		<tr>
+			<td>Bild: Drehen</td><td>Dreht ein Bild um beliebig Grad. css ist hier eher empfohlen.</td>
+		</tr>
+		<tr>
+			<td>Bild: Einfärben</td><td>Färbt ein Bild über RGB Werte.</td>
+		</tr>
+		<tr>
+			<td>Bild: Einstellungen (Qualität, Interlace, ...)</td><td>beeinflusst nicht das Bildmotiv, sondern wie die Bilddatei gespeichert wird. Das wirkt sich vor allem auf Dateigröße und Ladezeit aus. Die PNG Kompression ist verlustfrei, also ändert sich die
+				Bildqualität nicht. Der Wert bestimmt nur wie klein die Datei erzeugt wird (0 keine Kompression und große Datei / 9 max Kompression und kleine Datei). AVIF Geschwindigkeit wirkt sich ebenso auf die Dateigröße aus. Interlaced/ Progressive Mode bezieht sich
+				auf zB jpg: Erst wird das Bild grob geladen, dann schärfer, dann vollständig. Gut bei langsamen Verbindungen.
+			</td>
+		</tr>
+		<tr>
+			<td>Bild: Graustufen</td><td>wandelt Farbbild in Schwarz Weiß Bild um. RGB Kanäle werden in Helligkeitswert umgerechnet. Neue Bilddatei wird erzeugt in der die 
+				Farbinformationen dauerhaft entfernt sind. css ist hier zu bevorzugen mit filter: grayscale(100%)
+			</td>
+		</tr>
+		<tr>
+			<td>Bild: Helligkeit</td><td>Beeinflusst Helligkeit von 0 bis 255 (weiß). Auch hier ist css zu empfehlen.</td>
+		</tr>
+		<tr>
+			<td>Bild: Horizontal/Vertikal spiegeln</td><td>Bild lässt sich in X und Y Richtung spiegeln. Auch hier ist css zu empfehlen.</td>
+		</tr>
+		<tr>
+			<td>Bild: In JPEG/PNG/GIF/WEBP/AVIF konvertieren</td><td>Konvertiert in gewähltes Format. Erstellt dabei nur eine Ausgabevariante, es wird nicht das Originalmedium ersetzt.</td>
+		</tr>
+		<tr>
+			<td>Bild: Kontrast</td><td>Verändert Kontrast von -100 (grau) bis 100 (schwarz und weiß werden kräftiger)</td>
+		</tr>
+		<tr>
+			<td>Bild: SRCSET</td><td>erzeugt mehrere Bildgrößen für responsive Bilder und gibt dabei eine URL zurück. Diese muss dann verarbeitet werden. Er ist dafür gedacht, unterschiedliche Bilddateien für unterschiedliche Bildschirmgrößen bereitzustellen.</td>
+		</tr>
+		<tr>
+			<td>Bild: Schärfen</td><td>versucht, Konturen im Bild hervorzuheben. Die Schärfematrix ist der Kernel, der über das Bild läuft. Der Wert dafür ist eine Ausdehnung der Schärfung. 0.5 ist sehr feine Schärfung. Der Grenzwert stellt ein, wie viele Tonstufen unterschied 
+				min daliegen müssen. Pixel 1 zB 123 und Pixel 2 zB 126 (0 - 255). Bei 20 werden somit nur starke Kontraste geschärft. Bei 0 alles.
+			</td>
+		</tr>
+		<tr>
+			<td>Bild: Sepia</td><td>Färbt das Bild in einen Braunton ähnlich des 19 oder 20. Jahrhunderts. Es wirkt dadurch wärmer, nostalgischer, antik.</td>
+		</tr>
+		<tr>
+			<td>Bild: Skalieren</td><td>Skaliert das Bild auf Wunschgröße</td>
+		</tr>
+		<tr>
+			<td>Bild: Unschärfe</td><td>Macht das Bild Unscharf.</td>
+		</tr>
+		<tr>
+			<td>Bild: Wasserspiegelung hinzufügen</td><td>erzeugt eine Wasserspiegelung. Wie wenn es unten auf Wasser gespiegelt werden würde.</td>
+		</tr>
+		<tr>
+			<td>Datei: Header anpassen</td><td>Header Infos ändern</td>
+		</tr>
+		<tr>
+			<td>Datei: In Bild konvertieren</td><td>konvertieren in anderes Format</td>
+		</tr>
+		<tr>
+			<td>Datei: Pfad anpassen</td><td>Pfad anpassen anstelle von /media</td>
+		</tr>
+	</table>
     <h2>Web Client</h2>
     <p>Browser wie Chrome, Firefox, Safari, Edge, Opera</p>
     <h2>Browser</h2>
