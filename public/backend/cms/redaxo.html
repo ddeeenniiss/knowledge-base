@@ -2,6 +2,13 @@
 	<div class="container site-border">
 		<h1>Redaxo CMS</h1>
 		<p>Hier der Link zur Redaxo Dokumentation: <a href="https://redaxo.org/doku/5.x/">CLICK ME</a></p>
+		<h2>Redaxo Projekt aufsetzen</h2>
+		<p>Zuerst ein Ordner erstellen mit mkdir [projektname]</p>
+		<p>Dann Vite installieren mit yarn create vite</p>
+		<p>Dann ddev installieren mit brew install ddev und danach ddev config mit Antworten projektname, docroot . und project type php</p>
+		<p>Dann die redaxo installations zip direkt im root entspacken. kein übergeordneter redaxo ordner.</p>
+		<p>In der config.yaml zu apache wechseln mit webserver_type: apache-fpm</p>
+		<p>Jetzt ddev start und ddev launch und den redaxo start durchlaufen.</p>
 		<h2>Redaxo Adminer</h2>
 <p>Adminer ist ein kompakter Datenbankbrowser, der sich als Alternative zu phpMyAdmin eignet. Er ermöglicht den Zugriff auf verschiedene Datenbanken wie MySQL, PostgreSQL, SQLite und Oracle.
 
@@ -43,6 +50,113 @@ AS category_id -> Alias</p>
 <p>Importieren = Daten oder ganze Tabellen in die Datenbank hochladen. zB Backup wiederherstellen</p>
 <p>Exportieren = Daten oder ganze Tabellen aus der Datenbank herunterladen. zB Backup erstellen</p>
 
+<h2>Redaxo Datenbanken</h2>
+<table>
+	<tr>
+		<th>Datenbank</th>
+		<th>Nutzen</th>
+	</tr>
+	<tr>
+		<td>rex_action</td>
+		<td>Speichert die Aktionen, die in Modulen vor oder nach der Ausgabe bzw. Eingabe ausgeführt werden.</td>
+	</tr>
+	<tr>
+		<td>rex_article</td>
+		<td>Enthält alle Artikel (Seiten) der Website inklusive Struktur, Status, Template-Zuordnung und Metadaten.</td>
+	</tr>
+	<tr>
+		<td>rex_article_slice</td>
+		<td>Speichert die einzelnen Inhaltsblöcke (Slices) eines Artikels mit den Modulwerten und ihrer Reihenfolge.</td>
+	</tr>
+	<tr>
+		<td>rex_clang</td>
+		<td>Verwaltet die vorhandenen Sprachen (Clangs) einer REDAXO-Installation.</td>
+	</tr>
+	<tr>
+		<td>rex_config</td>
+		<td>Zentrale Konfiguration aller AddOns und des Core. Hier werden Einstellungen als Schlüssel-Wert-Paare gespeichert.</td>
+	</tr>
+	<tr>
+		<td>rex_image_crop</td>
+		<td>Speichert definierte Bildausschnitte (Crops), die direkt einem Bild oder einem Inhalt zugeordnet werden.</td>
+	</tr>
+	<tr>
+		<td>rex_media</td>
+		<td>Verzeichnis aller Medien des Medienpools mit Dateiname, Titel, Größe, Typ und Metadaten.</td>
+	</tr>
+	<tr>
+		<td>rex_media_category</td>
+		<td>Speichert die Ordnerstruktur (Medienkategorien) des Medienpools.</td>
+	</tr>
+	<tr>
+		<td>rex_media_crop</td>
+		<td>Enthält Crop-Definitionen für Medien, die vom Medienmanager oder AddOns verwendet werden.</td>
+	</tr>
+	<tr>
+		<td>rex_media_manager_type</td>
+		<td>Definiert die Medienmanager-Typen (z. B. "thumbnail", "hero", "preview").</td>
+	</tr>
+	<tr>
+		<td>rex_media_manager_type_effect</td>
+		<td>Speichert die Effekte eines Medienmanager-Typs, beispielsweise Skalieren, Zuschneiden oder Schärfen.</td>
+	</tr>
+	<tr>
+		<td>rex_metainfo_field</td>
+		<td>Definiert benutzerdefinierte Metafelder für Artikel, Medien oder Kategorien.</td>
+	</tr>
+	<tr>
+		<td>rex_metainfo_type</td>
+		<td>Ordnet Metafelder den jeweiligen Objekttypen (Artikel, Medien, Kategorien usw.) zu.</td>
+	</tr>
+	<tr>
+		<td>rex_module</td>
+		<td>Enthält alle Module mit Ein- und Ausgabe-Code, die für Inhaltsblöcke verwendet werden.</td>
+	</tr>
+	<tr>
+		<td>rex_module_action</td>
+		<td>Verknüpft Module mit definierten Aktionen (rex_action).</td>
+	</tr>
+	<tr>
+		<td>rex_template</td>
+		<td>Speichert alle Templates, welche den grundsätzlichen Seitenaufbau definieren.</td>
+	</tr>
+	<tr>
+		<td>rex_user</td>
+		<td>Enthält die Backend-Benutzer mit Login-Daten, Rechten und persönlichen Einstellungen.</td>
+	</tr>
+	<tr>
+		<td>rex_user_passkey</td>
+		<td>Speichert Passkeys (WebAuthn/FIDO2) für die passwortlose oder zusätzliche Anmeldung von Benutzern.</td>
+	</tr>
+	<tr>
+		<td>rex_user_role</td>
+		<td>Definiert Rollen, über die Berechtigungen mehreren Benutzern gemeinsam zugewiesen werden können.</td>
+	</tr>
+	<tr>
+		<td>rex_user_session</td>
+		<td>Verwaltet aktive Backend-Sitzungen der Benutzer.</td>
+	</tr>
+</table>
+<h2>Im Adminer nach Modulvorkommen suchen: </h2>
+<pre>
+	SELECT
+    a.id AS artikel_id,
+    a.name AS artikel,
+    parent.name AS kategorie,
+    a.clang_id AS sprache,
+    COUNT(s.id) AS verwendungen
+FROM rex_article_slice s
+JOIN rex_article a
+    ON a.id = s.article_id
+LEFT JOIN rex_article parent
+    ON parent.id = a.parent_id
+JOIN rex_module m
+    ON m.id = s.module_id
+WHERE m.name = '10 . Text Block 1 Column'
+GROUP BY a.id, a.name, parent.name, a.clang_id
+ORDER BY a.id ASC;
+
+</pre>
 <h2>Installer</h2>
 <p>Im Installer können AddOns heruntergeladen werden. Bei einer Aktualisierung eines AddOns wird automatisch ein
 	Backup der alten AddOn Verzeichnisse erstellt. Diese werden unter redaxo/data/addons/install abgelegt.
@@ -50,6 +164,8 @@ AS category_id -> Alias</p>
 <p>Im Bereich "Vorhandene aktualisieren" wird aufgelistet, welche AddOns und Bestandteile aktualisiert werden können.
 </p>
 
+<h2>Fragmente</h2>
+<p>Fragmente werden in REDAXO eingesetzt, um wiederkehrende Code-Schnipsel übersichtlich zu verwalten. Fragmente sind PHP-Dateien und werden bei der Ausgabe geparst, sodass Variablen ausgegeben und verarbeitet werden können. In REDAXO selbst werden zahlreiche Fragmente für die Ausgabe des Backends verwendet. Diese Fragmente können auch als Ausgangsbasis für eigene Fragmente genutzt werden.</p>
 <h2>AddOns = Erweiterung</h2>
 <p>Addons werden über den Installer Downloadbereich installiert. Eigene AddOns werden ins Verzeichnis /redaxo/src/addons/ hochgeladen.
 	Ordnername sollte identisch mit dem AddOn-Key sein, der in der package.yml hinterlegt ist.
@@ -115,7 +231,7 @@ AS category_id -> Alias</p>
 		<td>media_manager / mediapool (System AddOn)</td>
 		<td>Verwalten von Medien (Bilder, Videos, Dateien) innerhalb des Backends</td>
 	</tr>
-	<tr>
+	<tr>	
 		<td>metainfo (System AddOn)</td>
 		<td>Stellt Metadaten für Artikel und Kategorien zur Verfügung</td>
 	</tr>
@@ -127,7 +243,7 @@ AS category_id -> Alias</p>
 	</tr>
 	<tr>
 		<td>history</td>
-		<td>Versionierung von Artikeln</td>
+		<td>Versionierung von Artikeln, speicherung von älteren Liveversionen.</td>
 	</tr>
 	<tr>
 		<td>cronjob</td>
@@ -196,6 +312,10 @@ AS category_id -> Alias</p>
 		<td>blÖcks</td>
 		<td>Module / Blöcke online, offline schalten. Per Drag&Drop verschieben, sowie kopieren, ausschneiden
 			und einfügen</td>
+	</tr>
+	<tr>
+		<td>AceEditor</td>
+		<td>Code Editor im Backend</td>
 	</tr>
 </table>
 
@@ -350,5 +470,28 @@ rex_sql + Prepared Statements</p>
 	Fehler in dessen Skripte können nachfolgende Skripte blockieren, was zu einem weißen Bildschirm führen kann. Selbiges auch mit Cookiebot. Ebenso könnte es sein, dass die 
 	.htaccess nicht vollständig übernommen wurde, was zu einem Fehler führen kann.
 </p>
+<h2>AddOns
+</h2>
+<h3>metainfo</h3>
+<p>Bei metainfo kann im Addon "Meta Infos" ein Feld angelegt werden im Medien Bereich zB med_alt_lang und dabei kann anhand von
+	Addon metainfo_lang_fields für mehrere Sprachen ein alt text gepflegt werden.
+</p>
+<h3>metainfo_lang_fields</h3>
+<p>Wenn dieses Addon installiert ist und im metainfo Addon der Feldtyp lang_text_all ausgewählt wird, erscheint im Medienpool bei 
+	jedem Medium ein alt Text Feld für alle aktiven Sprachen. Abgerufen wird der Wert in der Ausgabe so:
+</p>
+<pre>use FriendsOfRedaxo\MetaInfoLangFields\MetainfoLangHelper;
+
+	$image1 = 'REX_MEDIA[1]';
+	$media1 = rex_media::get($image1);
+	$alt1 = $media1 ? MetainfoLangHelper::getMediaValue($media1, 'med_alt_lang') : '';
+</pre>
+<p>und dann im image Tag: </p>
+<pre> [img
+            src="<?= $media1->getUrl() ?>"
+            alt="<?= rex_escape($alt1 ?: $media1->getTitle()) ?>"
+            loading="lazy"
+			]
+</pre>
 </div>
 </div>
