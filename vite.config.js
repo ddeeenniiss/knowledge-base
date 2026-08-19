@@ -1,15 +1,19 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 import path from 'path';
 
-const rootDir = path.resolve(__dirname);
+const rootDir = resolve(__dirname);
+const outDir = resolve(__dirname, 'dist');
 
 export default defineConfig({
   root: rootDir,
   base: '/',
   publicDir: path.resolve(__dirname, 'public'),
-  server: { port: 5173 },
+  server: { port: 5173,
+    open: true,
+  },
   build: {
-    outDir: path.resolve(__dirname, 'dist'),
+    outDir: outDir,
     emptyOutDir: true
   }
 });
