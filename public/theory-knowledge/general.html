@@ -111,8 +111,84 @@
       Die Konfigurationsdatei für Vite. Hier kannst du z. B.: Aliase definieren
       (@/components → src/components) Plugins hinzufügen (z. B. für
       TypeScript-Checking, React, Vue, PWA) Build-Optionen ändern
-      (Output-Verzeichnis, Minifizierung, etc.)
+      (Output-Verzeichnis, Minifizierung, etc.). Sobald vite ausgeführt wird, wird diese Datei namens
+      vite.config.js automatisch geladen im Projektroot.
     </p>
+    <p>Intern benutzt Vite den Rollup Production Bundler. Sobald vite build ausgeführt wird, nutzt Vite intern
+      Rollup, um Module zusammenzuführen, Tree Shaking (ungenutzten Code entfernen) und code zu splitten.
+      Daher der name der rollupOptions in der Vite Konfiguration.
+    </p>
+    <p>Es ist letzlich die komplette Steuerkonsole für dein Build und Dev Setup.</p>
+    <h4>Imports</h4>
+    <pre>import { defineConfig } from 'vite';</pre>
+    <p>Hilfsfunktionen für die Vite Konfiguration zB bessere Autovervollständigung, Typsicherheit
+      und klarere Struktur.
+    </p>
+    <pre>import { resolve } from 'path';</pre>
+    <p>Node.js Funktion zum sicheren Erstellen von Pfaden. zB resolve(__dirname, 'src') ergibt den absolut
+      sicheren Pfad zu /project/src
+    </p>
+    <pre>import autoprefixer from 'autoprefixer';</pre>
+    <p>Ist ein PostCSS-Plugin und fügt automatisch Vendor-Prefixes hinzu. zB display: flex; wird zu 
+      display: -webkit-flex; display: flex; Das ist wichtig für Browser Kompatibilität.
+    </p>
+    <pre>import injectHTML from 'vite-plugin-html-inject';</pre>
+    <p>Plugin für Vite, welches HTML-Inhalte dynamisch in andere HTML-Dateien einfügt. Ähnlich zu includes in PHP.</p>
+
+    <pre>import removeConsole from 'vite-plugin-remove-console';</pre>
+    <p>entfernt automatisch console.log Aufrufe aus dem Produktionscode und sorgt für sauberen, performanten Output.</p>
+
+    <h4>Projektpfade</h4>
+    <pre>const rootDir = resolve(__dirname, 'src');</pre>
+    <pre>const outDir = resolve(__dirname, 'dist');</pre>
+    <p>rootDir: Quellcode liegt in /src und outDir: Build landet in /dist</p>
+
+    <h4>Export der Konfiguration (Vite Konfiguration)</h4>
+    <pre>export default defineConfig({})</pre>
+    <p>Hier beginnt die eigentliche Konfiguration von Vite</p>
+    <pre>base: './'</pre>
+    <p>Das ist der Basispfad für das Build-Verzeichnis. Bedeutet letzlich http://localhost:5173/ auf dev
+      und http://example.com/ auf production (je nachdem was der Webserver oder hosting als domain erstellt).
+    </p>
+    <p>Das build Ergebnis ist dann <script src="/assets/index.js"></script> und funktioniert auf http://example.com.
+    base: '/app/' wäre dagegen <script src="/app/assets/index.js"></script></p> und würde auf http://example.com/app/ laufen.
+    <pre>root: rootDir,</pre>
+    <p>src ist das Root-Verzeichnis für den Quellcode</p>
+    <pre>publicDir: resolve(__dirname, 'public'),</pre>
+    <p>Bestimmt Verzeichnis zur Bereitstellung von einfachen statischen Assets. alles aus public/ wird unverändert ins Build Verzeichnis kopiert. Landet alles unverändert in
+      /dist bzw outDir. __dirname ist dabei der Ordner, indem die Datei liegt, in der __dirname verwendet wird.
+    </p>
+    <pre>plugins:[removeConsole(), includeHtmlPartials()],</pre>
+    <p>Array zur Verwendung von Plugins: bei einem Build werden Debug Ausgaben entfernt und HTML Teilvorlagen eingefügt.</p>
+    <pre>server: { port: 5050, open: true, watch: { './html/**/*.html': true, }, },</pre>
+    <p>Server-Konfigurationen. Läuft auf http://localhost:5050, öffnet automatisch den Browser. Alle
+      Dateien unter html/ werden überwacht.
+    </p>
+    <pre>css: { postcss: { sourceMap: false, plugins: [autoprefixer], }, preprocessorOptions: { scss: { api: 'modern-compiler',}, }, },</pre>
+    <p>CSS Konfigurationen, PostCSS verarbeitet CSS nach. Keine CSS Quellkarten, Autoprefixer ist aktiviert,
+      scss verwendet die moderne sass-compiler API
+    </p>
+    <pre>build:</pre>
+    <p>Konfigurationen für das Build Verfahren</p>
+    <pre>outDir: outDir, </pre>
+    <p>build geht in /dist</p>
+    <pre>emptyOutDir: true,</pre>
+    <p>Vor jedem Build wird /dist geleert bzw gelöscht</p>
+    <pre>cssCodeSplit: false,</pre>
+    <p>CSS Code wird in einer einzigen Datei gebündelt.</p>
+    <pre>sourcemap: false,</pre>
+    <p>Keine .map Dateien werden erstellt</p>
+    <pre>assetsDir: 'assets'</pre>
+    <p>statische Assets wie Bilder und Schriftarten landen in dist/assets/</p>
+    <pre>minify: true,</pre>
+    <p>aktiviert JavaScript, CSS und HTML Minifizierung</p>
+    <pre>modulePreload: { polyfill: true, }</pre>
+    <p>Vite fügt bei Bedarf Polyfills hinzu, also zB <link rel="modulepreload"></p>
+    <pre>rollupOptions: { input: { robotics: resolve(rootDir, 'index.html'),
+                                  smartGlasses: resolve(rootDir, 'smart-glasses.html')},}</pre>
+                                  <p>Multi Page Projekt: 2 Seiten entstehen beim build.</p>
+    <pre>output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) => {}}</pre>
+    <p>Ausgabe Konfiguration im Build Verfahren</p>
     <h3>package.json</h3>
     <p>
       Eine package.json ist eine JSON-Datei (JavaScript Object Notation), die
