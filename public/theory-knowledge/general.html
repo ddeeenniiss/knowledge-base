@@ -1143,5 +1143,60 @@ xdebug_enabled: false //debugging erlaubt
       verfügbar sein sollen. Also Warenkorb, Login-Zustand, Benutzererkennung,
       zwischengespeicherte Formulardaten, temporäre Statusinformationen.
     </p>
+
+    <h2>UX Nutzerverhalten</h2>
+    <p>Ein durchschnittlicher Nutzer hockt nicht gerne am PC. Webseiten sollten immer sehr intuitiv aufgebaut sein so wie der Nutzer
+      sich das vorstellt. zB die DBahn App ist sehr gut strukturiert, sodass sich Nutzer schnell zurecht finden. Ein minimalistischer Ansatz
+      ist oftmals der beste! Es entstehen weniger Fehler, mehr Übersichtlichkeit und ein modernes Erscheinungsbild. Es sollte nur wirklich unwichtiges
+      weggelassen werden, da ansonsten Nutzer nicht direkt wissen könnten wo sie suchen müssen. Immer den aktuellen Use Case beachten.
+    </p>
+    <p>Man sollte sich immer überlegen welche Bedürfnisse ein Nutzer hat, wie kann man es einfacher gestalten? Was möchte der Nutzer damit erreichen?</p>
+    <p>Wie fühlt sich ein slider beim sliden an? Sieht die Lightbox für mich gut aus? Sind Hover Effekte wie erwartet?</p>
+    <h3>Wie geht man beim designen vor?</h3>
+    <p>discover -> define -> design -> deliver</p>
+    <p>Perfektion bedeutet nicht, möglichst viel hinzuzufügen, sondern alles Unnötige zu entfernen. Perfektion ist dann erreicht, wenn man nichts mehr
+      wegnehmen kann.
+
+      Zum Beispiel:
+
+    Ein gutes Design hat keine überflüssigen Elemente.
+    Ein guter Text enthält keine unnötigen Sätze.
+    Ein Produkt hat keine Funktionen, die niemand braucht.
+    Eine Lösung ist elegant, wenn sie einfach ist, aber nichts Wesentliches fehlt.
+
+    </p>
+    <p>Nützlichkeit + Benutzbarkeit = Gebrauchstauglichkeit. Auch bei Webseiten gilt wer das beste Erlebnis verkauft, der gewinnt.</p>
+    <p>Menschen geben für Erlebnisse mindestens genau so viel Geld aus als für Gegenstände. Käufer bei Erlebnissen sehen ihr Geld besser
+      investiert und sind glücklicher beim Gedanken an die Ausgabe.
+    </p>
+    <h3>Wireframe, Mockup und Prototyp erklärt</h3>
+    <p>Wireframe → Mockup → Prototyp → fertige Anwendung
+
+    Wireframe: Struktur und Layout
+    Mockup: Aussehen/Design
+    Prototyp: Verhalten und Navigation
+    Produkt: tatsächlich funktionierende Software</p>
+    <h3>Umgang mit Kunden</h3>
+    <p>Nutzer wissen meist nie was sie genau wollen. Ziele müssen definiert und visualisiert werden. Dabei kann der Prozess schrittweise immer zum nächsten Ziel bringen</p>
+    <h3>Flat Design</h3>
+    <p>Hinter diesem Design steckt die Idee reiner Farbflächen ohne Farbverläufe, keine Ecken oder Verzierungen. Windows hat dieses Design in seinen
+      Einstellungen.
+    </p>
+    
+    <h3>VSC interne Suche</h3>
+    <p>Mit der internen Suche (Shift + Command + F) in VSC werden lediglich interne Dateiinhalte gesucht aber keine Dateinamen wie zB .pdf oder .svg.
+      Datein ansich können mit Command + P gesucht werden. Dort werden mit Quick Open Pfade/Dateinamen im ganzen Workspace durchsucht.
+    </p>
+    <h2>NFC vs. NFD (Unicode-Normalisierung des "ä")</h2>
+    <p>Files sind generell NFC-kodiert (ä = ein Zeichen, Bytes c3 a4) - identisch mit dem ä 
+      im href der Frontend.html. Eingefügte Files über den Finder sind wiederum NFD-kodiert (a + eigenständiger Kombinations-Trema-Akzent, Bytes 61 cc 88).
+      Das passiert typisch, wenn eine Datei per Finder (Drag & Drop) auf MacOS ins Dateisystem kopiert wird. APFS/Finder normalisieren Umlaute in Dateinamen
+      automatisch zu NFD. Optisch sieht das exakt gleich aus, aber byte für byte ist es ein anderer String als das ä im HTML Quelltext. Ein Linux Webserver ist ein case- und
+      byte-exaktes Dateisystem. Die URL, die der Browser aus dem href erzeugt, enthält die NFC-Bytes - die Datei auf dem Server heißt aber
+      (nach dem rsync) NFD-Bytes. Für den Server sind das dann zwei unterschiedliche Dateinamen, somit 404, obwohl optisch alles richtig aussieht.
+    </p>
+    <p>Fix: Benenne Dateinamen niemals mit Umlauten. Wenn doch, dann muss die Datei mit dem Terminal nochmal umbenannt werden mit mv "Dateiname" "Dateiname". Das
+      Terminal selbst erzeugt nämlich wieder NFC.
+    </p>
   </div>
 </div>
