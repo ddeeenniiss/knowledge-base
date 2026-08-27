@@ -591,6 +591,26 @@ fields:
     <p>Geeignet für kleine bis mittelgroße Websites, die zusätzlich Facettensuche und flexible Indexierung aus Datenbankeinträgen benötigen. 
       Die Suche ist nicht so leistungsstark wie Solr für großangelegte Projekte. Die Leistung hängt hier von der Größe der Datenbank ab.
     </p>
+    <h2>Sitemaps in Typo</h2>
+    <h3>Was ist eine sitemap?</h3>
+    <p>Eine sitemap listet die URLs einer Website strukturiert auf, damit Suchmaschinen und auch Nutzer diese besser verstehen. Diese sitemaps sind wichtig für SEO, damit neue Seiten schneller gefunden werden, 
+      Seiten zu finden, die schwer über interne Links erreichbar sind, den Überblick bei großen Websites mit vielen URLs zu behalten, Informationen wie das Datum der letzten Änderung einer Seite bereitzustellen.
+    </p>
+    <p>Eine Sitemap erleichtert das Crawling und die Entdeckung der Seiten, sie garantiert aber nicht, das Google die Seite indexiert oder besser rankt.</p>
+    <h3>Wo liegt eine sitemap.xml?</h3>
+    <p>Typischerweise unter https://deine-website.de/sitemap.xml. Die sitemap kann in der Google Search Console hinterlegt werden, damit Google sie kennt.</p>
+    <h3>Wo wird eine sitemap angelegt?</h3>
+    <p>In Typo wird eine sitemap automatisch generiert über EXT:seo also das TYPO3 CMS SEO Extension Pack. Lediglich die URL muss evtl noch gemapped werden. Das wird in der 
+      config.yaml der jeweiligen root site eingestellt per:
+    </p>
+    <pre>
+      routeEnhancers:
+        PageTypeSuffix: 
+          type: PageType
+          map:
+            /: 0
+            sitemap.xml: 1533906435
+    </pre>
     <h2>TYPO3 Indexed Search</h2>
     <p>Extension key: indexed_search</p>
     <p>
