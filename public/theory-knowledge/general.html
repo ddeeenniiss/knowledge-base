@@ -581,6 +581,15 @@
     </p>
     <h2>Internet</h2>
     <p>Das Internet gibt es seit 1969</p>
+    <h3>Struktur des Internets</h3>
+    <p>Das Internet ist eine Struktur aus verschiedenen Tier Internet Service Provider. Höhere Tiers bieten niedrigeren Tiers dabei Zugang zum Internet an. Local ISP stellen wiederum
+      Internet für kleinere Unternehmen & Universitäten zur Verfügung. Niedrigere ISP sind wiederum Kunden von höherrangigen.
+    </p>
+    <p>Tier 1 sind große internationale Backbone Netze. Tier 2 sind regionale/größere Provider. Tier 3 sind näher am Endkunden und verkaufen Internetzugänge. Dazwischen gibt es Internet Exchange Points, bei denen die
+      verschiedenen Netzwerke Daten miteinander tauschen können.
+    </p>
+    <img src="./../assets/screenshots/struktur_internet.jpeg" alt="Abbildung: Struktur des Internets veranschaulicht.">
+    
     <h2>WWW (World Wide Web)</h2>
     <p>Entwicklung ab 1989 von Tim Berners-Lee</p>
     <h2>VPN</h2>
@@ -596,9 +605,15 @@
     <h3>IP (Internet Protocol)</h3>
     <p>Übertragung von Datenpaketen zwischen Geräten im Internet. IPv4 und IPv6</p>
     <h3>UDP (User Datagram Protocol)</h3>
-    <p>Ein verbindungsloses Protokoll, das keine Bestätigung der Zustellung liefert. Es ist schneller als TCP, aber weniger zuverlässig.</p>
+    <p>Ein verbindungsloses und unzuverlässiges Protokoll, das keine Bestätigung der Zustellung liefert. Es ist schneller als TCP, aber weniger zuverlässig. Es enthält Quellport, Zielport, Checksum (Findung von
+      möglichen Fehlern bei der Übertragung), Längenfeld 
+      und Datenfeld (Payload). Ein Rechner erkennt UDP anhand der Protokollnummer im IP Header.
+    </p>
     <h3>TCP (Transmission Control Protocol)</h3>
-    <p>Ein verbindungsorientiertes Protokoll, das eine zuverlässige Datenübertragung gewährleistet. Es sorgt dafür, dass Daten in der richtigen Reihenfolge ankommen und keine Pakete verloren gehen.</p>
+    <p>Ein verbindungsorientiertes Protokoll, das eine zuverlässige Datenübertragung gewährleistet. Es sorgt dafür, dass Daten in der richtigen Reihenfolge ankommen und keine Pakete verloren gehen.
+      Dabei werden große Datenströme in kleinere Segmente zerlegt & in IP Paketen verschickt. Bei Fehlern wird neu übertragen. Eine Flow Control verhindert eine Überlastung des Empfängers. Eine Staukontrolle
+      erkennt verspätete Datenpakete und reduziert die Anzahl an gesendeten Paketen bei Überlastung. Ein Rechner erkennt TCP anhand der Protokollnummer im IP Header.
+    </p>
     <h3>Telnet Port 23</h3>
     <p>Telnet ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es wird auf Port 23 verwendet. Keine Verschlüsselung, daher nicht mehr sicher verwendet.
       Anfrage: telnet www.example.com 80
@@ -615,7 +630,7 @@
     <h3>IMAP (Internet Message Access Protocol)</h3>
     <p>IMAP ist ein Protokoll zur Verwaltung von E-Mails auf einem Mailserver. Es ermöglicht den Zugriff auf E-Mails von mehreren Geräten aus. Es wird auf Port 143 verwendet.</p>
     <h3>HTTP (Hypertext Transfer Protocol)</h3>
-    <p>HTTP ist ein Protokoll zur Übertragung von Webinhalten zwischen Webbrowsern und Webservern. Kommunikation zwischen Client und Server. Es wird auf Port 80 verwendet.</p>
+    <p>HTTP ist ein Protokoll zur Übertragung von Webinhalten zwischen Webbrowsern und Webservern. Auch zum herunterladen von Daten von einem Webserver. Kommunikation zwischen Client und Server. Es wird auf Port 80 verwendet.</p>
     <ul>
       <li>GET (Daten anfordern)</li>
       <li>POST (Daten senden)</li>
@@ -631,8 +646,34 @@
     <h3>>SSH (Secure Shell)</h3>
     <p>SSH ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es verwendet Port 22 und bietet eine verschlüsselte Verbindung für die Ausführung von Befehlen und die Übertragung von Daten.</p>
     
+    <h2>Versenden von http Daten von Browser zu Webserver
+    </h2>
+    <img src="./../assets/screenshots/http_versenden.jpeg" alt="Abbildung: Versenden von http Daten von Browser zu Webserver">
+    
+    <h2>ISO/OSI Schichtenmodell</h2>
+    <img src="./../assets/screenshots/iso_osi_schichtenmodell.jpeg" alt="Abbildung: Darstellung des ISO/OSI Schichtenmodells">
+    <p>Das ISO/OSI Schichtenmodell wird in 7 Schichten aufgeteilt und ist ein Denkmodell zur Veranschaulichung
+      von Kommunikationsschichten
+    </p>
+    <ol>
+      <li>Physical: Übertragung von Bitströmen auf physikalischen Verbindungen. Definiert Stecker, Link Geschwindigkeiten, Übertragungsgeschwindigkeiten</li>
+      <li>Data Link: realisiert die Kommunikation innerhalb eines Netzes in Form von PPP, Ethernet, WLAN. Switches leiten Frames zwischen 
+        Knoten derselben Technologie weiter.
+      </li>
+      <li>Network: Weiterleitung von Paketen von Quelle zu Ziel in Internet per IP. Router leiten Pakete zwischen verschiedenen Netzwerktechnologien weiter.</li>
+      <li>Transport: Host-to-Host Datentransfer per TCP, UDP</li>
+      <li>Session: </li>
+      <li>Presentation: </li>
+      <li>Application: Protokolle tauschen Kontrollnachrichten & Daten aus per FTP, SMTP, HTTP</li>
+    </ol>
+
+    <h2>Weiterleitung einer Nachricht anhand des Internetmodells</h2>
+    <img src="./../assets/screenshots/weiterleitung_internetmodell.jpeg" alt="Abbildung: Weiterleitung einer Nachricht anhand des 5 Schichten Internetmodells">
+
     <h2>Was bräuchte man um das WWW zu betreiben?</h2>
     <p>Um das WWW zu betreiben, benötigt man:</p>
+
+
     <ul>
       <li>Einen Webserver (z. B. Apache, Nginx)</li>
       <li>Auszeichnungssprache (HTML)</li>
@@ -1182,7 +1223,7 @@ xdebug_enabled: false //debugging erlaubt
     <p>Hinter diesem Design steckt die Idee reiner Farbflächen ohne Farbverläufe, keine Ecken oder Verzierungen. Windows hat dieses Design in seinen
       Einstellungen.
     </p>
-    
+
     <h3>VSC interne Suche</h3>
     <p>Mit der internen Suche (Shift + Command + F) in VSC werden lediglich interne Dateiinhalte gesucht aber keine Dateinamen wie zB .pdf oder .svg.
       Datein ansich können mit Command + P gesucht werden. Dort werden mit Quick Open Pfade/Dateinamen im ganzen Workspace durchsucht.
@@ -1198,5 +1239,16 @@ xdebug_enabled: false //debugging erlaubt
     <p>Fix: Benenne Dateinamen niemals mit Umlauten. Wenn doch, dann muss die Datei mit dem Terminal nochmal umbenannt werden mit mv "Dateiname" "Dateiname". Das
       Terminal selbst erzeugt nämlich wieder NFC.
     </p>
+   <h2>Metrische Dezimal vs. Binär Prefixe</h2>
+    <p>Dezimal sind zB 200 Mb/s = 200 * 1000^2 bits pro Sekunde. b steht immer für Bit und steht für Übertragungsgeschwindigkeiten.</p>
+    <p>Binär sind zB 1 TiB = 1 * 1024^4 bytes. B steht immer für Byte und steht für Speichergrößen.</p>
+    <h2>Hardware</h2>
+    <h3>Switch (Netzwerk Switch)</h3>
+    <p>Eine Switch wird häufig für gezielte Datenübertragung genutzt. Sie sind zentrale Bestandteile moderner Netzwerke. Sie verbinden mehrere Geräte innerhalb eines Netzwerks miteinander.
+      Der Switch empfängt Daten von einem Gerät und entscheidet, an welchen Netzwerkanschluss die Daten anhand der MAC Adresse gesendet werden müssen. Er erkennt anhand der MAC Adresse,
+      das die Daten an Port 4 zB gesendet werden müssen. Eine Switch sitzt meistens zwischen Router und PC. Verbindet Endgeräte und auch andere Switches miteinander.
+    </p>
+    <p>Meistens steckt in einem Router direkt ein kleiner Switch drin. Internet -> Glasfaser/DSL -> Router -> Switch -> PC, TV, NAS</p>
+
   </div>
 </div>
