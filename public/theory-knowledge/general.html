@@ -3,11 +3,39 @@
 
     <h2>Interpreter vs Compiler</h2>
     <p>Interpreter übersetzen bei der Ausführung.</p>
-    <p>Compiler übersetzen vor der Ausführung.</p>
+    <p>Compiler übersetzen vor der Ausführung. Sie übersetzen Programme in Anweisungen, die die Hardware ausführen kann.</p>
     <p>HTML wird vom Browser geparst und in eine DOM Struktur umgewandelt. CSS wird vom Browser geparst und in 
       eine CSSOM Struktur umgewandelt und auf DOM angewendet.
     </p>
-    <h2>JSON</h2>
+	<h2>Betriebssystem</h2>
+	<p>Ist ein Überwachungsprogramm, welches das Benutzerprogramm mit der Hardware verbindet.</p>
+    
+	<h2>Die Komponenten eines Computers</h2>
+	<ul>
+		<li>Eingang (Input)</li>
+		<li>Ausgang (Output)</li>
+		<li>Memory (Hauptspeicher)</li>
+		<li>Datenpfad (Rechenwerk)</li>
+		<li>Steuerung (Steuerwerk)</li>
+	</ul>
+	<img src="./../assets/screenshots/computer_aufbau.jpeg" alt="Abbildung zu Komponenten eines Computers">
+	<h3>Aufbau eines Mainboards</h3>
+	<img src="./../assets/screenshots/mainboard_aufbau.jpeg" alt="Abbildung zu Komponenten eines Mainboards">
+
+	<h3>Prozessoransicht AMD Rison 7000x</h3>
+	<img src="./../assets/screenshots/prozessoraufbau_rison_7000x.jpeg" alt="Nahansicht des AMD Rison 7000x Prozessors">
+	<p>Der AMD Rison 7000x hat 8 Kerne in 2 Core Komplexe (Core 1-4 und Core 5-8). Dazu gibt es 3 Level von Caches (L1, L2 pro Core). Diese beiden sind
+		deutlich schneller als normale Arbeitsspeicher. L3 sind etwas langsamer, aber dafür größer als L1, L2 Cache.
+	</p>
+	<h2>Maschinentaktrate</h2>
+	<p>Die Maschinentaktrate ist eine grundlegende Größe bei der Schaltung. Maschinen laufen in Taktzyklen. Dabei ist 1 Hz = 1 Schwingung pro Sekunde, also eine Periode
+		wird in 1sek abgearbeitet. 1GHz ist dabei 1.000.000.000 Schwingungen pro Sekunde.
+	</p>
+	<p>Eine Hohe Taktrate führt zu hoher Temperatur, daher wird entweder die Anzahl der Kerne pro Chip bei jeder Generation erhöht oder
+		eine dynamische Taktrate, bei der bei hoher Temperatur die Taktrate gesenkt wird.
+	</p>
+
+	<h2>JSON</h2>
     <p>JavaScript Object Notation ist eine Notation für Objektliterale. Ungeordneter Container von 
       key-value Paaren.
     </p>
@@ -535,7 +563,7 @@
       Dienste für andere Computer (Clients) über ein Netzwerk bereitstellt.
       Server können verschiedene Funktionen erfüllen, wie z.B. das Hosten von
       Webseiten, das Verwalten von Datenbanken oder das Bereitstellen von
-      Dateien.
+      Dateien. Größere Programme können damit von mehreren Benutzern gleichzeitig ausgeführt werden.
     </p>
     <h3>Webserver</h3>
     <p>
@@ -580,7 +608,8 @@
       das es besonders gut für skalierbare Netzwerk-Anwendungen macht.
     </p>
     <h2>Internet</h2>
-    <p>Das Internet gibt es seit 1969</p>
+    <p>Das Internet gibt es seit 1969. Es ist ein Netz aus millionen von Hosts, die über LANs, MANs, WANs per Ethernet, WLAN etc verbunden sind.</p>
+
     <h3>Struktur des Internets</h3>
     <p>Das Internet ist eine Struktur aus verschiedenen Tier Internet Service Provider. Höhere Tiers bieten niedrigeren Tiers dabei Zugang zum Internet an. Local ISP stellen wiederum
       Internet für kleinere Unternehmen & Universitäten zur Verfügung. Niedrigere ISP sind wiederum Kunden von höherrangigen.
@@ -590,6 +619,22 @@
     </p>
     <img src="./../assets/screenshots/struktur_internet.jpeg" alt="Abbildung: Struktur des Internets veranschaulicht.">
     
+	<h2>Routing im Internet</h2>
+	<p>Routing bezeichnet die Zusammenstellung der Weiterleitungstabellen durch verteilte Algorithmen. Beim Routing werden per 
+		Weiterleitungstabelle Datenpakete von einem eingehenden Interface eines Rechners in ein ausgehendes Interface eines Rechners weitergeleitet.
+	</p>
+
+	<h2>Autonome Systeme</h2>
+	<p>Ein Autonomes System ist ein Netzwerk bzw ein Zusammenschluss von IP Netzen, der unter einer gemeinsamen technischen und administrativen Kontrolle steht. zB kann ein großes Unternehmen ein eigenes AS für sein Firmennetz anbieten.
+		Cloud-Anbieter wie Google oder Amazon haben eigene AS. In einem AS kann selbst festgelegt werden, wie das eigene Netz mit anderen Netzen kommuniziert. Ein AS hat immer eine eigene ASN zB AS15169 und kann eigene Routing Regeln bestimmen.
+	</p>
+	<h3>Intradomänes Routing</h3>
+	<p>Weiterleitung innerhalb eines AS: Pfade werden durch kürzeste Wege Prinzip bestimmt.</p>
+
+	<h3>Interdomänes Routing</h3>
+	<p>Weiterleitung zwischen verschiedenen Autonomen Systemen.</p>
+
+
     <h2>WWW (World Wide Web)</h2>
     <p>Entwicklung ab 1989 von Tim Berners-Lee</p>
     <h2>VPN</h2>
@@ -646,6 +691,12 @@
     <h3>>SSH (Secure Shell)</h3>
     <p>SSH ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es verwendet Port 22 und bietet eine verschlüsselte Verbindung für die Ausführung von Befehlen und die Übertragung von Daten.</p>
     
+	<h2>Checksum</h2>
+	<p>Die Checksum ist eine kleine Prüfsumme bei IPv4, mit der ein Empfänger feststellen kann, ob der IP-Header während der Übertragung beschädigt wurde.
+		Der Sender und auch Empfänger prüfen diese Checksum. Stimmt diese nicht überein, dann wurde der Header beschädigt. Sie erkennt aber nur zufällige Übertragungsfehler, keine absichtliche Manipulation.
+	</p>
+	<p>IPv6 besitzt keine Checksum, hier verlässt man sich auf Protokolle wie zB Ethernet, TCP, UDP</p>
+
     <h2>Versenden von http Daten von Browser zu Webserver
     </h2>
     <img src="./../assets/screenshots/http_versenden.jpeg" alt="Abbildung: Versenden von http Daten von Browser zu Webserver">
