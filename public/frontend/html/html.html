@@ -15,7 +15,7 @@
     <h2>img</h2>
     <div class="image-hover">
       <img
-        src="../../assets/example.jpg"
+        src="/assets/example.jpg"
         alt="Beschreibung des Bildes"
         title="Text bei Hover"
       />
@@ -315,6 +315,9 @@
     <noscript>JavaScript ist deaktiviert. Bitte aktivieren Sie JavaScript</noscript>
   </pre>
   <h2>HTML Dateipfade</h2>
+  <p>Ein . ist immer das aktuelle Verzeichnis. .. ist ein Verzeichnis über dem aktuellen. Eine Tilde ~ ist die Abkürzung für das
+    Heimverzeichnis.
+  </p>
   <pre><img src="picture.jpg" alt="Bild">
   <p>Die Datei picture.jpg befindet sich im gleichen Verzeichnis wie die aktuelle Seite.</p></pre>
   <pre><img src="images/picture.jpg" alt="Bild">
@@ -324,7 +327,10 @@
   <pre><img src="../picture.jpg" alt="Bild">
   <p>Die Datei picture.jpg befindet sich im Ordner eine Ebene über dem aktuellen Ordner.</p></pre>
   <h3>Absolute Pfade</h3>
-  <p>Ein absoluter Pfad beginnt immer mit einem Schrägstrich und ist im Root-Verzeichnis des Servers.</p>
+  <p>Ein absoluter Pfad beginnt immer mit einem Schrägstrich / und ist im Root-Verzeichnis des Servers.
+    Er kann von überall angewendet werden und findet das korrekte Verzeichnis. Absolute Pfade werden immer dann verwendet, 
+    wenn ein fester Ort unabhängig vom aktuellen Verzeichnis gemeint ist.
+  </p>
   <h3>Relative Pfade</h3>
   <p>Ein relativer Pfad ist ein Pfad, der relativ zum aktuellen Dokument ist. Er beginnt nicht mit einem Schrägstrich.</p>
   <pre><img src="/images/picture.jpg" alt="Bild">
@@ -339,7 +345,7 @@
   Der Inhalt eines Seitentitels ist für die Suchmaschinenoptimierung (SEO) wichtig, da Suchmaschinen den Titel verwenden, um die Relevanz einer Seite für Suchanfragen zu bestimmen.
 </p>
 <h3>link Tag</h3>
-<p>Das link Tag wird verwendet, um externe Ressourcen wie Stylesheets zu verlinken.</p>
+<p>Das link Tag wird verwendet, um externe Ressourcen wie Stylesheets zu verlinken. Das rel Attribut steht dafür für den Typ des importierten Dokuments.</p>
 <pre>
   <link rel="stylesheet" href="styles.css">
 </pre>
