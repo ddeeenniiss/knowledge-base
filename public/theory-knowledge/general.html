@@ -58,6 +58,10 @@
     </p>
     <!-- Änderung für git reset -->
     <p>Wird gesteuert über JavaScript Objekt XMLHttpRequest</p>
+    
+    <h2>Klassifikation von Kommunikationssystemen</h2>
+    <img src="/assets/screenshots/klassifikation_von_netzen.jpeg" alt="Abbildung zur Klassifikation von Netzen">
+    <p></p>
     <h2>Websockets</h2>
     <p>
       Für Echtzeitübertragungen wie Chats, Live-Updates, Multiplayer Games,
@@ -76,6 +80,46 @@
       zB ein Linter vorher ausgeführt werden. Husky führt Skripte zu bestimmten Git Zeitpunkten aus zB vor commit (pre-commit), 
       beim commit (commit-msg), vor push (pre-push)
     </p>
+
+    <h2>Dateirechtesystem</h2>
+    <img src="/assets/screenshots/terminal_user_ausgabe.jpeg" alt="Abbildung zeigt die Ausgabe von ls -l">
+    <p>Der erste Buchstabe der Ausgabe des Befehls ls -l zeigt die Dateitypen an. d bedeutet Directory, also Verzeichnis.
+      - bedeutet es handelt sich um eine reguläre Datei.
+    </p>
+    <p>Alle Dateien und Ordner in einem Linux System besitzen eine Angabe über die Zugriffsrechte. Rechte beziehen sich immer auf
+      Eigentümer, Gruppe, Rest der Welt. Für diese drei Gruppen existiert eine Angabe ob die Datei lesbar (r = readable), beschreibbar (w = writeable) und
+      (x = executeable) ist.
+    </p>
+    <p>Beispiel 2 Zeile: Die Datei "datei" ist eine reguläre Datei, gehört dem User conbart, der sie lesen und ändern darf (r w -). Sie gehört der Gruppe user, die sie
+      nur lesen dürfen (r - -) und der Rest der Welt darf sie lesen (r - -).
+    </p>
+    <p>Jede Datei hat einen Besitzer (Spalte 3) und eine Gruppe (Spalte 4)</p>
+
+    <img src="/assets/screenshots/rechtesystem_oktaldarstellung.jpeg" alt="Abbildung zur Oktaldarstellung im Rechtesystem">
+    <p>Rechte können durch drei Oktalwerte dargestellt werden. Dabei bedeutet alle Rechte 2^2 + 2^1 + 2^0 = 7. Für Dateien ist hier 
+      644 der Standard. Für Verzeichnisse 755. Bei Verzeichnissen bedeutet das r, das Verzeichnis aufzulisten. w erlaubt, Dateien im Verzeichnis anzulegen und zu löschen. x erlaubt das Verzeichnis zu durchqueren und auf
+      Einträge darin zuzugreifen, sofern weitere Rechte das erlauben.
+    </p>
+    <h3>Dateirechte verändern: </h3>
+    <p>chmod [dateirechte] [files]</p>
+    <p>chmod steht für change mode und ändert Zugriffsrechte von Dateien und Verzeichnissen. Die Option -R steht für recursive und kann verwendet werden, um
+      Rechte rekursiv zu ändern.
+    </p>
+    <img src="/assets/screenshots/rechtesystem_ändern.jpeg" alt="Abbildung zu Veränderung von Dateirechten">
+    <p>[ugoa] + | - | = [rwx], ...</p>
+    <p>Das führende Zeichen steht für die Kategorie (user, group, other, all)</p>
+    <p>+, -, = gibt an ob das Recht hinzugefügt, abgezogen oder absolut gesetzt werden soll</p>
+    <p>Dann folgen die Rechte rwx (read, write, executable)</p>
+    <p>Mehrere Modi können dabei durch Komma getrennt werden.</p>
+
+    <img src="/assets/screenshots/rechtesystem_beispiel.jpeg" alt="Abbildungsbeispiel zum verändern von Dateirechten">
+    <p>Der User darf nun ausführen, die Group darf lesen und schreiben und others dürfen lesen in Bezug auf die Datei "datei 3"</p>
+
+    <h3>Dateiowner verändern</h3>
+    <p>chown [neu] datei.txt, damit der Dateiowner verändert wird.</p>
+
+    <h3>Dateigruppe verändern</h3>
+    <p>chgrp [neu] datei.txt, damit die Gruppe verändert wird.</p>
     <h2>Template Projekt aufbauen</h2>
     <p>Zu einem professionellen Projekt gehören: </p>
     <ul>
@@ -472,7 +516,7 @@
       einfache Installieren, Aktualisieren und Entfernen von Paketen sowie das
       Verwalten von Versionsabhängigkeiten.
     </p>
-    <img src="./../assets/screenshots/yarn_build.png" alt="Vorschau des Befehls yarn build">
+    <img src="/assets/screenshots/yarn_build.png" alt="Vorschau des Befehls yarn build">
     <p>Der erste Wert hinter jeder gebuildeten Datei ist die echte Dateigröße auf dem Server. Der zweite Wert
       ist die gzip Größe, also die komprimierte Größe die im Browser ankommt. Ein map: ...kB wäre die Source Map, diese ist 
       nur für die devtools und hilft beim debuggen. Diese wird nicht beim normalen Laden verwendet.
@@ -628,7 +672,7 @@
     <p>Tier 1 sind große internationale Backbone Netze. Tier 2 sind regionale/größere Provider. Tier 3 sind näher am Endkunden und verkaufen Internetzugänge. Dazwischen gibt es Internet Exchange Points, bei denen die
       verschiedenen Netzwerke Daten miteinander tauschen können.
     </p>
-    <img src="./../assets/screenshots/struktur_internet.jpeg" alt="Abbildung: Struktur des Internets veranschaulicht.">
+    <img src="/assets/screenshots/struktur_internet.jpeg" alt="Abbildung: Struktur des Internets veranschaulicht.">
     
 	<h2>Routing im Internet</h2>
 	<p>Routing bezeichnet die Zusammenstellung der Weiterleitungstabellen durch verteilte Algorithmen. Beim Routing werden per 
@@ -649,15 +693,34 @@
     <h2>WWW (World Wide Web)</h2>
     <p>Entwicklung ab 1989 von Tim Berners-Lee</p>
     <h2>VPN</h2>
-    <p>Ein VPN (Virtual Private Network) ist ein sicheres Netzwerk, das es ermöglicht, über ein öffentliches Netzwerk (z. B. das Internet) sicher zu kommunizieren. Es verschlüsselt den Datenverkehr und versteckt die IP-Adresse des Nutzers. Vorstellbar wie ein
+    <p>Ein VPN (Virtual Private Network) ist ein sicheres privates Netzwerk, das es ermöglicht, über ein öffentliches Netzwerk (z. B. das Internet) sicher zu kommunizieren. Es verschlüsselt den Datenverkehr und versteckt die IP-Adresse des Nutzers. Vorstellbar wie ein
       Tunnel, der die Berechtigung durch ID und Passwort prüft, bevor er den Datenverkehr durchlässt.</p>
     </p>
     <h2>URL (Uniform Resource Locator)</h2>
     <p>URLs sind eindeutige Adressen für Ressourcen im Internet. Sie bestehen aus mehreren Teilen: Protokoll, Host, Port, Pfad und Query-Parameter.
       Beispiel: https://www.uni-tuebingen.de:80/index.html?search=example#section1
       (Protokoll: https, Präfix: www, Host (Domain): uni-tuebingen.de, Port: 80, Pfad: /index.html, Query-Parameter: search=example, Fragment: #section1)</p>
-    <h2>Kommunikationsprotokolle</h2>
-    <p>Vereinbarungen über die Art und Weise, wie Daten zwischen Geräten übertragen werden.</p>
+    
+      <h2>Wireless Access Point</h2>
+      <p>Stellt die Funkbrücke zwischen WLAN und LAN dar. Sendet und empfängt WLAN Funksignale und übernimmt WLAN Funktionen wie Verschlüsselung und Authentifizierung.</p>
+
+      <h2>Router</h2>
+      <p>Ein Router sorgt für die Kommunikation zu anderen Netzwerken. Er kann zusätzlich NAT, DHCP, Firewall bereitstellen. Ein Router heute kombiniert mehrere Geräte in einem Gehäuse wie
+        Access Point, Switch, Router.
+      </p>
+     <h2>Verbindungslose Netzwerkdienste</h2>
+<p>Hier wird keine Verbindung vor der Übertragung zwischen Sender und Empfänger aufgebaut. Jedes Datenpaket nimmt seinen individuellen Weg und die Reihenfolge ist nicht sichergestellt. Das nennt man auch Datagrammnetz. Ein IP Netz funktioniert nach diesem Prinzip. Anhand der Routinginformationen
+  wird das Datenpaket an die Ziel IP weitergeleitet. Das Internet basiert hauptsächlich auf verbindungsloser Paketvermittlung.
+</p>
+
+<h2>Verbindungsorientierte Netzwerke</h2>
+<p>Hier wird zuerst eine logische Verbindung zwischen Sender und Empfänger aufgebaut (auch Virtual Circuit genannt). Danach werden die Pakete dieser Verbindung
+  über den festgelegten bzw. zugeordneten Weg übertragen. Die Datenpakete behalten ihre Reihenfolge. Niedrige Effizienz, dafür Dienstgarantie. Wird in speziellen oder
+  älteren WAN-/Telefonkommunikationsnetzen verwendet.
+</p>
+
+      <h2>Kommunikationsprotokolle</h2>
+    <p>Vereinbarungen über die Art und Weise, wie Daten zwischen Geräten übertragen werden und wie kommuniziert wird.</p>
     <h3>IP (Internet Protocol)</h3>
     <p>Übertragung von Datenpaketen zwischen Geräten im Internet. IPv4 und IPv6</p>
     <h3>UDP (User Datagram Protocol)</h3>
@@ -710,15 +773,20 @@
 
     <h2>Versenden von http Daten von Browser zu Webserver
     </h2>
-    <img src="./../assets/screenshots/http_versenden.jpeg" alt="Abbildung: Versenden von http Daten von Browser zu Webserver">
+    <img src="/assets/screenshots/http_versenden.jpeg" alt="Abbildung: Versenden von http Daten von Browser zu Webserver">
     
+    <h2>Paketübertragung (Versenden von Datenpaketen)</h2>
+    <p>Der Sender erstellt eine Nachricht. Die Nachricht wird in einzelne Datenpakete zerlegt (Fragmentierung). Ein Datenpaket besteht aus Empfänger (Zielport), Sender (Quellport), 
+      Sequenznummer, Prüfsumme (Checksum), Daten. Die Datenpakete werden einzeln versendet. Der Empfänger bildet aus den Paketen die Nachricht (Defragmentierung).
+    </p>
+
     <h2>ISO/OSI Schichtenmodell</h2>
-    <img src="./../assets/screenshots/iso_osi_schichtenmodell.jpeg" alt="Abbildung: Darstellung des ISO/OSI Schichtenmodells">
+    <img src="/assets/screenshots/iso_osi_schichtenmodell.jpeg" alt="Abbildung: Darstellung des ISO/OSI Schichtenmodells">
     <p>Das ISO/OSI Schichtenmodell wird in 7 Schichten aufgeteilt und ist ein Denkmodell zur Veranschaulichung
       von Kommunikationsschichten
     </p>
     <ol>
-      <li>Physical: Übertragung von Bitströmen auf physikalischen Verbindungen. Definiert Stecker, Link Geschwindigkeiten, Übertragungsgeschwindigkeiten</li>
+      <li>Physical: Übertragung von Bitströmen auf physikalischen Verbindungen. Definiert Stecker, Link Geschwindigkeiten, Übertragungsgeschwindigkeiten, Kabel, Steckerverbindungen, Hub.</li>
       <li>Data Link: realisiert die Kommunikation innerhalb eines Netzes in Form von PPP, Ethernet, WLAN. Switches leiten Frames zwischen 
         Knoten derselben Technologie weiter.
       </li>
@@ -730,7 +798,7 @@
     </ol>
 
     <h2>Weiterleitung einer Nachricht anhand des Internetmodells</h2>
-    <img src="./../assets/screenshots/weiterleitung_internetmodell.jpeg" alt="Abbildung: Weiterleitung einer Nachricht anhand des 5 Schichten Internetmodells">
+    <img src="/assets/screenshots/weiterleitung_internetmodell.jpeg" alt="Abbildung: Weiterleitung einer Nachricht anhand des 5 Schichten Internetmodells">
 
     <h2>Was bräuchte man um das WWW zu betreiben?</h2>
     <p>Um das WWW zu betreiben, benötigt man:</p>
@@ -765,8 +833,20 @@
         Jedes Element in SVG ist ein DOM-Element und kann mit CSS und JavaScript animiert werden.
       </li>
     </ul>
+    <h3>JPEG / JPG</h3>
+    <p>Ist vor allem für Fotos entwickelt worden. Verlustbehaftet, da es Informationen entfernt, die für das menschliche Auge weniger sichtbar sind. Weniger geeignet für 
+      Screenshots/ Text/ Logos
+    </p>
+    <h3>PNG</h3>
+    <p>PNG ist verlustfrei und unterstützt rgba.</p>
+    <h3>WebP</h3>
+    <p>Ist für Webanwendungen die Standardwahl.</p>
+    <h3>AVIF</h3>
+    <p>AVIF ist jünger und basiert auf Bildkompressionstechnologie AV1. Noch kleiner als WebP. Encoding ist aufwendiger, daher können bei mehreren tausend Bildern Encoding Zeit und 
+      CPU Kosten relevant sein. Am besten AVIF priorisieren und webp als Fallback.
+    </p>
     <h3>SVGs</h3>
-    <p>SVGs lassen sich individuell anpassen. Hier sind Beispiele für Formen:</p>
+    <p>SVGs lassen sich individuell anpassen. Für Logos geeignet. Hier sind Beispiele für Formen:</p>
     <pre>
       <svg width="100" height="100">
         <circle cx="50" cy="50" r="40" stroke="black" strock-width="4" fill="yellow"/>
@@ -836,7 +916,7 @@
     <p>Es gibt hier verschiedene Arten von Navigationen. Die gängigsten sind:</p>
     <h3>Topbar / Header Navigationen</h3>
     <p>Diese liegen oben direkt hozizontal auf der Seite (typisch für Desktop) und sind sticky</p>
-    <img src="./../assets/screenshots/topbar.png" alt="Topbar Navigation">
+    <img src="/assets/screenshots/topbar.png" alt="Topbar Navigation">
     <h3>Megamenü</h3>
     <p>Große Dropdown-Navigation mit Untermenüs, Spalten und Icons.</p>
     <h3>Hamburger Menü</h3>
@@ -892,7 +972,7 @@
       src="script.js"&gt;&lt;/script&gt;
   </pre>
   <h2>Responsive Größen Overview: </h2>
-  <img src="/public/assets/screenshots/responsive_overview.jpeg" alt="Abbildung über responsive Größen">
+  <img src="/assets/screenshots/responsive_overview.jpeg" alt="Abbildung über responsive Größen">
   <h2>SEO</h2>
   <p>Die SEO (Search Engine Optimization /Suchmaschinenoptimierung) umfasst alle Maßnahmen, die dazu dienen, eine Website
     in Browsern besser sichtbar zu machen und mehr organischen Traffic zu erhalten. Dabei geht es nicht nur um Keywords, sondern um eine Kombination
