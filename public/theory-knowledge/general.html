@@ -1158,25 +1158,97 @@
 <p>Kopie eines Repositories auf GitHub wird erstellt, die unabhängig weiterentwickelt werden kann.
   Ein Fork kopiert den gesamten Code, Templates und AddOns.
 </p>
- <h2>HTTP Methoden GET und POST</h2>
-    <h3>GET Methode</h3>
-    <p>
-      Bei der GET Methode werden die Eingabefelder in der URL mitgegeben. Dabei
-      trennt ein & (&amp;) Zeichen die Feldnamen. Ein = Zeichen trennt Name von
-      Wert und ? leitet einen Datenteil ein.
-    </p>
-    <p>
-      Nachteile sind Sicherheit, da sensible Daten wie Passwörter in der URL
-      stehen.
-    </p>
+<h2>Proxy</h2>
+<p>Ein Proxy-Server ist vereinfacht gesagt ein Vermittler zwischen deinem Computer und dem Internet.
+	Ein Proxy hat zB die Aufgaben:
+</p>
+<ul>
+	<li>Sicherheit: Verbindungen kontrollieren oder Proxyserver zwischen Nutzer und Zielserver setzen</li>
+	<li>Netzwerk: Internetzugriffe zentral verwalten</li>
+	<li>Caching: Häufig angeforderte Inhalte zwischenspeichern</li>
+	<li>IP-Adresse: Der Zielserver sieht möglicherweise die IP des Proxys</li>
+	<li>Filterung: Bestimmte Webseiten oder Inhalte blockieren</li>
+</ul>
 
-    <h3>POST Methode</h3>
-    <p>
-      Mit POST werden Daten im Body versendet, somit sind sie nicht in der URL
-      sichtbar. Genutzt wird POST für Formularabsendungen, Benutzererstellungen
-      und für das hochladen von Daten. Es gibt hierbei keine Größenbeschränkung
-      wie bei GET.
-    </p>
+ <h2>HTTP-Methoden GET und POST</h2>
+
+<h3>GET-Methode</h3>
+<p>
+  Mit der GET-Methode werden Daten vom Server angefordert. Parameter können
+  dabei in der URL übergeben werden. Ein <code>?</code> leitet die
+  Query-Parameter ein, ein <code>&amp;</code> trennt mehrere Parameter und ein
+  <code>=</code> trennt den Parameternamen vom Wert.
+</p>
+<p>
+  Beispiel:
+  <code>https://example.com/suche?name=Max&amp;alter=25</code>
+</p>
+<p>
+  Sensible Daten wie Passwörter sollten nicht per GET übertragen werden, da
+  die URL beispielsweise im Browserverlauf, in Logs oder als Lesezeichen
+  sichtbar sein kann.
+</p>
+
+<h3>POST-Methode</h3>
+<p>
+  Mit der POST-Methode werden Daten im HTTP-Request-Body an den Server
+  übertragen. Sie wird beispielsweise zum Absenden von Formularen, zum
+  Erstellen neuer Ressourcen und zum Übertragen größerer Datenmengen
+  verwendet.
+</p>
+<p>
+  Die Daten sind dadurch nicht in der URL sichtbar. Das bedeutet jedoch
+  <strong>nicht automatisch, dass sie sicher übertragen werden</strong>.
+  Für die sichere Übertragung sensibler Daten wird HTTPS benötigt.
+</p>
+
+<h3>HEAD-Methode</h3>
+<p>
+  Die HEAD-Methode funktioniert ähnlich wie GET, der Server liefert jedoch
+  nur die HTTP-Header und keinen Response-Body zurück. Sie kann beispielsweise
+  verwendet werden, um Informationen über eine Ressource zu erhalten, ohne
+  deren Inhalt herunterzuladen.
+</p>
+
+<h3>PUT-Methode</h3>
+<p>
+  Mit PUT wird eine Ressource auf dem Server erstellt oder vollständig
+  aktualisiert. PUT wird häufig verwendet, um eine vorhandene Ressource durch
+  eine neue Version zu ersetzen.
+</p>
+
+<h3>TRACE-Methode</h3>
+<p>
+  Mit TRACE kann der Client überprüfen, wie eine Anfrage durch Proxy-Server
+  oder andere Zwischenstationen verarbeitet wird. Durch welche Zwischenstationen eine
+  Anfrage läuft. Der Server gibt dabei die
+  empfangene Anfrage zurück. Aus Sicherheitsgründen wird TRACE häufig
+  deaktiviert.
+</p>
+
+<h3>DELETE-Methode</h3>
+<p>
+  Mit DELETE wird eine Ressource auf dem Server gelöscht.
+</p>
+
+<h3>OPTIONS-Methode</h3>
+<p>
+  Mit OPTIONS kann ein Client abfragen, welche HTTP-Methoden oder
+  Kommunikationsmöglichkeiten für eine Ressource bzw. einen Server
+  unterstützt werden. OPTIONS spielt beispielsweise bei CORS eine wichtige
+  Rolle.
+</p>
+
+<h3>CONNECT-Methode</h3>
+<p>
+  Mit CONNECT wird über einen Proxy ein Tunnel zu einem Zielserver aufgebaut.
+  Die Methode wird beispielsweise verwendet, um HTTPS-Verbindungen über einen
+  HTTP-Proxy zu ermöglichen. Verschlüsselte Daten können dann durch den Tunnel weitergeleitet
+  werden.
+</p>
+
+
+
     <h2>Was ist .htaccess</h2>
     <p>
       eine Konfigurationsdatei für Apache Webserver. Ermöglicht serverseitige
