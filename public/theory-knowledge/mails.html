@@ -209,6 +209,14 @@
       "Wer ist für example.de zuständig" und die IP wird dann zurück an den
       Browser zurückgegeben.
     </p>
+    <h3>IP Adressen per DNS herausfinden</h3>
+    <p>Hierfür wird nslookup verwendet. Dafür einfach eingeben:</p>
+    <pre>nslookup [Zieladresse URL]</pre>
+    <img src="/assets/screenshots/nslookup.png" alt="Abbildung zur Terminalausgabe nslookup">
+    <p>Oben in der Ausgabe steht dann der eigene Server und IP Adresse. Unten dann die Ziel IP der gesuchten URL. Non-authorative answer bedeutet,
+      dass die Antwort von einem anderen DNS Server stammt und nicht direkt von dem authoritären, der für die DNS Zone zuständig ist.
+    </p>
+
     <h2>Was ist ein Webserver?</h2>
     <p>
       Ein Webserver ist ein Computer, der Webseiten und andere Inhalte über das

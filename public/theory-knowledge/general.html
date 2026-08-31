@@ -763,9 +763,26 @@
     <h3>HTTPS (Hypertext Transfer Protocol Secure)</h3>
     <p>HTTPS ist eine sichere Version von HTTP, die SSL/TLS-Verschlüsselung verwendet, um die Kommunikation zwischen dem Browser und dem Server zu schützen. Es wird auf Port 443 verwendet.</p>
     <h3>>SSH (Secure Shell)</h3>
-    <p>SSH ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es verwendet Port 22 und bietet eine verschlüsselte Verbindung für die Ausführung von Befehlen und die Übertragung von Daten.</p>
+    <p>SSH ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es verwendet Port 22 und bietet eine verschlüsselte Verbindung für die Ausführung von Befehlen und die Übertragung von Daten. Damit kann man
+      sich auf einem Server anmelden, Dateien übertragen, Git Repositories erreichen.
+    </p>
     
-	<h2>Checksum</h2>
+    <h2>MAC Adresse (Media Access Control Adresse)</h2>
+    <p>6 Byte, 48 bit, dabei sind die ersten 24bit Herstellerkennzeichnung.</p>
+	
+    <h2>IP Protokoll</h2>
+    <p>Ist das Internet Protokoll und befindet sich auf Schicht 3</p>
+    <h3>IPv4 Adresse</h3>
+    <p>IPv4 besteht aus 4 Gruppen zu je 8 bit, somit 32 bit gesamt. Damit sind 2^32 = 4.294.967.296 Adressen möglich.</p>
+
+    <h3>Private Adressen</h3>
+    <p>localhost 127.0.0.1</p>
+    <p>10.0.0.0 bis 10.255.255.255</p>
+    <p>172.16.0.0 bis 172.31.255.255</p>
+    <p>192.168.0.0 bis 192.168.255.255</p>
+    <p>169.254.0.0 bis 169.168.255.255</p>
+
+    <h2>Checksum</h2>
 	<p>Die Checksum ist eine kleine Prüfsumme bei IPv4, mit der ein Empfänger feststellen kann, ob der IP-Header während der Übertragung beschädigt wurde.
 		Der Sender und auch Empfänger prüfen diese Checksum. Stimmt diese nicht überein, dann wurde der Header beschädigt. Sie erkennt aber nur zufällige Übertragungsfehler, keine absichtliche Manipulation.
 	</p>
@@ -788,9 +805,9 @@
     <ol>
       <li>Physical: Übertragung von Bitströmen auf physikalischen Verbindungen. Definiert Stecker, Link Geschwindigkeiten, Übertragungsgeschwindigkeiten, Kabel, Steckerverbindungen, Hub.</li>
       <li>Data Link: realisiert die Kommunikation innerhalb eines Netzes in Form von PPP, Ethernet, WLAN. Switches leiten Frames zwischen 
-        Knoten derselben Technologie weiter.
+        Knoten derselben Technologie weiter. Auf dieser Schicht sind die MAC Adressen.
       </li>
-      <li>Network: Weiterleitung von Paketen von Quelle zu Ziel in Internet per IP. Router leiten Pakete zwischen verschiedenen Netzwerktechnologien weiter.</li>
+      <li>Network: Weiterleitung von Paketen von Quelle zu Ziel in Internet per IP. Adressen werden zugewiesen. Router leiten Pakete zwischen verschiedenen Netzwerktechnologien weiter. Router arbeiten auf dieser Schicht.</li>
       <li>Transport: Host-to-Host Datentransfer per TCP, UDP</li>
       <li>Session: </li>
       <li>Presentation: </li>
