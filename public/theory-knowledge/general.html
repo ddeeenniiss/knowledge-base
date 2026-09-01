@@ -641,6 +641,10 @@
       Internet bereitzustellen. Apache ist bekannt für seine Stabilität,
       Flexibilität und einfache Konfiguration.
     </p>
+    <h4>Apache Portable Runtime</h4>
+    <p>Apache Portable Runtime; eine Bibliothek, die Apache eine plattformunabhängige Schnittstelle für Betriebssystemfunktionen bereitstellt. Damit
+      Apache auf verschiedenen Betriebssystemen laufen kann.
+    </p>
     <h3>Deamon</h3>
     <p>httpd - das d steht für "daemon" (Hintergrundprozess) und ist der Prozess auf Port
       80 HTTP oder 443 HTTPS, der die Anfragen entgegennimmt und bearbeitet. Also der Apache
@@ -1183,6 +1187,19 @@
   Beispiel:
   <code>https://example.com/suche?name=Max&amp;alter=25</code>
 </p>
+<p>Der Browser macht daraus dann GET /suche?name=Max&alter=25 HTTP/1.1
+Host: example.com
+</p>
+<p>Eine mögliche Response könnte so aussehen:</p>
+<pre>HTTP/1.1 200 OK
+Date: Mon, 31 Aug 2026 18:30:00 GMT
+Server: nginx
+Set-Cookie: sessionId=abc123
+Via: 1.1 proxy.example
+Connection: keep-alive
+
+und hier html content ...
+</pre>
 <p>
   Sensible Daten wie Passwörter sollten nicht per GET übertragen werden, da
   die URL beispielsweise im Browserverlauf, in Logs oder als Lesezeichen
