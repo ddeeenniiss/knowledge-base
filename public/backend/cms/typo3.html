@@ -127,13 +127,19 @@
     <p>Es gibt im Backend verschiedene Bereiche unter TypoScript:</p>
     <table>
       <tr>
-        <th>Bereich</th><th>Wofür</th>
+        <th>Bereich</th>
+        <th>Wofür</th>
       </tr>
       <tr>
-        <td>Title</td><td>Name/ Titel der Seite. Dient zur Orientierung im Backend.</td>
-        <td>Description</td><td>Beschreibung der Seite. Ebenfalls nur dokumentativ.</td>
-        <td>Constants</td><td>Konstanten/ Variablen, die im Setup verwendet werden.</td>
-        <td>Setup</td><td>Setup Konfiguration für die Seite. Dort greift man auf die Konstanten
+        <td>Title</td>
+        <td>Name/ Titel der Seite. Dient zur Orientierung im Backend.</td>
+        <td>Description</td>
+        <td>Beschreibung der Seite. Ebenfalls nur dokumentativ.</td>
+        <td>Constants</td>
+        <td>Konstanten/ Variablen, die im Setup verwendet werden.</td>
+        <td>Setup</td>
+        <td>
+          Setup Konfiguration für die Seite. Dort greift man auf die Konstanten
           zu.
         </td>
       </tr>
@@ -568,40 +574,76 @@ fields:
       Dafür in Typo unter Backend Users -> Backend User Groups -> Redakteure
       alles unter PageContent freigeben
     </p>
-    <p>Ebenso müssen die CType freigegeben werden. Unter Explicitly allow field values werden die Module sichtbar 
-      gemacht für Redakteure.zB Diagrams 2025 [tt_content:CType:sternundhuber_diagrams-2025]
+    <p>
+      Ebenso müssen die CType freigegeben werden. Unter Explicitly allow field
+      values werden die Module sichtbar gemacht für Redakteure.zB Diagrams 2025
+      [tt_content:CType:sternundhuber_diagrams-2025]
     </p>
     <h2>Suchoptionen in TYPO3</h2>
-    <p>Es gilt zunächst zu unterscheiden was benötigt wird: </p>
+    <p>Es gilt zunächst zu unterscheiden was benötigt wird:</p>
     <table>
       <tr>
-        <th>Möglichkeit</th><th>Beschreibung</th>
+        <th>Möglichkeit</th>
+        <th>Beschreibung</th>
       </tr>
-      <tr><td>Core-Lösung: </td><td>EXT:indexed_search, geeignet für kleine bis mittelgroße Websites mit
-        grundlegenden Suchanforderungen.
-      </td></tr>
-      <tr><td>Fortgeschrittene Extensions und externe Suchmaschinen:</td><td>Lösungen wie Solr, ke_search oder Elasticsearch-basierte Extensions, die für größere Websites entwickelt wurden, die bessere Performance, Skalierbarkeit und fortgeschrittene Funktionen wie Facettensuche benötigen.</td></tr>
+      <tr>
+        <td>Core-Lösung:</td>
+        <td>
+          EXT:indexed_search, geeignet für kleine bis mittelgroße Websites mit
+          grundlegenden Suchanforderungen.
+        </td>
+      </tr>
+      <tr>
+        <td>Fortgeschrittene Extensions und externe Suchmaschinen:</td>
+        <td>
+          Lösungen wie Solr, ke_search oder Elasticsearch-basierte Extensions,
+          die für größere Websites entwickelt wurden, die bessere Performance,
+          Skalierbarkeit und fortgeschrittene Funktionen wie Facettensuche
+          benötigen.
+        </td>
+      </tr>
     </table>
     <h2>Apache Solr für TYPO3</h2>
-      <p>Geeignet für mittelgroße (500 -2000 Seiten) bis große Websites (ab 2000 Seiten)mit erweiterten Suchanforderungen. Sie bietet hohe Performance und schnelle Ergebnisse.
-        Facettensuche, Synonyme und Relevanzbewertung sind möglich. Allerdings erfordert die Suche die Einrichtung eines externen Solr-Servers. 
-        Zudem höherer Wartungs und Konfigurationsaufwand.
-      </p>
+    <p>
+      Geeignet für mittelgroße (500 -2000 Seiten) bis große Websites (ab 2000
+      Seiten)mit erweiterten Suchanforderungen. Sie bietet hohe Performance und
+      schnelle Ergebnisse. Facettensuche, Synonyme und Relevanzbewertung sind
+      möglich. Allerdings erfordert die Suche die Einrichtung eines externen
+      Solr-Servers. Zudem höherer Wartungs und Konfigurationsaufwand.
+    </p>
     <h2>EXT: ke_search</h2>
-    <p>Geeignet für kleine bis mittelgroße Websites, die zusätzlich Facettensuche und flexible Indexierung aus Datenbankeinträgen benötigen. 
-      Die Suche ist nicht so leistungsstark wie Solr für großangelegte Projekte. Die Leistung hängt hier von der Größe der Datenbank ab.
+    <p>
+      Geeignet für kleine bis mittelgroße Websites, die zusätzlich Facettensuche
+      und flexible Indexierung aus Datenbankeinträgen benötigen. Die Suche ist
+      nicht so leistungsstark wie Solr für großangelegte Projekte. Die Leistung
+      hängt hier von der Größe der Datenbank ab.
     </p>
     <h2>Sitemaps in Typo</h2>
     <h3>Was ist eine sitemap?</h3>
-    <p>Eine sitemap listet die URLs einer Website strukturiert auf, damit Suchmaschinen und auch Nutzer diese besser verstehen. Diese sitemaps sind wichtig für SEO, damit neue Seiten schneller gefunden werden, 
-      Seiten zu finden, die schwer über interne Links erreichbar sind, den Überblick bei großen Websites mit vielen URLs zu behalten, Informationen wie das Datum der letzten Änderung einer Seite bereitzustellen.
+    <p>
+      Eine sitemap listet die URLs einer Website strukturiert auf, damit
+      Suchmaschinen und auch Nutzer diese besser verstehen. Diese sitemaps sind
+      wichtig für SEO, damit neue Seiten schneller gefunden werden, Seiten zu
+      finden, die schwer über interne Links erreichbar sind, den Überblick bei
+      großen Websites mit vielen URLs zu behalten, Informationen wie das Datum
+      der letzten Änderung einer Seite bereitzustellen.
     </p>
-    <p>Eine Sitemap erleichtert das Crawling und die Entdeckung der Seiten, sie garantiert aber nicht, das Google die Seite indexiert oder besser rankt.</p>
+    <p>
+      Eine Sitemap erleichtert das Crawling und die Entdeckung der Seiten, sie
+      garantiert aber nicht, das Google die Seite indexiert oder besser rankt.
+    </p>
     <h3>Wo liegt eine sitemap.xml?</h3>
-    <p>Typischerweise unter https://deine-website.de/sitemap.xml. Die sitemap kann in der Google Search Console hinterlegt werden, damit Google sie kennt.</p>
+    <p>
+      Typischerweise unter https://deine-website.de/sitemap.xml. Die sitemap
+      kann in der Google Search Console hinterlegt werden, damit Google sie
+      kennt.
+    </p>
     <h3>Wo wird eine sitemap angelegt?</h3>
-    <p>In Typo wird eine sitemap automatisch generiert über EXT:seo also das TYPO3 CMS SEO Extension Pack. Lediglich die URL muss evtl noch gemapped werden. Das wird in der 
-      config.yaml der jeweiligen root site eingestellt per:
+    <p>
+      In Typo wird eine sitemap automatisch generiert über EXT:seo also das
+      TYPO3 CMS SEO Extension Pack. Lediglich die URL muss evtl noch gemapped
+      werden. Das wird in der config.yaml der jeweiligen root site eingestellt
+      per:
     </p>
     <pre>
       routeEnhancers:
@@ -617,25 +659,31 @@ fields:
       Ist eine Systemerweiterung, die den Seiteninhalt indexiert, DB-basierte
       Volltextsuche bietet und ein Plugin zur Anzeige der Suche hat. Die
       Seitenindexierung kann man sich vorstellen als Unterteilung der Seite in
-      einzelne Blöcke und speichert die Inhalte in Tabellen. Die Wörter einer Seite 
-      werden gezählt, gewichtet und in die DB eingefügt.Bei der Suche geht
+      einzelne Blöcke und speichert die Inhalte in Tabellen. Die Wörter einer
+      Seite werden gezählt, gewichtet und in die DB eingefügt.Bei der Suche geht
       es die Tabellen durch und findet dann direkt den Index zur Seite, auf der
       der gesuchte Begriff vorkommt. Das Indexieren ist also nur eine
       Vorbereitung, damit die Suche schnell und effizient ist.
     </p>
-    <p>Einschränkungen: Leistung nimmt bei großen Websites ab und es ist keine integrierte 
-      Facettensuche (Suche mit Filteroptionen) vorhanden.
+    <p>
+      Einschränkungen: Leistung nimmt bei großen Websites ab und es ist keine
+      integrierte Facettensuche (Suche mit Filteroptionen) vorhanden.
     </p>
-    <p>Die Suche findet einzelne Wörter, sowie Wortkombinationen oder einzelne Wortstücke.</p>
+    <p>
+      Die Suche findet einzelne Wörter, sowie Wortkombinationen oder einzelne
+      Wortstücke.
+    </p>
     <p>
       Auf Typo einfach über Kategorie: Plugins auswählen und Search / Indexed
       Search einfügen.
     </p>
-    <p>Das Plugin prüft zunächst, ob das gesuchte Wort in der Indextabelle vorkommt, 
-      wenn ja, dann werden alle Seiten aufgelistet, die mit dem Wort in Verbindung stehen.
-      Die Priorität liegt hierbei bei anhand von Faktoren wie der Position des Wortes auf
-      der Seite oder seiner Häufigkeit, title Daten, danach meta Schlüsselwörter,
-      danach meta Beschreibug und danach body
+    <p>
+      Das Plugin prüft zunächst, ob das gesuchte Wort in der Indextabelle
+      vorkommt, wenn ja, dann werden alle Seiten aufgelistet, die mit dem Wort
+      in Verbindung stehen. Die Priorität liegt hierbei bei anhand von Faktoren
+      wie der Position des Wortes auf der Seite oder seiner Häufigkeit, title
+      Daten, danach meta Schlüsselwörter, danach meta Beschreibug und danach
+      body
     </p>
     <ol>
       <li>Title Daten</li>
@@ -643,49 +691,87 @@ fields:
       <li>Meta Beschreibung</li>
       <li>Body</li>
     </ol>
-    <p>Ebenso relevant sind Wortzählung und Häufigkeit auf einer Seite. Klein und Großschreibung
-      sind irrelevant. Zudem ist auch die Hierarchie entscheidend, also die Position der Seite im 
-      Seitenbaum, in der ein Wort gefunden wird.
+    <p>
+      Ebenso relevant sind Wortzählung und Häufigkeit auf einer Seite. Klein und
+      Großschreibung sind irrelevant. Zudem ist auch die Hierarchie
+      entscheidend, also die Position der Seite im Seitenbaum, in der ein Wort
+      gefunden wird.
     </p>
-    <p>Das Such Frontend Plugin ist auf Funktionalität optimiert, nicht auf Geschwindigkeit. Auf Websites
-      mit vielen Seiten ist es langsam, weil es jedes Mal den gesamten Baum durchläuft, um eine Liste der 
-      zugänglichen Seiten zu erstellen.
+    <p>
+      Das Such Frontend Plugin ist auf Funktionalität optimiert, nicht auf
+      Geschwindigkeit. Auf Websites mit vielen Seiten ist es langsam, weil es
+      jedes Mal den gesamten Baum durchläuft, um eine Liste der zugänglichen
+      Seiten zu erstellen.
     </p>
     <h3>Eine Seite neu indexieren</h3>
-    <p>In der Seitenleiste unter Web > Indexing kann eingesehen werden, ob eine Seite bereits indexiert ist. Falls
-      nicht, dann einmal vom Typo Backend ausloggen und die gewünschte Seite im Frontend aufrufen. Danach wieder 
+    <p>
+      In der Seitenleiste unter Web > Indexing kann eingesehen werden, ob eine
+      Seite bereits indexiert ist. Falls nicht, dann einmal vom Typo Backend
+      ausloggen und die gewünschte Seite im Frontend aufrufen. Danach wieder
       einloggen und nun sollte die Seite indexiert sein.
     </p>
     <h3>Seite nicht indexieren bzw nicht in Suche anzeigen</h3>
-    <p>Soll eine bestimmte Seite nicht in der Suche angezeigt werden, kann dies unter "Set Page Propertys" > "Behaviour" > "Include in Search"
-      getoggelt werden. Soll die Seite nicht indexiert werden, kann dies unter "SEO" > "Index this page" festgelegt werden.
+    <p>
+      Soll eine bestimmte Seite nicht in der Suche angezeigt werden, kann dies
+      unter "Set Page Propertys" > "Behaviour" > "Include in Search" getoggelt
+      werden. Soll die Seite nicht indexiert werden, kann dies unter "SEO" >
+      "Index this page" festgelegt werden.
     </p>
     <h3>Generelle Statistiken von Indexing</h3>
-    <p>Unter Indexing > General statistics lassen sich allgemeine Statistiken zum Indexing anzeigen.</p>
+    <p>
+      Unter Indexing > General statistics lassen sich allgemeine Statistiken zum
+      Indexing anzeigen.
+    </p>
     <table>
       <tr>
-        <th>Eigenschaft</th><th>Wert</th><th>Erklärung</th>
+        <th>Eigenschaft</th>
+        <th>Wert</th>
+        <th>Erklärung</th>
       </tr>
       <tr>
-        <td>index_phash</td><td>107</td><td>Anzahl der indexierten Seiten (phash = page hash)</td>
-        <td>index_words</td><td>4212</td><td>Anzahl indexierter Wörter</td>
-        <td>index_rel</td><td>107</td><td>Beziehungen zw Wörtern und Seiten in Relationstabelle</td>
-        <td>index_grlist</td><td>107</td><td>Zugriff pro Seite (jede Seite hat einen Permission Eintrag)</td>
-        <td>index_section</td><td>107</td><td>Strukturinformationen (pro Seite einer)</td>
-        <td>index_fulltext</td><td>107</td><td>gespeicherter Volltext pro Dokument</td>
+        <td>index_phash</td>
+        <td>107</td>
+        <td>Anzahl der indexierten Seiten (phash = page hash)</td>
+        <td>index_words</td>
+        <td>4212</td>
+        <td>Anzahl indexierter Wörter</td>
+        <td>index_rel</td>
+        <td>107</td>
+        <td>Beziehungen zw Wörtern und Seiten in Relationstabelle</td>
+        <td>index_grlist</td>
+        <td>107</td>
+        <td>Zugriff pro Seite (jede Seite hat einen Permission Eintrag)</td>
+        <td>index_section</td>
+        <td>107</td>
+        <td>Strukturinformationen (pro Seite einer)</td>
+        <td>index_fulltext</td>
+        <td>107</td>
+        <td>gespeicherter Volltext pro Dokument</td>
 
-        <td>TYPO3 page (0)</td><td>	107 / 107</td><td>alle indexierten Seiten sind Typo3 Seiten</td>
+        <td>TYPO3 page (0)</td>
+        <td>107 / 107</td>
+        <td>alle indexierten Seiten sind Typo3 Seiten</td>
       </tr>
     </table>
     <h3>Konfiguration um alle Seiten zu indexieren</h3>
-    <p>In der setup.typoscript sollte folgendes eingetragen werden, damit alle Seiten indexiert werden. Damit
-      werden die Seiten beim nächsten Aufruf indexiert.
+    <p>
+      In der setup.typoscript sollte folgendes eingetragen werden, damit alle
+      Seiten indexiert werden. Damit werden die Seiten beim nächsten Aufruf
+      indexiert.
     </p>
     <pre> page.config.index_enable = 1</pre>
     <h3>Content aus der Suche ausschließen</h3>
-    <p>Das geht über HTML Markers: </p>
-    <p>The marker is <!--TYPO3SEARCH_begin--> or <!--TYPO3SEARCH_end--></p>
-    <p>Um die Indexed Search im Plugin zu überschreiben, werden die Private/IndexedSearch angelegt.</p>
+    <p>Das geht über HTML Markers:</p>
+    <p>
+      The marker is
+      <!--TYPO3SEARCH_begin-->
+      or
+      <!--TYPO3SEARCH_end-->
+    </p>
+    <p>
+      Um die Indexed Search im Plugin zu überschreiben, werden die
+      Private/IndexedSearch angelegt.
+    </p>
     <h2>Eigene Templates überschreiben</h2>
     <p>
       Unter vbv_theme/Resources/Private/ lassen sich Seiteninhalte
@@ -693,26 +779,51 @@ fields:
       (FLUID). Alles darin ist nicht direkt im Browser zugänglich, sondern wird
       von TYPO3 gerendert und ausgegeben.
     </p>
-    <p>Überschrieben wird nie über den Core, sondern immer über die Sitepackage</p>
-    <p>Extensions/IndexedSearch enthält die Fluid Templates, die für die Suchfunktion
-      benötigt werden. Bearbeitet werden müssen nur Search.html, Form.html, Default.html und Searchresult.html
+    <p>
+      Überschrieben wird nie über den Core, sondern immer über die Sitepackage
+    </p>
+    <p>
+      Extensions/IndexedSearch enthält die Fluid Templates, die für die
+      Suchfunktion benötigt werden. Bearbeitet werden müssen nur Search.html,
+      Form.html, Default.html und Searchresult.html
     </p>
     <p>Layouts/Default.html ist ein Grundgerüst für die Indexed Search</p>
     <p>Form.html ist für das Suchformular</p>
     <p>Rules.html ist für die Suchregeln</p>
     <p>Searchresult.html ist für das Suchergebnis</p>
-    <p>Bei Templates/Search/ liegt: </p>
-    <p>Search.html ist das Template für die Hauptsuchseite. Wird vom Plugin genutzt. Rendert die Eingabe und die Ergebnisse von der Searchresult.html. Hier wird auch festgelegt, wie Metadaten verwendet werden.</p>
-    <p>Form.html für das rendern vom Suchformular. Wird von Search.html genutzt. Bestimmt Markup von der Sucheingabe.</p>
-    <p>SearchResult.html für die Liste der Ergebnisse</p>
-    <p>NoTypoScript.html ist eine Fehlerseite wenn kein TypoScript definiert ist.</p>
-    <p>Templates/Administration ist für Backend. Übersicht vom Index, externe Dateien, Suchstatistiken,
-      einzelne Suchbegriffe, etc
+    <p>Bei Templates/Search/ liegt:</p>
+    <p>
+      Search.html ist das Template für die Hauptsuchseite. Wird vom Plugin
+      genutzt. Rendert die Eingabe und die Ergebnisse von der Searchresult.html.
+      Hier wird auch festgelegt, wie Metadaten verwendet werden.
     </p>
-    <p>Weitere gute Informationen: <a href="https://t3planet.de/blog/typo3-indexed-search/#c4611">t3planet.de CLICK ME</a></p>
+    <p>
+      Form.html für das rendern vom Suchformular. Wird von Search.html genutzt.
+      Bestimmt Markup von der Sucheingabe.
+    </p>
+    <p>SearchResult.html für die Liste der Ergebnisse</p>
+    <p>
+      NoTypoScript.html ist eine Fehlerseite wenn kein TypoScript definiert ist.
+    </p>
+    <p>
+      Templates/Administration ist für Backend. Übersicht vom Index, externe
+      Dateien, Suchstatistiken, einzelne Suchbegriffe, etc
+    </p>
+    <p>
+      Weitere gute Informationen:
+      <a href="https://t3planet.de/blog/typo3-indexed-search/#c4611"
+        >t3planet.de CLICK ME</a
+      >
+    </p>
     <h3>Einbinden von Bildern</h3>
-    <p>Bilder können in TYPO3 bei einer Seite über die "Edit Page Properties" > Resources > Media eingepflegt werden.</p>
-    <p>Nach der Pflege muss die Seite allerdings nochmal aufgerufen werden, weil erst dann der Suchindex richtig indexiert wird.</p>
+    <p>
+      Bilder können in TYPO3 bei einer Seite über die "Edit Page Properties" >
+      Resources > Media eingepflegt werden.
+    </p>
+    <p>
+      Nach der Pflege muss die Seite allerdings nochmal aufgerufen werden, weil
+      erst dann der Suchindex richtig indexiert wird.
+    </p>
     <h3>Templates</h3>
     <p>
       Hier liegen Haupttemplates, Plugin-Layouts, Einstiegspunkte für die
@@ -734,30 +845,45 @@ fields:
       Hier kommen Texte und Übersetzungen für die verschiedenen Sprachen rein.
     </p>
     <h3>Indexed Search Ausgabe in der Konsole</h3>
-    <p>Der wichtigste Wert ist das rating. Dieses gibt an, wie gut ein Ergebnis zur Sucheingabe passt.</p>
-    <p>Durch Wortstamm-Matching (Stemming) werden verwandte Wörter gefunden. Bei Führungskräfte zB
-      Führung und Kräfte.
+    <p>
+      Der wichtigste Wert ist das rating. Dieses gibt an, wie gut ein Ergebnis
+      zur Sucheingabe passt.
     </p>
-    <p>Sehr hoch gewichtet wird der Titel, dann der Seitentyp/ Struktur, dann die Content-Häufigkeit und Kontext. Description
-      ist dabei höher gewichtet als keyword, meta Felder und Abstract.
+    <p>
+      Durch Wortstamm-Matching (Stemming) werden verwandte Wörter gefunden. Bei
+      Führungskräfte zB Führung und Kräfte.
+    </p>
+    <p>
+      Sehr hoch gewichtet wird der Titel, dann der Seitentyp/ Struktur, dann die
+      Content-Häufigkeit und Kontext. Description ist dabei höher gewichtet als
+      keyword, meta Felder und Abstract.
     </p>
     <h3>Passwortschutz für Seite (.htaccess)</h3>
-    <p>Bei VBV ist der Frontend Schutz lediglich auskommentiert. Dafür müsste ein neues Passwort und Nutzer angelegt werden bei
-      https://www.redim.de/blog/passwortschutz-mit-htaccess-einrichten und diese dann für die aktuelle .htpasswd ersetzen.
+    <p>
+      Bei VBV ist der Frontend Schutz lediglich auskommentiert. Dafür müsste ein
+      neues Passwort und Nutzer angelegt werden bei
+      https://www.redim.de/blog/passwortschutz-mit-htaccess-einrichten und diese
+      dann für die aktuelle .htpasswd ersetzen.
     </p>
-    <p>Die .htaccess liegt im /public_html Verzeichnis und sieht für alle 2025 Unterseiten bei VBV so aus: </p>
+    <p>
+      Die .htaccess liegt im /public_html Verzeichnis und sieht für alle 2025
+      Unterseiten bei VBV so aus:
+    </p>
     <pre>
-      <If %{REQUEST_URI} =~m#^/2025(?:/.*)?$#>
+      < If %{REQUEST_URI} =~m#^/2025(?:/.*)?$#>
         AuthType Basic
         AuthName "Geschützter Bereich"
           AuthUserFile /home/j06wm45m40jl/public_html/.htpasswd
         Require valid-user
-      </If>
+      < /If>
     </pre>
-    Die .htpasswd Nutzer und Passwort dann oben generieren lassen und verschlüsselt in die .htpasswd ersetzen.
-    <p>Erklärung der .htaccess Regeln: </br>
-      Die %{REQUEST_URI} enthält den Pfad der angeforderten URL. Das =~ bedeutet: "Passt auf diesen regulären Ausdruck?" und das 
-      m#...# ist die Begrenzung des regulären Ausdrucks. Jetzt wird geprüft:
+    Die .htpasswd Nutzer und Passwort dann oben generieren lassen und
+    verschlüsselt in die .htpasswd ersetzen.
+    <p>
+      Erklärung der .htaccess Regeln: <br />
+      Die %{REQUEST_URI} enthält den Pfad der angeforderten URL. Das =~
+      bedeutet: "Passt auf diesen regulären Ausdruck?" und das m#...# ist die
+      Begrenzung des regulären Ausdrucks. Jetzt wird geprüft:
     </p>
     <p>^/2025(?:/.*)?$</p>
     <ul>
@@ -766,97 +892,145 @@ fields:
       <li>(?:/.*)? ist optional für alles was darauf folgt</li>
       <li>$ ist das Ende der URL</li>
     </ul>
-    <p>Die Bedingung ist true für /2025/ aber falsch für /2024/, /20250/, etc</p>
-    <p>Wenn der Regex stimmt, werden die Direktiven an aktiviert. AuthType Basic zeigt das
-      Popup für die Passworteingabe an. AuthName ist der Text, der im Popup angezeigt wird. AuthUserFile gibt den Pfad zur
-      .htpasswd an. Require valid-user bedeutet, dass jeder Benutzer, der in der .htpasswd steht, Zugriff hat.
+    <p>
+      Die Bedingung ist true für /2025/ aber falsch für /2024/, /20250/, etc
+    </p>
+    <p>
+      Wenn der Regex stimmt, werden die Direktiven an aktiviert. AuthType Basic
+      zeigt das Popup für die Passworteingabe an. AuthName ist der Text, der im
+      Popup angezeigt wird. AuthUserFile gibt den Pfad zur .htpasswd an. Require
+      valid-user bedeutet, dass jeder Benutzer, der in der .htpasswd steht,
+      Zugriff hat.
     </p>
     <h2>Page Properties - Seiteneigenschaften</h2>
     <h3>General</h3>
-    <p>Dieser Bereich enthält allgemeine Einstellungen für die Seite. Hier wird der Seitentyp einer Seite festgelegt:
+    <p>
+      Dieser Bereich enthält allgemeine Einstellungen für die Seite. Hier wird
+      der Seitentyp einer Seite festgelegt:
     </p>
     <table>
-	<thead>
-		<tr>
-			<th>Typ</th>
-			<th>Erklärung</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Standard</td>
-			<td>Normale Inhaltsseite mit Inhaltselementen, Frontend-Ausgabe und Menüeinbindung.</td>
-		</tr>
-		<tr>
-			<td>Backend User Section</td>
-			<td>Geschützter Bereich für eingeloggte Backend-Benutzer, z. B. für Intranet-/Extranet-Inhalte.</td>
-		</tr>
-		<tr>
-			<td>Standard Page Template</td>
-			<td>Spezialseite für Vorlagen- oder Template-Strukturen innerhalb von TYPO3.</td>
-		</tr>
-		<tr>
-			<td>Shortcut</td>
-			<td>Weiterleitung auf eine andere TYPO3-Seite innerhalb der Website.</td>
-		</tr>
-		<tr>
-			<td>Mount Point</td>
-			<td>Bindet einen anderen Seitenbaum virtuell an dieser Stelle ein.</td>
-		</tr>
-		<tr>
-			<td>Link to External URL</td>
-			<td>Menüpunkt, der auf eine externe URL verweist.</td>
-		</tr>
-		<tr>
-			<td>Folder</td>
-			<td>Organisationsseite ohne Frontend-Ausgabe, z. B. für Datensätze oder SysFolder.</td>
-		</tr>
-		<tr>
-			<td>Recycler</td>
-			<td>Papierkorb für gelöschte Seiten und Inhalte.</td>
-		</tr>
-		<tr>
-			<td>Menu Separator</td>
-			<td>Visueller Trenner innerhalb von Menüs ohne eigene Seite oder Inhalt.</td>
-		</tr>
-	</tbody>
-</table>
-<p>Der Seitentitel wird im Frontend als Titel der Seite angezeigt und ebenso im title Tag verwendet.</p>
-<p>Der nav_title wird im Frontend als Navigationstitel angezeigt. Wenn er ausgefüllt ist, wird er bevorzugt. Genutzt
-  wird er zB wenn der Seitentitel zu lang ist. Dann wird im Menü der nav_title angezeigt und im Browserfenster der
-  title.
-</p>
-<p>subtitle kann als weiteres Feld verwendet werden. zB zentrale Subline auf einer Seite. Einfach direkt im fluid verwenden
-  mit {data.subtitle}. Das Feld ist bereits in der pages Tabelle und muss somit nicht nochmal in der EditorInterface.yaml definiert
-  werden.
-</p>
-<h3>SEO</h3>
-<p>Dieser Bereich wird verwendet für Suchmaschinenoptiomierung. Das Title for search engines [seo_title] Feld wird verwendet
-  für den title Tag im HTML, wenn es ausgefüllt ist. Ansonsten wird der Seitentitel verwendet. Es empfiehlt sich, hier ein Keyword
-  im Titel miteinzubauen, welches die Seite gut beschreibt.
-</p>
-<p>Description [description] Feld: Wird für die Beschreibung eines Suchergebnisses verwendet. Also zB wenn auf Google ein Ergebnis
-  gefunden wurde. Auch hier empfiehlt es sich relevante Keywords zu verwenden, die für die Seite relevant sind.
-</p>
-<p>Index this page [no_index]: Wenn aktiviert, wird die Seite von Suchmaschinen wie Indexed Search indexiert.</p>
-<p>Follow this page [no_follow]: Wenn aktiviert, dann crawlen Suchmaschinen die Links auf dieser Seite. Also die verlinkten Seiten
-  werden besucht. Dadurch werden die Seiten besser verstanden. Default für alle Informativen Seiten. Eher nicht für Login, Konto, Suchergebnisseiten,
-  Filterseiten etc.
-</p>
-<p>Canonical link [canonical_link]: Ist ein SEO-Hinweis für Google, der sagt:
-„Diese Seite ist vielleicht eine Kopie – die Originalseite ist diese hier.“ Google mag keine doppelten Inhalte.
-Wenn zwei Seiten fast gleich sind, z. B.:
-/produkte/produkt-a
-/produkte/produkt-a?ref=newsletter, dann fragt sich Google:
-„Welche Seite soll ich im Ranking anzeigen?“. Der canonical link sagt dann, dass diese Seite als Original behandelt werden soll.
-Wird zB bei Sortierung, Suche und
-Tracking-Parameter benutzt.</p>
-<p>Change frequency [sitemap_changefreq]: Gibt der Suchmaschine an, wie oft sich der Inhalt der Seite ändert.</p>
-<p>Priority [sitemap_priority]: Gibt an, wie wichtig die Seite im Gegensatz zu anderen Seiten ist.</p>
+      <thead>
+        <tr>
+          <th>Typ</th>
+          <th>Erklärung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Standard</td>
+          <td>
+            Normale Inhaltsseite mit Inhaltselementen, Frontend-Ausgabe und
+            Menüeinbindung.
+          </td>
+        </tr>
+        <tr>
+          <td>Backend User Section</td>
+          <td>
+            Geschützter Bereich für eingeloggte Backend-Benutzer, z. B. für
+            Intranet-/Extranet-Inhalte.
+          </td>
+        </tr>
+        <tr>
+          <td>Standard Page Template</td>
+          <td>
+            Spezialseite für Vorlagen- oder Template-Strukturen innerhalb von
+            TYPO3.
+          </td>
+        </tr>
+        <tr>
+          <td>Shortcut</td>
+          <td>
+            Weiterleitung auf eine andere TYPO3-Seite innerhalb der Website.
+          </td>
+        </tr>
+        <tr>
+          <td>Mount Point</td>
+          <td>
+            Bindet einen anderen Seitenbaum virtuell an dieser Stelle ein.
+          </td>
+        </tr>
+        <tr>
+          <td>Link to External URL</td>
+          <td>Menüpunkt, der auf eine externe URL verweist.</td>
+        </tr>
+        <tr>
+          <td>Folder</td>
+          <td>
+            Organisationsseite ohne Frontend-Ausgabe, z. B. für Datensätze oder
+            SysFolder.
+          </td>
+        </tr>
+        <tr>
+          <td>Recycler</td>
+          <td>Papierkorb für gelöschte Seiten und Inhalte.</td>
+        </tr>
+        <tr>
+          <td>Menu Separator</td>
+          <td>
+            Visueller Trenner innerhalb von Menüs ohne eigene Seite oder Inhalt.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Der Seitentitel wird im Frontend als Titel der Seite angezeigt und ebenso
+      im title Tag verwendet.
+    </p>
+    <p>
+      Der nav_title wird im Frontend als Navigationstitel angezeigt. Wenn er
+      ausgefüllt ist, wird er bevorzugt. Genutzt wird er zB wenn der Seitentitel
+      zu lang ist. Dann wird im Menü der nav_title angezeigt und im
+      Browserfenster der title.
+    </p>
+    <p>
+      subtitle kann als weiteres Feld verwendet werden. zB zentrale Subline auf
+      einer Seite. Einfach direkt im fluid verwenden mit {data.subtitle}. Das
+      Feld ist bereits in der pages Tabelle und muss somit nicht nochmal in der
+      EditorInterface.yaml definiert werden.
+    </p>
+    <h3>SEO</h3>
+    <p>
+      Dieser Bereich wird verwendet für Suchmaschinenoptiomierung. Das Title for
+      search engines [seo_title] Feld wird verwendet für den title Tag im HTML,
+      wenn es ausgefüllt ist. Ansonsten wird der Seitentitel verwendet. Es
+      empfiehlt sich, hier ein Keyword im Titel miteinzubauen, welches die Seite
+      gut beschreibt.
+    </p>
+    <p>
+      Description [description] Feld: Wird für die Beschreibung eines
+      Suchergebnisses verwendet. Also zB wenn auf Google ein Ergebnis gefunden
+      wurde. Auch hier empfiehlt es sich relevante Keywords zu verwenden, die
+      für die Seite relevant sind.
+    </p>
+    <p>
+      Index this page [no_index]: Wenn aktiviert, wird die Seite von
+      Suchmaschinen wie Indexed Search indexiert.
+    </p>
+    <p>
+      Follow this page [no_follow]: Wenn aktiviert, dann crawlen Suchmaschinen
+      die Links auf dieser Seite. Also die verlinkten Seiten werden besucht.
+      Dadurch werden die Seiten besser verstanden. Default für alle Informativen
+      Seiten. Eher nicht für Login, Konto, Suchergebnisseiten, Filterseiten etc.
+    </p>
+    <p>
+      Canonical link [canonical_link]: Ist ein SEO-Hinweis für Google, der sagt:
+      „Diese Seite ist vielleicht eine Kopie – die Originalseite ist diese
+      hier.“ Google mag keine doppelten Inhalte. Wenn zwei Seiten fast gleich
+      sind, z. B.: /produkte/produkt-a /produkte/produkt-a?ref=newsletter, dann
+      fragt sich Google: „Welche Seite soll ich im Ranking anzeigen?“. Der
+      canonical link sagt dann, dass diese Seite als Original behandelt werden
+      soll. Wird zB bei Sortierung, Suche und Tracking-Parameter benutzt.
+    </p>
+    <p>
+      Change frequency [sitemap_changefreq]: Gibt der Suchmaschine an, wie oft
+      sich der Inhalt der Seite ändert.
+    </p>
+    <p>
+      Priority [sitemap_priority]: Gibt an, wie wichtig die Seite im Gegensatz
+      zu anderen Seiten ist.
+    </p>
 
-
-Hier weiter machen: https://docs.typo3.org/c/typo3/cms-seo/12.4/en-us/Editor/Index.html#for-editors
-
-
+    Hier weiter machen:
+    https://docs.typo3.org/c/typo3/cms-seo/12.4/en-us/Editor/Index.html#for-editors
   </div>
 </div>
