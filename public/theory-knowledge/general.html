@@ -783,6 +783,59 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
       Grafiken.
     </p>
 
+    <h2>Prozess</h2>
+    <p>Ein Prozess meint das Ausführen eines Programms.</p>
+
+    <h2>Thread</h2>
+    <p>
+      Ein Thread ist ein leichtgewichtiger Prozess, also ein Teil eines
+      Prozesses.
+    </p>
+    <p>
+      Viele Threads zu einem Prozess nennt man auch multi-threading. Sie teilen
+      sich die Ressourcen des Prozesses.
+    </p>
+    <h2>FastCGI</h2>
+    <p>
+      FastCGI ist ein Ansatz zum wesentlichen Beschleunigen von
+      Server-Anwendugen.
+    </p>
+    ```html
+    <p>
+      CGI (Common Gateway Interface) ermöglicht es einem Webserver, externe
+      Programme zur Verarbeitung von HTTP-Anfragen auszuführen. Das Problem
+      dabei ist, dass für jede eingehende Anfrage ein neuer Prozess gestartet
+      werden muss. Dieser Prozess muss das Programm laden, ausführen und
+      anschließend wieder beendet werden.
+    </p>
+
+    <p>
+      Bei vielen gleichzeitigen Anfragen führt dieses Verhalten zu einem hohen
+      Ressourcenverbrauch und einer schlechten Performance, da ständig neue
+      Prozesse erstellt und beendet werden müssen.
+    </p>
+
+    <p>
+      FastCGI löst dieses Problem, indem die Prozesse nicht für jede Anfrage neu
+      gestartet werden. Stattdessen laufen die Anwendungsprozesse dauerhaft und
+      können mehrere Anfragen nacheinander verarbeiten.
+    </p>
+
+    <p>
+      Der Webserver, beispielsweise Nginx, übergibt die Anfrage über das
+      FastCGI-Protokoll an einen bereits laufenden Prozess. Dieser verarbeitet
+      die Anfrage und gibt das Ergebnis zurück. Dadurch entfällt das wiederholte
+      Starten und Beenden eines Prozesses.
+    </p>
+
+    <p>
+      Ein typisches Beispiel ist Nginx mit PHP-FPM: Nginx nimmt die HTTP-Anfrage
+      entgegen und übergibt PHP-Anfragen über FastCGI an PHP-FPM. PHP-FPM
+      verwaltet dabei dauerhaft laufende PHP-Prozesse, die die Anfragen
+      verarbeiten.
+    </p>
+    ```
+
     <h2>Server</h2>
     <p>
       Ein Server ist ein Computer oder ein System, das Ressourcen, Daten oder
@@ -805,7 +858,218 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
       von Clients zur Speicherung, Abfrage oder Manipulation von Daten
       verarbeitet.
     </p>
-    <h3>Apache</h3>
+    <h3>nginx Webserver</h3>
+    <p>
+      nginx ist ein Webserver und auch Reverse / Mail Proxy. Die offizielle
+      Dokumentation dafür gibts
+      <a href="https://docs.nginx.com/nginx/admin-guide/web-server/">HIER</a>
+    </p>
+    <h3>Statische Inhalte</h3>
+    <p>
+      Nginx kann statische Dateien wie HTML, CSS, JavaScript, Bilder, Videos und
+      andere Dateien direkt an den Client ausliefern.
+    </p>
+    <h3>Reverse Proxy</h3>
+    <p>
+      Nginx kann als Vermittler zwischen Client und Backend fungieren.
+      Eingehende HTTP-Anfragen werden dabei an interne Anwendungen oder andere
+      Server weitergeleitet.
+    </p>
+    <h3>Caching</h3>
+    <p>
+      Nginx kann Antworten zwischenspeichern. Wiederholte Anfragen können
+      dadurch aus dem Cache beantwortet werden, ohne jedes Mal das Backend
+      kontaktieren zu müssen.
+    </p>
+    <h3>Load Balancing</h3>
+    <p>
+      Nginx kann Anfragen auf mehrere Backend-Server verteilen. Dadurch lassen
+      sich Lasten verteilen und Anwendungen skalierbarer und ausfallsicherer
+      betreiben.
+    </p>
+    <h3>TLS / SSL</h3>
+    <p>
+      Nginx unterstützt TLS und kann HTTPS-Verbindungen terminieren. Dadurch
+      kann die verschlüsselte Verbindung zwischen Client und Nginx zentral
+      verwaltet werden.
+    </p>
+    <h3>FastCGI</h3>
+    <p>
+      Nginx unterstützt FastCGI zur Kommunikation mit Anwendungen. Ein typisches
+      Beispiel ist die Weiterleitung von PHP-Anfragen an PHP-FPM.
+    </p>
+    <h3>Streaming</h3>
+    <p>
+      Nginx kann Datenströme effizient übertragen und eignet sich beispielsweise
+      für die Auslieferung großer Dateien und Streaming-Anwendungen.
+    </p>
+    <h3>HTTP/1.1 und HTTP/2</h3>
+    <p>
+      Nginx unterstützt moderne HTTP-Protokolle. HTTP/2 ermöglicht unter anderem
+      eine effizientere Übertragung mehrerer Ressourcen über eine Verbindung.
+    </p>
+    <h3>WebSockets</h3>
+    <p>
+      Nginx kann WebSocket-Verbindungen als Reverse Proxy an Backend-Anwendungen
+      weiterleiten. Dadurch sind bidirektionale Echtzeitverbindungen zwischen
+      Client und Server möglich.
+    </p>
+    <h4>nginx.conf</h4>
+    <p>nginx.conf ist die zentrale Konfigurationsdatei für nginx.</p>
+    <h4>nginx Architektur</h4>
+    <p>
+      Nginx ist ein Webserver und Reverse Proxy, der nach einer
+      Master-Worker-Architektur arbeitet. Dabei übernimmt der Master-Prozess
+      hauptsächlich Verwaltungsaufgaben, während die Worker-Prozesse die
+      eigentlichen Client-Anfragen verarbeiten.
+    </p>
+    <img
+      src="/assets/screenshots/nginx_architecture.png"
+      alt="Abbildung zur nginx Architektur"
+    />
+    <h4>Master-Prozess</h4>
+    <p>
+      Der Master-Prozess ist für die Verwaltung von Nginx zuständig. Er startet
+      und beendet Nginx, liest und verarbeitet die Konfiguration, startet die
+      Worker-Prozesse und kann diese bei Änderungen oder Fehlern neu starten.
+      Der Master-Prozess verarbeitet normalerweise nicht selbst die eigentlichen
+      HTTP-Anfragen.
+    </p>
+    <h4>Worker-Prozesse</h4>
+    <p>
+      Die Worker-Prozesse übernehmen die Verarbeitung der eingehenden
+      Verbindungen und Anfragen. Mehrere Worker können gleichzeitig arbeiten,
+      sodass Nginx viele Verbindungen parallel und effizient verarbeiten kann.
+      Die Anzahl der Worker kann konfiguriert werden und wird häufig an die
+      Anzahl der verfügbaren CPU-Kerne angepasst.
+    </p>
+    <h4>Event-Driven Architektur</h4>
+    <p>
+      Nginx verwendet eine ereignisgesteuerte Architektur. Ein Worker-Prozess
+      kann viele gleichzeitig bestehende Verbindungen verwalten, ohne für jede
+      Verbindung einen eigenen Prozess oder Thread zu benötigen. Dadurch kann
+      Nginx besonders viele gleichzeitige Verbindungen mit vergleichsweise
+      geringem Ressourcenverbrauch verarbeiten.
+    </p>
+    <h4>Verarbeitung einer HTTP-Anfrage</h4>
+    <p>
+      Ein Client stellt beispielsweise eine HTTP- oder HTTPS-Anfrage an Nginx.
+      Ein Worker-Prozess nimmt die Verbindung entgegen und wertet die Anfrage
+      anhand der Nginx-Konfiguration aus. Anschließend entscheidet Nginx, wie
+      die Anfrage verarbeitet werden soll.
+    </p>
+    <h4>Statische Inhalte</h4>
+    <p>
+      Handelt es sich beispielsweise um eine HTML-, CSS-, JavaScript- oder
+      Bilddatei, kann Nginx diese direkt vom Dateisystem laden und an den Client
+      zurückgeben. Ein zusätzliches Backend ist für solche Dateien nicht
+      erforderlich.
+    </p>
+    <h4>Reverse Proxy</h4>
+    <p>
+      Nginx kann als Reverse Proxy vor anderen Servern und Anwendungen stehen.
+      Der Client kommuniziert dabei mit Nginx, während Nginx die Anfrage intern
+      an den zuständigen Backend-Dienst weiterleitet. Dadurch können interne
+      Anwendungen nach außen über eine zentrale Adresse erreichbar gemacht
+      werden.
+    </p>
+    <h4>Routing zu verschiedenen Diensten</h4>
+    <p>
+      Nginx kann anhand der Domain, des Pfades oder anderer Eigenschaften
+      entscheiden, an welchen internen Dienst eine Anfrage weitergeleitet wird.
+      Beispielsweise kann api.example.de an einen Backend-Server auf Port 3000
+      weitergeleitet werden, während admin.example.de einen anderen Dienst auf
+      Port 4000 verwendet.
+    </p>
+    <h4>HTTP-Proxy</h4>
+    <p>
+      Nginx kann HTTP-Anfragen an andere Webserver oder Application Server
+      weiterleiten. Ein Backend kann beispielsweise auf localhost:3000 laufen,
+      während Nginx öffentlich über Port 80 oder 443 erreichbar ist.
+    </p>
+    <h4>FastCGI</h4>
+    <p>
+      Nginx kann über FastCGI mit Anwendungen kommunizieren. Ein typisches
+      Beispiel ist PHP-FPM. Nginx nimmt dabei die HTTP-Anfrage entgegen und
+      übergibt PHP-Anfragen über FastCGI an PHP-FPM. PHP-FPM führt den PHP-Code
+      aus und gibt das Ergebnis an Nginx zurück.
+    </p>
+    <h4>PHP-FPM</h4>
+    <p>
+      PHP-FPM ist ein Prozessmanager für PHP und kann PHP-Anwendungen ausführen.
+      Nginx führt PHP dabei nicht selbst aus, sondern fungiert als Webserver und
+      übergibt die PHP-Anfragen an PHP-FPM.
+    </p>
+    <h4>Caching</h4>
+    <p>
+      Nginx kann Antworten und andere Daten zwischenspeichern. Bei einer
+      erneuten Anfrage kann eine bereits zwischengespeicherte Antwort direkt
+      ausgeliefert werden, ohne jedes Mal das Backend oder eine Datenbank
+      kontaktieren zu müssen. Dadurch können Antwortzeiten und die Belastung des
+      Backends reduziert werden.
+    </p>
+    <h4>Memcached</h4>
+    <p>
+      Memcached ist ein externer In-Memory-Cache, der häufig zum schnellen
+      Zwischenspeichern von Daten verwendet wird. Nginx kann je nach
+      Konfiguration mit einem Memcached-Server kommunizieren und gespeicherte
+      Daten verwenden, anstatt eine Anfrage an ein aufwendigeres Backend
+      weiterzugeben.
+    </p>
+    <h4>Load Balancing</h4>
+    <p>
+      Nginx kann Anfragen auf mehrere Backend-Server verteilen. Beispielsweise
+      können mehrere Instanzen einer Anwendung parallel betrieben werden. Nginx
+      verteilt die eingehenden Anfragen auf diese Instanzen und kann dadurch die
+      Last verteilen und die Skalierbarkeit verbessern.
+    </p>
+    <h4>TLS / HTTPS</h4>
+    <p>
+      Nginx kann TLS-Verbindungen terminieren und damit HTTPS für Clients
+      bereitstellen. Die TLS-Konfiguration und Zertifikate können zentral bei
+      Nginx verwaltet werden. Anschließend kann Nginx die Anfrage an interne
+      Dienste weiterleiten, die nicht selbst öffentliches HTTPS bereitstellen
+      müssen.
+    </p>
+    <h4>WebSockets</h4>
+    <p>
+      Nginx kann WebSocket-Verbindungen als Reverse Proxy an einen
+      Backend-Dienst weiterleiten. WebSockets ermöglichen eine dauerhafte,
+      bidirektionale Verbindung zwischen Client und Server und werden
+      beispielsweise für Chats, Live-Daten oder Echtzeitanwendungen verwendet.
+    </p>
+    <h4>Streaming</h4>
+    <p>
+      Nginx kann große Datenmengen und Datenströme effizient an Clients
+      übertragen. Dadurch kann es beispielsweise für die Auslieferung großer
+      Dateien oder bestimmte Streaming-Anwendungen eingesetzt werden.
+    </p>
+    <h4>Typische Gesamtarchitektur</h4>
+    <p>
+      Eine typische Architektur kann aus einem öffentlich erreichbaren Nginx und
+      mehreren internen Diensten bestehen. Nginx nimmt die HTTP- oder
+      HTTPS-Anfragen entgegen und entscheidet anhand der Konfiguration, wie die
+      jeweilige Anfrage verarbeitet wird.
+    </p>
+    <p>
+      Eine Anfrage nach einer statischen Datei kann Nginx direkt beantworten.
+      Eine PHP-Anfrage kann über FastCGI an PHP-FPM weitergeleitet werden. Eine
+      API-Anfrage kann über HTTP an einen Application Server weitergeleitet
+      werden. Zusätzlich können Caching und Load Balancing eingesetzt werden.
+    </p>
+    <p>
+      Vereinfacht kann die Architektur daher folgendermaßen dargestellt werden:
+      Internet → Nginx → statische Dateien, PHP-FPM, Application Server,
+      Webserver oder Cache. Innerhalb von Nginx übernimmt der Master-Prozess die
+      Verwaltung und die Worker-Prozesse übernehmen die Verarbeitung der
+      Verbindungen.
+    </p>
+    <h4>Reverse Proxy</h4>
+    <p>
+      Ein Reverse Proxy nimmt eine Anfrage entgegen und entscheidet, an welchen
+      internen Dienst sie weitergeleitet wird.
+    </p>
+    <h3>Apache Webserver</h3>
     <p>
       "A patchy server": Apache ist ein weit verbreiteter Webserver, der auf
       verschiedenen Betriebssystemen läuft. Er dient dazu, Webseiten und
@@ -822,11 +1086,60 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
       <li>man: manpages</li>
       <li>lib: Dynamische Module</li>
     </ul>
+    <h3>Apache Security</h3>
+    <p>
+      Apache ist nach der Grundinstallation schon brauchbar geschützt. Standard
+      Port ist 80, kann faktisch nicht geändert werden. Durch die
+      Listen-Direktive kann aber zum Port auch die IP-Adresse für den Apache
+      festgelegt werden. zB Listen 134.2.2.38:80
+    </p>
+    <p>Wurzelverzeichnis (/)schützen durch Direktive:</p>
+    <pre>
+< Directory / >
+			AllowOverride none
+			Require all denied
+		< /Directory>
+	</pre
+    >
+    <p>
+      Direktive ServerSignature auf Wert Off oder Email setzen, um nicht so viel
+      über sich zu verraten.
+    </p>
+    <p>Je weniger Module geladen sind, desto sicherer ist der Server.</p>
+    '
+    <h3>Virtuelle Hosts (vHosts) bei Apache</h3>
+    <p>
+      Mehrere Webseiten bzw Domains können auf demselben Server betrieben
+      werden. Wenn zB zwei domains auf dieselbe Server IP Adresse zeigen, kann
+      apache sagen:
+    </p>
+    <pre>
+		< VirtualHost *:80>
+    ServerName www.meinefirma.de
+    DocumentRoot /var/www/meinefirma
+< /VirtualHost>
+
+< VirtualHost *:80>
+    ServerName www.meinblog.de
+    DocumentRoot /var/www/meinblog
+< /VirtualHost>
+	</pre
+    >
+    <p>
+      So liefert Apache je nach Eingabe die korrekte Domain aus. Da hier nicht
+      für jede Seite dann ein eigener Server benötigt wird, sagt man dann
+      virtueller Host.
+    </p>
     <h4>Apache Portable Runtime</h4>
     <p>
       Apache Portable Runtime; eine Bibliothek, die Apache eine
       plattformunabhängige Schnittstelle für Betriebssystemfunktionen
       bereitstellt. Damit Apache auf verschiedenen Betriebssystemen laufen kann.
+    </p>
+    <h4>Unterordner /conf/extra</h4>
+    <p>
+      Hier stehen ausgelagerte Konfigurationsdateien, die je nach Setting von
+      der httpd.conf nachgeladen werden.
     </p>
     <h4>Unterordner logs (/logs)</h4>
     <p>
@@ -904,6 +1217,18 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
       ServerSignature legt fest, ob und welche Informationen über den Server
       ausgegeben werden.
     </p>
+    <h5>bedingte Konfiguration</h5>
+    <p>
+      viele Direktiven sind nur möglich, wenn das entsprechende Modul geladen
+      ist. zB so:
+    </p>
+    <pre>
+< IfModule ssl_module>
+			SSLRandomSeed startup builtin
+			SSLRandomSeed connect builtin
+		< /IfModule>
+	</pre
+    >
 
     <h4>Apache Module</h4>
     <p>
@@ -929,7 +1254,69 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
       Alle Apache Module sind aufgelistet auf der
       <a href="https://httpd.apache.org/docs/current/mod/">APACHE SEITE</a>
     </p>
-
+    <p>Es folgen einige grundlegende ASF Module:</p>
+    <ul>
+      <li>
+        mod_core: Kernfunktionen des Apache HTTP Servers. Kerndirektiven wie
+        Directory und DocumentRoot
+      </li>
+      <li>
+        mod_access: Zugriffssteuerung auf Apache über Hostnamen oder IP-Adressen
+      </li>
+      <li>mod_actions: Zuordnung von MIME-Typen zu GCI Skripten</li>
+      <li>
+        mod_alias: Ändern von URL-Pfaden auf anderes Verzeichnis oder komplett
+        andere URL
+      </li>
+      <li>mod_asis: Auslieferung von Dokumenten ohne HTTP-Header</li>
+      <li>mod_auth: Authentifizierung von Benutzern</li>
+      <li>
+        mod_autoindex: Verzeichnisindex wird erzeugt, wenn keine Indexdatei
+        vorhanden ist.
+      </li>
+      <li>mod_cgi: Ausführung von CGI Skripten</li>
+      <li>mod_cgid: ähnlich zu mod_cgi, nur für multi-thread-Model</li>
+      <li>
+        mod_dir: legt Standards bei Zugriff auf Verzeichnis fest. Direktive
+        DirectoryIndex
+      </li>
+      <li>mod_env: Zugriff auf Umgebungsvariablen für Apache</li>
+      <li>mod_imap: Serverseitige Image-Maps</li>
+      <li>mod_include: Server Side Includes</li>
+      <li>mod_log_config: Konfigurierbare Logfiles</li>
+      <li>mod_mime: Erzeugung von MIME-Headern</li>
+      <li>
+        mod_negotiation: Steuerung der Inhalte durch den HTTP-Header des
+        Clientrequests
+      </li>
+      <li>
+        mod_setenvif: Steuerung des Apaches (Umgebungsvariablen) durch die
+        Clientanfrage
+      </li>
+      <li>
+        mod_so: ermöglicht dynamische Module. Muss selbst statisch geladen
+        werden.
+      </li>
+      <li>mod_status: Statusbericht des Apache</li>
+      <li>
+        mod_userdir: Benutzerdefinierte private Verzeichnisse für lokale User
+        (http://servername/~username)
+      </li>
+      <li>mod_auth_ldap: ldap-Authentifizierung</li>
+      <li>mod_cache: Caching für Proxy</li>
+      <li>mod_expires: setzt im HTTP-Header Expires</li>
+      <li>mod_headers: beliebige Veränderung des HTTP-Headers</li>
+      <li>mod_info: Informationen über den Server</li>
+      <li>
+        mod_perl: integriert Perl-Interpreter in Apache und steigert damit
+        wesentlich die Performance von Perl-Scripten.
+      </li>
+      <li>mod_proxy: Proxy für HTTP und FTP</li>
+      <li>mod_rewrite: umschreiben der URL durch regulären Ausdruck</li>
+      <li>mod_speling: korrigiert Schreibfehler in URL</li>
+      <li>mod_ssl: Schnittstelle von Apache zu OpenSSL</li>
+      <li>mod_usertrack: verfolgt Benutzeraktionen und verwendet Cookies</li>
+    </ul>
     <h5>1. TCP-Port festlegen</h5>
 
     <p>
