@@ -782,6 +782,40 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
       vorgelesen wird. Browser ist schneller, da er nur textbasiert ist ohne
       Grafiken.
     </p>
+    <h2>Server Side Includes (SSI)</h2>
+    <p>
+      Einfache Möglichkeit zur serverseitigenErstellung dynamischer Seiten. Wird
+      durch Spandard-Apachemodul include ermöglicht.
+    </p>
+    <p>
+      Voraussetzung: der Webserver Apache muss mit dem Modul mod_include
+      betrieben werden. Entweder statische Integration in Apache-Kernel oder
+      dynamische Integration über DSO (Dynamic Shared Object). In httpd.conf
+      muss für ein Verzeichnis und alle Unterverzeichnisse SSI erlaubt werden.
+    </p>
+    <pre>
+< Directory "d:/www/myssi">
+			Options +Includes
+		< /Directory></pre
+    >
+    <p>Außerdem Kennzeichnung einer HTML Datei als SSI in http.conf</p>
+    <pre>
+AddType text/html .shtml
+		AddHandler server-parsed .shtml
+	</pre
+    >
+    <p>
+      SSI Befehle selbst sind HTML Kommentare, zB < !--#element attribute="value
+      ..."
+    </p>
+    <p>
+      SSI sind HTML Anweisungen, die serverseitig bei der Auslieferung einer
+      Seite eingefügt und ausgewertet werden. Es ist schneller als CGI, da kein
+      neuer Prozess gestartet werden muss. SSI können in HTML-Dateien mit der
+      Endung .shtml verwendet werden. Sie ermöglichen das Einfügen von Inhalten
+      wie Header, Footer, Navigation oder dynamische Daten wie Datum und
+      Uhrzeit.
+    </p>
 
     <h2>Prozess</h2>
     <p>Ein Prozess meint das Ausführen eines Programms.</p>
@@ -817,22 +851,37 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
 
     <p>
       FastCGI löst dieses Problem, indem die Prozesse nicht für jede Anfrage neu
-      gestartet werden. Stattdessen laufen die Anwendungsprozesse dauerhaft und
-      können mehrere Anfragen nacheinander verarbeiten.
+      gestartet werden. Stattdessen laufen die Anwendungsprozesse dauerhaft,
+      warten auf weitere Anfragen und könnenmehrere Anfragen nacheinander
+      verarbeiten.
     </p>
 
     <p>
       Der Webserver, beispielsweise Nginx, übergibt die Anfrage über das
       FastCGI-Protokoll an einen bereits laufenden Prozess. Dieser verarbeitet
       die Anfrage und gibt das Ergebnis zurück. Dadurch entfällt das wiederholte
-      Starten und Beenden eines Prozesses.
+      Starten und Beenden eines Prozesses. Der Webserver und fastcgi
+      kommunizieren über tcp-Socket, damit Trennung der Server möglich.
     </p>
-
+    <p>
+      Typischer Ablauf wäre: Webserver erzeugt einen fastCGI Anwendungsprozess,
+      fastCGI Prozess initialisiert sich selbst und wartet auf Anfrage,
+      Webserver baut Verbindung zu fastCGI Prozess auf und sendet darüber
+      CGI-Umgebungsvariablen und stdin. fastCGI sendet stdout und stderr
+      entsprechend zurück. fastCGI wartet auf weitere Anfrage.
+    </p>
     <p>
       Ein typisches Beispiel ist Nginx mit PHP-FPM: Nginx nimmt die HTTP-Anfrage
       entgegen und übergibt PHP-Anfragen über FastCGI an PHP-FPM. PHP-FPM
       verwaltet dabei dauerhaft laufende PHP-Prozesse, die die Anfragen
       verarbeiten.
+    </p>
+    <p>
+      Voraussetzungen: Das Modul mod_fastcgi muss bei Apache vorhanden sein.
+      Server muss entsprechend konfiguriert sein. SetHandler und AddHandler
+      müssen für fastCGI gesetzt sein. Es gibt weitere Direktiven für fastCGI
+      wie FastCgiExternalServer, FastCgiConfig, FastCgiAuthenticator,
+      FastCgiAuthenticatorAuthoritative und FastCgiAuthorizer.
     </p>
     ```
 

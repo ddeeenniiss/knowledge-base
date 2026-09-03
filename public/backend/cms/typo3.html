@@ -8,6 +8,195 @@
         >CLICK ME</a
       >
     </p>
+    <h2>Content Management System (CMS)</h2>
+    <p>
+      Ein CMS ist ein System zur benutzerfreundlichen und einfachen Verwaltung
+      von Inhalten (Content) für große Sites. Redakteure ohne technische
+      Kenntnisse können Inhalte erstellen, bearbeiten und veröffentlichen, ohne
+      direkt in den Code eingreifen zu müssen. Es benötigt einen Webserver und
+      einen Datenbankserver.
+    </p>
+
+    <p>Vorteile von CMS:</p>
+    <ul>
+      <li>Inhaltsdaten liegen wiederverwertbar in Datenbanken</li>
+      <li>Benutzer und Rollenkonzept</li>
+      <li>Versionsverwaltung</li>
+      <li>Mehrsprachigkeit</li>
+      <li>Viele Erweiterungen verfügbar</li>
+    </ul>
+
+    <h2>Was wird für TYPO3 benötigt?</h2>
+    <p>
+      Server mit Betriebssystem, Webserver, PHP, DBMS (MariaDB / MySQL),
+      Bildbearbeitung
+    </p>
+    <h2>TYPO3 Abschnitte der Konfiguration</h2>
+
+    <h3>BE – Backend</h3>
+    <p>
+      Enthält Einstellungen für das TYPO3-Backend, also den Bereich, in dem
+      Redakteure und Administratoren arbeiten. Dazu gehören beispielsweise
+      Einstellungen für Backend-Login, Sicherheit und Backend-Funktionen.
+    </p>
+
+    <h3>DB – Database</h3>
+    <p>
+      Enthält die Konfiguration der Datenbankverbindungen. Hier werden unter
+      anderem Datenbanktreiber, Host, Port, Datenbankname und Zugangsdaten
+      definiert.
+    </p>
+
+    <h3>EXT – Extensions</h3>
+    <p>
+      Enthält Einstellungen zur Installation bzw. zum Umgang mit Extensions.
+      Dieser Bereich ist von EXTENSIONS zu unterscheiden, das die Konfiguration
+      einzelner Extensions enthält.
+    </p>
+
+    <h3>EXTCONF – Extension Configuration</h3>
+    <p>
+      Enthält Konfigurationen im Zusammenhang mit Extension- bzw.
+      Sprachpaket-Einstellungen. Dieser Bereich ist insbesondere in älteren
+      TYPO3-Konfigurationen anzutreffen.
+    </p>
+
+    <h3>EXTENSIONS – Extension-Konfiguration</h3>
+    <p>
+      Enthält die Konfiguration einzelner installierter Extensions. Hier können
+      beispielsweise Einstellungen für bestimmte TYPO3-Extensions hinterlegt
+      werden.
+    </p>
+
+    <h3>FE – Frontend</h3>
+    <p>
+      Enthält Einstellungen für das TYPO3-Frontend, also den Teil der Website,
+      den Besucher sehen. Dazu gehören beispielsweise Frontend-bezogene
+      Sicherheits- und Systemeinstellungen.
+    </p>
+
+    <h3>GFX – Graphics</h3>
+    <p>
+      Enthält Einstellungen für die Bild- und Grafikverarbeitung von TYPO3. Dazu
+      gehören beispielsweise Optionen für Bildqualität, Thumbnails und
+      unterstützte Bildformate.
+    </p>
+
+    <h3>HTTP – HTTP-Konfiguration</h3>
+    <p>
+      Enthält Einstellungen für HTTP-Anfragen, die TYPO3 selbst an andere
+      Systeme oder Dienste stellt. Dieser Bereich betrifft die
+      HTTP-Kommunikation von TYPO3 als Client.
+    </p>
+
+    <h3>LOG – Logging</h3>
+    <p>
+      Enthält die Konfiguration des TYPO3-Logging-Systems. Hier wird festgelegt,
+      wie und in welchem Umfang TYPO3 bzw. Extensions Meldungen und Fehler
+      protokollieren.
+    </p>
+
+    <h3>MAIL – E-Mail</h3>
+    <p>
+      Enthält die Konfiguration für den Versand von E-Mails durch TYPO3,
+      beispielsweise das verwendete Transportverfahren und die Verbindung zu
+      einem Mailserver.
+    </p>
+
+    <h3>SVCONF – Service Configuration</h3>
+    <p>
+      Enthält Konfigurationen für die Service API von TYPO3. Dieser Bereich
+      spielt in modernen TYPO3-Projekten eine eher spezielle Rolle.
+    </p>
+
+    <h3>SYS – System</h3>
+    <p>
+      Enthält allgemeine TYPO3-Systemeinstellungen, die sowohl das Backend als
+      auch das Frontend betreffen können. Dazu gehören beispielsweise der
+      Site-Name, der Verschlüsselungsschlüssel, Fehlerbehandlung und
+      verschiedene allgemeine Systemoptionen.
+    </p>
+
+    <h3>T3_SERVICES – Services</h3>
+    <p>
+      Enthält die Registrierung und Konfiguration von Services innerhalb von
+      TYPO3. Dieser Bereich gehört eher zu den technischen bzw. internen
+      Konfigurationsmöglichkeiten.
+    </p>
+
+    <h2>Wie funktioniert TYPO3 grob?</h2>
+    <p>
+      TYPO3 holt Inhalte aus der Datenbank, verarbeitet sie mit PHP und/oder
+      Data Processors, konfiguriert das Rendering unter anderem mit TypoScript
+      und übergibt die aufbereiteten Daten an Fluid, das daraus das HTML für den
+      Browser erzeugt.
+    </p>
+    <img
+      src="/assets/screenshots/typo_vorgang.png"
+      alt="Abbildung zu Vorgang von Typo"
+    />
+    <p>
+      Daten kommen grundsätzlich aus der Datenbank. Konfiguration kommt aus
+      verschiedenen Konfigurationsquellen. PHP implementiert die eigentliche
+      Programmlogik. TypoScript konfiguriert vor allem das Frontend-Rendering
+      und bereitet Daten vor. Fluid erzeugt daraus das HTML.
+    </p>
+
+    <h3>Die Datenbank</h3>
+    <p>
+      Sobald ein Redakteur im Backend eine Seite oder ein Inhaltselement anlegt
+      werden die Informationen in der Datenbank gespeichert. zB
+    </p>
+    <pre>
+		Seite:
+		  uid: 42
+		  title: "Meine Seite"
+	</pre
+    >
+    <p>oder</p>
+    <pre>
+		Inhaltselement:
+		  uid: 234
+		  pid: 42
+		  CType: "text"
+		  header: "Unser Unternehmen"
+		  bodytext: "Wir sind ein Unternehmen"
+	</pre
+    >
+    <p>In tt_content liegen dabei alle Inhaltselemente gespeichert.</p>
+
+    <h3>TCA - Wie soll TYPO3 Daten verwalten?</h3>
+    <p>
+      Das Table Configuration Array (TCA) beschreibt TYPO3, wie
+      Datenbanktabellen im Backend behandelt und dargestellt werden. Dadurch
+      weiß Typo3 zB, dass header ein Feld ist, bodytext ein RTE Feld, CType
+      Inhaltstypen enthält,
+    </p>
+    <img
+      src="/assets/screenshots/typo3_cta.png"
+      alt="Abbildung zur CTA Tabelle von Typo3"
+    />
+
+    <h3>Site Configuration</h3>
+    <p>
+      Die Site Configuration enthält die Daten für die Website-Konfiguration.
+      Sie wird über das Sites Modul verwaltet.
+    </p>
+    <img
+      src="/assets/screenshots/typo3_site_configuration.png"
+      alt="Abbildung zur Site Configuration von Typo3"
+    />
+
+    <h2>Architektur von TYPO3</h2>
+    <p>TYPO3 basiert serverseitig auf PHP und RDBMS (MySQL)</p>
+    <img
+      src="/assets/screenshots/typo3_architektur.jpeg"
+      alt="Abbildung zur Architektur von TYPO3"
+    />
+    <img
+      src="/assets/screenshots/typo3_interface.jpeg"
+      alt="Abbildung zum Interface von TYPO3"
+    />
     <h2>Was genau ist TYPO3?</h2>
     <p>
       TYPO3 ist ein Enterprise Content Management System (CMS). Geschrieben in
