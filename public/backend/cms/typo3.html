@@ -961,6 +961,21 @@ fields:
       Um die Indexed Search im Plugin zu überschreiben, werden die
       Private/IndexedSearch angelegt.
     </p>
+    <h2>Bilder in webp konvertieren</h2>
+    <p>
+      TYPO3s Standardweg dafür ist der fileExtension-Parameter des
+      f:image/f:uri.image-ViewHelpers — der lässt TYPO3 die Datei über den
+      konfigurierten Grafik-Prozessor (ImageMagick/GraphicsMagick oder GDlib mit
+      WebP-Support) in ein anderes Format konvertieren und cached das Ergebnis
+      unter fileadmin/_processed_/. Übliches Muster (mit Fallback, da nicht 100%
+      aller Clients/Prozessoren WebP zuverlässig unterstützen):
+    </p>
+    <pre>
+< picture>
+    < source srcset="{f:uri.image(image: data.image.0, fileExtension: 'webp')}" type="image/webp" />
+    < f:image image="{data.image.0}" alt="{data.image.0.alternative}" />
+< /picture></pre
+    >
     <h2>Eigene Templates überschreiben</h2>
     <p>
       Unter vbv_theme/Resources/Private/ lassen sich Seiteninhalte
