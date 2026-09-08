@@ -12,34 +12,72 @@
       wird dann unterschieden in mail, smtp, sendmail.
     </p>
     <p>
-      rex_mailer() nutzt Standardmäßig die PHP mail() Funktion. Hier wird die Mail über den
-      lokalen Mailserver (zB sendmail, postfix) gesendet, diese kann erst nach einigen Minuten
-      an den echten SMTP Server weitergeleitet werden. Zustellzeit ist eher langsam. Spam Risiko, da die Mail direkt vom Server gesendet wird, ohne Authentifizierung.
+      <strong>mail (PHP mail())</strong> – rex_mailer() nutzt standardmäßig die
+      PHP-eigene mail()-Funktion. Die Mail wird dabei nicht direkt ins Internet
+      verschickt, sondern über den in php.ini hinterlegten sendmail_path an den
+      lokal auf dem Server laufenden Mailserver bzw. MTA übergeben (z. B.
+      Sendmail, Postfix, Exim). Von dort wird sie in eine lokale Warteschlange
+      gestellt und je nach Serverauslastung und Konfiguration mit Verzögerung –
+      von wenigen Sekunden bis hin zu mehreren Minuten – an den eigentlichen
+      Empfänger-Mailserver weitergeleitet. Die Zustellzeit ist dadurch
+      tendenziell langsamer und weniger vorhersehbar. Da hierbei keine
+      Authentifizierung stattfindet und die Mail direkt von der Server-IP
+      verschickt wird, stufen viele Empfänger-Mailserver diese Zustellung als
+      potenzielles Spam-Risiko ein, insbesondere wenn SPF, DKIM oder der
+      Reverse-DNS-Eintrag der Server-IP nicht zur Absenderdomain passen.
     </p>
     <p>
-      sendmail übergibt die Mail direkt an den Mailserver. Es ist kein Login notwendig, da die Mail intern
-      verschickt wird. Zustellzeit eher langsam. Spam Risiko, da die Mail direkt vom Server gesendet wird, ohne Authentifizierung.
+      <strong>sendmail</strong> – Hierbei umgeht PHPMailer die PHP
+      mail()-Funktion und übergibt die Mail stattdessen direkt per Pipe an das
+      lokale Sendmail-Programm (bzw. dessen Postfix- oder Exim-kompatiblen
+      Wrapper) auf dem Server. Ein Login ist nicht nötig, da die Übergabe rein
+      intern erfolgt. Technisch landet die Mail dabei im selben lokalen
+      Warteschlangen-Mechanismus wie bei "mail" – Zustellzeit und Spam-Risiko
+      verhalten sich daher nahezu identisch: eher langsame Zustellung, da die
+      Mail zunächst lokal verarbeitet wird, und ein erhöhtes Spam-Risiko mangels
+      Authentifizierung.
     </p>
     <p>
-      smtp benötigt Host, Port (Standard SMTP 25), Verschlüsselung,
-      Verschlüsselungstyp, Authentifizierung, Benutzername und Passwort. PHP verbindet sich direkt mit dem SMTP Server und sendet die Mail. Zustellzeit daher schnell. Geringes Spam Risiko, da SMTP eine Authentifizierung erfordert.
+      <strong>SMTP</strong> – Hierfür werden Host, Port, Verschlüsselung,
+      Verschlüsselungstyp, Authentifizierung sowie Benutzername und Passwort
+      benötigt. PHP verbindet sich direkt und verschlüsselt mit dem angegebenen
+      SMTP-Server und liefert die Mail ohne Umweg über eine lokale Warteschlange
+      aus. In der Praxis kommt dabei meist Port 587 (STARTTLS) oder Port 465
+      (SSL/TLS) zum Einsatz; Port 25 ist zwar der historische SMTP-Standardport,
+      wird für authentifizierten Versand aus Anwendungen heraus aber kaum noch
+      genutzt und ist bei vielen Hostern für ausgehende Verbindungen gesperrt.
+      Da SMTP eine Authentifizierung per Benutzername und Passwort erfordert und
+      die Mail direkt beim autorisierten Mailserver-Provider eingeliefert wird,
+      ist die Zustellung in der Regel schnell und das Spam-Risiko deutlich
+      geringer.
     </p>
+
     <h2>Email-Versand</h2>
     <h3>$mail->setFrom()</h3>
-    <p>Die Methode setFrom() legt den Absender der E-Mail fest. Ist diese nicht gesetzt, dann wird PHPMailer automatisch eine Absenderadresse
-      verwenden, die auf dem Server konfiguriert ist oder lässt sie leer. Viele Mailserver lehnen solche Mails ab oder droppen diese, obwohl 
-      PHPMailer die Mail als erfolgreich versendet zurückgibt.
+    <p>
+      Die Methode setFrom() legt den Absender der E-Mail fest. Ist diese nicht
+      gesetzt, dann wird PHPMailer automatisch eine Absenderadresse verwenden,
+      die auf dem Server konfiguriert ist oder lässt sie leer. Viele Mailserver
+      lehnen solche Mails ab oder droppen diese, obwohl PHPMailer die Mail als
+      erfolgreich versendet zurückgibt.
     </p>
     <h3>$mail->addAddress()</h3>
-    <p>Die Methode addAddress() fügt eine Empfängeradresse hinzu.
+    <p>Die Methode addAddress() fügt eine Empfängeradresse hinzu.</p>
     <h3>$mail->addReplyTo()</h3>
-    <p>Die Methode addReplyTo() fügt eine Reply-To-Adresse hinzu. Also wenn auf eine E-Mail geantwortet wird, dann geht sie an diese Email-Adresse. 
-      Erster Parameter ist die Email-Adresse, zweiter Parameter ist der Name.
+    <p>
+      Die Methode addReplyTo() fügt eine Reply-To-Adresse hinzu. Also wenn auf
+      eine E-Mail geantwortet wird, dann geht sie an diese Email-Adresse. Erster
+      Parameter ist die Email-Adresse, zweiter Parameter ist der Name.
       $mail->addReplyTo($formData['email'], $formData['name']);
     </p>
     <h3>Was wird benötigt um eine Mail zu senden? (sendmail)</h3>
-    <p>1. Eine funktionierende PHP Installation (Sendmail oder SMTP) mit korrekter Konfiguration (ist bei PHP schon konfiguriert)</p>
-    <p>2. Absenderadresse (bei sendmail kein Passwort notwendig, bei SMTP schon)</p>
+    <p>
+      1. Eine funktionierende PHP Installation (Sendmail oder SMTP) mit
+      korrekter Konfiguration (ist bei PHP schon konfiguriert)
+    </p>
+    <p>
+      2. Absenderadresse (bei sendmail kein Passwort notwendig, bei SMTP schon)
+    </p>
     <p>3. Empfängeradresse</p>
     <p>4. HTML Formular (name ist der Name im $POST['name'] Array)</p>
     <pre>
