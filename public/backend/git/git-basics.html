@@ -2,11 +2,14 @@
   <div class="container site-border">
 	<h1>Git Basics</h1>
 	<p>Eine super Dokumentation für Git gibt es <a href="https://learngitbranching.js.org/?locale=de_DE" target="_blank">HIER</a>
+
+	</p>
+	<p>Ein weiteres Online Tutorial gibt es <a href="https://try.github.io">HIER</a>
 	</p>
 	<p>Um die Git Graph Extension besser zu verstehen, klicke <a href="https://de.linkedin.com/pulse/git-graph-vscode-extension-visualizing-your-commit-tan-tran-minh-lahmc?tl=de" target="_blank">HIER</a>
 	</p>
 	<p>Git ist ein Versionskontroll System, dass Änderungen in Schritten als Commits in einem Historienbaum sammeln, so kann immer
-	  eingesehen werden wer zu welchem Zeitpunkt welche Änderung gemacht hat.
+	  eingesehen werden wer zu welchem Zeitpunkt welche Änderung gemacht hat. Es sollen Änderungen gezielt rückgängig gemacht werden können. Verschiedene Versionen sollten parallel geändert werden können.
 	</p>
 	<img src="/assets/screenshots/git_overview.jpeg" alt="Abbildung zu git Befehlen">
 
@@ -231,10 +234,26 @@
 	  nächsten commit vorgemerkt werden sollen. Mit git add wird ein File gestaged. Mit git restore --staged Filename wird es
 	  unstaged.
 	</p>
+	<h3>Repository</h3>
+	<p>Das Repository befindet sich auf einem zentralen Server.</p>
 	<h3>Local Repository: </h3>
-
+	<p>Enthält die Änderungsgeschichte (Commits) und die Dateiinhalte aller Versionen auf dem lokalen Gerät.</p>
 	<h3>Remote Repository: </h3>
-
+	<p>Enthält die Änderungsgeschichte (Commits) und die Dateiinhalte aller Versionen auf einem entfernten Server, z. B. auf GitLab. Geteilte Kopie eines Repositories im Netzwerk / Internet.</p>
+	<h3>Status</h3>
+	<p>Zusammengefasster Unterschied zwischen Arbeitskopie und Repository</p>
+	<h3>Diff</h3>
+	<p>Unterschiede zwischen Dateien der Arbeitskopie, des Repositories oder anderer Versionen.</p>
+	<h3>Checkout</h3>
+	<p>Dateiinhalte einer Version aus dem Repository in die Arbeitskopie kopieren.</p>
+	<h3>Commit</h3>
+	<p>Derzeitiger Stand der Arbeitskopie (selektiv) als neue Version in das Repository übernehmen.</p>
+	<h3>Branch</h3>
+	<p>Ein Entwicklungszweig, der inhaltliche Änderungen thematisch gruppiert</p>
+	<h3>Rebasing</h3>
+	<p>Umorganisieren von Commits innerhalb eines Branches.</p>
+	<h3>Merging</h3>
+	<p>Prozess des Zusammenfügens zweier (oder mehr) Entwicklungszweige</p>
 	<h3>Code auf GitHub übertragen</h3>
 	<p>Zuerst wird ein Repository auf GitHub erstellt. Anschließend wird das lokale Repository mit dem Remote-Repository verbunden.
 	  Dafür wird der Link der Seite kopiert und anschließen folgender Befehl ausgeführt:

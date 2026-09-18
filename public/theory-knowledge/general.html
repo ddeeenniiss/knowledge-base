@@ -1735,10 +1735,11 @@ sudo apachectl configtest
     <p>
       Ein verbindungsloses und unzuverlässiges Protokoll, das keine Bestätigung
       der Zustellung liefert. Es ist schneller als TCP, aber weniger
-      zuverlässig. Es enthält Quellport, Zielport, Checksum (Findung von
-      möglichen Fehlern bei der Übertragung), Längenfeld und Datenfeld
-      (Payload). Ein Rechner erkennt UDP anhand der Protokollnummer im IP
-      Header.
+      zuverlässig. Es enthält Quellport 16 Bit, Zielport 16 Bit, Checksum
+      (Findung von möglichen Fehlern bei der Übertragung) 16 Bit, Längenfeld und
+      Datenfeld (Payload) 16 Bit. Ein Rechner erkennt UDP anhand der
+      Protokollnummer im IP Header. Checksum ist bei IPv6 erforderlich, bei IPv4
+      optional auf 0.
     </p>
     <p>
       Verwendung bei Anwendungen die zeitkritisch sind und bei denen kleine
@@ -1760,7 +1761,7 @@ sudo apachectl configtest
     <p>
       TCP wird bei Anwendungen verwendet die nicht zeitkritisch sind, bei denen
       jedoch wichtig ist das die Daten fehlerfrei übertragen werden.
-      Beispielsweise Email Versand, Dateiupload und download.
+      Beispielsweise Email Versand, Webseiten, Chats, Dateiupload und download.
     </p>
     <h4>3-Wege-Handschlag</h4>
     <p>
@@ -1811,7 +1812,7 @@ sudo apachectl configtest
       Webbrowsern und Webservern. Auch zum herunterladen von Daten von einem
       Webserver. Kommunikation zwischen Client und Server. Es wird auf Port 80
       verwendet. Ein Server lauscht auf Port 80 und wartet auf eingehende
-      Verbindungen.
+      Verbindungen. Bildet die Grundlage des www.
     </p>
     <ul>
       <li>GET (Daten anfordern)</li>
@@ -1846,6 +1847,8 @@ sudo apachectl configtest
       Ports werden genutzt um Verbindungen zwischen ein und demselben Paar von
       Kommunikationsteilnehmern unterscheiden zu können. Ports können weiterhin
       Netzwerkprotokolle und Netzwerkdienste identifizieren.
+      Kommunikationsteilnehmer können mehrere Dienste laufen lassen. Ports sind
+      zahlen zwischen 0 und 65535.
     </p>
     <p>
       Bei einer Verbindung mit UDP oder TCP sind jeweils 2 Ports relevant. Ein
@@ -3202,6 +3205,140 @@ ddev launch /redaxo
     <p>
       Meistens steckt in einem Router direkt ein kleiner Switch drin. Internet
       -> Glasfaser/DSL -> Router -> Switch -> PC, TV, NAS
+    </p>
+    <h2>Software Qualität</h2>
+    <p>
+      Wichtige Aspekte beim coding sind Änderbarkeit, Effizienz,
+      Übertragbarkeit, Zuverlässigkeit, Funktionalität und Benutzbarkeit
+    </p>
+    <h3>Namensgebung</h3>
+    <p>
+      Wenn es schwer ist gute Namen für eine Klasse zu finden, dann einfach
+      illustrieren auf Papier
+    </p>
+    <h3>DRY – Don't Repeat Yourself</h3>
+    <p>
+      Code sollte nicht unnötig mehrfach geschrieben werden. Wiederkehrende
+      Logik sollte beispielsweise in Funktionen, Komponenten oder Modulen
+      zusammengefasst werden.
+    </p>
+    <h3>KISS – Keep It Simple, Stupid</h3>
+    <p>
+      Code sollte möglichst einfach und verständlich gehalten werden. Unnötige
+      Komplexität, verschachtelte Logik und überkomplizierte Lösungen sollten
+      vermieden werden.
+    </p>
+    <h3>Modularität</h3>
+    <p>
+      Ein Programm sollte in kleine, voneinander möglichst unabhängige Module
+      aufgeteilt werden. Dadurch kann Code leichter verstanden, getestet,
+      wiederverwendet und verändert werden.
+    </p>
+    <h3>Single Responsibility</h3>
+    <p>
+      Eine Funktion, Klasse oder Komponente sollte möglichst nur eine klar
+      definierte Aufgabe haben. Änderungen an einer Aufgabe sollten dadurch
+      möglichst wenige andere Programmteile beeinflussen.
+    </p>
+    <h3>Separation of Concerns</h3>
+    <p>
+      Unterschiedliche Verantwortlichkeiten sollten voneinander getrennt werden.
+      In der Webentwicklung werden beispielsweise Struktur (HTML), Darstellung
+      (CSS) und Logik (JavaScript) getrennt.
+    </p>
+    <h3>Wiederverwendbarkeit</h3>
+    <p>
+      Code sollte so gestaltet werden, dass Funktionen, Komponenten und Module
+      an mehreren Stellen verwendet werden können, anstatt dieselbe
+      Funktionalität mehrfach zu implementieren.
+    </p>
+    <h3>Lesbarkeit</h3>
+    <p>
+      Code sollte für andere Entwickler leicht verständlich sein.
+      Aussagekräftige Variablennamen, eine sinnvolle Struktur und eine
+      einheitliche Formatierung verbessern die Lesbarkeit.
+    </p>
+    <h3>Keine unnötigen globalen Variablen</h3>
+    <p>
+      Globale Variablen sollten möglichst vermieden werden, da sie zu
+      unerwarteten Seiteneffekten und schwer nachvollziehbaren Abhängigkeiten
+      führen können. Daten sollten bevorzugt lokal gehalten oder gezielt über
+      Parameter und Rückgabewerte übertragen werden.
+    </p>
+    <h3>YAGNI – You Aren't Gonna Need It</h3>
+    <p>
+      Funktionalität sollte erst implementiert werden, wenn sie tatsächlich
+      benötigt wird. Dadurch wird vermieden, dass unnötiger Code und unnötige
+      Komplexität entstehen.
+    </p>
+    <h3>Fail Fast</h3>
+    <p>
+      Fehler sollten möglichst früh erkannt und behandelt werden. Ungültige
+      Eingaben oder Zustände sollten beispielsweise frühzeitig überprüft werden,
+      anstatt später schwer nachvollziehbare Fehler zu verursachen.
+    </p>
+    <h3>Defensive Programmierung</h3>
+    <p>
+      Programme sollten auch mit unerwarteten oder ungültigen Eingaben umgehen
+      können. Eingaben werden beispielsweise validiert und potenzielle
+      Fehlerfälle werden berücksichtigt.
+    </p>
+    <h3>Security by Design</h3>
+    <p>
+      Sicherheit sollte bereits bei der Entwicklung berücksichtigt werden. Dazu
+      gehören beispielsweise Eingabevalidierung, Schutz vor XSS und
+      SQL-Injection sowie ein sicherer Umgang mit Passwörtern und
+      Authentifizierungsdaten.
+    </p>
+    <h3>Separation von Frontend und Backend</h3>
+    <p>
+      Frontend und Backend sollten klar getrennte Verantwortlichkeiten haben.
+      Das Frontend kümmert sich hauptsächlich um Benutzeroberfläche und
+      Interaktion, während das Backend beispielsweise Geschäftslogik,
+      Datenverarbeitung und Datenbankzugriffe übernimmt.
+    </p>
+    <h3>Versionskontrolle</h3>
+    <p>
+      Änderungen am Code sollten mit einem Versionsverwaltungssystem wie Git
+      nachvollziehbar gespeichert werden. Dadurch können Änderungen verglichen,
+      zurückgesetzt und im Team gemeinsam bearbeitet werden.
+    </p>
+    <h3>Code Reviews</h3>
+    <p>
+      Code sollte nach Möglichkeit von anderen Entwicklern überprüft werden.
+      Dadurch können Fehler, Sicherheitsprobleme und Verbesserungsmöglichkeiten
+      früh erkannt werden.
+    </p>
+    <h3>Testbarkeit</h3>
+    <p>
+      Code sollte so geschrieben werden, dass einzelne Funktionen und
+      Komponenten möglichst einfach getestet werden können. Kleine, klar
+      abgegrenzte Funktionen erleichtern beispielsweise automatisierte Tests.
+    </p>
+    <h3>Dokumentation</h3>
+    <p>
+      Komplexe oder nicht offensichtliche Teile des Codes sollten dokumentiert
+      werden. Der Code selbst sollte jedoch möglichst selbsterklärend sein,
+      sodass unnötige Kommentare vermieden werden.
+    </p>
+    <h3>Konsequente Namensgebung</h3>
+    <p>
+      Variablen, Funktionen, Klassen und Komponenten sollten aussagekräftige und
+      einheitliche Namen besitzen. Namen sollten möglichst klar erkennen lassen,
+      welche Aufgabe oder welchen Inhalt sie repräsentieren.
+    </p>
+    <h3>Keine vorzeitige Optimierung</h3>
+    <p>
+      Code sollte zunächst korrekt und verständlich implementiert werden.
+      Optimierungen sollten gezielt dort vorgenommen werden, wo tatsächlich ein
+      Performanceproblem besteht.
+    </p>
+    <h3>Fehlerbehandlung</h3>
+    <p>
+      Fehler sollten kontrolliert behandelt werden, anstatt sie zu ignorieren.
+      Benutzer sollten verständliche Fehlermeldungen erhalten, während
+      technische Details beispielsweise für das Logging aufgezeichnet werden
+      können.
     </p>
   </div>
 </div>
