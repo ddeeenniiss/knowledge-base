@@ -511,7 +511,7 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
     </table>
     <h3>index.html</h3>
 
-    <h2>Fehlercodes</h2>
+    <h2>Fehlercodes / Statuscodes / Antwortcodes</h2>
     <p>
       HTTP-Statuscodes sind standardisierte Codes, die von Webservern verwendet
       werden, um den Status einer HTTP-Anfrage anzuzeigen. Hier sind einige der
@@ -817,6 +817,28 @@ AddType text/html .shtml
       Uhrzeit.
     </p>
 
+    <h2>Umgebungsvariable</h2>
+    <p>
+      Eine Umgebungsvariable ist eine globale Variable des Betriebssystems,
+      welche von mehreren Programmen verwendet werden kann. Oft sind in
+      Umgebungsvariablen Pfade gespeichert.
+    </p>
+    <h3>PATH</h3>
+    <p>
+      In der Umgebungsvariable PATH sind alle Pfade gespeichert, in denen nach
+      einem ausführbaren Programm gesucht wird, wenn der Benutzer das Programm
+      ohne Pfadangabe aufruft und sich das Programm nicht im aktuellen
+      Verzeichnis beendet. Diese kann mit echo $PATH angezeigt werden.
+    </p>
+    <p>Mit set können alle Umgebungsvariablen angezeigt werden.</p>
+    <p>
+      HOME enthält den Pfad zum Heimatverzeichnis des aktuell angemeldeten
+      Benutzers.
+    </p>
+    <h3>Setzen von Umgebungsvariablen</h3>
+    <p>zB VAR1=HelloWorld</p>
+    <h3>Entfernen der Umgebungsvariable</h3>
+    <p>unset VAR1</p>
     <h2>Prozess</h2>
     <p>Ein Prozess meint das Ausführen eines Programms.</p>
 
@@ -1582,7 +1604,9 @@ sudo apachectl configtest
       es ermöglicht, über ein öffentliches Netzwerk (z. B. das Internet) sicher
       zu kommunizieren. Es verschlüsselt den Datenverkehr und versteckt die
       IP-Adresse des Nutzers. Vorstellbar wie ein Tunnel, der die Berechtigung
-      durch ID und Passwort prüft, bevor er den Datenverkehr durchlässt.
+      durch ID und Passwort prüft, bevor er den Datenverkehr durchlässt. Ein
+      Rechner kann Teil dieses Netzwerk werden, wenn er zu einem Rechner in
+      diesem Netzwerk eine VPN Verbindung aufgebaut hat.
     </p>
     <h2>URL (Uniform Resource Locator)</h2>
     <p>
@@ -1657,6 +1681,15 @@ sudo apachectl configtest
       Überlastung. Ein Rechner erkennt TCP anhand der Protokollnummer im IP
       Header.
     </p>
+    <h4>3-Wege-Handschlag</h4>
+    <p>
+      Im Vergleich zum verbindungslosen Netzwerkprotokoll UDP, bei dem nicht
+      gewährleistet ist, dass die Daten ihren Bestimmungsort erreichen, wird bei
+      TCP mittels des so genannten 3-Wege-Handschlags sichergestellt, dass eine
+      Verbindung zwischen den Kommunikationsteilnehmern existiert. Über diese
+      Verbindung können dann Daten gesendet und mittels Prüfsumme getestet
+      werden.
+    </p>
     <h3>Telnet Port 23</h3>
     <p>
       Telnet ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es
@@ -1696,7 +1729,8 @@ sudo apachectl configtest
       HTTP ist ein Protokoll zur Übertragung von Webinhalten zwischen
       Webbrowsern und Webservern. Auch zum herunterladen von Daten von einem
       Webserver. Kommunikation zwischen Client und Server. Es wird auf Port 80
-      verwendet.
+      verwendet. Ein Server lauscht auf Port 80 und wartet auf eingehende
+      Verbindungen.
     </p>
     <ul>
       <li>GET (Daten anfordern)</li>
@@ -1712,7 +1746,11 @@ sudo apachectl configtest
     <p>
       HTTPS ist eine sichere Version von HTTP, die SSL/TLS-Verschlüsselung
       verwendet, um die Kommunikation zwischen dem Browser und dem Server zu
-      schützen. Es wird auf Port 443 verwendet.
+      schützen. Es wird auf Port 443 verwendet. Möchte ein Client eine
+      Verbindung zu diesem Server aufbauen so ermittelt er mit Hilfe von DNS die
+      IP Adresse des Servers und baut auf Port 80 eine TCP Verbindung zu diesem
+      auf. Daraufhin sendet der Client seine HTTP Anfrage (zB GET, POST,
+      HEAD,..) und der Server sendet seine Antwort an den Client zurück.
     </p>
     <h3>>SSH (Secure Shell)</h3>
     <p>
@@ -1727,10 +1765,21 @@ sudo apachectl configtest
 
     <h2>IP Protokoll</h2>
     <p>Ist das Internet Protokoll und befindet sich auf Schicht 3</p>
+    <h3>IP Adresse</h3>
+    <p>
+      Ip Adressen machen Geräte in einem Netzwerk eindeutig identifizierbar.
+    </p>
     <h3>IPv4 Adresse</h3>
     <p>
-      IPv4 besteht aus 4 Gruppen zu je 8 bit, somit 32 bit gesamt. Damit sind
-      2^32 = 4.294.967.296 Adressen möglich.
+      IPv4 besteht aus 4 Gruppen zu je 8 bit, somit 32 bit gesamt. Jeder Block
+      wird als Dezimalzahl zwischen 0 und 255 dargestellt. Damit sind 2^32 =
+      4.294.967.296 Adressen möglich.
+    </p>
+    <h3>IPv6 Adresse</h3>
+    <p>
+      IPv6 besteht aus 8 Gruppen zu je 16 bit und ist in Hexadezimalschreibweise
+      notiert. Somit insgesamt 128 Bit. Damit sind theoretisch 2^128 = 3,4 ×
+      10³⁸ Adressen = 340.282.366.920.938.463.463.374.607.431.768.211.456
     </p>
 
     <h3>Private Adressen</h3>
@@ -1775,31 +1824,55 @@ sudo apachectl configtest
     />
     <p>
       Das ISO/OSI Schichtenmodell wird in 7 Schichten aufgeteilt und ist ein
-      Denkmodell zur Veranschaulichung von Kommunikationsschichten
+      Denkmodell zur Veranschaulichung von Kommunikationsschichten. Alle
+      auftretenden Aufgaben sind in den sieben Schichten eingefügt. Wichtig ist
+      dabei, dass jede Schicht Dienste anbietet, die von der darüberliegenden
+      Schicht verwendet werden können. Somit wird die Kommunikation von den
+      anwendungsnahen Schichten zu denen der physikalischen Übertragung
+      weitergereicht. ISO steht für "International Organization for
+      Standardization". OSI steht für "Open Systems Interconnection"
     </p>
+    <p>
+      Beim Senden vom Client zum Server werden die Daten von oben nach unten,
+      also von Schicht 7 bis Schicht 1, gekapselt (verschachtelt). Sobald die
+      Daten beim Server angekommen sind, werden sie Schicht für Schicht von
+      Schicht 1 bis Schicht 7 entkapselt. Dadurch kann der Server die
+      HTTP-Anfrage verstehen und verarbeiten. Bei der Antwort des Servers werden
+      die Daten anschließend wieder von oben nach unten gekapselt. Wenn die
+      Antwort beim Client angekommen ist, werden die Daten dort wieder von
+      Schicht 1 bis Schicht 7 entkapselt.
+    </p>
+    <p>Merksatz: Senden: 7 -> 1 Kapselung, Empfangen: 1 -> 7 Entkapselung</p>
     <ol>
       <li>
         Physical: Übertragung von Bitströmen auf physikalischen Verbindungen.
         Definiert Stecker, Link Geschwindigkeiten,
         Übertragungsgeschwindigkeiten, Kabel, Steckerverbindungen, Hub.
+        Definition der elektrischen, mechanischen und funktionalen Schnittstelle
+        zum Übertragungsmedium.
       </li>
       <li>
         Data Link: realisiert die Kommunikation innerhalb eines Netzes in Form
         von PPP, Ethernet, WLAN. Switches leiten Frames zwischen Knoten
         derselben Technologie weiter. Auf dieser Schicht sind die MAC Adressen.
+        Physikalische Adressierung mit Fehlererkennung, Fehlerkorrektur und
+        Datenflusskontrolle.
       </li>
       <li>
         Network: Weiterleitung von Paketen von Quelle zu Ziel in Internet per
         IP. Adressen werden zugewiesen. Router leiten Pakete zwischen
         verschiedenen Netzwerktechnologien weiter. Router arbeiten auf dieser
-        Schicht.
+        Schicht. Erstmalige logische Adressierung der Endgeräte.
       </li>
-      <li>Transport: Host-to-Host Datentransfer per TCP, UDP</li>
-      <li>Session:</li>
-      <li>Presentation:</li>
+      <li>
+        Transport: Host-to-Host Datentransfer per TCP, UDP. Verbindungen
+        zwischen den Endsystemen.
+      </li>
+      <li>Session: Datenpaket wird einer Anwendung zugeordnet.</li>
+      <li>Presentation: Umwandlung der Daten in eigenes Format.</li>
       <li>
         Application: Protokolle tauschen Kontrollnachrichten & Daten aus per
-        FTP, SMTP, HTTP
+        FTP, SMTP, HTTP. Funktionsaufruf durch den Anwender.
       </li>
     </ol>
 
@@ -2273,10 +2346,21 @@ Antwort: 257 "/www_relaunch2025/assets/js" is the current directory</pre
       Der Browser baut dann das DOM (HTML), rendert das Layout (CSS) und führt
       den Code aus (JS).
     </p>
+    <h3>Aufgabenverteilung zwischen Webserver und Webclient</h3>
+    <p>
+      Der Server stellt für viele Clients Daten zum Abruf bereit. Der Webclient
+      ruft Daten von einem Server ab und kümmert sich um deren Verarbeitung zB
+      die Darstellung einer Website.
+    </p>
     <p>
       Zur Test Entwicklung ruft man die Seite immer über den localhost auf. Das
       ist ein Server direkt auf dem eigenen Gerät auf der IP 127.0.0.1
     </p>
+    <h3>Kommunikation im Web / Kommunikation zwischen Client und Server</h3>
+    <img
+      src="/assets/screenshots/kommunikation_im_web.jpeg"
+      alt="Abbildung zur Kommunikation im Web"
+    />
     <h2>Clientseitige vs Serverseitige Programmierung</h2>
 
     <h3>Clientseitige Programmierung</h3>
@@ -2505,7 +2589,8 @@ und hier html content ...
       Mit TRACE kann der Client überprüfen, wie eine Anfrage durch Proxy-Server
       oder andere Zwischenstationen verarbeitet wird. Durch welche
       Zwischenstationen eine Anfrage läuft. Der Server gibt dabei die empfangene
-      Anfrage zurück. Aus Sicherheitsgründen wird TRACE häufig deaktiviert.
+      Anfrage unverändert zurück. Aus Sicherheitsgründen wird TRACE häufig
+      deaktiviert.
     </p>
 
     <h3>DELETE-Methode</h3>
@@ -2571,6 +2656,204 @@ und hier html content ...
         Require valid-user
       &lt;/Directory&gt;
     </pre>
+    <h2>Webservice / Webdienst</h2>
+    <p>
+      Ein Webservice ist eine Schnittstelle, über die Programme über ein
+      Netzwerk miteinander kommunizieren und Daten oder Funktionen austauschen.
+      zB eine Wetterapp, die die Informationen von einem Webservice anfragt,
+      erhält und dann anzeigt. Oder eine Websiten Suche, die Daten bei einem
+      Webservice anfragt, bekommt und anzeigt.
+    </p>
+    <h2>Rechtliche Aspekte</h2>
+
+    <h3>EU-Datenschutz-Grundverordnung (DSGVO)</h3>
+    <p>
+      Die DSGVO regelt den Schutz personenbezogener Daten. Bei der
+      Webentwicklung muss insbesondere darauf geachtet werden, welche
+      personenbezogenen Daten erhoben, verarbeitet und gespeichert werden.
+      Nutzer müssen über die Datenverarbeitung informiert werden und haben unter
+      anderem Rechte auf Auskunft, Berichtigung und Löschung. Außerdem müssen
+      geeignete technische und organisatorische Maßnahmen zum Schutz der Daten
+      getroffen werden.
+    </p>
+
+    <h3>Bundesdatenschutzgesetz (BDSG)</h3>
+    <p>
+      Das BDSG ergänzt und konkretisiert die DSGVO für Deutschland. Es enthält
+      unter anderem besondere Regelungen für bestimmte Datenverarbeitungen,
+      Datenschutzbeauftragte und öffentliche Stellen. Bei der Entwicklung von
+      Webanwendungen ist es daher zusammen mit der DSGVO zu beachten.
+    </p>
+
+    <h3>Landesdatenschutzgesetze</h3>
+    <p>
+      Die Bundesländer besitzen eigene Datenschutzgesetze. Diese sind
+      insbesondere für öffentliche Stellen des jeweiligen Bundeslandes relevant
+      und ergänzen die DSGVO und das BDSG. Bei Webanwendungen von Behörden oder
+      anderen öffentlichen Einrichtungen muss daher zusätzlich das
+      Datenschutzrecht des jeweiligen Bundeslandes berücksichtigt werden.
+    </p>
+
+    <h3>Digitale-Dienste-Gesetz (DDG)</h3>
+    <p>
+      Das DDG enthält Regelungen für digitale Dienste und hat unter anderem
+      Bestimmungen zu Informationspflichten und zur Verantwortlichkeit von
+      Diensteanbietern. Es ist seit 2024 an die Stelle wesentlicher Regelungen
+      des früheren Telemedienrechts getreten. Für viele Webseiten sind daher
+      beispielsweise die Anbieterinformationen bzw. das Impressum relevant. Es
+      muss für den Nutzer erkennbar sein, mit welchen natürlichen und
+      juristischen Personen er es auf Seite des Diensteanbieters zu tun hat.
+    </p>
+
+    <h3>Cookies und TDDDG</h3>
+    <p>
+      Cookies und vergleichbare Technologien werden insbesondere durch § 25
+      TDDDG geregelt. Das Speichern von Informationen auf dem Endgerät des
+      Nutzers oder der Zugriff auf bereits gespeicherte Informationen ist
+      grundsätzlich nur mit Einwilligung des Nutzers zulässig.
+    </p>
+
+    <p>
+      Eine Einwilligung ist insbesondere dann nicht erforderlich, wenn die
+      Speicherung bzw. der Zugriff unbedingt erforderlich ist, damit ein vom
+      Nutzer ausdrücklich gewünschter digitaler Dienst bereitgestellt werden
+      kann. Dies kann beispielsweise bei technisch notwendigen Cookies der Fall
+      sein. Analyse- oder Marketing-Cookies benötigen dagegen grundsätzlich eine
+      Einwilligung.
+    </p>
+
+    <p>
+      Werden durch Cookies personenbezogene Daten verarbeitet, müssen zusätzlich
+      die Vorschriften der DSGVO beachtet werden. Die Einwilligung muss
+      insbesondere freiwillig, informiert und widerrufbar sein.
+    </p>
+
+    <h3>Telekommunikation-Digitale-Dienste-Datenschutz-Gesetz (TDDDG)</h3>
+    <p>
+      Das TDDDG regelt unter anderem den Datenschutz und den Schutz der
+      Privatsphäre bei Telekommunikation und digitalen Diensten. Für Webseiten
+      ist insbesondere der Zugriff auf Informationen auf dem Endgerät des
+      Nutzers relevant, zum Beispiel bei Cookies oder vergleichbaren
+      Technologien. Außerdem enthält das Gesetz Anforderungen an technische und
+      organisatorische Maßnahmen.
+    </p>
+
+    <h3>Telemediengesetz (TMG)</h3>
+    <p>
+      Das TMG ist für die heutige Webentwicklung weitgehend durch das
+      Digitale-Dienste-Gesetz (DDG) abgelöst worden. Historisch enthielt es
+      wichtige Regelungen für Telemedien, unter anderem zu
+      Informationspflichten, Datenschutz und Verantwortlichkeit von
+      Diensteanbietern. In älteren Unterlagen zur Webentwicklung kann das TMG
+      deshalb noch häufig genannt werden.
+    </p>
+
+    <h3>Teledienstgesetz (TDG)</h3>
+    <p>
+      Das Teledienstgesetz war ein früheres deutsches Gesetz zur Regelung von
+      Telediensten. Es ist heute nicht mehr in Kraft. Seine Regelungen wurden
+      später durch andere Gesetze, insbesondere das Telemediengesetz, ersetzt
+      und sind inzwischen teilweise durch das DDG bzw. andere aktuelle
+      Regelungen abgelöst worden.
+    </p>
+
+    <h3>Teledienstdatenschutzgesetz (TDDSG)</h3>
+    <p>
+      Das Teledienstdatenschutzgesetz war eine frühere Regelung zum Datenschutz
+      bei Telediensten und ist heute nicht mehr in Kraft. Die entsprechenden
+      datenschutzrechtlichen Anforderungen werden heute insbesondere durch die
+      DSGVO und ergänzende nationale Regelungen wie das TDDDG bestimmt.
+    </p>
+
+    <h3>Medienstaatsvertrag (MStV)</h3>
+    <p>
+      Der Medienstaatsvertrag regelt unter anderem journalistisch-redaktionelle
+      Angebote im Internet sowie bestimmte Medienangebote. Je nach Art und
+      Ausrichtung einer Webseite können beispielsweise besondere Anforderungen
+      an journalistische Inhalte, Anbieterkennzeichnung oder journalistische
+      Sorgfaltspflichten relevant sein.
+    </p>
+
+    <h3>Telekommunikationsgesetz (TKG)</h3>
+    <p>
+      Das TKG regelt die Telekommunikation in Deutschland, beispielsweise
+      Telekommunikationsnetze und Telekommunikationsdienste. Für eine normale
+      Webseite ist es meist weniger relevant als DSGVO und DDG. Relevant wird es
+      insbesondere, wenn ein Webangebot selbst Telekommunikationsdienste
+      bereitstellt oder entsprechende technische Dienste betreibt.
+    </p>
+
+    <h3>Personalvertretungsgesetze</h3>
+    <p>
+      Personalvertretungsgesetze regeln die Beteiligungsrechte von
+      Personalvertretungen, insbesondere im öffentlichen Dienst. Bei der
+      Entwicklung oder Einführung von Webanwendungen können sie relevant werden,
+      wenn Beschäftigtendaten verarbeitet oder technische Systeme zur
+      Überwachung bzw. Kontrolle des Verhaltens oder der Leistung von
+      Beschäftigten eingesetzt werden. Das jeweils zuständige Bundes- oder
+      Landesrecht ist zu beachten.
+    </p>
+
+    <h3>Urheberrechtsgesetz (UrhG)</h3>
+    <p>
+      Das Urheberrecht schützt beispielsweise Texte, Fotos, Grafiken, Videos,
+      Musik, Software und andere kreative Werke. Bei der Webentwicklung dürfen
+      fremde Inhalte grundsätzlich nicht einfach kopiert oder auf einer Webseite
+      verwendet werden. Für Bilder, Texte, Schriftarten, Software oder andere
+      Inhalte müssen daher die erforderlichen Nutzungsrechte bzw. Lizenzen
+      vorliegen. Auch selbst erstellte Webseiten können urheberrechtlich
+      geschützte Bestandteile enthalten.
+    </p>
+
+    <h3>Bildnisrecht</h3>
+    <p>
+      Das Bildnisrecht regelt die Veröffentlichung und Verbreitung von Bildern,
+      auf denen Personen erkennbar dargestellt sind. Nach § 22 KUG dürfen
+      Bildnisse grundsätzlich nur mit Einwilligung der abgebildeten Person
+      verbreitet oder öffentlich zur Schau gestellt werden.
+    </p>
+
+    <p>
+      § 23 KUG enthält bestimmte Ausnahmen von der Einwilligungspflicht,
+      beispielsweise für Bildnisse aus dem Bereich der Zeitgeschichte, Personen
+      als Beiwerk oder Bilder von Versammlungen und ähnlichen Veranstaltungen.
+      Auch bei diesen Ausnahmen dürfen jedoch keine berechtigten Interessen der
+      abgebildeten Person verletzt werden.
+    </p>
+
+    <p>
+      Das Bildnisrecht ist vom Urheberrecht zu unterscheiden. Das Urheberrecht
+      betrifft beispielsweise die Rechte des Fotografen am Foto, während das
+      Bildnisrecht die Rechte der abgebildeten Person betrifft. Für die
+      Veröffentlichung eines Fotos können daher beide Rechtsbereiche relevant
+      sein.
+    </p>
+
+    <h3>Weitere wichtige rechtliche Aspekte</h3>
+    <p>
+      Je nach Webseite können außerdem weitere Vorschriften relevant sein,
+      beispielsweise das Wettbewerbsrecht, Markenrecht, Vertragsrecht,
+      Jugendschutzrecht, Barrierefreiheitsrecht und Verbraucherschutzrecht.
+      Welche Vorschriften tatsächlich gelten, hängt insbesondere von der Art der
+      Webseite, dem Betreiber, den angebotenen Funktionen und den verarbeiteten
+      Daten ab.
+    </p>
+
+    <h2>Template Engines</h2>
+    <p>
+      Eine Template Engine ist die Verbindung zwischen Daten aus dem Backend und
+      dem HTML, das im Browser landet. Die Template Engine ersetzt die
+      Platzhalter und erzeugt daraus HTML. Bei Typo ist das beispielsweise
+      Fluid. Bei Redaxo gibt es wiederum eigene Redaxo Templates
+    </p>
+
+    <h2>Frameworks</h2>
+    <p>
+      wiederverwertbares Softwaresystem mit bereits implementierter
+      Funktionalität. PHP nutzt zB weitgehend Symfony Templatekomponenten und
+      eigene Typo3 Architektur, Python DJANGO.
+    </p>
+
     <h2>Docker</h2>
     <p>
       Docker erlaubt es, Software in abgeschlossenen Containern zu starten, die

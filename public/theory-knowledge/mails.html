@@ -81,6 +81,122 @@
       Ordnerstrukturen und das Markieren von E-Mails als gelesen oder ungelesen.
     </p>
 
+    <h2>PHP mail()</h2>
+    <p>
+      <code>mail()</code> ist eine in PHP integrierte Funktion zum Versenden von
+      E-Mails. Sie ermöglicht es einem PHP-Skript, eine E-Mail an einen oder
+      mehrere Empfänger zu übergeben. Dabei verschickt PHP die E-Mail jedoch
+      nicht selbst direkt an den Empfänger. Stattdessen übergibt PHP die
+      Nachricht an die auf dem Server eingerichtete Mail-Infrastruktur.
+    </p>
+    <p>
+      Der grundsätzliche Ablauf ist folgender: Das PHP-Skript ruft die Funktion
+      <code>mail()</code> auf und übergibt unter anderem die Empfängeradresse,
+      den Betreff, den Nachrichtentext und optional weitere Header. PHP übergibt
+      diese Informationen anschließend an den auf dem Server konfigurierten
+      Mailserver beziehungsweise Mail Transfer Agent (MTA). Dieser übernimmt die
+      eigentliche Weiterleitung der E-Mail über das Internet.
+    </p>
+    <p>
+      Der Mailserver versucht anschließend, die Nachricht an den zuständigen
+      Mailserver des Empfängers zu übertragen. Dafür wird üblicherweise das
+      SMTP-Protokoll verwendet. Der Mailserver des Empfängers nimmt die
+      Nachricht entweder an oder lehnt sie beispielsweise aufgrund von
+      Spamverdacht, fehlender Authentifizierung oder einer ungültigen
+      Empfängeradresse ab. Wird die Nachricht akzeptiert, wird sie anschließend
+      im Postfach des Empfängers abgelegt. Es kann trotzdem vorkommen, dass die
+      Nachricht später durch einen Spamfilter aussortiert wird.
+    </p>
+    <p>
+      Ein einfaches Beispiel für die Verwendung von <code>mail()</code> sieht so
+      aus:
+    </p>
+    <pre><code>$to = "max@example.com"; $subject = "Testmail"; $message = "Hallo Max!"; $headers = "From: webseite@example.com\r\n"; mail($to, $subject, $message, $headers);</code></pre>
+    <p>
+      Der erste Parameter enthält die Empfängeradresse. Der zweite Parameter ist
+      der Betreff der E-Mail. Der dritte Parameter enthält den eigentlichen
+      Nachrichtentext. Über den vierten Parameter können zusätzliche Header
+      angegeben werden, beispielsweise die Absenderadresse oder weitere
+      Informationen zur E-Mail.
+    </p>
+    <p>
+      Eine wichtige Besonderheit von <code>mail()</code> ist der Rückgabewert.
+      Gibt die Funktion <code>true</code> zurück, bedeutet das nicht
+      automatisch, dass die E-Mail beim Empfänger angekommen ist. Es bedeutet im
+      Wesentlichen, dass die Nachricht erfolgreich an die lokale
+      Mail-Infrastruktur zur weiteren Verarbeitung übergeben wurde. Ob die
+      Nachricht tatsächlich zugestellt wird, entscheidet sich erst bei den
+      nachfolgenden Schritten.
+    </p>
+    <p>
+      Eine der größten Grenzen von <code>mail()</code> ist deshalb die fehlende
+      Zustellgarantie. Eine E-Mail kann beispielsweise wegen eines Spamfilters,
+      einer schlechten Reputation des Mailservers, einer falschen
+      DNS-Konfiguration oder wegen fehlender Authentifizierungsmechanismen
+      abgelehnt oder als Spam eingestuft werden.
+    </p>
+    <p>
+      Damit E-Mails heutzutage zuverlässig zugestellt werden können, spielen
+      verschiedene Mechanismen eine wichtige Rolle. Dazu gehören insbesondere
+      SPF, DKIM und DMARC. SPF kann festlegen, welche Server E-Mails für eine
+      Domain versenden dürfen. DKIM ermöglicht eine kryptografische Signatur der
+      Nachricht, mit der der empfangende Server die Echtheit beziehungsweise
+      Integrität der Nachricht überprüfen kann. DMARC legt Regeln dafür fest,
+      wie mit Nachrichten umgegangen werden soll, die diese Prüfungen nicht
+      erfolgreich bestehen.
+    </p>
+    <p>
+      Eine weitere Grenze besteht darin, dass <code>mail()</code> von der
+      Konfiguration des Servers abhängig ist. Auf einem Webserver muss eine
+      funktionierende Mail-Infrastruktur vorhanden und entsprechend konfiguriert
+      sein. Auf einem lokalen Entwicklungsrechner funktioniert
+      <code>mail()</code> deshalb häufig nicht ohne zusätzliche Einrichtung. Ob
+      die Funktion verwendet werden kann und wie die Nachrichten tatsächlich
+      versendet werden, hängt unter anderem vom Hostinganbieter und der
+      Serverkonfiguration ab.
+    </p>
+    <p>
+      <code>mail()</code> bietet außerdem nur eine relativ einfache
+      Schnittstelle. Bei komplexeren Anforderungen wird die Verwendung schnell
+      unübersichtlich. Beispielsweise können HTML-E-Mails, Anhänge, CC- und
+      BCC-Empfänger sowie verschiedene Header zwar grundsätzlich umgesetzt
+      werden, müssen bei <code>mail()</code> aber weitgehend selbst über Header
+      und den Nachrichteninhalt aufgebaut werden.
+    </p>
+    <p>
+      Für umfangreichere Anwendungen wird deshalb häufig eine spezialisierte
+      PHP-Mailbibliothek verwendet. Bekannte Beispiele sind PHPMailer und
+      Symfony Mailer. Solche Bibliotheken können beispielsweise die
+      Kommunikation mit einem SMTP-Server, Authentifizierung, Verschlüsselung,
+      Anhänge und den Aufbau komplexer E-Mails komfortabler handhaben.
+    </p>
+    <p>
+      Ein weiterer wichtiger Punkt ist die Sicherheit. Benutzereingaben dürfen
+      nicht ungeprüft in E-Mail-Header übernommen werden. Besonders bei Headern
+      wie <code>From</code> oder <code>Reply-To</code> besteht bei unsicherer
+      Verarbeitung die Gefahr einer sogenannten Header Injection. Eingaben aus
+      Kontaktformularen sollten deshalb vor der Verwendung überprüft und
+      entsprechend validiert werden.
+    </p>
+    <p>
+      Für kleine und einfache Websites kann <code>mail()</code> trotzdem
+      ausreichend sein. Ein typisches Beispiel ist ein Kontaktformular, bei dem
+      eine Nachricht an den Betreiber einer Website geschickt werden soll. Für
+      Anwendungen mit einem größeren Versandvolumen oder hohen Anforderungen an
+      Zustellbarkeit und Kontrolle ist dagegen ein korrekt konfigurierter
+      SMTP-Versand mit einer geeigneten Mailbibliothek oder einem
+      spezialisierten E-Mail-Dienst meist besser geeignet.
+    </p>
+    <p>
+      Zusammengefasst ist <code>mail()</code> also keine vollständige
+      E-Mail-Infrastruktur. Die Funktion stellt lediglich eine einfache
+      Schnittstelle zwischen einem PHP-Skript und der auf dem Server vorhandenen
+      Mail-Infrastruktur bereit. PHP erstellt beziehungsweise übergibt die
+      Nachricht, während der Mailserver die eigentliche Kommunikation mit
+      anderen Mailservern übernimmt. Die tatsächliche Zustellung kann PHP mit
+      <code>mail()</code> nicht garantieren.
+    </p>
+
     <h2>PHP-Mailer</h2>
     <p>
       PHPMailer ist eine beliebte Bibliothek für das Senden von E-Mails in PHP.
@@ -334,6 +450,21 @@
       Bei Umzügen nur im Notfall verwenden. Da Redaxo Setup gewisse
       Sicherheitsmechanismen setzt, damit nichts gelöscht unnötig gelöscht wird
       und auch die Datenbank nicht beschädigt wird.
+    </p>
+
+    <h2>hornetsecurity.com</h2>
+    <p>
+      Hornetsecurity ist eine cloudbasierte Sicherheitslösung für den Schutz und
+      die Verwaltung des E-Mail-Verkehrs. Sie prüft ein- und ausgehende E-Mails
+      unter anderem auf Spam, Malware und Phishing und bietet zusätzliche
+      Funktionen wie E-Mail-Archivierung, Verschlüsselung und Schutz vor
+      modernen Cyberbedrohungen.
+    </p>
+    <p>
+      Hornetsecurity kann dabei zwischen dem eigenen Mailserver bzw. Microsoft
+      365 und dem Internet geschaltet werden und übernimmt so einen Teil der
+      Absicherung und Verarbeitung des E-Mail-Verkehrs. Also Mail -> Internet ->
+      Hornetsecurity -> Mailserver -> Postfach
     </p>
   </div>
 </div>
