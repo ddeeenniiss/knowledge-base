@@ -1314,18 +1314,26 @@ AddType text/html .shtml
     </p>
     <p>
       Statische Module werden in den Apache Kern hineincompiliert und sind immer
-      verfügbar. Dynamische Module werden zur Laufzeit (beim Starten des Apache)
+      verfügbar. Sie können nur im Makefile angegeben werden (zB bei ./configure
+      -enable-info). Statische Module sind sehr performant, allerdings muss
+      Apache bei Anpassungen komplett neu kompiliert werden und installiert
+      werden. Dynamische Module werden zur Laufzeit (beim Starten des Apache)
       gebunden.
     </p>
     <p>
       Dynamische Module werden in der httpd.conf Datei geladen per Direktive
-      LoadModule
+      LoadModule. Apache muss bei Anpassungen nicht neu kompiliert werden, dafür
+      sind dynamische Module weniger performant.
     </p>
     <p>
       Alle Apache Module sind aufgelistet auf der
       <a href="https://httpd.apache.org/docs/current/mod/">APACHE SEITE</a>
     </p>
     <p>Es folgen einige grundlegende ASF Module:</p>
+    <p>
+      Der core, also die Kernfunktionalitäten des Apache Webserver können nicht
+      dynamisch sein.
+    </p>
     <ul>
       <li>
         mod_core: Kernfunktionen des Apache HTTP Servers. Kerndirektiven wie
@@ -1337,7 +1345,8 @@ AddType text/html .shtml
       <li>mod_actions: Zuordnung von MIME-Typen zu GCI Skripten</li>
       <li>
         mod_alias: Ändern von URL-Pfaden auf anderes Verzeichnis oder komplett
-        andere URL
+        andere URL. Ermöglicht die Verwendung von Aliasnamen für Verzeichnisse
+        außerhalb des DocumentRoot. Ermöglicht "ScriptAlias" Namen für Skripte
       </li>
       <li>mod_asis: Auslieferung von Dokumenten ohne HTTP-Header</li>
       <li>mod_auth: Authentifizierung von Benutzern</li>
@@ -1353,7 +1362,7 @@ AddType text/html .shtml
       </li>
       <li>mod_env: Zugriff auf Umgebungsvariablen für Apache</li>
       <li>mod_imap: Serverseitige Image-Maps</li>
-      <li>mod_include: Server Side Includes</li>
+      <li>mod_include: Ermöglicht die Ausführung von Server Side Includes</li>
       <li>mod_log_config: Konfigurierbare Logfiles</li>
       <li>mod_mime: Erzeugung von MIME-Headern</li>
       <li>
@@ -1365,10 +1374,13 @@ AddType text/html .shtml
         Clientanfrage
       </li>
       <li>
-        mod_so: ermöglicht dynamische Module. Muss selbst statisch geladen
-        werden.
+        mod_so: ermöglicht es, dynamische Module in den Apache Webserver zu
+        laden. Muss selbst statisch geladen werden. Kann nicht dynamisch sein.
       </li>
-      <li>mod_status: Statusbericht des Apache</li>
+      <li>
+        mod_status: Ermöglicht das auslesen des Statusbericht über den laufenden
+        Betrieb des Apache
+      </li>
       <li>
         mod_userdir: Benutzerdefinierte private Verzeichnisse für lokale User
         (http://servername/~username)
@@ -1669,6 +1681,11 @@ sudo apachectl configtest
       (Payload). Ein Rechner erkennt UDP anhand der Protokollnummer im IP
       Header.
     </p>
+    <p>
+      Verwendung bei Anwendungen die zeitkritisch sind und bei denen kleine
+      Fehler in der Datenübertragung ignoriert werden können. Beispielsweise
+      Onlinestreaming (Telefonie, Radio, Video, Gaming) und DNS-Anfragen.
+    </p>
     <h3>TCP (Transmission Control Protocol)</h3>
     <p>
       Ein verbindungsorientiertes Protokoll, das eine zuverlässige
@@ -1680,6 +1697,11 @@ sudo apachectl configtest
       Datenpakete und reduziert die Anzahl an gesendeten Paketen bei
       Überlastung. Ein Rechner erkennt TCP anhand der Protokollnummer im IP
       Header.
+    </p>
+    <p>
+      TCP wird bei Anwendungen verwendet die nicht zeitkritisch sind, bei denen
+      jedoch wichtig ist das die Daten fehlerfrei übertragen werden.
+      Beispielsweise Email Versand, Dateiupload und download.
     </p>
     <h4>3-Wege-Handschlag</h4>
     <p>
@@ -1760,6 +1782,28 @@ sudo apachectl configtest
       auf einem Server anmelden, Dateien übertragen, Git Repositories erreichen.
     </p>
 
+    <h2>Ports</h2>
+    <p>
+      Ports werden genutzt um Verbindungen zwischen ein und demselben Paar von
+      Kommunikationsteilnehmern unterscheiden zu können. Ports können weiterhin
+      Netzwerkprotokolle und Netzwerkdienste identifizieren.
+    </p>
+    <p>
+      Bei einer Verbindung mit UDP oder TCP sind jeweils 2 Ports relevant. Ein
+      Port beim Client, von dem die Verbindung ausgeht/eingeht und ein Port beim
+      Server bei dem die Verbindung ausgeht/eingeht.
+    </p>
+    <h3>Portbereiche</h3>
+    <p>0 kann nicht genutzt werden.</p>
+    <p>
+      1-1023 System Ports: Reserviert für Protokolle, die von der Internet
+      Assigned Number Authority standardisiert wurden.
+    </p>
+    <p>
+      1024-49151 User Ports: Zuordnungen zu Protokollen unabhängig von der IANA
+      möglich.
+    </p>
+    <p>49152-65535 Dynamic Ports: Können frei verwendet werden.</p>
     <h2>MAC Adresse (Media Access Control Adresse)</h2>
     <p>6 Byte, 48 bit, dabei sind die ersten 24bit Herstellerkennzeichnung.</p>
 
