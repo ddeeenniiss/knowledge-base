@@ -816,6 +816,36 @@ AddType text/html .shtml
       wie Header, Footer, Navigation oder dynamische Daten wie Datum und
       Uhrzeit.
     </p>
+    <h2>Software Pattern</h2>
+    <p>
+      Ein Software Pattern ist eine bewährte Lösungsschablone für wiederkehrende
+      Problemstellungen. Diese kann für eigene Projekte in der Regel problemlos
+      übernommen werden.
+    </p>
+
+    <h2>Model View Controller (MVC)</h2>
+    <p>
+      Das MVC ist ein Entwurfsmodell, welches eine Anwendung in drei Teile
+      unterteilt: Das Datenmodell (model), die Präsentation (view) und den
+      Kontrollmechanismus (controller)
+    </p>
+    <p>
+      Das Modell (model) enthält die anzuzeigenden Daten (Listeneinträge, Text,
+      die Beschriftung einer Schaltfläche usw.). Von außen kann man die Daten
+      über dafür vorhergesehene Methoden erfragen und Änderungswünsche bekannt
+      geben, die vom Modell allerdings auch abgelehnt werden können.
+    </p>
+    <p>
+      Die Ansicht (view) stellt die Daten in der Overfläche dar, sie ist der
+      sichtbare Teil der GUI-Komponente im MVC Muster und für die Erscheinung
+      (Größe, Farbe, Position usw.) zuständig. Die anzuzeigenden Daten werden
+      durch die Ansicht vom Modell erfragt.
+    </p>
+    <p>
+      Die Steuerung (controller) empfängt Benutzeraktionen (Tastatureingaben,
+      Mausklicks usw) und verarbeitet sie in Form von Botschaften an Ansicht und
+      Modell.
+    </p>
 
     <h2>Umgebungsvariable</h2>
     <p>
@@ -904,6 +934,11 @@ AddType text/html .shtml
       müssen für fastCGI gesetzt sein. Es gibt weitere Direktiven für fastCGI
       wie FastCgiExternalServer, FastCgiConfig, FastCgiAuthenticator,
       FastCgiAuthenticatorAuthoritative und FastCgiAuthorizer.
+    </p>
+    <p>
+      Kommunikation zwischen Webserver und fastCGI erfolgt über tcp socket.
+      Somit können Webserver und fastCGI auf unterschiedlichen Maschinen laufen
+      und somit entlastet werden.
     </p>
     ```
 
@@ -1147,6 +1182,14 @@ AddType text/html .shtml
       Webinhalte über das Internet bereitzustellen. Apache ist bekannt für seine
       Stabilität, Flexibilität und einfache Konfiguration.
     </p>
+    <p>
+      Bei Apache ist es besonders wichtig Patches und Updates anch Möglichkeit
+      direkt nach Veröffentlichung zu installieren. Der Webserver ist nämlich
+      Angriffen aus dem Internet ausgesetzt. Sobald bei einem Webserver eine
+      angreifbare Konfiguration bzw. ein Bug gefunden wurde, sind alle Webserver
+      mit dieser/diesem angreifbar. Durch Automatisierung von Angriffen ist es
+      in kurzer Zeit möglich viele Systeme anzugreifen und zu infiltrieren.
+    </p>
     <h3>Apache Verzeichnis Layout</h3>
     <ul>
       <li>bin: Binaries</li>
@@ -1321,6 +1364,14 @@ AddType text/html .shtml
       gebunden.
     </p>
     <p>
+      Statische Module können im Ordner [ApacheInstallation]/bin/ mit dem Befehl
+      ./httpd -l aufgerufen und aufgelistet werden. Dynamische Module können im
+      Ordner [ApacheInstallation]/conf/ in der Datei httpd.conf aufgerufen und
+      aufgelistet werden. Einträge mit Direktive LoadModule [Modulname] stehen
+      für dynamische Module.
+    </p>
+
+    <p>
       Dynamische Module werden in der httpd.conf Datei geladen per Direktive
       LoadModule. Apache muss bei Anpassungen nicht neu kompiliert werden, dafür
       sind dynamische Module weniger performant.
@@ -1400,6 +1451,7 @@ AddType text/html .shtml
       <li>mod_ssl: Schnittstelle von Apache zu OpenSSL</li>
       <li>mod_usertrack: verfolgt Benutzeraktionen und verwendet Cookies</li>
     </ul>
+
     <h5>1. TCP-Port festlegen</h5>
 
     <p>
@@ -1512,7 +1564,12 @@ AddType text/html .shtml
       <li><strong>Module</strong> → benötigte Funktionen aktivieren</li>
       <li><strong>SSL</strong> → nur bei HTTPS erforderlich</li>
     </ul>
-
+    <h4>Apache bedingte Direktive</h4>
+    <p>
+      Eine bedingte Direktive ist eine Direktive, die nur aktiv ist, wenn ein
+      bestimmtes Modul im Apache geladen ist. Angabe über [IfModule modulname]
+      .. [/IfModule]
+    </p>
     <h4>Apache unter macOS starten und stoppen</h4>
 
     <pre><code>
@@ -1538,7 +1595,9 @@ sudo apachectl configtest
       httpd - das d steht für "daemon" (Hintergrundprozess) und ist der Prozess
       auf Port 80 HTTP oder 443 HTTPS, der die Anfragen entgegennimmt und
       bearbeitet. Also der Apache Webserver selbst, der im Hintergrund läuft.
-      Schaut in httpd.conf nach was festgelegt ist.
+      Also ein Hintergrundprozess (Deamon) wird einmalig beim Webserverstart
+      mitgestartet und wartet dann auf Anfragen. Das nennt man auch den
+      "Deamonize It" Ansatz. Schaut in httpd.conf nach was festgelegt ist.
     </p>
 
     <h3>Nginx</h3>
@@ -2747,6 +2806,8 @@ und hier html content ...
       beispielsweise die Anbieterinformationen bzw. das Impressum relevant. Es
       muss für den Nutzer erkennbar sein, mit welchen natürlichen und
       juristischen Personen er es auf Seite des Diensteanbieters zu tun hat.
+      Dabei ist es nicht ausreichend, den Verantwortlichen oder ein Firmenname
+      ohne Anschrift zu nennen.
     </p>
 
     <h3>Cookies und TDDDG</h3>

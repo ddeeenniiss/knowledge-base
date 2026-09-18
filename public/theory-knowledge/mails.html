@@ -22,6 +22,22 @@
       abgehört werden können.
     </p>
 
+    <h2>Man in the Middle Angriff</h2>
+    <p>
+      Angreifer Trudy hat Kommunikationskanal zwischen Alice und Bob komplett
+      übernommen. Alice und Bob kommunizieren über asymmetrische
+      Verschlüsselung. Beide kennen öffentlichen Schlüssel des anderen noch
+      nicht.
+    </p>
+    <p>
+      Alice fordert Schlüssel von Bob. Bob sendet Schlüssel. Dazwischen kann
+      Trudy sitzen, die den Schlüssel von Bob abfängt, verändert und an Alice
+      weitergibt. Trudy kann nun Nachrichten von Alice an Bob entschlüsseln.
+    </p>
+    <img
+      src="/assets/screenshots/man_in_the_middle.jpeg"
+      alt="Abbildung zu MITM Angriff"
+    />
     <h2>SSL</h2>
     <p>
       SSL (Secure Sockets Layer) ist ein kryptografisches Protokoll, das zur
