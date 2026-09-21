@@ -204,6 +204,22 @@
       <li>DDEV</li>
       <li>GitGraph</li>
     </ul>
+    <h2>Netzwerk</h2>
+    <p>
+      Ein Netzwerk ist eine Menge von Hardware & Software, die es erlaubt
+      Informationen von einem Sender zum Empfänger weiterzuleiten.
+    </p>
+    <h3>Broadcast Netzwerke</h3>
+    <p>
+      Von einem Punkt aus werden Datenpakete an alle Teilnehmer eines
+      Nachrichtennetzes übertragen.
+    </p>
+    <h3>Mobil Netzwerke</h3>
+    <h3>Computer Netzwerke</h3>
+    <p>
+      Intranetze: für Firmennetze, ist nicht unmittelbar mit dem Internet
+      verbunden.
+    </p>
     <h2>Vite</h2>
     <p>
       Vite ist ein modernes Build-Tool, das schnelle Entwicklungsserver und
@@ -1618,7 +1634,13 @@ sudo apachectl configtest
     <h2>Internet</h2>
     <p>
       Das Internet gibt es seit 1969. Es ist ein Netz aus millionen von Hosts,
-      die über LANs, MANs, WANs per Ethernet, WLAN etc verbunden sind.
+      die über LANs, MANs, WANs per Ethernet, WLAN etc verbunden sind. Gemeint
+      ist mit dem Internet immer die Infrastruktur über die man weltweit Daten
+      austauschen kann.
+    </p>
+    <p>
+      Übertragungsleitungen sind aus Glasfaser, Kupfer, Radiowellen und
+      Satellit.
     </p>
 
     <h3>Struktur des Internets</h3>
@@ -1628,6 +1650,13 @@ sudo apachectl configtest
       an. Local ISP stellen wiederum Internet für kleinere Unternehmen &
       Universitäten zur Verfügung. Niedrigere ISP sind wiederum Kunden von
       höherrangigen.
+    </p>
+    <h4>Internet Service Provider (ISP)</h4>
+    <p>
+      Ein ISP (Internetzugangsanbieter) ist ein Unternehmen oder eine
+      Organisation, die anderen Zugang zum Internet ermöglicht. Ebenso
+      IP-Konnektivität, Routing, DNS, Netzinfrastruktur. Ein Anbieter wäre zB
+      Vodafone, Telekom..
     </p>
     <p>
       Tier 1 sind große internationale Backbone Netze. Tier 2 sind
@@ -1639,6 +1668,77 @@ sudo apachectl configtest
       src="/assets/screenshots/struktur_internet.jpeg"
       alt="Abbildung: Struktur des Internets veranschaulicht."
     />
+
+    <h3>Netzwerkklassifikation</h3>
+    <h4>PAN (Personal Area Network)</h4>
+    <p>sehr kleine Netze. 0.1 - 1 Meter. Busnetzwerk</p>
+    <h4>LAN (Local Area Network)</h4>
+    <p>lokale Netze. 10 Meter - 1km</p>
+    <h4>MAN (Metropolitan Area Network)</h4>
+    <p>für Großräume. 1km - 100km</p>
+    <h4>WAN (Wide Area Network)</h4>
+    <p>Verkehrskommunikation. 100km+</p>
+
+    <h3>Netzwerk Topologien</h3>
+    <h4>Full Mesh</h4>
+    <p>
+      Knoten des Netzes sind voll vernetzt, also jeder Knoten ist mit jedem
+      anderen verbunden. Das macht das Netz robust gegen Fehler, da weitere
+      Knoten zur Verfügung stehen. Allerdings nicht ökonomisch, da Knotenpunkte
+      quadratisch mit der Anzahl an Knoten steigen.
+    </p>
+    <p>Beispiele sind Core/ Backbone Netze, WANs</p>
+    <h4>Star Topologie</h4>
+    <p>
+      Es gibt einen zentralen Knoten, andem alle andern Knoten angeschlossen
+      sind. Ökonomisch, wenn allerdings der Zentralknoten ausfällt, besteht
+      keine Kommunikation mehr.
+    </p>
+    <p>Beispiele sind Ethernet-LAN, Switch-Netze, WLAN</p>
+    <h4>Tree</h4>
+    <p>
+      Hierarchie mit einem Wurzelknoten. Wenn ein Link ausfällt, dann zerbricht
+      diese Struktur.
+    </p>
+    <p>Beispiele sind Unternehmensnetze, Campus Netze, ISP Zugangsnetze</p>
+    <h3>Übertragungsmodis</h3>
+    <h4>Unicast</h4>
+    <p>
+      Nachricht wird an einen speziellen Knoten addressiert und gesendet. Also
+      Punkt zu Punkt Kommunikation. 2 Endgeräte verbinden sich.
+    </p>
+    <h4>Broadcast</h4>
+    <p>
+      Nachricht wird an alle Knoten des Netzwerks gesendet. Beispiel zB Radio.
+    </p>
+    <h4>Multicast</h4>
+    <p>
+      Nachricht wird an alle Knoten einer definierten Gruppe weitergeleitet.
+      Also Punkt zu Multipunkt. Beispiele sind zB Audio oder Videokonferenzen.
+    </p>
+    <h4>Anycast</h4>
+    <p>
+      Nachricht wird an Knoten von möglichen Empfängern einer Gruppe gesendet.
+    </p>
+
+    <h3>Nutzungsrichtungen</h3>
+    <h4>simplex Nutzungsrichtung</h4>
+    <p>
+      Kommunikation funktioniert immer nur in eine Richtung. zB Feuermelder,
+      Sensoren, Pager
+    </p>
+
+    <h4>duplex Nutzungsrichtung</h4>
+    <p>
+      Kommunikation funktioniert in beide Richtung. zB Telefon,
+      Datenkommunikation
+    </p>
+
+    <h4>half-duplex Nutzungsrichtung</h4>
+    <p>
+      Kommunikation funktioniert in beide Richtungen und gleichzeitig nur in
+      eine Richtung. zB Funkgeräte, Wechselsprechen
+    </p>
 
     <h2>Routing im Internet</h2>
     <p>
@@ -1668,7 +1768,11 @@ sudo apachectl configtest
     <p>Weiterleitung zwischen verschiedenen Autonomen Systemen.</p>
 
     <h2>WWW (World Wide Web)</h2>
-    <p>Entwicklung ab 1989 von Tim Berners-Lee</p>
+    <p>
+      Mit dem www bezeichnet man die vernetzten Websiten, die man mithilfe eines
+      Browsers einzeln herunterladen kann per http. Entwicklung ab 1989 von Tim
+      Berners-Lee
+    </p>
     <h2>VPN</h2>
     <p>
       Ein VPN (Virtual Private Network) ist ein sicheres privates Netzwerk, das
@@ -1938,6 +2042,11 @@ sudo apachectl configtest
       weitergereicht. ISO steht für "International Organization for
       Standardization". OSI steht für "Open Systems Interconnection"
     </p>
+    <h3>Kapselung von Daten</h3>
+    <img
+      src="/assets/screenshots/einkapselung_von_daten.jpeg"
+      alt="Abbildung zur Kapselung von Daten"
+    />
     <p>
       Beim Senden vom Client zum Server werden die Daten von oben nach unten,
       also von Schicht 7 bis Schicht 1, gekapselt (verschachtelt). Sobald die
@@ -1962,7 +2071,7 @@ sudo apachectl configtest
         von PPP, Ethernet, WLAN. Switches leiten Frames zwischen Knoten
         derselben Technologie weiter. Auf dieser Schicht sind die MAC Adressen.
         Physikalische Adressierung mit Fehlererkennung, Fehlerkorrektur und
-        Datenflusskontrolle.
+        Datenflusskontrolle. Bridge und Switch passen in diese Schicht.
       </li>
       <li>
         Network: Weiterleitung von Paketen von Quelle zu Ziel in Internet per
@@ -2467,6 +2576,13 @@ Antwort: 257 "/www_relaunch2025/assets/js" is the current directory</pre
       src="/assets/screenshots/kommunikation_im_web.jpeg"
       alt="Abbildung zur Kommunikation im Web"
     />
+
+    <h3>Browser / Webserver Kommunikation / Seitenaufruf</h3>
+    <img
+      src="/assets/screenshots/browser_webserver_kommunikation.jpeg"
+      alt="Abbildung zur Browser / Webserver Kommunikation"
+    />
+
     <h2>Clientseitige vs Serverseitige Programmierung</h2>
 
     <h3>Clientseitige Programmierung</h3>
@@ -3339,6 +3455,23 @@ ddev launch /redaxo
       Benutzer sollten verständliche Fehlermeldungen erhalten, während
       technische Details beispielsweise für das Logging aufgezeichnet werden
       können.
+    </p>
+    <h2>Design by Contract</h2>
+    <p>
+      Design by Contract (DbC) ist ein Konzept der Softwareentwicklung, bei dem
+      Softwarekomponenten durch Verträge festlegen, welche Bedingungen vor und
+      nach ihrer Ausführung gelten müssen. Dazu gehören Vorbedingungen,
+      Nachbedingungen und Invarianten. Dadurch werden Erwartungen und Garantien
+      klar definiert und Fehler können frühzeitig erkannt werden.
+    </p>
+    <h2>Unified Modeling Language (UML)</h2>
+    <p>
+      Die Unified Modeling Language (UML) ist eine standardisierte grafische
+      Modellierungssprache zur Planung, Darstellung und Dokumentation von
+      Softwaresystemen. Sie wird im Software Engineering verwendet, um
+      beispielsweise Klassen, Benutzerinteraktionen, Abläufe und Prozesse
+      übersichtlich darzustellen. Zu den wichtigsten UML-Diagrammen gehören
+      Klassen-, Use-Case-, Sequenz- und Aktivitätsdiagramme.
     </p>
   </div>
 </div>

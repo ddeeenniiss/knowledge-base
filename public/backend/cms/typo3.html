@@ -770,6 +770,152 @@ fields:
       values werden die Module sichtbar gemacht für Redakteure.zB Diagrams 2025
       [tt_content:CType:sternundhuber_diagrams-2025]
     </p>
+    <h2>SMTP-Versand in TYPO3 einrichten</h2>
+
+    <h3>1. SMTP-Daten bei IONOS vorbereiten</h3>
+
+    <p>
+      Für den Versand benötigt TYPO3 die SMTP-Daten des IONOS-E-Mail-Postfachs.
+      Der SMTP-Server lautet <strong>smtp.ionos.de</strong>.
+    </p>
+
+    <p>
+      Als Benutzername wird die vollständige E-Mail-Adresse verwendet, zum
+      Beispiel <strong>info@keltenhof.com</strong>. Das Passwort ist das
+      Passwort dieses E-Mail-Postfachs und nicht zwingend das Passwort des
+      IONOS-Kundenkontos.
+    </p>
+
+    <p>
+      Für IONOS kann Port <strong>465</strong> mit SSL verwendet werden.
+      Alternativ ist Port <strong>587</strong> mit STARTTLS möglich.
+    </p>
+
+    <h3>2. SMTP-Konfiguration in TYPO3 setzen</h3>
+
+    <p>
+      Die zentrale TYPO3-Mailkonfiguration wird normalerweise in der Datei
+      <strong>typo3conf/LocalConfiguration.php</strong> auf dem Server
+      hinterlegt.
+    </p>
+    <p>
+      In Typo kann auch Settings > Configure Installation-Wide Options
+      bearbeitet werden. Die SMTP Angaben werden dann automatisch in die
+      LocalConfiguration.php geschrieben.
+    </p>
+
+    <p>
+      Im Bereich <strong>MAIL</strong> werden die SMTP-Verbindung und die
+      Zugangsdaten eingetragen:
+    </p>
+
+    <pre><code>'MAIL' =&gt; [
+    'transport' =&gt; 'smtp',
+    'transport_smtp_server' =&gt; 'smtp.ionos.de',
+    'transport_smtp_port' =&gt; 465,
+    'transport_smtp_username' =&gt; 'info@keltenhof.com',
+    'transport_smtp_password' =&gt; 'POSTFACH_PASSWORT',
+    'transport_smtp_encrypt' =&gt; 'ssl',
+],</code></pre>
+
+    <p>
+      Das SMTP-Passwort darf nicht im Git-Repository, in der TYPO3-Extension
+      oder in JavaScript gespeichert werden. Die Datei
+      <strong>LocalConfiguration.php</strong> bleibt ausschließlich auf dem
+      Server.
+    </p>
+
+    <h3>3. Kontaktformular mit TYPO3 verbinden</h3>
+
+    <p>
+      Das Kontaktformular sendet seine Daten per AJAX an den TYPO3-eID-Endpunkt:
+    </p>
+
+    <pre><code>/index.php?eID=keltenhof_contact</code></pre>
+
+    <p>
+      Der Endpunkt ist in der TYPO3-Extension unter
+      <strong>Classes/Eid/Contact.php</strong> implementiert. Die Registrierung
+      erfolgt in <strong>ext_localconf.php</strong>.
+    </p>
+
+    <p>
+      TYPO3 prüft dort die Anfrage, den Honeypot, die E-Mail-Adresse und die
+      Einwilligung. Anschließend wird die Nachricht über TYPO3s Mail API und die
+      zentrale SMTP-Konfiguration verschickt.
+    </p>
+
+    <h3>4. Empfänger und Absender festlegen</h3>
+
+    <p>
+      Die interne Kontaktanfrage wird an
+      <strong>info@keltenhof.com</strong> gesendet.
+    </p>
+
+    <p>
+      Als Absender sollte ebenfalls das authentifizierte IONOS-Postfach
+      <strong>info@keltenhof.com</strong> verwendet werden. Die E-Mail-Adresse
+      des Kunden wird als <strong>Reply-To</strong> gesetzt. Dadurch kann direkt
+      auf die Anfrage geantwortet werden.
+    </p>
+
+    <p>
+      Der Kunde erhält dabei keine automatische Bestätigungsmail. Dafür müsste
+      zusätzlich eine zweite Nachricht an die Kundenadresse verschickt werden.
+    </p>
+
+    <h3>5. Änderungen auf den Server übertragen</h3>
+
+    <p>
+      Die aktualisierte TYPO3-Extension muss nach
+      <strong>typo3conf/ext/keltenhof/</strong> übertragen werden. Wichtig sind
+      insbesondere der neue eID-Endpoint und die angepasste Registrierung in
+      <strong>ext_localconf.php</strong>.
+    </p>
+
+    <p>
+      Zusätzlich muss das neu gebaute JavaScript mit der neuen eID-URL auf den
+      Server übertragen werden. Der bisherige Endpoint
+      <strong>/resources/inc/sendcontactmail.php</strong> wird nicht mehr
+      benötigt und kann entfernt oder deaktiviert werden.
+    </p>
+
+    <h3>6. TYPO3-Caches leeren</h3>
+
+    <p>
+      Nach dem Übertragen der Extension müssen im TYPO3-Backend die System- und
+      Konfigurations-Caches geleert werden. Dadurch wird die neue
+      eID-Registrierung geladen.
+    </p>
+
+    <p>
+      Falls TYPO3 die Extension als aktualisiert erkennt, sollte die Extension
+      zusätzlich im Extension Manager beziehungsweise im Install Tool überprüft
+      werden.
+    </p>
+
+    <h3>7. Kontaktformular testen</h3>
+
+    <p>
+      Das Formular sollte anschließend mit einer realen Testanfrage getestet
+      werden. Dabei wird geprüft, ob die Nachricht bei
+      <strong>info@keltenhof.com</strong> ankommt und ob die Antwortadresse des
+      Kunden korrekt als Reply-To gesetzt ist.
+    </p>
+
+    <p>
+      Wenn keine Nachricht ankommt, sollten zunächst die TYPO3-Systemlogs, die
+      SMTP-Daten, das Postfachpasswort sowie die Ports und Verschlüsselung
+      geprüft werden.
+    </p>
+
+    <h3>8. Ergebnis</h3>
+
+    <p>
+      Nach erfolgreicher Einrichtung läuft der komplette Versand über TYPO3. Das
+      Formular sendet an TYPO3, TYPO3 verwendet die zentrale SMTP-Konfiguration
+      und IONOS stellt die Nachricht an <strong>info@keltenhof.com</strong> zu.
+    </p>
     <h2>Suchoptionen in TYPO3</h2>
     <p>Es gilt zunächst zu unterscheiden was benötigt wird:</p>
     <table>
