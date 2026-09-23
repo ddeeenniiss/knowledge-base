@@ -1169,6 +1169,56 @@ AddType text/html .shtml
       sich Lasten verteilen und Anwendungen skalierbarer und ausfallsicherer
       betreiben.
     </p>
+    <h3>Statisches Load Balancing</h3>
+    <p>
+      Beim statischen Load Balancing wird bereits vorher festgelegt, wie
+      Anfragen auf mehrere Server verteilt werden. Die Verteilung basiert auf
+      einer festen Regel oder Konfiguration und berücksichtigt normalerweise
+      nicht die aktuelle Auslastung, Antwortzeit oder Anzahl der aktiven
+      Verbindungen eines Servers.
+    </p>
+    <h4>Round Robin</h4>
+    <p>
+      Bei Round Robin werden die Anfragen der Reihe nach auf die Backend-Server
+      verteilt. Bei drei Servern erhält beispielsweise die erste Anfrage Server
+      1, die zweite Server 2, die dritte Server 3 und die vierte wieder Server
+      1. Dieses Verfahren ist einfach und funktioniert gut, wenn die Server
+      ähnlich leistungsfähig sind und die Anfragen ungefähr gleich viel Arbeit
+      verursachen.
+    </p>
+    <h4>Weighted Round Robin</h4>
+    <p>
+      Weighted Round Robin berücksichtigt unterschiedliche Leistungsfähigkeit.
+      Ein leistungsstärkerer Server erhält ein höheres Gewicht und dadurch mehr
+      Anfragen. Ein Server mit Gewicht 3 kann beispielsweise ungefähr dreimal so
+      viele Anfragen erhalten wie ein Server mit Gewicht 1. Die Gewichte werden
+      manuell festgelegt und nicht automatisch an die aktuelle Auslastung
+      angepasst.
+    </p>
+    <h4>IP-Hash und konsistentes Hashing</h4>
+    <p>
+      Beim IP-Hash wird aus der Client-IP-Adresse ein Hashwert berechnet. Dieser
+      bestimmt, welcher Backend-Server verwendet wird. Dadurch landet derselbe
+      Client häufig beim selben Server, was für einfache zustandsbehaftete
+      Anwendungen oder Session-Daten hilfreich sein kann. Ändert sich die
+      Serveranzahl, können sich bei einem einfachen Hashing jedoch viele
+      Zuordnungen ändern. Konsistentes Hashing reduziert dieses Problem.
+    </p>
+    <h4>Vorteile und Grenzen</h4>
+    <p>
+      Statisches Load Balancing ist leicht verständlich, einfach zu
+      konfigurieren und verursacht nur wenig zusätzlichen Verwaltungsaufwand. Es
+      eignet sich besonders für stabile Umgebungen mit gleichartigen
+      Backend-Servern und vorhersehbarem Datenverkehr.
+    </p>
+    <p>
+      Ein Nachteil ist, dass die feste Verteilung nicht automatisch auf eine
+      Überlastung oder einen Ausfall reagiert. Ohne Health Checks kann ein
+      Load-Balancer weiterhin Anfragen an einen nicht erreichbaren Server
+      senden. Dynamisches Load Balancing bewertet dagegen zusätzlich Faktoren
+      wie aktuelle Auslastung, Antwortzeit oder aktive Verbindungen und kann die
+      Verteilung laufend anpassen.
+    </p>
     <h3>TLS / SSL</h3>
     <p>
       Nginx unterstützt TLS und kann HTTPS-Verbindungen terminieren. Dadurch
@@ -1961,22 +2011,15 @@ sudo apachectl configtest
     </p>
     <h3>Link State Routing</h3>
     <p>
-      Beim Distance-Vector-Routing kennt ein Router für jedes Zielnetz eine
-      Distanz beziehungsweise Metrik und den nächsten Router, über den dieses
-      Ziel erreicht werden kann. Er kennt dabei nicht die vollständige
-      Netzwerktopologie. Stattdessen tauschen Router ihre Routinginformationen
-      regelmäßig mit den direkten Nachbarn aus und berechnen daraus ihre
-      eigenen Routingtabellen.
-    <p>
-      Ein wichtiges Beispiel ist <strong>OSPF</strong>. OSPF wird heute
-      Die Berechnung basiert auf dem Bellman-Ford-Prinzip. Erhält Router A von
-      seinem Nachbarn B die Information, dass B ein Ziel mit der Distanz 3
-      erreicht, addiert A die Kosten der Verbindung zu B. Ist dieser Weg besser
-      als der bisher bekannte Weg, übernimmt A B als Next Hop.
-      insbesondere in Provider-Netzen verwendet.
+      Beim Link-State-Routing beschreibt jeder Router den Zustand seiner eigenen
+      Links und Nachbarschaften. Diese Informationen werden als Link-State
+      Advertisements (LSAs) beziehungsweise Link-State Packets (LSPs) verteilt.
+      Jeder Router baut daraus eine Link-State-Datenbank auf und kennt damit die
+      Topologie seines Routingbereichs.
+    </p>
 
     <h4>Count-to-Infinity-Problem</h4>
-    </p>
+    <p>
       Das Count-to-Infinity-Problem entsteht, wenn eine Route ausfällt, die
       Router aber noch veraltete Informationen voneinander besitzen. Zwei
       Nachbarn können dann fälschlicherweise annehmen, der jeweils andere kenne
@@ -1998,10 +2041,10 @@ sudo apachectl configtest
       Interface zurückgemeldet, über das sie gelernt wurde. Bei Poison Reverse
       wird sie über dieses Interface ausdrücklich mit einer unendlichen Metrik
       angekündigt. Route Poisoning markiert eine ausgefallene Route sofort als
-      nicht erreichbar. Triggered Updates informieren Nachbarn unmittelbar
-      über wichtige Änderungen, statt nur auf den nächsten periodischen Versand
-      zu warten.
-      nachdem, wo man sich im Netzwerk befindet, werden unterschiedliche
+      nicht erreichbar. Triggered Updates informieren Nachbarn unmittelbar über
+      wichtige Änderungen, statt nur auf den nächsten periodischen Versand zu
+      warten.
+    </p>
 
     <h3>RIP (Routing Information Protocol)</h3>
     <p>
@@ -2013,8 +2056,8 @@ sudo apachectl configtest
     <p>
       Eine RIP-Route mit einer Metrik von 1 bis 15 gilt als erreichbar. Die
       Metrik 16 bedeutet Unendlichkeit und damit nicht erreichbar. Diese feste
-      Grenze begrenzt zwar Count-to-Infinity, macht RIP aber ungeeignet für große
-      Netzwerke. RIP wählt außerdem nicht unbedingt den schnellsten oder
+      Grenze begrenzt zwar Count-to-Infinity, macht RIP aber ungeeignet für
+      große Netzwerke. RIP wählt außerdem nicht unbedingt den schnellsten oder
       leistungsfähigsten Weg, sondern den Weg mit den wenigsten Hops.
     </p>
     <p>
@@ -2026,11 +2069,11 @@ sudo apachectl configtest
     </p>
     <p>
       RIPv1 ist klassenbezogen und übermittelt keine Subnetzmaske. Dadurch kann
-      es keine Classless Inter-Domain Routing (CIDR)-Präfixe und keine
-      variablen Subnetzmasken korrekt unterstützen. RIPv2 übermittelt die
-      Subnetzmaske, unterstützt damit classless Routing, verwendet Multicast an
-      224.0.0.9 und kann Routinginformationen authentifizieren. RIPng ist die
-      Variante für IPv6 und verwendet IPv6-Multicast.
+      es keine Classless Inter-Domain Routing (CIDR)-Präfixe und keine variablen
+      Subnetzmasken korrekt unterstützen. RIPv2 übermittelt die Subnetzmaske,
+      unterstützt damit classless Routing, verwendet Multicast an 224.0.0.9 und
+      kann Routinginformationen authentifizieren. RIPng ist die Variante für
+      IPv6 und verwendet IPv6-Multicast.
     </p>
     <p>
       RIP ist einfach zu konfigurieren und eignet sich gut, um Distance Vector
@@ -2040,17 +2083,8 @@ sudo apachectl configtest
       langsam sein kann.
     </p>
 
-      Protokolle eingesetzt.
-    </p>
-      Beim Link-State-Routing beschreibt jeder Router den Zustand seiner eigenen
-      Links und Nachbarschaften. Diese Informationen werden als Link-State
-      Advertisements (LSAs) beziehungsweise zusammengefasst als Link-State
-      Packets (LSPs) im Routingbereich verteilt. Jeder Router baut aus den
-      empfangenen Informationen eine identische Link-State-Datenbank auf.
-      Link-State Routing.
-
     <h4>Flooding von Link-State-Informationen</h4>
-    </p>
+    <p>
       Flooding bedeutet, dass ein Router eine neue oder geänderte
       Link-State-Information an seine Nachbarn sendet. Jeder Nachbar prüft, ob
       er diese Information bereits kennt. Ist sie neu, bestätigt er den Empfang,
@@ -2061,9 +2095,9 @@ sudo apachectl configtest
     </p>
     <p>
       Ein LSP enthält unter anderem die Kennung des erzeugenden Routers, seine
-      Nachbarn, die Kosten der Links, eine Sequenznummer und eine Gültigkeitsdauer
-      beziehungsweise ein Alter. Sequenznummern helfen, neue von alten
-      Versionen zu unterscheiden. Das Alter verhindert, dass veraltete
+      Nachbarn, die Kosten der Links, eine Sequenznummer und eine
+      Gültigkeitsdauer beziehungsweise ein Alter. Sequenznummern helfen, neue
+      von alten Versionen zu unterscheiden. Das Alter verhindert, dass veraltete
       Informationen unbegrenzt in der Datenbank bleiben.
     </p>
 
@@ -2088,11 +2122,11 @@ sudo apachectl configtest
 
     <h3>Dijkstra und der Shortest-Path-First-Algorithmus</h3>
     <p>
-      Nachdem ein Link-State-Router die vollständige Topologie seiner Area kennt,
-      berechnet er die besten Wege mit Dijkstras Shortest-Path-First-Algorithmus
-      (SPF). Die Router sind dabei Knoten eines Graphen und die Links sind Kanten
-      mit Kosten. Die Kosten können beispielsweise Bandbreite oder
-      Administrationsvorgaben abbilden.
+      Nachdem ein Link-State-Router die vollständige Topologie seiner Area
+      kennt, berechnet er die besten Wege mit Dijkstras
+      Shortest-Path-First-Algorithmus (SPF). Die Router sind dabei Knoten eines
+      Graphen und die Links sind Kanten mit Kosten. Die Kosten können
+      beispielsweise Bandbreite oder Administrationsvorgaben abbilden.
     </p>
     <p>
       Zuerst setzt der Router die eigene Distanz auf 0 und alle unbekannten
@@ -2110,17 +2144,16 @@ sudo apachectl configtest
       werden. Dijkstra wird nach einer relevanten Topologieänderung erneut
       ausgeführt, nicht für jedes einzelne Datenpaket.
     </p>
-      Vector noch klassisches Link State. Es wird häufig als
     <h3>OSPF (Open Shortest Path First)</h3>
-      <strong>Path-Vector-Protokoll</strong> bezeichnet.
-      OSPF ist ein Link-State-Intradomain-Routingprotokoll für IPv4. Die
-      Router entdecken ihre Nachbarn, tauschen Link-State-Informationen aus,
-      bauen eine Link-State-Datenbank auf und berechnen mit SPF die besten Wege.
-      OSPFv3 ist die Weiterentwicklung für IPv6.
+    <p>
+      OSPF ist ein Link-State-Intradomain-Routingprotokoll für IPv4. Die Router
+      entdecken ihre Nachbarn, tauschen Link-State-Informationen aus, bauen eine
+      Link-State-Datenbank auf und berechnen mit SPF die besten Wege. OSPFv3 ist
+      die Weiterentwicklung für IPv6.
     </p>
     <p>
-      Nachbarn werden über Hello-Pakete erkannt und regelmäßig überprüft. Stimmen
-      wichtige Parameter wie Area, Hello-Intervalle, Netzmaske und
+      Nachbarn werden über Hello-Pakete erkannt und regelmäßig überprüft.
+      Stimmen wichtige Parameter wie Area, Hello-Intervalle, Netzmaske und
       Authentifizierung nicht überein, wird keine OSPF-Nachbarschaft aufgebaut.
       Nach erfolgreicher Nachbarschaft synchronisieren die Router ihre
       Link-State-Datenbanken.
@@ -2141,20 +2174,103 @@ sudo apachectl configtest
     </p>
     <h4>Designated Router und Backup Designated Router</h4>
     <p>
-      In Broadcast-Netzwerken wie Ethernet würde eine vollständige
-      Nachbarschaft zwischen jedem Router viele Adjacencies erzeugen. OSPF wählt
-      deshalb einen Designated Router (DR) und einen Backup Designated Router
-      (BDR). Die anderen Router tauschen Link-State-Informationen bevorzugt über
-      diese zentralen Router aus. Der BDR kann beim Ausfall des DR übernehmen.
+      In Broadcast-Netzwerken wie Ethernet würde eine vollständige Nachbarschaft
+      zwischen jedem Router viele Adjacencies erzeugen. OSPF wählt deshalb einen
+      Designated Router (DR) und einen Backup Designated Router (BDR). Die
+      anderen Router tauschen Link-State-Informationen bevorzugt über diese
+      zentralen Router aus. Der BDR kann beim Ausfall des DR übernehmen.
     </p>
     <p>
       OSPF konvergiert normalerweise schneller und skaliert besser als RIP, weil
       Router die Topologie kennen und Änderungen gezielt verteilen. Dafür sind
       OSPF-Konfiguration, Areas, LSA-Typen und Fehlersuche deutlich komplexer.
-      <strong
-        >dass Router anhand von Routingtabellen den nächsten Hop
-        bestimmen</strong
-      >, als die Algorithmen im Detail selbst implementieren zu können.
+    </p>
+    <h3>Path-Vector-Routing</h3>
+    <p>
+      Beim Path-Vector-Routing wird nicht nur eine Distanz übermittelt, sondern
+      der vollständige oder zumindest relevante Pfad über autonome Systeme. Ein
+      Router kann dadurch erkennen, über welche AS ein Ziel erreichbar ist.
+      Enthält der angekündigte Pfad bereits die eigene AS-Nummer, wird die Route
+      verworfen. So werden Routing-Schleifen zwischen autonomen Systemen
+      verhindert.
+    </p>
+    <p>
+      Path Vector berücksichtigt neben dem Pfad auch politische und
+      administrative Regeln. Ein Netzwerk kann beispielsweise festlegen, dass
+      bestimmte Provider bevorzugt oder bestimmte Transitwege nicht genutzt
+      werden. Das unterscheidet Path Vector von Distance Vector, das primär eine
+      Distanz betrachtet, und von Link State, das eine Netzwerktopologie
+      aufbaut.
+    </p>
+
+    <h3>BGP (Border Gateway Protocol)</h3>
+    <p>
+      BGP ist das wichtigste Path-Vector-Protokoll des Internets. Es wird für
+      das Routing zwischen autonomen Systemen verwendet, beispielsweise zwischen
+      Internetprovidern, großen Unternehmen und Cloud-Anbietern. BGP tauscht
+      dabei erreichbare IP-Präfixe zusammen mit Pfadinformationen und weiteren
+      Attributen aus.
+    </p>
+    <p>
+      Ein BGP-Router wählt nicht automatisch den Weg mit der geringsten
+      geografischen Entfernung. Die Auswahl richtet sich unter anderem nach
+      lokalen Präferenzen, AS-Path-Länge, MED, eBGP gegenüber iBGP und weiteren
+      Implementierungsregeln. Die genaue Reihenfolge kann je nach Hersteller
+      variieren; lokale Richtlinien haben grundsätzlich eine hohe Bedeutung.
+    </p>
+    <p>
+      eBGP (External BGP) wird zwischen verschiedenen autonomen Systemen
+      eingesetzt. iBGP (Internal BGP) verteilt BGP-Routen innerhalb desselben
+      autonomen Systems. BGP ist damit für die Interdomain-Kommunikation
+      zuständig, während OSPF oder IS-IS häufig die Wege innerhalb eines
+      autonomen Systems berechnen.
+    </p>
+    <p>
+      BGP arbeitet mit inkrementellen Updates: Nach dem initialen Austausch
+      werden normalerweise nur Änderungen angekündigt. Eine Route enthält unter
+      anderem ein Präfix, den AS-Pfad, den Next Hop und Attribute für die
+      Auswahl und Weitergabe. BGP kann dadurch sehr große Routingtabellen des
+      Internets verwalten, konvergiert aber bewusst langsamer als viele
+      Interior-Gateway-Protokolle.
+    </p>
+
+    <h3>CIDR (Classless Inter-Domain Routing)</h3>
+    <p>
+      CIDR beschreibt Netzwerke mit einer Präfixlänge statt mit den alten festen
+      Adressklassen A, B und C. Die Schreibweise
+      <code>192.168.10.0/24</code> bedeutet, dass die ersten 24 Bit das
+      Netzwerkpräfix bilden. Die übrigen 8 Bit stehen für den Hostanteil.
+    </p>
+    <p>
+      Durch CIDR können Adressbereiche passend zur tatsächlichen Größe eines
+      Netzwerks vergeben werden. Ein /24-Netz bietet beispielsweise 256 Adressen
+      insgesamt, während ein /20-Netz einen größeren zusammenhängenden Bereich
+      beschreibt. CIDR verhindert dadurch die Verschwendung, die bei festen
+      Klassen häufig entstanden ist.
+    </p>
+    <p>
+      CIDR ermöglicht außerdem Route Aggregation, auch Prefix Aggregation oder
+      Summarization genannt. Mehrere zusammenhängende Netzwerke können unter
+      einem gemeinsamen, kürzeren Präfix angekündigt werden. Statt vieler
+      einzelner Routen kann ein Provider beispielsweise einen größeren
+      Adressblock zusammengefasst an andere Provider weitergeben. Dadurch werden
+      Routingtabellen kleiner und BGP-Updates reduziert.
+    </p>
+    <p>
+      Bei der Weiterleitung wird das Zielpräfix mit den Einträgen der
+      Routingtabelle verglichen. Passen mehrere Einträge, gilt das längste
+      passende Präfix (Longest Prefix Match). Ein Eintrag mit /24 ist daher
+      spezifischer als ein Eintrag mit /16 und wird für ein passendes Ziel
+      bevorzugt.
+    </p>
+    <h4>Zusammenhang von Path Vector, BGP und CIDR</h4>
+    <p>
+      CIDR beschreibt, welche IP-Präfixe erreichbar sind. BGP verteilt diese
+      Präfixe zwischen autonomen Systemen und ergänzt sie um Pfade und
+      Richtlinien. Path Vector ist dabei das Routingprinzip, mit dem BGP die
+      AS-Pfade übermittelt und Schleifen erkennt. Innerhalb eines autonomen
+      Systems berechnen Protokolle wie OSPF oder IS-IS anschließend den
+      konkreten Weg zum nächsten BGP-Next-Hop.
     </p>
     <p>Ein grundlegendes Verständnis reicht meistens:</p>
     <p>
@@ -2337,20 +2453,235 @@ sudo apachectl configtest
       ICMP-Nachricht. Ihre maximale Größe hängt von der Gesamtlänge und der
       Headergröße ab.
     </p>
-    <h3>UDP (User Datagram Protocol)</h3>
+    <h3>Reliable Data Transfer</h3>
+
     <p>
-      Ein verbindungsloses und unzuverlässiges Protokoll, das keine Bestätigung
-      der Zustellung liefert. Es ist schneller als TCP, aber weniger
-      zuverlässig. Es enthält Quellport 16 Bit, Zielport 16 Bit, Checksum
-      (Findung von möglichen Fehlern bei der Übertragung) 16 Bit, Längenfeld und
-      Datenfeld (Payload) 16 Bit. Ein Rechner erkennt UDP anhand der
-      Protokollnummer im IP Header. Checksum ist bei IPv6 erforderlich, bei IPv4
-      optional auf 0.
+      Reliable Data Transfer bezeichnet Verfahren, mit denen Daten trotz
+      Paketverlusten, Beschädigungen oder falscher Reihenfolge zuverlässig
+      übertragen werden können. Typische Mechanismen sind Sequenznummern,
+      Bestätigungen (ACKs), Timeouts und Retransmissions.
+    </p>
+
+    <p>
+      IP selbst bietet keine zuverlässige Datenübertragung. TCP stellt darüber
+      eine zuverlässige und geordnete Übertragung bereit. UDP bietet diese
+      Zuverlässigkeit nicht selbst.
+    </p>
+
+    <p>
+      Vereinfachte RDT-Protokolle wie rdt1.0, rdt2.0 und rdt3.0 sind vor allem
+      Lehrmodelle, mit denen die Entwicklung zuverlässiger
+      Übertragungsmechanismen erklärt wird. Das zugrunde liegende Konzept ist
+      weiterhin aktuell.
+    </p>
+
+    <h3>Schnittstellen von Reliable Data Transfer</h3>
+    <p>
+      RDT wird zwischen einer Anwendung und einem darunterliegenden,
+      unzuverlässigen Transportkanal beschrieben. Die Anwendung übergibt beim
+      Sender Daten an <strong>rdt_send(data)</strong>. Das RDT-Protokoll baut
+      daraus ein Paket, ergänzt beispielsweise Prüfsumme und Sequenznummer und
+      übergibt es mit <strong>udt_send(packet)</strong> an den
+      unzuverlässigen Kanal. UDT steht für <em>unreliable data transfer</em>.
     </p>
     <p>
-      Verwendung bei Anwendungen die zeitkritisch sind und bei denen kleine
-      Fehler in der Datenübertragung ignoriert werden können. Beispielsweise
-      Onlinestreaming (Telefonie, Radio, Video, Gaming) und DNS-Anfragen.
+      Auf der Empfängerseite liefert der unzuverlässige Kanal ein empfangenes
+      Paket über <strong>rdt_rcv(packet)</strong> an RDT. RDT prüft dann unter
+      anderem Prüfsumme und Sequenznummer. Ist das Paket korrekt und an der
+      Reihe, übergibt RDT die Nutzdaten mit
+      <strong>deliver_data(data)</strong> an die Anwendung. Ist das Paket
+      beschädigt, verloren, doppelt oder veraltet, wird es je nach RDT-Version
+      verworfen, bestätigt oder erneut angefordert.
+    </p>
+    <p>
+      Die Richtungen lassen sich so zusammenfassen:
+      <strong>Anwendung → rdt_send() → RDT → udt_send() → Kanal</strong> und
+      <strong>Kanal → rdt_rcv() → RDT → deliver_data() → Anwendung</strong>.
+      ACKs und NAKs werden ebenfalls als Pakete über den unzuverlässigen Kanal
+      übertragen und können deshalb selbst beschädigt werden oder verloren
+      gehen.
+    </p>
+
+    <h3>Finite State Machines bei RDT</h3>
+    <p>
+      Eine Finite State Machine (FSM), auf Deutsch endlicher Zustandsautomat,
+      beschreibt das Verhalten eines RDT-Senders oder -Empfängers. Eine FSM
+      besteht aus einer endlichen Menge von Zuständen, möglichen Ereignissen,
+      Aktionen und Übergängen zwischen Zuständen.
+    </p>
+    <h4>FSM-Spezifikation</h4>
+    <p>
+      Eine FSM-Spezifikation legt für jeden Zustand fest, welches Ereignis
+      eintreten kann und welche Aktion danach ausgeführt wird. Ein Ereignis kann
+      beispielsweise <strong>rdt_send(data)</strong>,
+      <strong>rdt_rcv(packet)</strong>, der Empfang eines ACKs oder ein Timeout
+      sein. Eine Aktion kann ein Paket erzeugen, es mit
+      <strong>udt_send(packet)</strong> senden, einen Timer starten, einen ACK
+      zurücksenden oder Daten mit <strong>deliver_data(data)</strong> an die
+      Anwendung übergeben.
+    </p>
+    <p>
+      Ein Zustand beschreibt dabei, worauf RDT gerade wartet. Ein Sender kann
+      beispielsweise auf Daten der Anwendung oder auf eine Bestätigung warten.
+      Ein Empfänger kann auf ein Paket mit Sequenznummer 0 oder auf ein Paket mit
+      Sequenznummer 1 warten. Die FSM muss für jeden relevanten Zustand und jedes
+      mögliche Ereignis festlegen, wie das Protokoll reagiert.
+    </p>
+    <p>
+      Sender und Empfänger besitzen getrennte FSMs. Sie kommunizieren nicht
+      durch direkten Zugriff auf den Zustand des jeweils anderen, sondern nur
+      über Pakete, ACKs, NAKs und das Verhalten des unzuverlässigen Kanals.
+    </p>
+
+    <h3>RDT 1.0: Idealer zuverlässiger Kanal</h3>
+    <p>
+      RDT 1.0 geht davon aus, dass der darunterliegende Kanal keine Bits
+      verändert und keine Pakete verliert. Der Sender nimmt Daten über
+      <strong>rdt_send(data)</strong> an, erstellt ein Paket und sendet es mit
+      <strong>udt_send(packet)</strong>. Der Empfänger erhält es über
+      <strong>rdt_rcv(packet)</strong> und übergibt die Nutzdaten direkt mit
+      <strong>deliver_data(data)</strong> an die Anwendung.
+    </p>
+    <p>
+      Da der Kanal im Modell zuverlässig ist, benötigt RDT 1.0 keine
+      Prüfsumme, keine ACKs, keine NAKs, keine Sequenznummern und keine
+      Retransmissions. Das Modell zeigt den normalen Datenfluss, enthält aber
+      noch keinen Mechanismus zur Fehlerbehandlung.
+    </p>
+
+    <h3>RDT 2.0: Bitfehler im Kanal</h3>
+    <p>
+      RDT 2.0 nimmt an, dass Pakete den Empfänger erreichen, aber einzelne Bits
+      beschädigt werden können. Der Sender ergänzt deshalb eine Prüfsumme. Der
+      Empfänger prüft die Prüfsumme und sendet bei einem korrekten Paket ein
+      <strong>ACK</strong>. Erkennt er einen Fehler, sendet er ein
+      <strong>NAK</strong>. Nach einem NAK sendet der Sender das zuletzt
+      übertragene Paket erneut.
+    </p>
+    <p>
+      RDT 2.0 verwendet noch keine Sequenznummern. Deshalb ist das Modell
+      problematisch, wenn ein ACK oder NAK selbst beschädigt wird. Der Sender
+      kann dann nicht sicher erkennen, ob das Datenpaket angekommen ist, und
+      kann ein Paket unnötig erneut senden. Ohne zusätzliche Kennzeichnung
+      könnte der Empfänger dieses erneute Paket als neue Daten an die Anwendung
+      ausliefern.
+    </p>
+
+    <h3>RDT 2.1 und RDT 2.2: Verbesserungen zu RDT 2.0</h3>
+    <p>
+      RDT 2.1 ergänzt Sequenznummern, typischerweise 0 und 1. Der Sender merkt
+      sich, welche Sequenznummer als Nächstes erwartet wird. Der Empfänger kann
+      dadurch ein beschädigtes oder erneut gesendetes Paket erkennen und ein
+      Duplikat verwerfen, ohne die Nutzdaten doppelt auszuliefern. Er sendet
+      anschließend die passende Bestätigung erneut.
+    </p>
+    <p>
+      RDT 2.2 verwendet keine NAKs. Stattdessen bestätigt der Empfänger mit
+      einem ACK das zuletzt korrekt empfangene Paket. Ein wiederholtes ACK kann
+      dem Sender signalisieren, dass das erwartete nächste Paket beschädigt war
+      oder nicht korrekt angekommen ist. Dieses Prinzip wird auch als Duplicate
+      ACK bezeichnet.
+    </p>
+
+    <h3>RDT 3.0: Bitfehler und Paketverlust</h3>
+    <p>
+      RDT 3.0 berücksichtigt zusätzlich, dass Datenpakete und ACKs vollständig
+      verloren gehen können. Der Sender startet nach dem Senden eines Pakets
+      einen Timer. Kommt innerhalb einer angemessenen Zeit kein passendes ACK
+      an, tritt ein Timeout ein und der Sender überträgt das Paket erneut.
+      RDT 3.0 verwendet weiterhin Sequenznummern, damit der Empfänger
+      Duplikate erkennen kann.
+    </p>
+    <p>
+      Wird ein Datenpaket verloren, erkennt der Sender dies über den Timeout und
+      sendet dasselbe Paket erneut. Wird nur das ACK verloren, erhält der
+      Empfänger das Paket zunächst korrekt, aber der Sender sendet es nach dem
+      Timeout erneut. Der Empfänger erkennt anhand der Sequenznummer das
+      Duplikat, liefert die Daten nicht erneut aus und sendet das passende ACK
+      noch einmal.
+    </p>
+    <p>
+      Die Abbildung <code>rdt.jpeg</code> zeigt den normalen Ablauf ohne Verlust
+      und den Fall eines verlorenen Datenpakets. Die Abbildung
+      <code>rdt_lost_ack.jpeg</code> zeigt ein verlorenes ACK sowie einen zu
+      frühen Timeout. Bei einem zu frühen Timeout kann ein korrekt angekommenes
+      Paket unnötig erneut gesendet werden. Die Sequenznummer verhindert auch in
+      diesem Fall, dass die Anwendung die Daten doppelt erhält.
+    </p>
+    <img
+      src="/assets/screenshots/rdt.jpeg"
+      alt="Abläufe von Reliable Data Transfer ohne Verlust und mit verlorenem Paket"
+    />
+    <img
+      src="/assets/screenshots/rdt_lost_ack.jpeg"
+      alt="Reliable Data Transfer bei verlorenem ACK und zu frühem Timeout"
+    />
+    <p>
+      RDT 3.0 ist ein Stop-and-Wait-Protokoll: Der Sender überträgt ein Paket
+      und wartet auf das passende ACK, bevor er das nächste Paket sendet. Das
+      macht das Verfahren verständlich und zuverlässig, nutzt eine schnelle
+      Verbindung aber nicht optimal aus, weil immer nur ein Paket unterwegs
+      sein darf. TCP verwendet deshalb umfangreichere Fenster- und
+      Sequenznummernmechanismen.
+    </p>
+
+    <p>
+      Ein modernes Beispiel ist QUIC, das über UDP läuft und zuverlässige
+      Transportfunktionen bereitstellt. HTTP/3 verwendet QUIC.
+    </p>
+
+    <h3>UDP (User Datagram Protocol)</h3>
+    <p>
+      UDP ist ein verbindungsloses und nicht zuverlässiges Transportprotokoll.
+      Es baut vor der Übertragung keine Verbindung auf, bestätigt den Empfang
+      nicht und führt keine erneute Übertragung verlorener Datagramme durch. UDP
+      ist nicht grundsätzlich schneller als TCP, verursacht aber weniger
+      Verwaltungsaufwand und hat keinen Verbindungsaufbau.
+    </p>
+    <p>
+      Ein Rechner erkennt UDP anhand der Protokollnummer 17 im IPv4-Header oder
+      des Next-Header-Werts 17 im IPv6-Header. Die UDP-Prüfsumme ist bei IPv6
+      verpflichtend. Bei IPv4 darf sie optional auf 0 gesetzt werden.
+    </p>
+    <p>
+      UDP wird häufig für Anwendungen verwendet, bei denen geringe Latenz,
+      geringe Protokollüberlastung oder der Verlust einzelner Daten weniger
+      problematisch sind. Beispiele sind DNS-Anfragen, Audio- und
+      Videostreaming, Internettelefonie, Online-Gaming und DHCP. Anwendungen
+      können bei Bedarf eigene Mechanismen für Zuverlässigkeit ergänzen.
+    </p>
+    <h4>UDP Header</h4>
+    <img
+      src="/assets/screenshots/udp_header.jpeg"
+      alt="Abbildung zu UDP Header"
+    />
+    <h4>Limitierungen von UDP</h4>
+    <p>
+      Der UDP-Header ist 8 Byte groß. Er besteht aus Quellport (16 Bit),
+      Zielport (16 Bit), Länge (16 Bit) und Prüfsumme (16 Bit). Die Payload ist
+      kein 16-Bit-Feld, sondern variabel groß. Das Längenfeld beschreibt die
+      gesamte Größe von UDP-Header und Payload. Theoretisch kann ein
+      UDP-Datagramm dadurch bis zu 65.535 Byte groß sein; die tatsächlich
+      mögliche Größe wird zusätzlich durch die IP-Version und die MTU des
+      Übertragungswegs begrenzt.
+    </p>
+    <p>
+      UDP garantiert weder Zustellung noch Reihenfolge und erkennt keine
+      doppelten Datagramme. Verlorene, verspätete oder doppelt empfangene Daten
+      werden nicht automatisch korrigiert. UDP besitzt außerdem keine
+      Flusskontrolle. Ein zu schneller Sender kann deshalb beim Empfänger oder
+      im Netzwerk Überlastung verursachen; ein Buffer Overflow ist dabei ein
+      mögliches Problem der konkreten Anwendung, aber kein eigenes
+      UDP-Headerfeld.
+    </p>
+    <h4>Vorteile von UDP</h4>
+    <p>
+      Die Prüfsumme kann Beschädigungen von UDP-Header und Payload erkennen,
+      korrigiert diese Fehler aber nicht. UDP hat einen kleinen Header von nur 8
+      Byte, benötigt keinen Drei-Wege-Handschlag und hält beim Protokoll selbst
+      keinen Verbindungszustand. Dadurch kann eine Anwendung Daten mit geringer
+      Latenz senden. UDP unterstützt außerdem Broadcast bei IPv4 sowie Multicast
+      bei IPv4 und IPv6.
     </p>
     <h3>TCP (Transmission Control Protocol)</h3>
     <p>
