@@ -38,67 +38,6 @@
       src="/assets/screenshots/man_in_the_middle.jpeg"
       alt="Abbildung zu MITM Angriff"
     />
-    <h2>DHCP (Dynamic Host Configuration Protocol)</h2>
-
-    <p>
-      DHCP ermöglicht die automatische Konfiguration von Geräten in IP-Netzen.
-      Ein Client kann dadurch beispielsweise eine IP-Adresse, eine Subnetzmaske,
-      ein Default Gateway, DNS-Server und eine Lease Time erhalten.
-    </p>
-
-    <p>
-      Bei IPv4 wird der typische Ablauf bei der erstmaligen Konfiguration als
-      DORA bezeichnet: DHCPDISCOVER, DHCPOFFER, DHCPREQUEST und DHCPACK.
-    </p>
-
-    <p>
-      Der Client besitzt zunächst noch keine gültige IP-Adresse und kennt den
-      DHCP-Server nicht. Deshalb sendet er eine DHCPDISCOVER-Nachricht,
-      typischerweise als Broadcast im lokalen Netzwerk.
-    </p>
-
-    <p>
-      Ein DHCP-Server antwortet mit einem DHCPOFFER und bietet dem Client eine
-      IP-Konfiguration an. Der Client wählt ein Angebot aus und sendet eine
-      DHCPREQUEST-Nachricht. Der Server bestätigt die Zuweisung anschließend mit
-      DHCPACK und kann dabei zusätzliche Konfigurationsinformationen
-      übermitteln.
-    </p>
-
-    <p>
-      Die zugewiesene IP-Adresse wird normalerweise nur für eine bestimmte Lease
-      Time vergeben. Der Client versucht vor Ablauf der Lease, die Zuweisung zu
-      verlängern. DHCPRELEASE kann verwendet werden, wenn ein Client seine Lease
-      freiwillig zurückgeben möchte.
-    </p>
-
-    <p>
-      Befindet sich der DHCP-Server in einem anderen Subnetz, kann ein DHCP
-      Relay Agent die DHCP-Nachrichten zwischen Client und Server weiterleiten.
-      Dadurch kann ein zentraler DHCP-Server mehrere Subnetze versorgen, obwohl
-      DHCPDISCOVER zunächst als Broadcast im lokalen Netz gesendet wird.
-    </p>
-
-    <h2>IGMP (Internet Group Management Protocol)</h2>
-
-    <p>
-      IGMP wird bei IPv4-Multicast verwendet und ermöglicht Hosts, einem
-      Multicast-Router mitzuteilen, dass sie Daten einer bestimmten
-      Multicast-Gruppe empfangen möchten oder diese Gruppe verlassen.
-    </p>
-
-    <p>
-      IGMP dient damit der Verwaltung von Multicast-Gruppen zwischen Hosts und
-      dem lokalen Multicast-Router. Der Router kann dadurch feststellen, ob sich
-      in einem Netzwerksegment Hosts befinden, die an einer bestimmten
-      Multicast-Gruppe interessiert sind.
-    </p>
-
-    <p>
-      IGMP selbst leitet den Multicast-Verkehr nicht durch das gesamte Netzwerk
-      weiter. Die Weiterleitung zwischen verschiedenen Routern erfolgt durch
-      Multicast-Routing.
-    </p>
 
     <h2>SSL</h2>
     <p>

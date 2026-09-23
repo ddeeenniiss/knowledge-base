@@ -40,6 +40,166 @@
       <li>Ausgang (Output)</li>
       <li>Memory (Hauptspeicher)</li>
       <li>Datenpfad (Rechenwerk)</li>
+
+      <h3>Zusammenspiel von IPv4 und IPv6</h3>
+      <p>
+        IPv4 und IPv6 sind zwei unterschiedliche Netzwerkprotokolle. IPv4
+        verwendet 32-Bit-Adressen, IPv6 verwendet 128-Bit-Adressen. Ein reines
+        IPv4-Gerät kann nicht automatisch mit einem reinen IPv6-Gerät
+        kommunizieren, weil beide Protokolle unterschiedliche Header,
+        Adressformate und Kontrollmechanismen verwenden. Für die Übergangszeit
+        wurden deshalb mehrere Verfahren entwickelt: Dual Stack, Tunneling und
+        Header Translation.
+      </p>
+
+      <h3>Dual Stack</h3>
+      <p>
+        Bei Dual Stack unterstützt ein Gerät IPv4 und IPv6 gleichzeitig. Es hat
+        mindestens eine IPv4-Adresse und eine IPv6-Adresse und kann je nach Ziel
+        das passende Protokoll verwenden. Auch Betriebssysteme, Router,
+        Firewalls, DNS-Server und Anwendungen müssen dafür IPv4 und IPv6
+        unterstützen.
+      </p>
+      <p>
+        Ruft ein Client beispielsweise eine Domain auf, kann DNS sowohl einen
+        A-Record mit einer IPv4-Adresse als auch einen AAAA-Record mit einer
+        IPv6-Adresse liefern. Der Client versucht normalerweise, IPv6 zu nutzen,
+        wenn eine funktionierende IPv6-Verbindung vorhanden ist. Ist IPv6 nicht
+        erreichbar, kann er auf IPv4 zurückgreifen. Verfahren wie Happy Eyeballs
+        testen IPv4 und IPv6 teilweise parallel, damit eine langsame oder
+        fehlerhaft konfigurierte IPv6-Verbindung den Seitenaufruf nicht unnötig
+        verzögert.
+      </p>
+      <p>
+        Bei Dual Stack wird das Paket nicht übersetzt. Für eine IPv4-Verbindung
+        entsteht ein IPv4-Paket mit IPv4-Header. Für eine IPv6-Verbindung
+        entsteht ein IPv6-Paket mit IPv6-Header. Router und Zielhost müssen
+        jeweils dieselbe Protokollfamilie unterstützen.
+      </p>
+      <p>
+        Der große Vorteil von Dual Stack ist die direkte Kommunikation ohne
+        Übersetzung. Die Ende-zu-Ende-Eigenschaften bleiben weitgehend erhalten,
+        und Anwendungen können beide Protokolle schrittweise unterstützen. Der
+        Nachteil ist der höhere Verwaltungsaufwand: Adressierung, Routing,
+        Firewalls, Monitoring und Fehleranalyse müssen für zwei Protokolle
+        gepflegt werden. Außerdem löst Dual Stack keine Verbindung zwischen
+        einem reinen IPv4-Host und einem reinen IPv6-Host.
+      </p>
+
+      <h3>Tunneling</h3>
+      <p>
+        Beim Tunneling wird ein IP-Paket einer Protokollfamilie in ein Paket der
+        anderen Protokollfamilie eingekapselt. Das innere Paket bleibt dabei
+        unverändert. Ein Tunnel verbindet dadurch zwei Netzbereiche, die
+        dasselbe Protokoll sprechen, obwohl dazwischen ein Netzwerk liegt, das
+        dieses Protokoll nicht direkt unterstützt.
+      </p>
+      <p>
+        Beim häufigen IPv6-over-IPv4-Tunneling wird ein vollständiges IPv6-Paket
+        als Nutzdaten in ein IPv4-Paket eingefügt. Der äußere IPv4-Header wird
+        von den IPv4-Routern für die Weiterleitung verwendet. Am Ende des
+        Tunnels entfernt der Tunnel-Endpunkt den äußeren IPv4-Header und leitet
+        das ursprüngliche IPv6-Paket weiter. Für das IPv6-Paket wirkt es so, als
+        gäbe es zwischen den Tunnel-Endpunkten eine direkte IPv6-Verbindung.
+      </p>
+      <p>
+        Das Prinzip funktioniert auch umgekehrt als IPv4-over-IPv6. Dabei wird
+        ein IPv4-Paket in ein IPv6-Paket eingekapselt, damit es ein IPv6-Netz
+        durchqueren kann. Die Tunnel-Endpunkte übernehmen das Ein- und
+        Auspacken; normale Zwischenrouter müssen nur den äußeren Header
+        verstehen.
+      </p>
+      <p>
+        Ein Tunnel benötigt zwei erreichbare Tunnel-Endpunkte und eine passende
+        Konfiguration. Beispiele sind manuelle IPv6-in-IPv4-Tunnel, GRE-Tunnel,
+        6in4 und bestimmte Providerverfahren wie 6rd oder DS-Lite. Bei DS-Lite
+        werden IPv4-Pakete für ein IPv4-only-Kundennetz durch ein IPv6-Provider-
+        netz zu einem zentralen IPv4-NAT-Gateway transportiert.
+      </p>
+      <p>
+        Tunneling übersetzt die Adressen des inneren Pakets nicht. Deshalb
+        bleiben die ursprünglichen IPv4- oder IPv6-Adressen im inneren Header
+        erhalten. Allerdings entsteht zusätzlicher Overhead durch den äußeren
+        Header. Die effektive MTU wird kleiner, und Path MTU Discovery muss
+        korrekt funktionieren. Firewalls müssen außerdem den Tunnelverkehr
+        erlauben und überwachen.
+      </p>
+      <p>
+        Tunneling verbindet also Netze, aber nicht automatisch einzelne IPv4-
+        und IPv6-Anwendungen miteinander. Ein IPv4-Host kann durch einen
+        IPv6-Tunnel weiterhin nur IPv4-Ziele erreichen. Für eine direkte
+        Kommunikation mit einem reinen IPv6-Ziel ist zusätzlich eine Übersetzung
+        oder ein Dual-Stack- Gateway erforderlich.
+      </p>
+
+      <h3>Header Translation</h3>
+      <p>
+        Bei der Header Translation, also der Übersetzung von Headern, wird ein
+        Paket an einer Übergangsstelle von IPv4 nach IPv6 oder von IPv6 nach
+        IPv4 umgewandelt. Der Übersetzer entfernt den ursprünglichen IP-Header
+        und erstellt einen Header der anderen Protokollfamilie. Dabei müssen
+        Adressen, Längenangaben, TTL beziehungsweise Hop Limit, Next Header
+        beziehungsweise Protocol und Prüfsummen passend angepasst werden.
+      </p>
+      <p>
+        Ein typisches Verfahren ist NAT64. Ein IPv6-only-Client möchte dabei
+        einen IPv4-only-Server erreichen. Der Client verwendet eine
+        IPv6-Zieladresse, die eine IPv4-Adresse abbildet. Das NAT64-Gateway
+        nimmt das IPv6-Paket entgegen, erzeugt daraus ein IPv4-Paket und leitet
+        es an den IPv4-Server weiter. Die Antwort des Servers wird am Gateway
+        wieder in ein IPv6-Paket zurückübersetzt.
+      </p>
+      <p>
+        Damit der Client den IPv4-Server über einen Namen erreichen kann, wird
+        häufig DNS64 eingesetzt. DNS64 erzeugt aus einem vorhandenen A-Record
+        künstlich einen passenden AAAA-Record. Der IPv6-Client fragt dadurch
+        eine IPv6-Adresse ab, obwohl das eigentliche Ziel nur eine IPv4-Adresse
+        besitzt. Das NAT64-Gateway erkennt diese spezielle Zieladresse und
+        übersetzt sie in die ursprüngliche IPv4-Adresse.
+      </p>
+      <p>
+        Bei einer zustandsbehafteten Übersetzung speichert das Gateway eine
+        Zuordnung zwischen IPv6-Verbindung und IPv4-Verbindung. Dazu gehören
+        unter anderem Quelladresse, Zieladresse, Transportprotokoll und Ports.
+        So können Antwortpakete der richtigen IPv6-Verbindung zugeordnet werden.
+        Dieses Prinzip ähnelt NAT bei IPv4, übersetzt aber zusätzlich zwischen
+        zwei unterschiedlichen IP-Versionen.
+      </p>
+      <p>
+        Header Translation benötigt keinen Tunnel durch das Zielnetz. Deshalb
+        kann ein IPv6-only-Netz mit IPv4-only-Diensten kommunizieren. Der
+        Nachteil ist, dass die Kommunikation nicht vollständig Ende zu Ende mit
+        derselben Protokollversion stattfindet. Das Gateway muss den Verkehr
+        verstehen und kann dadurch zum zentralen Fehler-, Performance- oder
+        Ausfallpunkt werden.
+      </p>
+      <p>
+        Nicht jedes Protokoll lässt sich problemlos übersetzen. Anwendungen, die
+        IP-Adressen direkt in ihre Nutzdaten schreiben, eigene Kontrollkanäle
+        verwenden oder ungewöhnliche Transportprotokolle einsetzen, können eine
+        spezielle Anpassung benötigen. DNS64/NAT64 funktioniert daher besonders
+        gut mit Anwendungen, die Hostnamen verwenden und IPv6 korrekt
+        unterstützen.
+      </p>
+
+      <h3>Vergleich der Übergangsverfahren</h3>
+      <p>
+        Dual Stack betreibt IPv4 und IPv6 parallel und ist technisch meist die
+        direkteste Lösung, benötigt aber zwei vollständig verwaltete
+        Protokollstapel. Tunneling transportiert ein Protokoll durch ein
+        Netzwerk der anderen Version, verändert das innere Paket jedoch nicht.
+        Header Translation wandelt das Paket an einer Übergangsstelle in die
+        jeweils andere Protokollversion um und ermöglicht dadurch Kommunikation
+        zwischen IPv6-only- und IPv4-only-Systemen.
+      </p>
+      <p>
+        In der Praxis werden die Verfahren auch kombiniert. Ein Provider kann
+        beispielsweise ein IPv6-only-Zugangsnetz mit IPv4-Diensten über NAT64
+        verbinden und gleichzeitig IPv4-Verkehr über DS-Lite tunneln. Welche
+        Technik eingesetzt wird, hängt davon ab, ob Endgeräte beide Protokolle
+        beherrschen, ob die Infrastruktur IPv6 unterstützt und ob alte
+        IPv4-Dienste weiterhin erreichbar sein müssen.
+      </p>
       <li>Steuerung (Steuerwerk)</li>
     </ul>
     <img
@@ -1659,13 +1819,29 @@ sudo apachectl configtest
       Vodafone, Telekom..
     </p>
     <p>
-      Tier 1 sind große internationale Backbone Netze. Tier 2 sind
-      regionale/größere Provider. Tier 3 sind näher am Endkunden und verkaufen
-      Internetzugänge. Dazwischen gibt es Internet Exchange Points, bei denen
-      die verschiedenen Netzwerke Daten miteinander tauschen können.
+      Tier 1 sind große internationale Backbone Netze. Behandeln sich
+      untereinander gleich und tauschen miteinander Verkehr aus. Der Verkehr
+      untereinander ist kostenlos und wird daher auch Peering genannt.
+    </p>
+    <p>
+      Tier 2 sind regionale/größere Provider. Sie sind mit einem oder mehreren
+      Tier 1 ISPs verbunden. Tier 2 ISPs bezahlen Tier 1 ISPs, damit diese
+      Verbindung zum Internet für sie herstellt. Tier 2 ISPs sind Kunden von
+      Tier 1 ISPs.
+    </p>
+    <p>
+      Tier 3 sind näher am Endkunden und verkaufen Internetzugänge. Sie sind
+      Kunden von Tier 2 ISPs. Dazwischen gibt es Internet Exchange Points, bei
+      denen die verschiedenen Netzwerke Daten miteinander tauschen können.
+    </p>
+    <h4>Stub Domain und Transit Domains</h4>
+    <p>
+      Stub Domains sind Blätter der Internet Domain Hierarchie. Transit Domains
+      leiten den Verkehr durch. SIe erlaubt externen Domänen ihre eigene
+      Infrastruktur zu nutzen, um Pakete an andere Domänen zu senden.
     </p>
     <img
-      src="/assets/screenshots/struktur_internet.jpeg"
+      src="/assets/screenshots/struktur_internet_leer.jpeg"
       alt="Abbildung: Struktur des Internets veranschaulicht."
     />
 
@@ -1767,6 +1943,250 @@ sudo apachectl configtest
     <h3>Interdomänes Routing</h3>
     <p>Weiterleitung zwischen verschiedenen Autonomen Systemen.</p>
 
+    <h3>Distance Vector Routing</h3>
+    <p>
+      Bei Distance Vector kennt ein Router vereinfacht gesagt Informationen
+      darüber, wie weit bestimmte Ziele entfernt sind und über welchen Nachbarn
+      sie erreicht werden können. Router tauschen diese Informationen mit ihren
+      direkten Nachbarn aus und aktualisieren daraus ihre Routingtabellen.
+    </p>
+    <p>
+      Ein klassisches Beispiel ist <strong>RIP</strong>. Dabei wird die Anzahl
+      der Router-Hops als Metrik verwendet.
+    </p>
+    <p>
+      Für moderne große Netzwerke spielt klassisches RIP allerdings nur noch
+      eine geringe Rolle. Es ist vor allem als Lernbeispiel für das
+      Distance-Vector-Prinzip relevant.
+    </p>
+    <h3>Link State Routing</h3>
+    <p>
+      Beim Distance-Vector-Routing kennt ein Router für jedes Zielnetz eine
+      Distanz beziehungsweise Metrik und den nächsten Router, über den dieses
+      Ziel erreicht werden kann. Er kennt dabei nicht die vollständige
+      Netzwerktopologie. Stattdessen tauschen Router ihre Routinginformationen
+      regelmäßig mit den direkten Nachbarn aus und berechnen daraus ihre
+      eigenen Routingtabellen.
+    <p>
+      Ein wichtiges Beispiel ist <strong>OSPF</strong>. OSPF wird heute
+      Die Berechnung basiert auf dem Bellman-Ford-Prinzip. Erhält Router A von
+      seinem Nachbarn B die Information, dass B ein Ziel mit der Distanz 3
+      erreicht, addiert A die Kosten der Verbindung zu B. Ist dieser Weg besser
+      als der bisher bekannte Weg, übernimmt A B als Next Hop.
+      insbesondere in Provider-Netzen verwendet.
+
+    <h4>Count-to-Infinity-Problem</h4>
+    </p>
+      Das Count-to-Infinity-Problem entsteht, wenn eine Route ausfällt, die
+      Router aber noch veraltete Informationen voneinander besitzen. Zwei
+      Nachbarn können dann fälschlicherweise annehmen, der jeweils andere kenne
+      noch einen gültigen Weg zum Ziel. Sie tragen die Route gegenseitig ein und
+      erhöhen die Metrik bei jedem Austausch weiter.
+    </p>
+    <p>
+      Beispiel: Router A erreicht Netz X zunächst direkt mit der Distanz 1.
+      Fällt die Verbindung zu X aus, erhält Router B die Information nicht
+      sofort und meldet A möglicherweise weiterhin eine Distanz von 2. A trägt
+      daraufhin den Weg über B mit Distanz 3 ein. B übernimmt wiederum den Weg
+      über A mit Distanz 4. Die Router zählen die Distanz schrittweise hoch,
+      obwohl kein gültiger Weg zu X existiert. Währenddessen können Pakete in
+      einer Routing-Schleife zirkulieren.
+    </p>
+    <p>
+      Gegenmaßnahmen sind Split Horizon, Poison Reverse, Route Poisoning und
+      Triggered Updates. Bei Split Horizon wird eine Route nicht über das
+      Interface zurückgemeldet, über das sie gelernt wurde. Bei Poison Reverse
+      wird sie über dieses Interface ausdrücklich mit einer unendlichen Metrik
+      angekündigt. Route Poisoning markiert eine ausgefallene Route sofort als
+      nicht erreichbar. Triggered Updates informieren Nachbarn unmittelbar
+      über wichtige Änderungen, statt nur auf den nächsten periodischen Versand
+      zu warten.
+      nachdem, wo man sich im Netzwerk befindet, werden unterschiedliche
+
+    <h3>RIP (Routing Information Protocol)</h3>
+    <p>
+      RIP ist ein klassisches Distance-Vector-Routingprotokoll für das Routing
+      innerhalb eines autonomen Systems. Als Metrik verwendet RIP die Anzahl der
+      Router-Hops. Jeder passierte Router erhöht die Metrik um 1. Ein direkt
+      angeschlossenes Ziel hat normalerweise die Metrik 1.
+    </p>
+    <p>
+      Eine RIP-Route mit einer Metrik von 1 bis 15 gilt als erreichbar. Die
+      Metrik 16 bedeutet Unendlichkeit und damit nicht erreichbar. Diese feste
+      Grenze begrenzt zwar Count-to-Infinity, macht RIP aber ungeeignet für große
+      Netzwerke. RIP wählt außerdem nicht unbedingt den schnellsten oder
+      leistungsfähigsten Weg, sondern den Weg mit den wenigsten Hops.
+    </p>
+    <p>
+      RIP-Router senden ihre Routinginformationen traditionell regelmäßig, bei
+      RIP häufig ungefähr alle 30 Sekunden, an ihre Nachbarn. Zusätzlich können
+      Änderungen sofort als Triggered Update versendet werden. Nachbarn prüfen
+      die Informationen, erhöhen die empfangene Metrik um 1 und übernehmen eine
+      Route nur, wenn sie besser ist als der bisher bekannte Weg.
+    </p>
+    <p>
+      RIPv1 ist klassenbezogen und übermittelt keine Subnetzmaske. Dadurch kann
+      es keine Classless Inter-Domain Routing (CIDR)-Präfixe und keine
+      variablen Subnetzmasken korrekt unterstützen. RIPv2 übermittelt die
+      Subnetzmaske, unterstützt damit classless Routing, verwendet Multicast an
+      224.0.0.9 und kann Routinginformationen authentifizieren. RIPng ist die
+      Variante für IPv6 und verwendet IPv6-Multicast.
+    </p>
+    <p>
+      RIP ist einfach zu konfigurieren und eignet sich gut, um Distance Vector
+      und Count-to-Infinity zu lernen. In größeren Netzwerken wird es jedoch
+      meist durch OSPF, IS-IS oder andere leistungsfähigere Protokolle ersetzt,
+      weil die Hop-Metrik zu ungenau ist und die Konvergenz vergleichsweise
+      langsam sein kann.
+    </p>
+
+      Protokolle eingesetzt.
+    </p>
+      Beim Link-State-Routing beschreibt jeder Router den Zustand seiner eigenen
+      Links und Nachbarschaften. Diese Informationen werden als Link-State
+      Advertisements (LSAs) beziehungsweise zusammengefasst als Link-State
+      Packets (LSPs) im Routingbereich verteilt. Jeder Router baut aus den
+      empfangenen Informationen eine identische Link-State-Datenbank auf.
+      Link-State Routing.
+
+    <h4>Flooding von Link-State-Informationen</h4>
+    </p>
+      Flooding bedeutet, dass ein Router eine neue oder geänderte
+      Link-State-Information an seine Nachbarn sendet. Jeder Nachbar prüft, ob
+      er diese Information bereits kennt. Ist sie neu, bestätigt er den Empfang,
+      speichert sie und leitet sie an seine anderen Nachbarn weiter. Die
+      Information wird nicht an das Interface zurückgesendet, über das sie
+      eingetroffen ist. So erreicht sie alle Router innerhalb des jeweiligen
+      Routingbereichs.
+    </p>
+    <p>
+      Ein LSP enthält unter anderem die Kennung des erzeugenden Routers, seine
+      Nachbarn, die Kosten der Links, eine Sequenznummer und eine Gültigkeitsdauer
+      beziehungsweise ein Alter. Sequenznummern helfen, neue von alten
+      Versionen zu unterscheiden. Das Alter verhindert, dass veraltete
+      Informationen unbegrenzt in der Datenbank bleiben.
+    </p>
+
+    <h4>Verbesserungen und Begrenzungen des LSP-Floodings</h4>
+    <p>
+      Naives Flooding würde zu vielen doppelten Nachrichten führen. Deshalb
+      werden LSPs nur weitergeleitet, wenn sie neuer sind, und bereits bekannte
+      LSPs werden nicht erneut verarbeitet. Reliable Flooding bestätigt den
+      Empfang und fordert fehlende oder beschädigte Informationen gezielt nach.
+      Änderungen werden außerdem häufig nur bei einer tatsächlichen
+      Topologieänderung verteilt, statt die gesamte Datenbank regelmäßig zu
+      senden.
+    </p>
+    <p>
+      Bei vielen Routern würde eine einzige globale Link-State-Datenbank sehr
+      groß werden. OSPF begrenzt deshalb den Flooding-Bereich mit Areas. LSAs
+      werden grundsätzlich innerhalb ihrer Area geflutet. Router zwischen Areas
+      fassen Informationen zusammen und übertragen nur die notwendigen
+      Präfixinformationen. Dadurch sinkt der Speicher-, CPU- und
+      Nachrichtenaufwand.
+    </p>
+
+    <h3>Dijkstra und der Shortest-Path-First-Algorithmus</h3>
+    <p>
+      Nachdem ein Link-State-Router die vollständige Topologie seiner Area kennt,
+      berechnet er die besten Wege mit Dijkstras Shortest-Path-First-Algorithmus
+      (SPF). Die Router sind dabei Knoten eines Graphen und die Links sind Kanten
+      mit Kosten. Die Kosten können beispielsweise Bandbreite oder
+      Administrationsvorgaben abbilden.
+    </p>
+    <p>
+      Zuerst setzt der Router die eigene Distanz auf 0 und alle unbekannten
+      Distanzen auf unendlich. Danach wählt er den noch nicht festgelegten
+      Knoten mit der kleinsten bekannten Distanz aus. Von diesem Knoten aus
+      prüft er alle Nachbarn und berechnet, ob der Weg über den ausgewählten
+      Knoten kürzer ist. Falls ja, aktualisiert er Distanz und Vorgänger. Dieser
+      Vorgang wird wiederholt, bis die kürzesten Wege zu allen relevanten Zielen
+      feststehen.
+    </p>
+    <p>
+      Aus dem SPF-Ergebnis erstellt der Router seine Routingtabelle. Der erste
+      Schritt auf dem berechneten Weg wird als Next Hop eingetragen. Mehrere
+      gleich teure Wege können als Equal-Cost Multipath (ECMP) parallel genutzt
+      werden. Dijkstra wird nach einer relevanten Topologieänderung erneut
+      ausgeführt, nicht für jedes einzelne Datenpaket.
+    </p>
+      Vector noch klassisches Link State. Es wird häufig als
+    <h3>OSPF (Open Shortest Path First)</h3>
+      <strong>Path-Vector-Protokoll</strong> bezeichnet.
+      OSPF ist ein Link-State-Intradomain-Routingprotokoll für IPv4. Die
+      Router entdecken ihre Nachbarn, tauschen Link-State-Informationen aus,
+      bauen eine Link-State-Datenbank auf und berechnen mit SPF die besten Wege.
+      OSPFv3 ist die Weiterentwicklung für IPv6.
+    </p>
+    <p>
+      Nachbarn werden über Hello-Pakete erkannt und regelmäßig überprüft. Stimmen
+      wichtige Parameter wie Area, Hello-Intervalle, Netzmaske und
+      Authentifizierung nicht überein, wird keine OSPF-Nachbarschaft aufgebaut.
+      Nach erfolgreicher Nachbarschaft synchronisieren die Router ihre
+      Link-State-Datenbanken.
+    </p>
+    <p>
+      OSPF verwendet verschiedene LSA-Typen, um Router, Netzwerke, externe
+      Präfixe und Area-Grenzen zu beschreiben. Router innerhalb einer Area
+      erhalten dadurch ein konsistentes Bild der Topologie. Ein OSPF-Router
+      berechnet seine Wege anhand der Link-Kosten, nicht einfach anhand der
+      Anzahl der Hops.
+    </p>
+    <h4>OSPF-Areas</h4>
+    <p>
+      OSPF kann ein großes Netzwerk in Areas aufteilen. Die Backbone-Area 0
+      verbindet die anderen Areas. Ein Area Border Router (ABR) verbindet Areas
+      und kann Netzpräfixe zusammenfassen. Dadurch müssen Router nicht die
+      vollständige Topologie des gesamten autonomen Systems speichern.
+    </p>
+    <h4>Designated Router und Backup Designated Router</h4>
+    <p>
+      In Broadcast-Netzwerken wie Ethernet würde eine vollständige
+      Nachbarschaft zwischen jedem Router viele Adjacencies erzeugen. OSPF wählt
+      deshalb einen Designated Router (DR) und einen Backup Designated Router
+      (BDR). Die anderen Router tauschen Link-State-Informationen bevorzugt über
+      diese zentralen Router aus. Der BDR kann beim Ausfall des DR übernehmen.
+    </p>
+    <p>
+      OSPF konvergiert normalerweise schneller und skaliert besser als RIP, weil
+      Router die Topologie kennen und Änderungen gezielt verteilen. Dafür sind
+      OSPF-Konfiguration, Areas, LSA-Typen und Fehlersuche deutlich komplexer.
+      <strong
+        >dass Router anhand von Routingtabellen den nächsten Hop
+        bestimmen</strong
+      >, als die Algorithmen im Detail selbst implementieren zu können.
+    </p>
+    <p>Ein grundlegendes Verständnis reicht meistens:</p>
+    <p>
+      <strong>Distance Vector:</strong> Router tauschen Informationen über
+      erreichbare Ziele mit ihren Nachbarn aus.
+    </p>
+    <p>
+      <strong>Link State:</strong> Router verbreiten Informationen über ihre
+      Links und berechnen daraus die Netzwerktopologie und Routingwege.
+    </p>
+    <p>
+      <strong>BGP:</strong> Routing zwischen autonomen Systemen im Internet.
+    </p>
+    <p>
+      <strong>OSPF und IS-IS:</strong> Routing innerhalb von Netzwerken
+      beziehungsweise autonomen Systemen.
+    </p>
+    <p>
+      <strong>RIP:</strong> vor allem historisch beziehungsweise als einfaches
+      Lehrbeispiel relevant.
+    </p>
+    <h3>Für deinen Lernzettel</h3>
+    <p>
+      Wenn dein Schwerpunkt tatsächlich <strong>Webentwicklung</strong> und
+      nicht Netzwerktechnik ist, würde ich Distance Vector und Link State kurz
+      behalten, aber nicht mit vielen Details füllen. Besonders wichtig sind die
+      Begriffe
+      <strong
+        >Routingtabelle, Next Hop, OSPF, BGP und der Unterschied zwischen
+        internem und externem Routing</strong
+      >.
+    </p>
     <h2>WWW (World Wide Web)</h2>
     <p>
       Mit dem www bezeichnet man die vernetzten Websiten, die man mithilfe eines
@@ -2085,6 +2505,211 @@ sudo apachectl configtest
       notiert. Somit insgesamt 128 Bit. Damit sind theoretisch 2^128 = 3,4 ×
       10³⁸ Adressen = 340.282.366.920.938.463.463.374.607.431.768.211.456
     </p>
+    <img
+      src="/assets/screenshots/ipv6_structure.jpeg"
+      alt="Abbildung von IPv6 Aufteilung"
+    />
+    <img
+      src="/assets/screenshots/ipv6_header.jpeg"
+      alt="Abbildung zur Struktur des IPv6 Headers"
+    />
+    <h3>Aufbau des IPv6-Headers</h3>
+    <p>
+      Der IPv6-Header besteht aus einem festen Basisheader mit 40 Byte. Im
+      Gegensatz zu IPv4 gibt es keine optionalen Felder direkt in diesem
+      Basisheader und keine Header-Prüfsumme. Zusätzliche Informationen werden
+      über optionale IPv6 Extension Headers zwischen dem Basisheader und den
+      Nutzdaten übertragen.
+    </p>
+
+    <h4>Version (4 Bit)</h4>
+    <p>
+      Das Versionsfeld kennzeichnet die verwendete IP-Version. Bei einem
+      IPv6-Paket enthält dieses Feld immer den Wert 6. Dadurch erkennt ein
+      Gerät, dass der IPv6-Header nach dem IPv6-Format ausgewertet werden muss.
+    </p>
+
+    <h4>Traffic Class (8 Bit)</h4>
+    <p>
+      Die Traffic Class kennzeichnet die gewünschte Behandlung eines Pakets im
+      Netzwerk. Sie kann beispielsweise für Quality of Service (QoS), also für
+      die Priorisierung bestimmter Datenströme, verwendet werden. Die Traffic
+      Class enthält außerdem die ECN-Bits zur Signalisierung von
+      Netzwerküberlastung.
+    </p>
+
+    <h4>Flow Label (20 Bit)</h4>
+    <p>
+      Das Flow Label kennzeichnet einen zusammengehörigen Datenstrom zwischen
+      Sender und Empfänger. Router können Pakete desselben Flows dadurch
+      effizienter und möglichst einheitlich behandeln, ohne jedes Paket anhand
+      aller darüberliegenden Informationen analysieren zu müssen. Der Absender
+      setzt das Flow Label; der Wert 0 bedeutet, dass kein Flow markiert ist.
+    </p>
+
+    <h4>Payload Length (16 Bit)</h4>
+    <p>
+      Payload Length gibt die Länge aller Daten nach dem festen IPv6-Basisheader
+      in Byte an. Dazu gehören optionale Extension Headers und die eigentlichen
+      Nutzdaten, beispielsweise ein TCP-Segment oder ein UDP-Datagramm. Der
+      40-Byte-Basisheader selbst wird in diesem Feld nicht mitgezählt.
+    </p>
+
+    <h4>Next Header (8 Bit)</h4>
+    <p>
+      Next Header gibt an, welcher Header direkt auf den aktuellen IPv6-Header
+      folgt. Der Wert kann auf einen Extension Header wie Fragment, Routing oder
+      Destination Options verweisen. Ist kein Extension Header vorhanden, zeigt
+      das Feld direkt auf ein Transportprotokoll wie TCP, UDP oder ICMPv6.
+    </p>
+    <p>
+      Dadurch bildet Next Header eine verkettete Struktur: Jeder Extension
+      Header enthält wiederum ein Next-Header-Feld und verweist auf den nächsten
+      Header. Am Ende dieser Kette steht das Transportprotokoll, das die Payload
+      verarbeitet. Im Bild folgt auf den IPv6-Header direkt UDP beziehungsweise
+      TCP.
+    </p>
+
+    <h4>Hop Limit (8 Bit)</h4>
+    <p>
+      Hop Limit begrenzt die Anzahl der Router, die ein IPv6-Paket passieren
+      darf. Jeder weiterleitende Router verringert den Wert um 1. Erreicht der
+      Wert 0, wird das Paket verworfen und normalerweise eine ICMPv6-Nachricht
+      an den Absender gesendet. Das verhindert, dass Pakete in Routing-Schleifen
+      dauerhaft im Netzwerk bleiben. Das Feld erfüllt damit dieselbe Aufgabe wie
+      TTL bei IPv4.
+    </p>
+
+    <h4>Source IPv6 Address (128 Bit)</h4>
+    <p>
+      Die Source IPv6 Address enthält die IPv6-Adresse des Absenders. Sie wird
+      benötigt, damit Antworten und Fehlermeldungen dem ursprünglichen Absender
+      zugeordnet und zurückgesendet werden können.
+    </p>
+
+    <h4>Destination IPv6 Address (128 Bit)</h4>
+    <p>
+      Die Destination IPv6 Address enthält die IPv6-Adresse des Empfängers.
+      Router verwenden sie für die Weiterleitung und suchen anhand des
+      Zielpräfixes den nächsten passenden Netzwerkabschnitt. Bei Multicast kann
+      die Adresse statt eines einzelnen Hosts auch eine Empfängergruppe
+      bezeichnen.
+    </p>
+
+    <h3>Zusammenhang zwischen IPv6-Header und Payload</h3>
+    <p>
+      Ein IPv6-Paket beginnt mit dem festen 40-Byte-Basisheader. Danach können
+      optionale Extension Headers folgen. Anschließend steht das Protokoll, das
+      durch den letzten Next-Header-Eintrag angegeben wird. Im Bild ist links
+      UDP und rechts TCP dargestellt.
+    </p>
+    <h4>IPv6 mit UDP</h4>
+    <p>
+      Zeigt Next Header auf UDP, folgt nach dem IPv6-Header beziehungsweise nach
+      möglichen Extension Headers ein UDP-Header. Dieser enthält unter anderem
+      Quellport, Zielport, Länge und Prüfsumme. Auf den UDP-Header folgt die
+      UDP-Payload. UDP wird häufig für DNS, Streaming oder andere zeitkritische
+      Anwendungen verwendet.
+    </p>
+    <h4>IPv6 mit TCP</h4>
+    <p>
+      Zeigt Next Header auf TCP, folgt ein TCP-Header. Dieser enthält unter
+      anderem Quellport, Zielport, Sequenznummer, Bestätigungsnummer, Flags,
+      Fenstergröße und Prüfsumme. Auf den TCP-Header folgt die TCP-Payload. TCP
+      sorgt unter anderem für eine zuverlässige und geordnete Übertragung.
+    </p>
+    <h4>Wichtige Unterschiede zu IPv4</h4>
+    <p>
+      IPv6 besitzt einen festen Basisheader von 40 Byte, während IPv4 einen
+      variablen Header besitzt. IPv6 verwendet Extension Headers für optionale
+      Funktionen, statt diese direkt in den Basisheader einzubauen. IPv6 hat
+      außerdem keine Header-Checksumme, da die Fehlerprüfung bereits durch
+      andere Protokolle wie Ethernet, TCP oder UDP erfolgen kann.
+    </p>
+    <p>
+      IPv6-Router fragmentieren Pakete nicht selbst. Falls Fragmentierung
+      erforderlich ist, muss der Absender den Fragment Extension Header
+      verwenden. Für die Ermittlung der passenden Paketgröße wird Path MTU
+      Discovery eingesetzt.
+    </p>
+    <h3>IPv6 Unicast, Anycast und Multicast</h3>
+    <p>
+      Bei IPv6 unterscheiden sich Unicast, Anycast und Multicast vor allem
+      darin, an wie viele Empfänger ein Paket gerichtet ist.
+    </p>
+    <h4>Unicast</h4>
+    <p>
+      Eine Unicast-Adresse bezeichnet genau eine Netzwerkschnittstelle. Ein
+      Paket an eine Unicast-Adresse soll genau diesen Empfänger erreichen.
+      Unicast ist die normale Form der Kommunikation, beispielsweise beim Aufruf
+      einer Website oder bei der Kommunikation mit einem Server.
+    </p>
+    <p>
+      Ein wichtiger Bereich sind Global Unicast Addresses. Diese können
+      grundsätzlich für die Kommunikation über das Internet verwendet werden und
+      liegen im Bereich 2000::/3.
+    </p>
+    <p>
+      Daneben gibt es beispielsweise Link-Local-Adressen im Bereich fe80::/10.
+      Diese werden für die Kommunikation innerhalb eines lokalen Links
+      verwendet.
+    </p>
+    <h4>Anycast</h4>
+    <p>
+      Bei Anycast kann dieselbe Adresse mehreren Netzwerkschnittstellen
+      beziehungsweise Geräten zugewiesen werden. Ein Paket an eine
+      Anycast-Adresse wird zu einem der möglichen Empfänger weitergeleitet.
+      Welcher Empfänger erreicht wird, ergibt sich aus dem Routing und ist
+      typischerweise das aus Sicht des Routings günstigste beziehungsweise
+      nächstgelegene Ziel.
+    </p>
+    <p>
+      Anycast kann beispielsweise verwendet werden, wenn ein Dienst an mehreren
+      Standorten bereitgestellt wird. Der Client verwendet dabei nur eine
+      Adresse, während das Routing entscheidet, welches der mehreren Ziele
+      erreicht wird.
+    </p>
+    <p>
+      Anycast ist keine eigene spezielle IPv6-Adressklasse. Eine Unicast-Adresse
+      kann als Anycast-Adresse verwendet werden, wenn sie mehreren Interfaces
+      zugewiesen und entsprechend geroutet wird.
+    </p>
+    <h4>Multicast</h4>
+    <p>
+      Eine Multicast-Adresse bezeichnet eine Gruppe von Empfängern. Ein Paket an
+      eine Multicast-Adresse wird an mehrere Mitglieder dieser Gruppe verteilt.
+      Die Empfänger müssen dabei an der entsprechenden Multicast-Gruppe
+      teilnehmen.
+    </p>
+    <p>
+      IPv6 verwendet für Multicast-Adressen den Bereich ff00::/8. Ein Beispiel
+      ist ff02::1. Diese Adresse bezeichnet alle IPv6-Knoten auf dem lokalen
+      Link.
+    </p>
+    <p>
+      Im Gegensatz zu Unicast gibt es bei Multicast mehrere Empfänger. Im
+      Gegensatz zu Broadcast wird der Verkehr jedoch gezielt an eine bestimmte
+      Gruppe gesendet.
+    </p>
+    <h4>Unterschiede im Überblick</h4>
+    <p>
+      Unicast bedeutet Einer zu Einer: Ein Paket wird an genau einen Empfänger
+      gesendet.
+    </p>
+    <p>
+      Anycast bedeutet Einer zu Einem aus mehreren möglichen Zielen: Mehrere
+      Interfaces verwenden dieselbe Adresse, aber ein Paket erreicht nur eines
+      dieser Ziele.
+    </p>
+    <p>
+      Multicast bedeutet Einer zu Vielen: Ein Paket wird an mehrere Empfänger
+      innerhalb einer Multicast-Gruppe verteilt.
+    </p>
+    <p>
+      Ein wichtiger Unterschied zu IPv4 ist außerdem, dass IPv6 keinen normalen
+      Broadcast verwendet. Viele Funktionen, für die IPv4 Broadcast verwendet,
+      werden bei IPv6 durch Multicast gelöst.
+    </p>
 
     <h3>Besondere und private IPv4-Adressen</h3>
 
@@ -2207,6 +2832,7 @@ sudo apachectl configtest
       src="/assets/screenshots/path_mtu_discovery.jpeg"
       alt="Abbildung zur Path MTU Discovery"
     />
+
     <h3>Was macht ARP?</h3>
     <p>
       ARP wird in lokalen IPv4-Netzen verwendet, um zu einer bekannten
@@ -2228,6 +2854,49 @@ sudo apachectl configtest
       Bei <strong>IPv6</strong> wird ARP dagegen nicht verwendet. Dort übernimmt
       <strong>Neighbor Discovery Protocol (NDP)</strong> diese und weitere
       Aufgaben.
+    </p>
+    <h3>Neighbor Discovery Protocol (NDP) bei IPv6</h3>
+    <p>
+      NDP ist ein Protokoll von IPv6 und übernimmt die Aufgaben, für die bei
+      IPv4 ARP verwendet wird. Es ermittelt zu einer bekannten IPv6-Adresse die
+      zugehörige MAC-Adresse, damit ein Paket im lokalen Netzwerk an das
+      richtige Interface gesendet werden kann. NDP basiert auf ICMPv6 und
+      verwendet spezielle IPv6-Multicast-Adressen statt eines Broadcasts.
+    </p>
+    <p>
+      Möchte ein Host beispielsweise ein Paket an einen Nachbarn senden, kennt
+      aber dessen MAC-Adresse noch nicht, verschickt er eine Neighbor
+      Solicitation (NS). Diese Anfrage wird normalerweise an die spezielle
+      Solicited-Node-Multicast-Adresse des Zielhosts gesendet. Der Zielhost
+      antwortet mit einer Neighbor Advertisement (NA), die seine MAC-Adresse
+      enthält. Der anfragende Host speichert die Zuordnung anschließend in
+      seinem Neighbor Cache.
+    </p>
+    <p>
+      NDP dient nicht nur der Auflösung von IPv6-Adressen zu MAC-Adressen. Es
+      ermöglicht auch Router Discovery, die automatische Ermittlung von Routern
+      und Netzwerkpräfixen, sowie die Stateless Address Autoconfiguration
+      (SLAAC). Router senden Router Advertisements (RA), in denen sie unter
+      anderem Präfixinformationen und die mögliche automatische Konfiguration
+      von IPv6-Adressen bekanntgeben.
+    </p>
+    <p>
+      Außerdem wird NDP für Duplicate Address Detection (DAD) verwendet. Bevor
+      ein Host eine IPv6-Adresse verwendet, prüft er, ob bereits ein anderer
+      Host dieselbe Adresse im lokalen Netzwerk benutzt. So können doppelte
+      IPv6-Adressen erkannt und vermieden werden.
+    </p>
+    <p>
+      NDP kann zusätzlich erkennen, ob ein Nachbar noch erreichbar ist, und
+      Redirect-Nachrichten für eine bessere Weiterleitung verwenden. Damit
+      vereint NDP mehrere Funktionen, die bei IPv4 durch ARP, ICMP Router
+      Discovery und weitere Mechanismen getrennt umgesetzt werden.
+    </p>
+    <p>
+      Der grundlegende Zusammenhang lautet: IPv4 verwendet ARP für IPv4-Adresse
+      zu MAC-Adresse, IPv6 verwendet NDP für IPv6-Adresse zu MAC-Adresse und
+      zusätzlich für Router-Erkennung, automatische Adresskonfiguration und
+      Erreichbarkeitsprüfung.
     </p>
     <h3>Für deinen Lernzettel</h3>
     <p>
@@ -2334,6 +3003,244 @@ sudo apachectl configtest
       (Zielport), Sender (Quellport), Sequenznummer, Prüfsumme (Checksum),
       Daten. Die Datenpakete werden einzeln versendet. Der Empfänger bildet aus
       den Paketen die Nachricht (Defragmentierung).
+    </p>
+
+    <h2>DHCP (Dynamic Host Configuration Protocol)</h2>
+
+    <p>
+      DHCP ermöglicht die automatische Konfiguration von Geräten in IP-Netzen.
+      Ein Client kann dadurch beispielsweise eine IP-Adresse, eine Subnetzmaske,
+      ein Default Gateway, DNS-Server und eine Lease Time erhalten.
+    </p>
+
+    <p>
+      Bei IPv4 wird der typische Ablauf bei der erstmaligen Konfiguration als
+      DORA bezeichnet: DHCPDISCOVER, DHCPOFFER, DHCPREQUEST und DHCPACK.
+    </p>
+
+    <p>
+      Der Client besitzt zunächst noch keine gültige IP-Adresse und kennt den
+      DHCP-Server nicht. Deshalb sendet er eine DHCPDISCOVER-Nachricht,
+      typischerweise als Broadcast im lokalen Netzwerk.
+    </p>
+
+    <p>
+      Ein DHCP-Server antwortet mit einem DHCPOFFER und bietet dem Client eine
+      IP-Konfiguration an. Der Client wählt ein Angebot aus und sendet eine
+      DHCPREQUEST-Nachricht. Der Server bestätigt die Zuweisung anschließend mit
+      DHCPACK und kann dabei zusätzliche Konfigurationsinformationen
+      übermitteln.
+    </p>
+
+    <p>
+      Die zugewiesene IP-Adresse wird normalerweise nur für eine bestimmte Lease
+      Time vergeben. Der Client versucht vor Ablauf der Lease, die Zuweisung zu
+      verlängern. DHCPRELEASE kann verwendet werden, wenn ein Client seine Lease
+      freiwillig zurückgeben möchte.
+    </p>
+
+    <p>
+      Befindet sich der DHCP-Server in einem anderen Subnetz, kann ein DHCP
+      Relay Agent die DHCP-Nachrichten zwischen Client und Server weiterleiten.
+      Dadurch kann ein zentraler DHCP-Server mehrere Subnetze versorgen, obwohl
+      DHCPDISCOVER zunächst als Broadcast im lokalen Netz gesendet wird.
+    </p>
+
+    <h2>Transmission Errors</h2>
+    <p>
+      Bei der Übertragung von Daten können Fehler auftreten. Beispielsweise kann
+      ein Paket beschädigt werden, verloren gehen oder wegen einer Überlastung
+      verworfen werden.
+    </p>
+    <p>
+      Wichtig ist:
+      <strong>IP selbst bietet keine zuverlässige Übertragung.</strong> IP
+      versucht, ein Paket zum Ziel zu bringen, garantiert aber weder eine
+      Zustellung noch eine bestimmte Reihenfolge.
+    </p>
+    <h3>Fehler auf verschiedenen Ebenen</h3>
+    <p>
+      Auf dem <strong>Data Link Layer</strong> können beispielsweise
+      Übertragungsfehler erkannt werden. Ethernet verwendet dafür eine
+      <strong>Frame Check Sequence (FCS)</strong>. Wird ein Frame als beschädigt
+      erkannt, wird er normalerweise verworfen.
+    </p>
+    <p>
+      Auf IP-Ebene kann ein Router ebenfalls ein Paket verwerfen, beispielsweise
+      wenn die TTL abgelaufen ist oder keine Route zum Ziel existiert.
+    </p>
+    <p>
+      Die eigentliche zuverlässige Übertragung wird, falls benötigt, von höheren
+      Protokollen übernommen. Bei <strong>TCP</strong> können beispielsweise
+      verlorene Daten durch ACKs, Sequenznummern und Retransmission erkannt und
+      erneut übertragen werden.
+    </p>
+    <h2>ICMP</h2>
+    <p>
+      <strong>ICMP (Internet Control Message Protocol)</strong> wird verwendet,
+      um Informationen und Fehlermeldungen über die IP-Kommunikation
+      auszutauschen.
+    </p>
+    <p>
+      Ein wichtiger Punkt ist:
+      <strong
+        >ICMP transportiert normalerweise keine Nutzdaten einer
+        Anwendung.</strong
+      >
+      Es informiert beispielsweise darüber, dass ein IP-Paket nicht zugestellt
+      werden konnte oder dass ein bestimmter Netzwerkzustand vorliegt.
+    </p>
+    <h3>Wann werden ICMP-Nachrichten gesendet?</h3>
+    <p>
+      ICMP-Nachrichten werden typischerweise von einem Host oder Router erzeugt,
+      wenn bei der Verarbeitung eines IP-Pakets ein bestimmtes Problem oder eine
+      bestimmte Situation auftritt.
+    </p>
+    <h3>TTL abgelaufen</h3>
+    <p>
+      Wenn ein Router ein Paket weiterleitet und dessen TTL dabei auf 0 fällt,
+      verwirft er das Paket und kann eine
+      <strong>ICMP Time Exceeded</strong>-Nachricht an den Absender schicken.
+    </p>
+    <p>
+      Das ist beispielsweise die Grundlage von <strong>Traceroute</strong>.
+      Traceroute nutzt absichtlich niedrige TTL-Werte, um nacheinander die
+      Router auf dem Weg zum Ziel sichtbar zu machen.
+    </p>
+    <h3>Destination Unreachable</h3>
+    <p>
+      Wenn ein Paket nicht zugestellt werden kann, kann ein Router oder Host
+      eine <strong>ICMP Destination Unreachable</strong>-Nachricht senden.
+    </p>
+    <p>Mögliche Gründe sind beispielsweise:</p>
+    <ul>
+      <li>Es existiert keine Route zum Ziel.</li>
+      <li>Das Zielnetz oder der Zielhost ist nicht erreichbar.</li>
+      <li>Ein bestimmter Dienst beziehungsweise Port ist nicht erreichbar.</li>
+      <li>
+        Ein Paket ist aufgrund der MTU nicht übertragbar und darf nicht
+        fragmentiert werden.
+      </li>
+    </ul>
+    <h3>Packet Too Big</h3>
+    <p>
+      Bei <strong>IPv6</strong> gibt es beispielsweise die ICMPv6-Nachricht
+      <strong>Packet Too Big</strong>.
+    </p>
+    <p>
+      Ein Router kann damit dem Sender mitteilen, dass das Paket für den
+      nächsten Link zu groß ist. Der Sender kann daraufhin seine Paketgröße
+      reduzieren. Das ist ein wichtiger Bestandteil von
+      <strong>Path MTU Discovery</strong>.
+    </p>
+    <h3>Echo Request und Echo Reply</h3>
+    <p>
+      ICMP wird nicht nur für Fehler verwendet. Ein bekanntes Beispiel ist
+      <strong>ping</strong>.
+    </p>
+    <p>
+      Ping sendet eine <strong>ICMP Echo Request</strong>-Nachricht an ein Ziel.
+      Ist das Ziel erreichbar und beantwortet es die Anfrage, sendet es eine
+      <strong>ICMP Echo Reply</strong> zurück.
+    </p>
+    <p>
+      Dadurch kann man beispielsweise testen, ob ein Host grundsätzlich
+      erreichbar ist und wie lange die Antwort benötigt.
+    </p>
+    <h2>Wie hängen Transmission Errors und ICMP zusammen?</h2>
+    <p>Das lässt sich am besten anhand eines Beispiels erklären:</p>
+    <p>
+      Ein Host sendet ein IP-Paket an einen entfernten Server. Auf dem Weg
+      stellt ein Router fest, dass das Zielnetz nicht erreichbar ist.
+    </p>
+    <p>
+      Der Router verwirft das Paket und kann dem ursprünglichen Sender eine
+      ICMP-Fehlermeldung schicken:
+    </p>
+    <p>
+      <strong
+        >IP-Paket → Router → Fehler erkannt → Paket verworfen →
+        ICMP-Fehlermeldung an Sender</strong
+      >
+    </p>
+    <p>
+      ICMP sorgt dabei nicht dafür, dass das ursprüngliche Paket erneut
+      übertragen wird. Es <strong>informiert</strong> den Sender über das
+      Problem.
+    </p>
+    <p>
+      Ob und wie darauf reagiert wird, entscheidet anschließend das
+      entsprechende Protokoll oder die Anwendung.
+    </p>
+    <h2>Wichtige ICMP Use Cases</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ICMP-Nachricht</th>
+          <th>Typischer Anwendungsfall</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Echo Request / Echo Reply</td>
+          <td>Ping und Erreichbarkeitstest</td>
+        </tr>
+        <tr>
+          <td>Time Exceeded</td>
+          <td>TTL abgelaufen, Grundlage für Traceroute</td>
+        </tr>
+        <tr>
+          <td>Destination Unreachable</td>
+          <td>Ziel oder Dienst nicht erreichbar</td>
+        </tr>
+        <tr>
+          <td>Packet Too Big</td>
+          <td>IPv6 und Path MTU Discovery</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2>Wichtig für die Prüfung</h2>
+    <p>
+      <strong>IP ist nicht zuverlässig.</strong> Pakete können verloren gehen
+      oder verworfen werden.
+    </p>
+    <p>
+      <strong
+        >ICMP meldet Netzwerkprobleme oder liefert
+        Kontrollinformationen.</strong
+      >
+      Es repariert die Übertragung aber nicht selbst.
+    </p>
+    <p>
+      <strong>TCP sorgt bei Bedarf für zuverlässige Übertragung.</strong> Es
+      kann beispielsweise verlorene Daten erkennen und erneut übertragen.
+    </p>
+    <p>
+      <strong
+        >Ethernet erkennt beschädigte Frames über die FCS und verwirft sie
+        normalerweise.</strong
+      >
+    </p>
+
+    <h2>IGMP (Internet Group Management Protocol)</h2>
+
+    <p>
+      IGMP wird bei IPv4-Multicast verwendet und ermöglicht Hosts, einem
+      Multicast-Router mitzuteilen, dass sie Daten einer bestimmten
+      Multicast-Gruppe empfangen möchten oder diese Gruppe verlassen.
+    </p>
+
+    <p>
+      IGMP dient damit der Verwaltung von Multicast-Gruppen zwischen Hosts und
+      dem lokalen Multicast-Router. Der Router kann dadurch feststellen, ob sich
+      in einem Netzwerksegment Hosts befinden, die an einer bestimmten
+      Multicast-Gruppe interessiert sind.
+    </p>
+
+    <p>
+      IGMP selbst leitet den Multicast-Verkehr nicht durch das gesamte Netzwerk
+      weiter. Die Weiterleitung zwischen verschiedenen Routern erfolgt durch
+      Multicast-Routing.
     </p>
 
     <h2>ISO/OSI Schichtenmodell</h2>
@@ -2585,6 +3492,11 @@ sudo apachectl configtest
       Provider Netzen, und verwendet Labels für eine kontrollierte
       Weiterleitung.
     </p>
+    <h2>Wie groß sind IP Pakete normalerweise?</h2>
+    <img
+      src="/assets/screenshots/ip_packet_size.jpeg"
+      alt="Abbildung zu IP Paket Größen"
+    />
     <h2>IP Kommunikation</h2>
     <p>
       IP ist verbindungslos, unzuverlässig und wird so gut es geht mit aktuellen
