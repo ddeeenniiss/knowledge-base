@@ -1835,6 +1835,88 @@ sudo apachectl configtest
     <p>
       Übertragung von Datenpaketen zwischen Geräten im Internet. IPv4 und IPv6
     </p>
+    <h4>Aufbau des IPv4-Headers</h4>
+    <p>
+      Der IPv4-Header enthält Informationen, die für die Verarbeitung und
+      Weiterleitung eines IP-Pakets benötigt werden. Er ist standardmäßig 20
+      Byte groß und kann durch optionale Erweiterungen bis zu 60 Byte groß
+      werden. Auf den Header folgen die Nutzdaten (Payload).
+    </p>
+    <p>
+      <strong>Version (4 Bit):</strong> Gibt die verwendete IP-Version an. Der
+      Wert 4 steht für IPv4.
+    </p>
+    <p>
+      <strong>Internet Header Length, IHL (4 Bit):</strong> Gibt die Länge des
+      IPv4-Headers in 32-Bit-Worten an. Der Standardwert 5 entspricht 20 Byte;
+      durch Optionen kann der Header länger werden.
+    </p>
+    <p>
+      <strong>DSCP (6 Bit) und ECN (2 Bit):</strong> DSCP (Differentiated
+      Services Code Point) kann die gewünschte Behandlung und Priorisierung des
+      Pakets im Netzwerk kennzeichnen. ECN (Explicit Congestion Notification)
+      kann eine erkannte Netzwerküberlastung signalisieren, ohne ein Paket
+      verwerfen zu müssen.
+    </p>
+    <p>
+      <strong>Gesamtlänge (16 Bit):</strong> Gibt die Größe des vollständigen
+      IP-Pakets einschließlich Header und Payload an. Der maximale Wert beträgt
+      65.535 Byte.
+    </p>
+    <p>
+      <strong>Identification (16 Bit):</strong> Kennzeichnet ein IP-Paket. Bei
+      einer Fragmentierung verwenden die zugehörigen Fragmente denselben Wert,
+      damit sie beim Empfänger wieder zusammengesetzt werden können.
+    </p>
+    <p>
+      <strong>Flags (3 Bit):</strong> Steuern die Fragmentierung. Das erste Bit
+      ist reserviert und muss 0 sein. Das DF-Bit (Don't Fragment) legt fest, ob
+      ein Paket fragmentiert werden darf. Das MF-Bit (More Fragments) zeigt an,
+      dass noch weitere Fragmente folgen.
+    </p>
+    <p>
+      <strong>Fragment Offset (13 Bit):</strong> Gibt die Position eines
+      Fragments innerhalb des ursprünglichen IP-Pakets an. Zusammen mit
+      Identification und MF ermöglicht dieses Feld die richtige Zusammensetzung
+      der Fragmente.
+    </p>
+    <p>
+      <strong>Time to Live, TTL (8 Bit):</strong> Begrenzt die Lebensdauer eines
+      Pakets. Jeder Router verringert den Wert normalerweise um 1. Erreicht TTL
+      den Wert 0, wird das Paket verworfen, damit es nicht dauerhaft im Netz
+      zirkuliert.
+    </p>
+    <p>
+      <strong>Protocol (8 Bit):</strong> Gibt an, welches Protokoll die Payload
+      verarbeitet. Beispiele sind TCP mit dem Wert 6, UDP mit dem Wert 17 und
+      ICMP mit dem Wert 1.
+    </p>
+    <p>
+      <strong>Header Checksum (16 Bit):</strong> Prüfsumme zur Erkennung von
+      Übertragungsfehlern im IPv4-Header. Da sich beispielsweise das TTL-Feld an
+      jedem Router ändern kann, wird die Prüfsumme unterwegs neu berechnet.
+    </p>
+    <p>
+      <strong>Source IP Address (32 Bit):</strong> Enthält die IPv4-Adresse des
+      Absenders. Sie wird verwendet, damit Antworten und Fehlermeldungen zum
+      Ausgangspunkt zurückgesendet werden können.
+    </p>
+    <p>
+      <strong>Destination IP Address (32 Bit):</strong> Enthält die IPv4-Adresse
+      des Empfängers. Router verwenden diese Adresse, um den passenden Weg zum
+      Zielnetzwerk zu bestimmen.
+    </p>
+    <p>
+      <strong>Options (optional):</strong> Enthält zusätzliche Informationen und
+      erweitert den IPv4-Header. Werden keine Optionen verwendet, bleibt der
+      Header bei der Mindestgröße von 20 Byte.
+    </p>
+    <p>
+      <strong>Payload:</strong> Enthält die eigentlichen Nutzdaten des Pakets,
+      beispielsweise ein TCP-Segment, ein UDP-Datagramm oder eine
+      ICMP-Nachricht. Ihre maximale Größe hängt von der Gesamtlänge und der
+      Headergröße ab.
+    </p>
     <h3>UDP (User Datagram Protocol)</h3>
     <p>
       Ein verbindungsloses und unzuverlässiges Protokoll, das keine Bestätigung
@@ -1971,13 +2053,25 @@ sudo apachectl configtest
     </p>
     <p>49152-65535 Dynamic Ports: Können frei verwendet werden.</p>
     <h2>MAC Adresse (Media Access Control Adresse)</h2>
-    <p>6 Byte, 48 bit, dabei sind die ersten 24bit Herstellerkennzeichnung.</p>
+    <p>
+      6 Byte, 48 bit, dabei sind die ersten 24bit Herstellerkennzeichnung.
+      Hexadezimal geschrieben. zB 08-00-20-ae-fd-7e oder 08:00:20:ae:fd:7e
+    </p>
 
     <h2>IP Protokoll</h2>
     <p>Ist das Internet Protokoll und befindet sich auf Schicht 3</p>
     <h3>IP Adresse</h3>
     <p>
-      Ip Adressen machen Geräte in einem Netzwerk eindeutig identifizierbar.
+      Ip Adressen machen Geräte in einem Netzwerk eindeutig identifizierbar. Sie
+      bestehen aus 32 Bits, dabei aufgeteilt in 4 Blöcke mit jeweils 8 bit. Die
+      Schreibweise wird jeweils mit einem Punkt zwischen einem Block getrennt.
+      zB 134.2.2.29
+    </p>
+    <p>
+      IP Adressen werden von der IANA (Internet Assigned Numbers Authority)
+      zugewiesen. IANA weißt IP Blöcke der RIRs (Regional Internet Registries)
+      zu. RIRs weißen IP Adressen an LIRs (Local Internet Registries). LIRs
+      weißen die Internet Adressen an Organisationen und Kunden weiter.
     </p>
     <h3>IPv4 Adresse</h3>
     <p>
@@ -1992,12 +2086,227 @@ sudo apachectl configtest
       10³⁸ Adressen = 340.282.366.920.938.463.463.374.607.431.768.211.456
     </p>
 
-    <h3>Private Adressen</h3>
-    <p>localhost 127.0.0.1</p>
-    <p>10.0.0.0 bis 10.255.255.255</p>
-    <p>172.16.0.0 bis 172.31.255.255</p>
-    <p>192.168.0.0 bis 192.168.255.255</p>
-    <p>169.254.0.0 bis 169.168.255.255</p>
+    <h3>Besondere und private IPv4-Adressen</h3>
+
+    <p>
+      Die folgenden Adressbereiche haben besondere Bedeutungen oder werden für
+      private Netzwerke verwendet.
+    </p>
+
+    <h4>Private Adressen</h4>
+
+    <p>
+      10.0.0.0/8, 172.16.0.0/12 und 192.168.0.0/16 sind private IPv4
+      Adressbereiche. Sie werden in privaten Netzwerken verwendet und
+      normalerweise nicht im öffentlichen Internet geroutet.
+    </p>
+
+    <p>10.0.0.0/8 umfasst den Bereich 10.0.0.0 bis 10.255.255.255.</p>
+
+    <p>172.16.0.0/12 umfasst den Bereich 172.16.0.0 bis 172.31.255.255.</p>
+
+    <p>192.168.0.0/16 umfasst den Bereich 192.168.0.0 bis 192.168.255.255.</p>
+
+    <h4>Loopback</h4>
+
+    <p>
+      127.0.0.0/8 ist für Loopback-Adressen reserviert. Sie ermöglichen die
+      Kommunikation eines Hosts mit sich selbst. 127.0.0.1 ist die bekannteste
+      Loopback-Adresse und bezeichnet den lokalen Host.
+    </p>
+
+    <h4>Link Local</h4>
+
+    <p>
+      169.254.0.0/16 ist für IPv4 Link Local Addresses vorgesehen. Ein Host kann
+      eine Adresse aus diesem Bereich automatisch verwenden, wenn beispielsweise
+      kein DHCP-Server eine Adresse bereitstellt.
+    </p>
+
+    <h4>Unspezifizierte Adresse</h4>
+
+    <p>
+      0.0.0.0 ist die unspezifizierte IPv4-Adresse. Sie kann beispielsweise
+      verwendet werden, wenn ein Host noch keine eigene IPv4-Adresse kennt. In
+      einer Routingtabelle bezeichnet 0.0.0.0/0 dagegen die Default Route und
+      steht für alle IPv4-Ziele, für die kein spezifischerer Eintrag vorhanden
+      ist.
+    </p>
+
+    <h4>Multicast</h4>
+
+    <p>
+      224.0.0.0/4 ist für IPv4 Multicast vorgesehen. Multicast ermöglicht die
+      Übertragung von Daten an eine Gruppe von Empfängern.
+    </p>
+
+    <h4>Broadcast</h4>
+
+    <p>
+      255.255.255.255 ist die Limited-Broadcast-Adresse. Sie bezeichnet alle
+      Hosts im lokalen Netzwerk und wird von Routern normalerweise nicht
+      weitergeleitet.
+    </p>
+    <h3>Time to Live (TTL) bei IP</h3>
+
+    <p>
+      Bei der Weiterleitung im Internet können Routing-Loops entstehen, bei
+      denen ein Paket immer wieder zwischen Routern weitergeleitet wird. Dadurch
+      würden Netzwerkressourcen unnötig belastet. Um dies zu verhindern, besitzt
+      jedes IP-Paket eine TTL.
+    </p>
+
+    <p>
+      Die TTL gibt an, wie viele Router-Hops ein Paket noch durchlaufen darf.
+      Der Ausgangswert wird vom sendenden Host festgelegt und kann
+      beispielsweise 32, 64, 128 oder 255 betragen.
+    </p>
+
+    <p>
+      Bei jedem Router, der das Paket weiterleitet, wird die TTL um 1 reduziert.
+      Erreicht die TTL dabei den Wert 0, wird das Paket verworfen. Der Router
+      sendet normalerweise eine ICMP Time Exceeded Nachricht an den Absender.
+    </p>
+
+    <h3>MTU (Maximum Transmission Unit)</h3>
+    <p>
+      Die MTU ist die maximale Größe eines IP-Pakets, das über ein bestimmtes
+      Netzwerk-Interface bzw. einen Netzwerk-Link übertragen werden kann. Sie
+      wird in Byte angegeben und hängt von der verwendeten
+      Kommunikationstechnologie ab. Bei Ethernet beträgt die typische MTU
+      beispielsweise 1500 Byte.
+    </p>
+    <p>
+      Ist ein IPv4-Paket größer als die MTU des nächsten Links, kann es in
+      kleinere Fragmente aufgeteilt werden, wenn das DF-Bit (Don't Fragment) im
+      IPv4-Header auf 0 gesetzt ist. Der Router setzt das Bit nicht selbst auf
+      0. Für die Zusammensetzung verwendet der Empfänger unter anderem das
+      Identification-Feld, das MF-Bit (More Fragments) und den Fragment Offset.
+      Ist DF auf 1 gesetzt, verwirft der Router das zu große Paket und meldet
+      den Fehler normalerweise per ICMP an den Absender.
+    </p>
+    <img
+      src="/assets/screenshots/mtu.jpeg"
+      alt="Abbildungsbeispiel zur Maximum Transmission Unit"
+    />
+    <h4>Path MTU Discovery</h4>
+    <p>
+      Path MTU Discovery (PMTUD) ermittelt die kleinste MTU auf dem gesamten
+      Übertragungsweg. Der Absender versucht, Pakete ohne Fragmentierung zu
+      senden. Bei IPv4 wird dazu das DF-Bit auf 1 gesetzt. Erkennt ein Router
+      eine zu kleine MTU, verwirft er das Paket und sendet eine ICMP-
+      Fehlermeldung mit der unterstützten MTU an den Absender. Dieser reduziert
+      anschließend die Paketgröße und sendet das Paket erneut.
+    </p>
+    <p>
+      Auch IPv6 verwendet Path MTU Discovery. IPv6-Router fragmentieren Pakete
+      jedoch nicht selbst. Ist ein IPv6-Paket zu groß, verwirft der Router es
+      und sendet eine ICMPv6-Nachricht vom Typ "Packet Too Big" an den Absender.
+    </p>
+    <img
+      src="/assets/screenshots/path_mtu_discovery.jpeg"
+      alt="Abbildung zur Path MTU Discovery"
+    />
+    <h3>Was macht ARP?</h3>
+    <p>
+      ARP wird in lokalen IPv4-Netzen verwendet, um zu einer bekannten
+      IPv4-Adresse die zugehörige <strong>MAC-Adresse</strong> herauszufinden.
+    </p>
+    <p>
+      Beispiel: Ein Rechner möchte ein Paket an
+      <code>192.168.1.20</code> senden. Er weiß die IP-Adresse des Ziels,
+      benötigt für die Übertragung über Ethernet aber die MAC-Adresse. Deshalb
+      fragt er per ARP: „Wer hat 192.168.1.20?“ Der entsprechende Rechner
+      antwortet mit seiner MAC-Adresse.
+    </p>
+    <h3>Ist ARP heute noch wichtig?</h3>
+    <p>
+      <strong>Ja, bei IPv4 definitiv.</strong> ARP gehört weiterhin zu den
+      grundlegenden Mechanismen in Ethernet-Netzen.
+    </p>
+    <p>
+      Bei <strong>IPv6</strong> wird ARP dagegen nicht verwendet. Dort übernimmt
+      <strong>Neighbor Discovery Protocol (NDP)</strong> diese und weitere
+      Aufgaben.
+    </p>
+    <h3>Für deinen Lernzettel</h3>
+    <p>
+      Du kannst ARP also auf jeden Fall behalten. Wichtig ist vor allem diese
+      Zuordnung:
+    </p>
+    <p><strong>IPv4 + Ethernet → ARP</strong></p>
+    <p><strong>IPv6 + Ethernet → NDP</strong></p>
+    <p>
+      ARP ist damit kein veraltetes Protokoll wie beispielsweise FDDI, sondern
+      bei IPv4 weiterhin ein grundlegender Bestandteil der lokalen
+      Kommunikation.
+    </p>
+
+    <h3>Subnetze (Subnetting)</h3>
+
+    <p>
+      Subnetting bezeichnet die Aufteilung eines IP-Netzwerks in mehrere
+      kleinere Subnetze. Dadurch kann ein Netzwerk hierarchisch strukturiert und
+      die vorhandene Adressmenge besser organisiert werden.
+    </p>
+
+    <p>
+      Bei IPv4 besteht eine Adresse aus 32 Bit. In diesem Beispiel ist das
+      ursprüngliche Netzwerkpräfix 16 Bit lang. Weitere 7 Bit werden für die
+      Subnetz-ID verwendet und die verbleibenden 9 Bit für die Host-ID.
+    </p>
+
+    <img
+      src="/assets/screenshots/subnetz_splitting.jpeg"
+      alt="Abbildung zu Subnetz Splitting"
+    />
+
+    <h4>Subnetzpräfix</h4>
+
+    <p>
+      Der Netzwerkpräfix legt fest, welche IP-Adressen zum selben Subnetz
+      gehören. Hosts im selben Subnetz können normalerweise direkt über Layer 2
+      miteinander kommunizieren, ohne dass ein Router für die Kommunikation
+      zwischen ihnen benötigt wird.
+    </p>
+
+    <p>
+      Die Subnetzmaske gibt an, welche Bits einer IPv4-Adresse zum
+      Netzwerkpräfix gehören. Bits mit dem Wert 1 gehören zum Präfix, Bits mit
+      dem Wert 0 zum Hostanteil.
+    </p>
+
+    <p>
+      Beispiel: Die Schreibweise 138.48.26.0/23 bedeutet, dass die ersten 23
+      Bits zum Netzwerkpräfix gehören. Die verbleibenden 9 Bits bilden den
+      Hostanteil. Die entsprechende Subnetzmaske lautet 255.255.254.0.
+    </p>
+
+    <p>
+      Die Subnetzadresse erhält man, indem die Bits des Hostanteils auf 0
+      gesetzt werden. Anhand des Netzwerkpräfixes kann ein Host außerdem
+      feststellen, ob eine Ziel-IP-Adresse im selben Subnetz liegt. Befindet
+      sich die Zieladresse in einem anderen Subnetz, wird das Paket
+      normalerweise an das Default Gateway weitergeleitet.
+    </p>
+
+    <h4>Vorteile von Subnetting</h4>
+
+    <p>
+      Subnetting ermöglicht eine strukturierte Aufteilung eines Netzwerks in
+      kleinere Bereiche. Dadurch können beispielsweise verschiedene Netzbereiche
+      getrennt, Broadcast-Domänen verkleinert und IP-Adressen gezielter vergeben
+      werden. Durch Route Aggregation können unter geeigneten Bedingungen
+      außerdem Routingtabellen verkleinert werden.
+    </p>
+
+    <h4>Nachteile von Subnetting</h4>
+
+    <p>
+      Bei einer unpassenden Wahl der Subnetzgröße können IPv4-Adressen ungenutzt
+      bleiben. Außerdem erhöht eine stärkere Unterteilung eines Netzwerks den
+      Verwaltungs- und Konfigurationsaufwand.
+    </p>
 
     <h2>Checksum</h2>
     <p>
@@ -2047,6 +2356,10 @@ sudo apachectl configtest
       src="/assets/screenshots/einkapselung_von_daten.jpeg"
       alt="Abbildung zur Kapselung von Daten"
     />
+    <img
+      src="/assets/screenshots/kapselung_von_quelle_zu_ziel.jpeg"
+      alt="Abbildung zur Kapselung von Quelle zu Ziel"
+    />
     <p>
       Beim Senden vom Client zum Server werden die Daten von oben nach unten,
       also von Schicht 7 bis Schicht 1, gekapselt (verschachtelt). Sobald die
@@ -2081,10 +2394,13 @@ sudo apachectl configtest
       </li>
       <li>
         Transport: Host-to-Host Datentransfer per TCP, UDP. Verbindungen
-        zwischen den Endsystemen.
+        zwischen den Endsystemen. Aufteilung des Datenstroms in Datenpakete.
       </li>
       <li>Session: Datenpaket wird einer Anwendung zugeordnet.</li>
-      <li>Presentation: Umwandlung der Daten in eigenes Format.</li>
+      <li>
+        Presentation: Umwandlung der Daten in eigenes Format.
+        Datenverschlüsselung, Datenkomprimierung und Datenkonversion.
+      </li>
       <li>
         Application: Protokolle tauschen Kontrollnachrichten & Daten aus per
         FTP, SMTP, HTTP. Funktionsaufruf durch den Anwender.
@@ -2121,6 +2437,215 @@ sudo apachectl configtest
       zeigt den Pfad von der Startseite bis zur aktuellen Seite an, wodurch der
       Benutzer leicht erkennen kann, wo er sich befindet und wie er zurück
       navigieren kann. zB: Home > Kategorie > Unterkategorie > Aktuelle Seite
+    </p>
+    <h2>Kommunikation von Datenpaketen</h2>
+    <p>
+      In modernen IP-Netzen werden Daten in Pakete aufgeteilt. Jedes Paket
+      enthält neben den Nutzdaten einen Header mit Informationen wie
+      Quell-IP-Adresse und Ziel-IP-Adresse. Die Pakete werden von Routern über
+      mehrere Netze hinweg zum Ziel weitergeleitet.
+    </p>
+    <h3>Wie werden Pakete von Routern weitergeleitet?</h3>
+    <p>
+      Ein Router betrachtet normalerweise die Ziel-IP-Adresse eines eingehenden
+      Pakets. Er vergleicht sie mit seiner Routingtabelle und sucht den
+      passenden Eintrag. Dabei wird das Prinzip des Longest Prefix Match
+      verwendet. Der spezifischste passende Netzpräfix wird ausgewählt.
+    </p>
+    <p>
+      Der Routing-Eintrag bestimmt den Next Hop, also den nächsten Router, oder
+      ein direkt angeschlossenes Netzwerk. Anschließend wird das Paket über das
+      entsprechende Interface weitergesendet.
+    </p>
+    <p>
+      Beispiel: Ein Paket soll zu 192.168.10.42. Ein Router kennt unter anderem
+      192.168.10.0/24 und 192.168.0.0/16. Beide Netzwerke passen, aber /24 ist
+      spezifischer. Deshalb wird das Paket über den für 192.168.10.0/24
+      eingetragenen Weg weitergeleitet.
+    </p>
+    <h2>Weiterleitungstabellen</h2>
+    <h3>Routingtabelle und Forwarding Table</h3>
+    <p>
+      Man sollte zwischen Routing und Forwarding unterscheiden. Routing
+      bestimmt, welche Wege durch das Netzwerk grundsätzlich sinnvoll sind.
+      Forwarding ist die eigentliche Entscheidung für ein konkretes Paket.
+    </p>
+    <p>
+      Router verwenden Routingprotokolle wie OSPF, IS-IS oder BGP, um
+      Informationen über erreichbare Netze auszutauschen. Daraus wird eine
+      Routingtabelle berechnet. Für die schnelle Weiterleitung wird daraus eine
+      Forwarding Information Base, kurz FIB, erzeugt.
+    </p>
+    <p>
+      Eine Weiterleitungstabelle kann zum Beispiel folgende Informationen
+      enthalten:
+    </p>
+    <p>
+      Zielnetz: 10.0.0.0/8<br />
+      Next Hop: 192.168.1.1<br />
+      Interface: eth0
+    </p>
+    <p>
+      Zielnetz: 172.16.0.0/16<br />
+      Next Hop: 192.168.2.1<br />
+      Interface: eth1
+    </p>
+    <p>
+      Zielnetz: 192.168.10.0/24<br />
+      Next Hop: direkt<br />
+      Interface: eth2
+    </p>
+    <p>
+      Der Router muss also nicht den gesamten Weg bis zum Ziel kennen. Er
+      benötigt lediglich eine Entscheidung für den nächsten Schritt.
+    </p>
+    <h2>Hop by Hop Routing</h2>
+    <p>
+      Das ist das zentrale Prinzip der normalen IP Weiterleitung. Jeder Router
+      entscheidet für sich selbst, wohin er das Paket als Nächstes schickt.
+    </p>
+    <p>
+      Der Router kennt dabei normalerweise nicht die komplette Folge aller
+      Router, die das Paket später durchlaufen wird. Jeder Hop trifft anhand
+      seiner eigenen Forwarding Tabelle eine neue Entscheidung.
+    </p>
+    <p>
+      Dadurch ist das Netz flexibel. Ändert sich die Topologie oder fällt eine
+      Verbindung aus, können Routingprotokolle neue Wege berechnen und die
+      Forwarding Tabellen entsprechend anpassen.
+    </p>
+    <h2>Source Routing</h2>
+    <p>
+      Beim Source Routing gibt nicht der jeweilige Router den gesamten weiteren
+      Weg vor, sondern der Sender kann Informationen über die gewünschte Route
+      in das Paket aufnehmen.
+    </p>
+    <p>
+      Das ist für das normale Internet heute nicht das übliche
+      Weiterleitungsprinzip. Klassisches IP Source Routing wurde aus
+      Sicherheits- und praktischen Gründen weitgehend deaktiviert
+      beziehungsweise nicht mehr regulär eingesetzt.
+    </p>
+    <p>
+      Für das Verständnis gewöhnlicher IP Kommunikation reicht daher: IP
+      arbeitet grundsätzlich nach dem Hop by Hop Prinzip.
+    </p>
+    <h2>Virtual Circuits</h2>
+    <p>
+      Ein Virtual Circuit ist ein verbindungsorientiertes Konzept. Vor der
+      eigentlichen Datenübertragung wird ein logischer Pfad durch das Netz
+      etabliert. Die Pakete können anschließend anhand einer kurzen Kennung
+      diesem virtuellen Pfad zugeordnet werden.
+    </p>
+    <p>
+      Das war beispielsweise bei Technologien wie ATM, Frame Relay oder X.25
+      zentral. Für heutige allgemeine IP Netze ist das klassische Virtual
+      Circuit Modell jedoch nicht das normale Prinzip. IP ist grundsätzlich
+      verbindungslos. Jedes Paket wird anhand seiner Zieladresse weitergeleitet.
+    </p>
+    <p>
+      Das Konzept ist trotzdem wichtig, weil moderne Technologien wie MPLS
+      ähnliche Eigenschaften aufgreifen.
+    </p>
+    <h2>MPLS</h2>
+    <h3>Warum ist MPLS noch relevant?</h3>
+    <p>
+      MPLS steht für Multiprotocol Label Switching und wird auch heute noch in
+      Provider und Unternehmensnetzen eingesetzt, insbesondere für VPNs, Traffic
+      Engineering und die kontrollierte Weiterleitung von Datenverkehr.
+    </p>
+    <p>
+      MPLS funktioniert anders als gewöhnliches IP Forwarding. Ein Paket erhält
+      ein Label. MPLS Router können anhand dieses Labels weiterleiten, statt bei
+      jedem Schritt erneut die vollständige IP Zieladresse auszuwerten.
+    </p>
+    <p>
+      Dadurch entsteht ein gewisser Bezug zum Virtual Circuit Konzept. Ein MPLS
+      Pfad kann als logisch vorgegebener Pfad durch das Netz betrachtet werden.
+      MPLS ist aber nicht einfach ein klassischer Virtual Circuit. Es handelt
+      sich um eine Label Switching Technologie, die unter anderem auf IP Routing
+      aufbauen kann.
+    </p>
+    <h2>Das Wichtigste im Überblick</h2>
+    <p>
+      IP Paket, Ziel IP betrachten, längstes passendes Präfix suchen, Next Hop
+      bestimmen, Paket weiterleiten und am nächsten Router den Vorgang
+      wiederholen.
+    </p>
+    <p>
+      Das ist Hop by Hop Routing und bildet den Kern der heutigen IP
+      Weiterleitung. Routingprotokolle berechnen beziehungsweise verbreiten die
+      Informationen, während Forwarding Tabellen die eigentliche schnelle
+      Paketweiterleitung ermöglichen.
+    </p>
+    <p>
+      Source Routing ist für gewöhnliche IP Kommunikation heute kaum relevant.
+      Klassische Virtual Circuits sind historisch wichtig, aber nicht das
+      normale IP Modell. MPLS ist dagegen weiterhin relevant, insbesondere in
+      Provider Netzen, und verwendet Labels für eine kontrollierte
+      Weiterleitung.
+    </p>
+    <h2>IP Kommunikation</h2>
+    <p>
+      IP ist verbindungslos, unzuverlässig und wird so gut es geht mit aktuellen
+      Ressourcen weitergeleitet. Das Ziel ist Ende zu Ende Prinzip.
+      Zustandsinformationen sollen also nur in Endsystemen gehalten werden,
+      nicht dazwischen.
+    </p>
+    <h3>IP Addressierung</h3>
+    <p>
+      Interfaces sind der Zugangspunkt zum Data Link Layer. Eine IP Adresse
+      identifiziert ein Interface eines anderen IP Knoten. Hosts können mehrere
+      Interfaces und IP Adressen haben. Router müssen mehrere Interfaces und IP
+      Adressen haben.
+    </p>
+    <h3>Aufbau des IPv4-Headers</h3>
+
+    <img
+      src="/assets/screenshots/ip_header_format.jpeg"
+      alt="Abbildung zu IP Header Format Struktur"
+    />
+    <p>
+      Der IPv4-Header enthält wichtige Informationen zur Verarbeitung und
+      Weiterleitung eines IP-Pakets. Der Header ist standardmäßig 20 Byte groß
+      und kann durch optionale Erweiterungen auf bis zu 60 Byte anwachsen.
+    </p>
+
+    <h4>Wichtige Header-Felder</h4>
+
+    <p>
+      Das Versionsfeld gibt an, ob es sich um IPv4 oder IPv6 handelt. Die
+      Internet Header Length beschreibt die Größe des Headers. Über DSCP und ECN
+      können Dienstqualität und Überlastungskontrolle gesteuert werden.
+    </p>
+
+    <p>
+      Die Gesamtlänge gibt die Größe des gesamten IP-Pakets einschließlich
+      Header und Nutzdaten an. Die Identifikation, Flags und der Fragment Offset
+      werden verwendet, um fragmentierte Pakete korrekt aufzuteilen und wieder
+      zusammenzusetzen.
+    </p>
+
+    <p>
+      Das Time-to-Live-Feld begrenzt die Lebensdauer eines Pakets im Netzwerk.
+      Der Protocol-Wert kennzeichnet das verwendete Protokoll der Nutzdaten,
+      beispielsweise TCP oder UDP. Die Checksumme dient zur Erkennung von
+      Fehlern im Header.
+    </p>
+
+    <p>
+      Außerdem enthält der Header die Quell-IP-Adresse und die Ziel-IP-Adresse.
+      Optionale Erweiterungen können zusätzliche Informationen aufnehmen. Auf
+      den Header folgt die Payload, also die eigentlichen Nutzdaten des
+      IP-Pakets.
+    </p>
+
+    <h4>Fragmentierung</h4>
+
+    <p>
+      Durch das DF-Flag kann die Fragmentierung eines Pakets verboten werden.
+      Das MF-Flag zeigt an, dass weitere Fragmente folgen. Das reservierte Flag
+      muss immer auf null gesetzt sein.
     </p>
     <h2>Bildformate:</h2>
     <ul>
