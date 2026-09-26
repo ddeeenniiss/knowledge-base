@@ -369,6 +369,23 @@
       Ein Netzwerk ist eine Menge von Hardware & Software, die es erlaubt
       Informationen von einem Sender zum Empfänger weiterzuleiten.
     </p>
+    <h3>Go-Back-N</h3>
+    <p>
+      Go-Back-N ist ein ARQ-Verfahren zur zuverlässigen Datenübertragung mit
+      einem Sendefenster. Der Empfänger bestätigt korrekt empfangene Frames
+      kumulativ und verwirft Frames, die außerhalb der erwarteten Reihenfolge
+      eintreffen. Geht ein Frame verloren oder kommt fehlerhaft an, wiederholt
+      der Sender ab diesem Frame alle noch nicht bestätigten Frames.
+    </p>
+    <h3>Selective Repeat</h3>
+    <p>
+      Selective Repeat ist ebenfalls ein ARQ-Verfahren mit Sendefenster. Der
+      Empfänger bestätigt Frames einzeln und speichert korrekt empfangene Frames
+      auch dann zwischen, wenn frühere Frames noch fehlen. Bei einem Verlust
+      wiederholt der Sender nur die fehlenden oder fehlerhaften Frames. Das
+      spart Übertragungen, benötigt aber mehr Speicher und eine genauere
+      Verwaltung auf Sender- und Empfängerseite.
+    </p>
     <h3>Broadcast Netzwerke</h3>
     <p>
       Von einem Punkt aus werden Datenpakete an alle Teilnehmer eines
@@ -2481,8 +2498,8 @@ sudo apachectl configtest
       unzuverlässigen Transportkanal beschrieben. Die Anwendung übergibt beim
       Sender Daten an <strong>rdt_send(data)</strong>. Das RDT-Protokoll baut
       daraus ein Paket, ergänzt beispielsweise Prüfsumme und Sequenznummer und
-      übergibt es mit <strong>udt_send(packet)</strong> an den
-      unzuverlässigen Kanal. UDT steht für <em>unreliable data transfer</em>.
+      übergibt es mit <strong>udt_send(packet)</strong> an den unzuverlässigen
+      Kanal. UDT steht für <em>unreliable data transfer</em>.
     </p>
     <p>
       Auf der Empfängerseite liefert der unzuverlässige Kanal ein empfangenes
@@ -2523,9 +2540,9 @@ sudo apachectl configtest
     <p>
       Ein Zustand beschreibt dabei, worauf RDT gerade wartet. Ein Sender kann
       beispielsweise auf Daten der Anwendung oder auf eine Bestätigung warten.
-      Ein Empfänger kann auf ein Paket mit Sequenznummer 0 oder auf ein Paket mit
-      Sequenznummer 1 warten. Die FSM muss für jeden relevanten Zustand und jedes
-      mögliche Ereignis festlegen, wie das Protokoll reagiert.
+      Ein Empfänger kann auf ein Paket mit Sequenznummer 0 oder auf ein Paket
+      mit Sequenznummer 1 warten. Die FSM muss für jeden relevanten Zustand und
+      jedes mögliche Ereignis festlegen, wie das Protokoll reagiert.
     </p>
     <p>
       Sender und Empfänger besitzen getrennte FSMs. Sie kommunizieren nicht
@@ -2543,10 +2560,10 @@ sudo apachectl configtest
       <strong>deliver_data(data)</strong> an die Anwendung.
     </p>
     <p>
-      Da der Kanal im Modell zuverlässig ist, benötigt RDT 1.0 keine
-      Prüfsumme, keine ACKs, keine NAKs, keine Sequenznummern und keine
-      Retransmissions. Das Modell zeigt den normalen Datenfluss, enthält aber
-      noch keinen Mechanismus zur Fehlerbehandlung.
+      Da der Kanal im Modell zuverlässig ist, benötigt RDT 1.0 keine Prüfsumme,
+      keine ACKs, keine NAKs, keine Sequenznummern und keine Retransmissions.
+      Das Modell zeigt den normalen Datenfluss, enthält aber noch keinen
+      Mechanismus zur Fehlerbehandlung.
     </p>
 
     <h3>RDT 2.0: Bitfehler im Kanal</h3>
@@ -2588,9 +2605,9 @@ sudo apachectl configtest
       RDT 3.0 berücksichtigt zusätzlich, dass Datenpakete und ACKs vollständig
       verloren gehen können. Der Sender startet nach dem Senden eines Pakets
       einen Timer. Kommt innerhalb einer angemessenen Zeit kein passendes ACK
-      an, tritt ein Timeout ein und der Sender überträgt das Paket erneut.
-      RDT 3.0 verwendet weiterhin Sequenznummern, damit der Empfänger
-      Duplikate erkennen kann.
+      an, tritt ein Timeout ein und der Sender überträgt das Paket erneut. RDT
+      3.0 verwendet weiterhin Sequenznummern, damit der Empfänger Duplikate
+      erkennen kann.
     </p>
     <p>
       Wird ein Datenpaket verloren, erkennt der Sender dies über den Timeout und
@@ -2620,8 +2637,8 @@ sudo apachectl configtest
       RDT 3.0 ist ein Stop-and-Wait-Protokoll: Der Sender überträgt ein Paket
       und wartet auf das passende ACK, bevor er das nächste Paket sendet. Das
       macht das Verfahren verständlich und zuverlässig, nutzt eine schnelle
-      Verbindung aber nicht optimal aus, weil immer nur ein Paket unterwegs
-      sein darf. TCP verwendet deshalb umfangreichere Fenster- und
+      Verbindung aber nicht optimal aus, weil immer nur ein Paket unterwegs sein
+      darf. TCP verwendet deshalb umfangreichere Fenster- und
       Sequenznummernmechanismen.
     </p>
 
@@ -2700,14 +2717,135 @@ sudo apachectl configtest
       jedoch wichtig ist das die Daten fehlerfrei übertragen werden.
       Beispielsweise Email Versand, Webseiten, Chats, Dateiupload und download.
     </p>
+
+    <h4>Aufbau eines TCP-Segments</h4>
+    <img
+      src="/assets/screenshots/tcp_segment_structure.jpeg"
+      alt="Aufbau eines TCP-Segments mit Headerfeldern und Nutzdaten"
+    />
+    <p>
+      Ein TCP-Segment besteht aus einem Header und den anschließenden Nutzdaten.
+      Der Header enthält Steuer- und Verwaltungsinformationen für die
+      Verbindung. Seine Mindestgröße beträgt 20 Byte; mit Optionen kann er bis
+      zu 60 Byte groß sein.
+    </p>
+    <h5>Quellport und Zielport</h5>
+    <p>
+      Beide Felder sind jeweils 16 Bit groß. Der Quellport bezeichnet den
+      Netzwerkdienst der sendenden Anwendung, der Zielport den Dienst auf dem
+      Empfänger. Zusammen mit den IP-Adressen ordnen die Ports Daten einer
+      Verbindung und den beteiligten Anwendungen zu.
+    </p>
+    <h5>Sequenznummer</h5>
+    <p>
+      Die 32-Bit-Sequenznummer gibt die Position der Datenbytes im Datenstrom
+      an. Sie zählt Bytes und nicht Segmente. So kann TCP die Reihenfolge
+      wiederherstellen und fehlende Daten erkennen.
+    </p>
+    <h5>Bestätigungsnummer</h5>
+    <p>
+      Die 32-Bit-Bestätigungsnummer gibt an, welches Byte der Empfänger als
+      Nächstes erwartet. Sie bestätigt damit alle vorhergehenden Bytes
+      kumulativ. Das Feld ist gültig, wenn das ACK-Flag gesetzt ist.
+    </p>
+    <h5>Headerlänge und reservierte Bits</h5>
+    <p>
+      Der Data Offset gibt die Länge des TCP-Headers in 32-Bit-Wörtern an. Der
+      Empfänger kann damit erkennen, wo die Nutzdaten beginnen. Die reservierten
+      Bits sind für spätere Erweiterungen vorgesehen und werden normalerweise
+      auf null gesetzt.
+    </p>
+    <h5>Flags</h5>
+    <p>
+      Flags steuern den Verbindungsaufbau und die Übertragung: SYN startet eine
+      Verbindung, ACK kennzeichnet eine gültige Bestätigung, FIN beendet eine
+      Verbindung und RST setzt sie zurück. PSH fordert eine zügige Weitergabe
+      der Daten an die Anwendung an. URG kennzeichnet dringende Daten, deren
+      Ende der Urgent Pointer angibt. Moderne TCP-Header können außerdem die
+      Flags ECE und CWR zur Überlastungsanzeige sowie NS enthalten.
+    </p>
+    <h5>Fenstergröße</h5>
+    <p>
+      Die 16-Bit-Fenstergröße gibt an, wie viele weitere Bytes der Empfänger
+      aktuell aufnehmen kann. Der Sender passt die übertragene Datenmenge daran
+      an. Das ist die Grundlage der TCP-Flusskontrolle und schützt den
+      Empfänger vor zu vielen gleichzeitig eintreffenden Daten.
+    </p>
+    <h5>Prüfsumme</h5>
+    <p>
+      Die 16-Bit-Prüfsumme hilft, Übertragungsfehler zu erkennen. Sie wird über
+      den TCP-Header, die Nutzdaten und einen Teil der IP-Informationen
+      berechnet. Sie korrigiert Fehler nicht; beschädigte oder fehlende Daten
+      können durch TCP erneut übertragen werden.
+    </p>
+    <h5>Urgent Pointer</h5>
+    <p>
+      Dieses 16-Bit-Feld markiert zusammen mit dem gesetzten URG-Flag das Ende
+      dringender Daten. Ohne gesetztes URG-Flag wird es ignoriert.
+    </p>
+    <h5>Optionen und Padding</h5>
+    <p>
+      Optionale Felder erweitern den Header beispielsweise um die maximale
+      Segmentgröße (MSS), Window Scaling, Selective Acknowledgment (SACK) oder
+      Zeitstempel. Padding füllt den Header bei Bedarf auf ein Vielfaches von
+      32 Bit auf.
+    </p>
+    <h5>Nutzdaten</h5>
+    <p>
+      Auf den TCP-Header folgen die übertragenen Anwendungsdaten, zum Beispiel
+      Teile einer Webseite oder einer Datei. Ihre Größe hängt unter anderem von
+      der maximalen Segmentgröße und der verfügbaren Paketgröße im Netzwerk ab.
+    </p>
+
+    <h4>TCP-Flusskontrolle</h4>
+    <p>
+      Die Flusskontrolle verhindert, dass ein Sender den Empfänger mit mehr
+      Daten überlastet, als dieser aufnehmen kann. Der Empfänger teilt im
+      TCP-Header über das Empfangsfenster (rwnd) mit, wie viele weitere Bytes
+      er entgegennehmen kann. Der Sender begrenzt die noch unbestätigte
+      Datenmenge entsprechend und passt sie an, wenn sich das angekündigte
+      Fenster ändert. Bei einem Fenster von null pausiert er die normale
+      Übertragung und prüft später, ob wieder Platz vorhanden ist. Window
+      Scaling ermöglicht größere Fenster als das 16-Bit-Feld allein. Die
+      Flusskontrolle schützt den Empfänger; die davon getrennte
+      Staukontrolle (cwnd) passt die Sendemenge an die Belastung des Netzwerks
+      an.
+    </p>
     <h4>3-Wege-Handschlag</h4>
     <p>
-      Im Vergleich zum verbindungslosen Netzwerkprotokoll UDP, bei dem nicht
-      gewährleistet ist, dass die Daten ihren Bestimmungsort erreichen, wird bei
-      TCP mittels des so genannten 3-Wege-Handschlags sichergestellt, dass eine
-      Verbindung zwischen den Kommunikationsteilnehmern existiert. Über diese
-      Verbindung können dann Daten gesendet und mittels Prüfsumme getestet
-      werden.
+      TCP baut eine Verbindung üblicherweise mit drei Segmenten auf. Zuerst
+      sendet der Client SYN mit seiner Start-Sequenznummer x. Der Server
+      antwortet mit SYN und ACK: Er bestätigt x mit der Bestätigungsnummer x + 1
+      und teilt seine eigene Start-Sequenznummer y mit. Zum Schluss bestätigt
+      der Client y mit ACK und der Nummer y + 1. Damit haben beide Seiten ihre
+      Start-Sequenznummern ausgetauscht und die Verbindung ist aufgebaut. SYN
+      belegt jeweils eine Sequenznummer.
+    </p>
+    <h4>TCP-Verbindung mit FIN beenden</h4>
+    <p>
+      Da TCP Vollduplex arbeitet, werden die beiden Übertragungsrichtungen
+      unabhängig voneinander beendet. Typischerweise sendet eine Seite FIN,
+      wenn sie keine weiteren Daten mehr zu senden hat. Die Gegenseite bestätigt
+      das mit ACK; ihre eigene Richtung kann zunächst weiter Daten übertragen.
+      Wenn auch sie fertig ist, sendet sie ebenfalls FIN, das die erste Seite
+      mit ACK bestätigt. Der Abbau umfasst dadurch normalerweise vier
+      Segmente. Die Seite, die das letzte ACK sendet, hält die Verbindung noch
+      eine Zeit lang im Zustand TIME_WAIT, damit verspätete Segmente behandelt
+      werden können. RST beendet eine Verbindung dagegen unmittelbar und ohne
+      den geordneten FIN-Ablauf.
+    </p>
+    <h4>Portscan und RST-Flag</h4>
+    <p>
+      Bei einem TCP-SYN-Portscan sendet ein Scanner ein SYN an einen Port und
+      wertet die Antwort aus. Ein offener Port antwortet normalerweise mit
+      SYN-ACK; der Scanner kann dann ein RST senden, um den Aufbau abzubrechen,
+      statt die Verbindung vollständig herzustellen. Ein geschlossener Port
+      antwortet normalerweise direkt mit RST. Bleibt eine Antwort aus oder
+      kommt eine ICMP-Fehlermeldung, kann der Port gefiltert sein. Firewalls und
+      andere Netzwerkeinstellungen können das Verhalten verändern, daher ist
+      ein einzelnes Ergebnis kein sicherer Beweis für den Zustand eines Ports.
+      Portscans sollten nur in eigenen oder ausdrücklich freigegebenen Netzen
+      durchgeführt werden.
     </p>
     <h3>Telnet Port 23</h3>
     <p>

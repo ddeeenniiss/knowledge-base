@@ -2,108 +2,71 @@
 use FriendsOfRedaxo\MForm;
 
 $mform = MForm::factory()
-    ->addFieldsetArea(['label' => 'Kategorie'])
-    ->addTextField(1, ['label' => 'Titel'])       // Text
-    ->addTextAreaField(2, ['label' => 'Text'])    // Textfeld
-    ->addMediaField(3, ['label' => 'Text'])       // Bild
-    ->addLinkField(4, ['label' => 'Titel'])       // Link
-    ->addSelectField('1.background', [            // Dropdown Auswahl
-        ''        => 'Weiß (kein Hintergrund)',
-        'grey-90' => 'Grau (grey-90)',
-    ], [
-        'label' => 'Hintergrundfarbe des kompletten Moduls',
-        'full'  => true
-    ])
-    ->addCheckboxField('1.center', [1 => 'Inhalt zentrieren']); // Checkbox
-
-echo $mform->show();
-?>
+    ->addFieldsetArea(['label' => 'Kategorie']) ->addTextField(1, ['label' =>
+'Titel']) // Text ->addTextAreaField(2, ['label' => 'Text']) // Textfeld
+->addMediaField(3, ['label' => 'Text']) // Bild ->addLinkField(4, ['label' =>
+'Titel']) // Link ->addSelectField('1.background', [ // Dropdown Auswahl '' =>
+'Weiß (kein Hintergrund)', 'grey-90' => 'Grau (grey-90)', ], [ 'label' =>
+'Hintergrundfarbe des kompletten Moduls', 'full' => true ])
+->addCheckboxField('1.center', [1 => 'Inhalt zentrieren']); // Checkbox echo
+$mform->show(); ?>
 
 <h2>Ausgabe:</h2>
 
-REX_TEMPLATE[key=inc_rexvalues]
-REX_TEMPLATE[key=basic_functions]
-
-<?php
-$data = $REX_VALUE[1] ?? [];
-?>
-
-<?php if (rex::isFrontend()): ?>
+REX_TEMPLATE[key=inc_rexvalues] REX_TEMPLATE[key=basic_functions] <?php $data =
+$REX_VALUE[1] ?? []; ?> <?php if (rex::isFrontend()): ?>
 
 <div class="footer__right-title"><?= $data['right_title'] ?? '' ?></div>
 
-<?php if (!empty($products)): ?>
-    <?php foreach ($products as $item): 
-        $iconType = $item['icon_type'] ?? 'basic';
-        $iconClass = ($iconType === 'download') ? 'icn--arrow-download' : 'icn--arrow-up-right';
-        $href = '';
-        $target = '_self';
-        $download = false;
-        $headerClass = (!empty($data['center']) && $data['center'] == 1)
-                        ? 'stage__header-center'
-                        : 'stage__header';
-    ?>
-        <div class="<?= $headerClass ?>">
-            <a href="<?= getUrlFromCustomLink($data['left_cta_link'] ?? '') ?>" 
-               target="<?= getTargetAttribute($data['left_cta_link'] ?? '') ?>" 
-               class="button button--secondary button--small">
-                <?= $data['left_cta_label'] ?? '' ?>
-                <span class="icn icn--arrow-right-thin" aria-hidden="true"></span>
-            </a>
-        </div>
-    <?php endforeach; ?>
+<?php if (!empty($products)): ?> <?php foreach ($products as $item): $iconType =
+$item['icon_type'] ?? 'basic'; $iconClass = ($iconType === 'download') ?
+'icn--arrow-download' : 'icn--arrow-up-right'; $href = ''; $target = '_self';
+$download = false; $headerClass = (!empty($data['center']) && $data['center'] ==
+1) ? 'stage__header-center' : 'stage__header'; ?>
+<div class="<?= $headerClass ?>">
+  <a
+    href="<?= getUrlFromCustomLink($data['left_cta_link'] ?? '') ?>"
+    target="<?= getTargetAttribute($data['left_cta_link'] ?? '') ?>"
+    class="button button--secondary button--small"
+  >
+    <?= $data['left_cta_label'] ?? '' ?>
+    <span class="icn icn--arrow-right-thin" aria-hidden="true"></span>
+  </a>
+</div>
+<?php endforeach; ?> <?php endif; ?> <?php endif; ?>
+REX_TEMPLATE[key=inc_moduleinfo] <?php // Accordeon-Element Beispiel $grid =
+MForm::factory() ->addAccordionElement('Grid', MForm::factory()
+->addMediaField(3, ['label' => 'Bild']) ->addTextField('2.0.overline', ['label'
+=> 'Overline']) ->addTextAreaField('2.0.title', ['label' => 'Titel'])
+->addCustomLinkField('2.0.link', ['label' => 'Link'])
+->addTextAreaField('2.0.caption', ['label' => 'Beschreibung'])
+->addSelectField('2.0.icon_type', [ 'basic' => 'Basic (Pfeil nach oben rechts)',
+'download' => 'Download (Pfeil nach unten)', ], ['label' => 'Icon-Typ', 'full'
+=> true, 'default' => 'basic']) ); echo MBlock::show(2, $grid->show()); ?> <?php
+// CK5Editor Beispiel if (!empty($data['left_text'])): ?>
+<div class="text-block__text"><?= $data['left_text']; ?></div>
 <?php endif; ?>
-
-<?php endif; ?>
-
-REX_TEMPLATE[key=inc_moduleinfo]
-
-<?php
-// Accordeon-Element Beispiel
-$grid = MForm::factory()
-    ->addAccordionElement('Grid', MForm::factory()
-        ->addMediaField(3, ['label' => 'Bild'])
-        ->addTextField('2.0.overline', ['label' => 'Overline'])
-        ->addTextAreaField('2.0.title', ['label' => 'Titel'])
-        ->addCustomLinkField('2.0.link', ['label' => 'Link'])
-        ->addTextAreaField('2.0.caption', ['label' => 'Beschreibung'])
-        ->addSelectField('2.0.icon_type', [
-            'basic'    => 'Basic (Pfeil nach oben rechts)',
-            'download' => 'Download (Pfeil nach unten)',
-        ], ['label' => 'Icon-Typ', 'full' => true, 'default' => 'basic'])
-    );
-
-echo MBlock::show(2, $grid->show());
-?>
-
-<?php
-// CK5Editor Beispiel
-if (!empty($data['left_text'])): ?>
-    <div class="text-block__text"><?= $data['left_text']; ?></div>
-<?php endif; ?>
-
 
 <h2>mform</h2>
 
-<p>mform ist ein AddOn, dass dir beim Erstellen von Eingabeformularen für Module hilft.
-    Du musst also nicht alles selbst in HTML bauen, sondern kannst über eine PHP-API Felder
-    generieren.
-
-    Einbindung:
-
-    use FriendsOfRedaxo\MForm;
-
-    $mform = new MForm();
+<p>
+  mform ist ein AddOn, dass dir beim Erstellen von Eingabeformularen für Module
+  hilft. Du musst also nicht alles selbst in HTML bauen, sondern kannst über
+  eine PHP-API Felder generieren. Einbindung: use FriendsOfRedaxo\MForm; $mform
+  = new MForm();
 </p>
-<p>$mform->addFieldsetArea('Inhalt');
-    $mform->addTextField(1, ['label' => 'Überschrift', 'full' => true]);
-    $mform->addTextAreaField(2, ['label' => 'Text', 'rows' => 6]);
+<p>
+  $mform->addFieldsetArea('Inhalt'); $mform->addTextField(1, ['label' =>
+  'Überschrift', 'full' => true]); $mform->addTextAreaField(2, ['label' =>
+  'Text', 'rows' => 6]);
 </p>
 <h3>Bilder</h3>
 
-<p>Für Bilder gibt es das MediaField, das die Auswahl von Bildern aus der Mediathek ermöglicht.
-    <br>
-    $mform->addMediaField(3, ['label' => 'Bild', 'full' => true]);
+<p>
+  Für Bilder gibt es das MediaField, das die Auswahl von Bildern aus der
+  Mediathek ermöglicht.
+  <br />
+  $mform->addMediaField(3, ['label' => 'Bild', 'full' => true]);
 </p>
 
 <h3>Links</h3>
@@ -113,16 +76,35 @@ if (!empty($data['left_text'])): ?>
 <p>$mform->addCheckboxField(7, ['label' => 'Aktivieren?']);</p>
 
 <h3>Dropdown:</h3>
-<p>$mform->addSelectField(8, ['label' => 'Auswahl']);
-    ->setOptions(['opt1' => 'Option 1', 'opt2' => 'Option 2']);
+<p>
+  $mform->addSelectField(8, ['label' => 'Auswahl']); ->setOptions(['opt1' =>
+  'Option 1', 'opt2' => 'Option 2']);
 </p>
 
 <h2>Methoden</h2>
-<p>rex_escape() schützt vor XSS, indem Sonderzeichen umgewandelt werden.</p>
-<p>nl2br() wandelt Zeilenumbrüche in br Tags um.</p>
-<p>rex_getUrl() erzeugt eine URL aus einer Artikel-ID. Mit rex_getUrl(5) wird daraus
-    die richtige URL für den Artikel mit der ID 5.
-
-    Falls man zu einem Bereich im selben Artikel springen möchte, geht das so:
-    $btnLink = rex_getUrl(5), '#kontakt';
+<p>
+  rex_escape() schützt vor XSS, indem Sonderzeichen umgewandelt werden. Inhalt
+  wird nicht als HTML interpretiert. Bei Eingabe von
+  [script]alert('Hallo')[/script] wird auch genau das im Frontend ausgegeben,
+  anstatt interpretiert.
 </p>
+<p>nl2br() wandelt Zeilenumbrüche in br Tags um.</p>
+<p>
+  rex_getUrl() erzeugt eine URL aus einer Artikel-ID. Mit rex_getUrl(5) wird
+  daraus die richtige URL für den Artikel mit der ID 5. Falls man zu einem
+  Bereich im selben Artikel springen möchte, geht das so: $btnLink =
+  rex_getUrl(5), '#kontakt';
+</p>
+
+<h3>Redaktionelle Silbentrennung + XXS Schutz</h3>
+<pre><code>
+&lt;?php if (!empty($card['headline'])) : ?&gt;
+    &lt;?php
+    $headline = rex_escape($card['headline']);
+    $headline = str_replace('&amp;amp;shy;', '&amp;shy;', $headline);
+    ?&gt;
+    &lt;h3 class="&lt;?= rex_escape($titleClass) ?&gt;"&gt;
+        &lt;?= $headline ?&gt;
+    &lt;/h3&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
