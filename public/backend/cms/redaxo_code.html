@@ -343,6 +343,19 @@
     <p>Ergebnis: &lt;a href="&quot;&gt;&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;">
   Link
 &lt;/a> //Hier werden die tags als code ausgegeben</p>
+
+<h3>Redaktionelle Silbentrennung + XSS Schutz</h3>
+<pre><code>
+&lt;?php if (!empty($card['headline'])) : ?&gt;
+    &lt;?php
+    $headline = rex_escape($card['headline']);
+    $headline = str_replace('&amp;amp;shy;', '&amp;shy;', $headline);
+    ?&gt;
+    &lt;h3 class="&lt;?= rex_escape($titleClass) ?&gt;"&gt;
+        &lt;?= $headline ?&gt;
+    &lt;/h3&gt;
+&lt;?php endif; ?&gt;
+</code></pre>
     <table>
   <thead>
     <tr>
