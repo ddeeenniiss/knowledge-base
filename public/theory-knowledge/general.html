@@ -2768,8 +2768,8 @@ sudo apachectl configtest
     <p>
       Die 16-Bit-Fenstergröße gibt an, wie viele weitere Bytes der Empfänger
       aktuell aufnehmen kann. Der Sender passt die übertragene Datenmenge daran
-      an. Das ist die Grundlage der TCP-Flusskontrolle und schützt den
-      Empfänger vor zu vielen gleichzeitig eintreffenden Daten.
+      an. Das ist die Grundlage der TCP-Flusskontrolle und schützt den Empfänger
+      vor zu vielen gleichzeitig eintreffenden Daten.
     </p>
     <h5>Prüfsumme</h5>
     <p>
@@ -2787,8 +2787,8 @@ sudo apachectl configtest
     <p>
       Optionale Felder erweitern den Header beispielsweise um die maximale
       Segmentgröße (MSS), Window Scaling, Selective Acknowledgment (SACK) oder
-      Zeitstempel. Padding füllt den Header bei Bedarf auf ein Vielfaches von
-      32 Bit auf.
+      Zeitstempel. Padding füllt den Header bei Bedarf auf ein Vielfaches von 32
+      Bit auf.
     </p>
     <h5>Nutzdaten</h5>
     <p>
@@ -2801,15 +2801,39 @@ sudo apachectl configtest
     <p>
       Die Flusskontrolle verhindert, dass ein Sender den Empfänger mit mehr
       Daten überlastet, als dieser aufnehmen kann. Der Empfänger teilt im
-      TCP-Header über das Empfangsfenster (rwnd) mit, wie viele weitere Bytes
-      er entgegennehmen kann. Der Sender begrenzt die noch unbestätigte
-      Datenmenge entsprechend und passt sie an, wenn sich das angekündigte
-      Fenster ändert. Bei einem Fenster von null pausiert er die normale
-      Übertragung und prüft später, ob wieder Platz vorhanden ist. Window
-      Scaling ermöglicht größere Fenster als das 16-Bit-Feld allein. Die
-      Flusskontrolle schützt den Empfänger; die davon getrennte
-      Staukontrolle (cwnd) passt die Sendemenge an die Belastung des Netzwerks
-      an.
+      TCP-Header über das Empfangsfenster (rwnd) mit, wie viele weitere Bytes er
+      entgegennehmen kann. Der Sender begrenzt die noch unbestätigte Datenmenge
+      entsprechend und passt sie an, wenn sich das angekündigte Fenster ändert.
+      Bei einem Fenster von null pausiert er die normale Übertragung und prüft
+      später, ob wieder Platz vorhanden ist. Window Scaling ermöglicht größere
+      Fenster als das 16-Bit-Feld allein. Die Flusskontrolle schützt den
+      Empfänger; die davon getrennte Staukontrolle (cwnd) passt die Sendemenge
+      an die Belastung des Netzwerks an.
+    </p>
+    <h4>Stau und TCP-Staukontrolle</h4>
+    <p>
+      Ein Netzwerkstau entsteht, wenn Router oder andere Netzkomponenten mehr
+      Daten erhalten, als sie weiterleiten können. Warteschlangen wachsen,
+      Verzögerungen nehmen zu und Pakete können verloren gehen. TCP begrenzt
+      deshalb die Menge unbestätigter Daten mit dem Congestion Window (cwnd).
+      Die tatsächlich erlaubte Datenmenge richtet sich sowohl nach cwnd als
+      auch nach dem vom Empfänger angekündigten Fenster (rwnd). TCP erhöht cwnd
+      schrittweise, solange die Übertragung funktioniert, und reduziert sie bei
+      Anzeichen von Überlastung. Zu den üblichen Verfahren gehören Slow Start,
+      Congestion Avoidance sowie Fast Retransmit und Fast Recovery.
+    </p>
+    <p>
+      Eine Überlastung wird nicht grundsätzlich durch ein eigenes
+      „zu-viele-Pakete“-Feld in TCP gemeldet. Ohne ECN (Explicit Congestion
+      Notification) erkennt der Sender sie meist indirekt: Paketverluste,
+      Zeitüberschreitungen oder mehrere doppelte ACKs deuten darauf hin, dass
+      Pakete im überlasteten Netz verworfen wurden. Unterstützen Sender,
+      Empfänger und Netzwerk ECN, können Router stattdessen ein Paket im
+      IP-Header als überlastungsmarkiert (CE) kennzeichnen, ohne es zu
+      verwerfen. Der Empfänger meldet die Markierung in TCP-ACKs mit dem
+      ECE-Flag zurück. Der Sender reduziert daraufhin cwnd und signalisiert die
+      Reaktion mit CWR. So wird ausdrücklich angezeigt, dass im Netz Stau
+      herrscht.
     </p>
     <h4>3-Wege-Handschlag</h4>
     <p>
@@ -2824,15 +2848,15 @@ sudo apachectl configtest
     <h4>TCP-Verbindung mit FIN beenden</h4>
     <p>
       Da TCP Vollduplex arbeitet, werden die beiden Übertragungsrichtungen
-      unabhängig voneinander beendet. Typischerweise sendet eine Seite FIN,
-      wenn sie keine weiteren Daten mehr zu senden hat. Die Gegenseite bestätigt
-      das mit ACK; ihre eigene Richtung kann zunächst weiter Daten übertragen.
-      Wenn auch sie fertig ist, sendet sie ebenfalls FIN, das die erste Seite
-      mit ACK bestätigt. Der Abbau umfasst dadurch normalerweise vier
-      Segmente. Die Seite, die das letzte ACK sendet, hält die Verbindung noch
-      eine Zeit lang im Zustand TIME_WAIT, damit verspätete Segmente behandelt
-      werden können. RST beendet eine Verbindung dagegen unmittelbar und ohne
-      den geordneten FIN-Ablauf.
+      unabhängig voneinander beendet. Typischerweise sendet eine Seite FIN, wenn
+      sie keine weiteren Daten mehr zu senden hat. Die Gegenseite bestätigt das
+      mit ACK; ihre eigene Richtung kann zunächst weiter Daten übertragen. Wenn
+      auch sie fertig ist, sendet sie ebenfalls FIN, das die erste Seite mit ACK
+      bestätigt. Der Abbau umfasst dadurch normalerweise vier Segmente. Die
+      Seite, die das letzte ACK sendet, hält die Verbindung noch eine Zeit lang
+      im Zustand TIME_WAIT, damit verspätete Segmente behandelt werden können.
+      RST beendet eine Verbindung dagegen unmittelbar und ohne den geordneten
+      FIN-Ablauf.
     </p>
     <h4>Portscan und RST-Flag</h4>
     <p>
@@ -2840,10 +2864,10 @@ sudo apachectl configtest
       wertet die Antwort aus. Ein offener Port antwortet normalerweise mit
       SYN-ACK; der Scanner kann dann ein RST senden, um den Aufbau abzubrechen,
       statt die Verbindung vollständig herzustellen. Ein geschlossener Port
-      antwortet normalerweise direkt mit RST. Bleibt eine Antwort aus oder
-      kommt eine ICMP-Fehlermeldung, kann der Port gefiltert sein. Firewalls und
-      andere Netzwerkeinstellungen können das Verhalten verändern, daher ist
-      ein einzelnes Ergebnis kein sicherer Beweis für den Zustand eines Ports.
+      antwortet normalerweise direkt mit RST. Bleibt eine Antwort aus oder kommt
+      eine ICMP-Fehlermeldung, kann der Port gefiltert sein. Firewalls und
+      andere Netzwerkeinstellungen können das Verhalten verändern, daher ist ein
+      einzelnes Ergebnis kein sicherer Beweis für den Zustand eines Ports.
       Portscans sollten nur in eigenen oder ausdrücklich freigegebenen Netzen
       durchgeführt werden.
     </p>
