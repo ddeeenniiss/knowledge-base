@@ -85,7 +85,8 @@
       herunterzuladen und lokal auf ihrem Gerät zu speichern. POP3 ist ein
       einfaches Protokoll, das keine Synchronisation zwischen dem Mail-Client
       und dem Mail-Server unterstützt. Sobald die E-Mails heruntergeladen
-      wurden, werden sie normalerweise vom Server gelöscht.
+      wurden, werden sie normalerweise vom Server gelöscht. POP3 läuft auf Port
+      110 und POP3S auf Port 995.
     </p>
 
     <h2>IMAP</h2>
@@ -96,6 +97,7 @@
       bleiben auf dem Server gespeichert, und Benutzer können von verschiedenen
       Geräten aus auf ihre E-Mails zugreifen. IMAP unterstützt auch
       Ordnerstrukturen und das Markieren von E-Mails als gelesen oder ungelesen.
+      IMAP läuft auf Port 143 und IMAPS auf Port 993.
     </p>
 
     <h2>PHP mail()</h2>
@@ -224,15 +226,67 @@
 
     <h2>Wie wird eine Mail versendet?</h2>
     <p>
-      Formular -> Server -> SMTP-Mailserver -> Internet -> Empfänger-Mailserver
-      -> Postfach
+      Alice schreibt in ihrem Mailprogramm eine Nachricht an Bob. Der Weg der
+      E-Mail ist: Alices Mailclient -> SMTP-Submission-Server -> Mailserver von
+      Bobs Domain -> Bobs Postfach. Bob ruft die Nachricht anschließend mit IMAP
+      oder POP3 ab.
+    </p>
+    <img
+      src="/assets/screenshots/email_beispiel.jpeg"
+      alt="Übertragung einer E-Mail von Alice über SMTP-Mailserver zu Bob"
+    />
+    <p>
+      Alices Mailclient übergibt die Nachricht per SMTP an den Mailserver ihres
+      Anbieters, meist über den Submission-Port 587 mit STARTTLS oder Port 465
+      mit implizitem TLS. Der absendende Mailserver fragt im DNS den MX-Record
+      für Bobs Domain ab und stellt die Nachricht per SMTP an den zuständigen
+      empfangenden Mailserver zu. Für diese Server-zu-Server-Übertragung wird
+      üblicherweise SMTP über Port 25 verwendet. TLS schützt die Verbindung,
+      sofern beide Server es unterstützen und aushandeln; SMTP allein garantiert
+      keine Verschlüsselung. Der empfangende Server legt die Nachricht in Bobs
+      Postfach ab. SMTP transportiert die Nachricht also zu einem Mailserver;
+      für das Abrufen aus dem Postfach verwendet Bob typischerweise IMAP oder
+      POP3.
+    </p>
+    <h3>MIME (Multipurpose Internet Mail Extensions)</h3>
+    <p>
+      MIME beschreibt den Inhalt und Aufbau einer E-Mail, während SMTP für den
+      Transport zwischen Mailprogrammen und Mailservern zuständig ist. MIME
+      wird benötigt, damit eine Nachricht nicht auf einfachen ASCII-Text
+      beschränkt bleibt: Es ermöglicht unter anderem HTML-Inhalte, Zeichen
+      verschiedener Sprachen sowie Bilder und andere Dateianhänge.
     </p>
     <p>
-      Um eine E-Mail zu versenden, folgt der Mail-Client dem SMTP-Protokoll. Der
-      Mail-Client sendet die E-Mail an den SMTP-Server, der sie dann an den
-      Empfänger weiterleitet. Dabei werden die E-Mails verschlüsselt übertragen,
-      um sicherzustellen, dass sensible Informationen nicht abgehört werden
-      können.
+      Dazu enthält die Nachricht MIME-Header. <code>Content-Type</code> gibt
+      den Medientyp und gegebenenfalls den Zeichensatz an, zum Beispiel
+      <code>text/html; charset=UTF-8</code>. Bei mehreren Bestandteilen, etwa
+      Text und Anhang, wird ein Typ wie <code>multipart/mixed</code> verwendet.
+      Eine eindeutige Boundary-Zeile trennt dann die einzelnen Teile; jeder
+      Teil kann eigene Header und Inhalte haben. <code>Content-Disposition</code>
+      kennzeichnet einen Teil beispielsweise als Anhang.
+    </p>
+    <p>
+      Beim Versand werden Inhalte, die nicht direkt als SMTP-Text übertragen
+      werden können, mit einer Content-Transfer-Encoding wie Base64 oder
+      Quoted-Printable in eine geeignete Textdarstellung umgewandelt. Das
+      empfangende Mailprogramm liest Content-Type, Zeichensatz, Boundary und
+      Transfer-Encoding, trennt die Bestandteile und decodiert sie wieder. So
+      kann es den Nachrichtentext anzeigen und Anhänge als Dateien bereitstellen.
+      MIME verschlüsselt die Nachricht dabei nicht.
+    </p>
+    <h3>Aufbau einer E-Mail-Adresse: localpart@domainpart</h3>
+    <p>
+      Bei <code>alice@example.com</code> ist <code>alice</code> der Localpart,
+      also der Teil vor dem @-Zeichen. Er bezeichnet das Postfach oder einen
+      Alias innerhalb der Domain und wird vom zuständigen Mailanbieter
+      interpretiert. <code>example.com</code> ist der Domainpart hinter dem
+      @-Zeichen. Er gibt an, welche Domain für die Zustellung zuständig ist. Der
+      absendende Mailserver sucht über deren MX-Record den empfangenden
+      Mailserver. Der Domainpart muss nicht dem Namen einer Website oder dem
+      Namen des konkreten Mailservers entsprechen. Bei der SMTP-Zustellung
+      werden Empfängeradresse und Nachrichtenkopf übermittelt; der Mailserver
+      verwendet die lokale Adresse, um das richtige Postfach oder einen Alias zu
+      bestimmen.
     </p>
 
     <h2>Was ist hosting?</h2>
@@ -323,24 +377,56 @@
       src="./../assets/screenshots/dns.jpeg"
       alt="Abbildung des Domain Name Systems"
     />
-    <ul>
-      <li>
-        Root: Kennt die zuständigen Nameserver für die verschiedenen TLDs wie zB
-        .de, .com, .org.
-      </li>
-      <li>
-        TLDs: Kennen die zuständigen Nameserver für domains wie example.de
-      </li>
-      <li>Domain: auch authorative Nameserver</li>
-      <li>Subdomains: Teilbereiche einer Domain</li>
-    </ul>
+    <h3>Local Name Server (rekursiver Resolver)</h3>
     <p>
-      Bei einer Anfrage übergibt der Browser den DNS-Namen an einen rekursiven
-      DNS Resolver, der eine Anfrage an einen DNS Server stellt. Der Browser
-      ruft die Website dann anhand der IP Adresse ab. Wenn also example.de
-      abgefragt wird, dann fragt Root "Wer ist für .de zuständig", TLD fragt
-      "Wer ist für example.de zuständig" und die IP wird dann zurück an den
-      Browser zurückgegeben.
+      Der Local Name Server, auch lokaler DNS-Resolver genannt, nimmt DNS-
+      Anfragen von Geräten in einem lokalen Netz oder von einem Internetanbieter
+      entgegen. Er prüft zuerst seinen Cache. Ist die Antwort dort nicht
+      vorhanden oder abgelaufen, beschafft er sie bei anderen DNS-Servern,
+      speichert sie entsprechend ihrer TTL zwischen und gibt das Ergebnis an den
+      anfragenden Client zurück. Er ist normalerweise nicht selbst für die
+      angefragte Domain autoritativ.
+    </p>
+    <h3>Authoritative DNS Server</h3>
+    <p>
+      Ein autoritativer DNS-Server verwaltet die DNS-Einträge einer oder
+      mehrerer Zonen und liefert dafür verbindliche Antworten, zum Beispiel A-
+      oder AAAA-Adressen sowie MX-Einträge. Root- und TLD-Nameserver sind
+      ebenfalls autoritativ für ihre jeweiligen Bereiche. Sie verweisen bei
+      einer Anfrage meist mit einer Delegation auf den nächsten zuständigen
+      Nameserver. Der autoritative Server der gesuchten Domain liefert
+      schließlich den passenden Eintrag oder eine verbindliche Auskunft, dass es
+      ihn nicht gibt.
+    </p>
+    <h3>Iterative DNS-Auflösung</h3>
+    <img
+      src="./../assets/screenshots/dns_iterativ.jpeg"
+      alt="Ablauf einer iterativen DNS-Auflösung über Root-, TLD- und autoritative Nameserver"
+    />
+    <p>
+      Bei einer iterativen Auflösung fragt der Resolver nacheinander passende
+      Nameserver ab. Der Root-Server kennt zum Beispiel den zuständigen
+      Nameserver für die TLD wie .de, liefert aber normalerweise nicht die
+      gesuchte IP-Adresse. Er gibt einen Verweis (Referral) auf den TLD-Server
+      zurück. Dieser verweist auf den autoritativen Nameserver der Domain. Erst
+      dort erhält der Resolver die gesuchte DNS-Antwort. Die befragten Server
+      erledigen die weiteren Schritte nicht selbst; der Resolver folgt den
+      Verweisen.
+    </p>
+    <h3>Rekursive DNS-Auflösung</h3>
+    <img
+      src="./../assets/screenshots/dns_rekursiv.jpeg"
+      alt="Rekursive DNS-Anfrage vom Client an den lokalen Resolver und zurück"
+    />
+    <p>
+      Bei einer rekursiven Anfrage bittet der Client seinen Local Name Server um
+      eine vollständige Antwort. Der Resolver übernimmt die weitere Suche, fragt
+      dafür üblicherweise iterativ Root-, TLD- und autoritative Nameserver ab
+      und liefert dem Client anschließend das Ergebnis oder eine Fehlermeldung.
+      Für den Client erscheint die Suche dadurch als eine Anfrage an den
+      Resolver. Rekursiv beschreibt hier also den Dienst, den der Resolver dem
+      Client anbietet; die einzelnen Abfragen in der DNS- Hierarchie laufen
+      typischerweise iterativ ab.
     </p>
     <h3>Wie wird die IP Adresse von uni-tuebingen.de mit DNS ermittelt?</h3>
     <img
