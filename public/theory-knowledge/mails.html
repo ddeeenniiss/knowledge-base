@@ -251,18 +251,18 @@
     <h3>MIME (Multipurpose Internet Mail Extensions)</h3>
     <p>
       MIME beschreibt den Inhalt und Aufbau einer E-Mail, während SMTP für den
-      Transport zwischen Mailprogrammen und Mailservern zuständig ist. MIME
-      wird benötigt, damit eine Nachricht nicht auf einfachen ASCII-Text
-      beschränkt bleibt: Es ermöglicht unter anderem HTML-Inhalte, Zeichen
-      verschiedener Sprachen sowie Bilder und andere Dateianhänge.
+      Transport zwischen Mailprogrammen und Mailservern zuständig ist. MIME wird
+      benötigt, damit eine Nachricht nicht auf einfachen ASCII-Text beschränkt
+      bleibt: Es ermöglicht unter anderem HTML-Inhalte, Zeichen verschiedener
+      Sprachen sowie Bilder und andere Dateianhänge.
     </p>
     <p>
-      Dazu enthält die Nachricht MIME-Header. <code>Content-Type</code> gibt
-      den Medientyp und gegebenenfalls den Zeichensatz an, zum Beispiel
+      Dazu enthält die Nachricht MIME-Header. <code>Content-Type</code> gibt den
+      Medientyp und gegebenenfalls den Zeichensatz an, zum Beispiel
       <code>text/html; charset=UTF-8</code>. Bei mehreren Bestandteilen, etwa
       Text und Anhang, wird ein Typ wie <code>multipart/mixed</code> verwendet.
-      Eine eindeutige Boundary-Zeile trennt dann die einzelnen Teile; jeder
-      Teil kann eigene Header und Inhalte haben. <code>Content-Disposition</code>
+      Eine eindeutige Boundary-Zeile trennt dann die einzelnen Teile; jeder Teil
+      kann eigene Header und Inhalte haben. <code>Content-Disposition</code>
       kennzeichnet einen Teil beispielsweise als Anhang.
     </p>
     <p>
@@ -271,8 +271,8 @@
       Quoted-Printable in eine geeignete Textdarstellung umgewandelt. Das
       empfangende Mailprogramm liest Content-Type, Zeichensatz, Boundary und
       Transfer-Encoding, trennt die Bestandteile und decodiert sie wieder. So
-      kann es den Nachrichtentext anzeigen und Anhänge als Dateien bereitstellen.
-      MIME verschlüsselt die Nachricht dabei nicht.
+      kann es den Nachrichtentext anzeigen und Anhänge als Dateien
+      bereitstellen. MIME verschlüsselt die Nachricht dabei nicht.
     </p>
     <h3>Aufbau einer E-Mail-Adresse: localpart@domainpart</h3>
     <p>
