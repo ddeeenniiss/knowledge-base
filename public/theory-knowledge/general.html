@@ -369,6 +369,374 @@
       Ein Netzwerk ist eine Menge von Hardware & Software, die es erlaubt
       Informationen von einem Sender zum Empfänger weiterzuleiten.
     </p>
+    <h3>Middleboxes</h3>
+    <p>
+      Eine Middlebox ist ein Gerät oder Dienst, der sich auf dem Übertragungsweg
+      zwischen Sender und Empfänger befindet und den Verkehr nicht nur wie ein
+      gewöhnlicher Router weiterleitet. Eine Middlebox kann Pakete untersuchen,
+      filtern, verändern, zwischenspeichern oder auf mehrere Ziele verteilen.
+      Sie arbeitet je nach Aufgabe auf unterschiedlichen Ebenen des
+      Netzwerkmodells: Ein einfacher Paketfilter wertet vor allem IP-Adressen
+      und Ports aus, während ein Proxy oder Application Gateway auch
+      Anwendungsprotokolle wie HTTP verstehen kann.
+    </p>
+    <p>
+      Typische Middleboxes sind Firewalls, NAT-Router, Proxies, Load Balancer,
+      VPN-Gateways und Intrusion-Detection- beziehungsweise
+      Intrusion-Prevention-Systeme. Manche Geräte kombinieren mehrere dieser
+      Aufgaben. Ein Router wird nicht allein dadurch zur Middlebox, dass er
+      Pakete weiterleitet; entscheidend ist, dass er den Verkehr zusätzlich
+      kontrolliert oder verändert.
+    </p>
+    <p>
+      Middleboxes sind nützlich, weil sie gemeinsam genutzte Funktionen an
+      zentraler Stelle bereitstellen: Sie schützen Netze, sparen öffentliche
+      IPv4-Adressen, verteilen Last oder ermöglichen Fernzugriff. Gleichzeitig
+      liegt damit ein Teil der Kommunikation nicht mehr vollständig unter der
+      Kontrolle der beiden Endpunkte. Eine Middlebox kann zusätzliche
+      Verzögerung verursachen, zum Ausfallpunkt werden oder Protokolle stören,
+      wenn sie Annahmen über Paketformat, Verbindungsdauer oder Ports trifft.
+      Verschlüsselt eine Anwendung ihre Verbindung mit TLS, kann eine Middlebox
+      den Inhalt in der Regel nicht lesen, ohne TLS gezielt zu terminieren oder
+      aufzubrechen. IP-Adressen, Ports und Verkehrsmuster bleiben jedoch oft
+      sichtbar.
+    </p>
+
+    <h3>NAT (Network Address Translation)</h3>
+    <p>
+      NAT ist eine Funktion einer Middlebox, die IP-Adressen in Paket-Headern
+      umschreibt. Häufig wird NAT in IPv4-Netzen eingesetzt, damit viele Geräte
+      mit privaten Adressen gemeinsam eine oder wenige öffentliche IPv4-Adressen
+      verwenden können. Private Adressbereiche wie 10.0.0.0/8, 172.16.0.0/12 und
+      192.168.0.0/16 werden im öffentlichen Internet nicht geroutet. Der
+      NAT-Router verbindet deshalb das private Netz mit dem öffentlichen Netz.
+    </p>
+    <figure>
+      <img
+        src="./../assets/screenshots/nat.jpeg"
+        alt="Schematische Darstellung eines NAT-Routers zwischen privatem Netzwerk und Internet"
+      />
+      <figcaption>
+        Grundprinzip: Der NAT-Router verbindet private Geräte mit dem
+        öffentlichen Netzwerk und übersetzt ihre Adressen.
+      </figcaption>
+    </figure>
+    <p>
+      Die Abbildung zeigt NAT an der Grenze zwischen zwei Netzen. Innerhalb des
+      privaten Netzes werden die Geräte über ihre privaten IP-Adressen
+      angesprochen. Diese Adressen sind im Internet nicht eindeutig und werden
+      dort nicht weitergeleitet. Deshalb ersetzt der Router beim Weg nach außen
+      die private Quelladresse durch eine öffentliche Adresse. Das Ziel des
+      Pakets bleibt dabei grundsätzlich derselbe Webserver.
+    </p>
+    <p>
+      Beispiel für ausgehenden Verkehr: Ein Rechner mit der privaten Adresse
+      192.168.1.20 öffnet eine Verbindung zu einem Webserver. Der Router ersetzt
+      beim ausgehenden Paket die private Quelladresse durch seine öffentliche
+      Adresse. Bei Port Address Translation (PAT, auch NAPT oder NAT Overload)
+      ändert er zusätzlich den Quellport und speichert die Zuordnung in einer
+      Tabelle. Die Antwort an die öffentliche Adresse und den ausgewählten Port
+      kann er dadurch dem richtigen internen Rechner und dessen ursprünglichem
+      Port zuordnen. Für TCP und UDP werden getrennte Zuordnungen geführt.
+    </p>
+    <figure>
+      <img
+        src="./../assets/screenshots/nat_beispiel.jpeg"
+        alt="Beispiel für die Adress- und Portübersetzung einer Verbindung durch NAT"
+      />
+      <figcaption>
+        Beispielablauf: NAT ändert die Absenderdaten für den Hinweg und nutzt
+        seine Zuordnungstabelle, um Antwortpakete zurück an das richtige Gerät
+        zu liefern.
+      </figcaption>
+    </figure>
+    <p>
+      So liest du den Ablauf in der Abbildung: Auf dem Hinweg kommt das Paket
+      zunächst mit der privaten IP-Adresse und dem Quellport des internen Geräts
+      beim Router an. Der Router trägt diese Verbindung in seine NAT-Tabelle ein
+      und ersetzt die Absenderdaten durch die öffentliche IP-Adresse und
+      gegebenenfalls einen anderen Quellport. Der externe Server antwortet an
+      genau diese öffentliche Adresse und diesen Port. Anhand des Eintrags
+      findet der Router wieder das interne Gerät und stellt die ursprüngliche
+      Zieladresse und den ursprünglichen Port für die Weitergabe im privaten
+      Netz her. Die Geräte im privaten Netz können dadurch Verbindungen nach
+      außen aufbauen, obwohl sie selbst keine öffentliche IPv4-Adresse besitzen.
+    </p>
+    <p>Vereinfacht sieht die Zuordnung so aus:</p>
+    <ul>
+      <li>Intern: 192.168.1.20:51514 → 198.51.100.40:443</li>
+      <li>Nach PAT: 203.0.113.5:40001 → 198.51.100.40:443</li>
+      <li>Antwort: 198.51.100.40:443 → 203.0.113.5:40001</li>
+      <li>Zurückübersetzt: 198.51.100.40:443 → 192.168.1.20:51514</li>
+    </ul>
+    <p>
+      Die Adressen aus 192.0.2.0/24, 198.51.100.0/24 und 203.0.113.0/24 in
+      diesem Beispiel sind für Dokumentation reserviert. Ein echtes Gerät
+      verwendet dafür die tatsächlich konfigurierte öffentliche Adresse.
+    </p>
+    <p>
+      Die Begriffe SNAT und DNAT beschreiben die Richtung der Änderung aus Sicht
+      des betrachteten Pakets. Bei Source NAT (SNAT) wird die Quelladresse
+      geändert, typischerweise bei ausgehendem Verkehr. Bei Destination NAT
+      (DNAT) wird die Zieladresse geändert, beispielsweise damit eine
+      öffentliche Adresse und ein Port an einen internen Server weitergeleitet
+      werden. Eine solche Portweiterleitung ist eine ausdrücklich konfigurierte
+      DNAT-Regel; ohne passende Regel kann ein von außen neu gestarteter
+      Verbindungsversuch meist keinem internen Ziel zugeordnet werden.
+    </p>
+    <p>
+      Eine NAT-Zuordnung ist normalerweise zustandsbehaftet und zeitlich
+      begrenzt. Der Router merkt sich Protokoll, interne und externe Adressen
+      sowie Ports. Läuft die Zuordnung ab, werden spätere Antwortpakete nicht
+      mehr derselben Verbindung zugeordnet. Das erklärt, warum Peer-to-Peer-
+      Anwendungen, eingehende Serververbindungen und manche Echtzeitprotokolle
+      zusätzliche Verfahren wie Portweiterleitung, STUN, TURN oder ICE benötigen
+      können. Bei Carrier-Grade NAT (CGNAT) führt zusätzlich der
+      Internetanbieter NAT aus; eine eigene Portweiterleitung am Heimrouter
+      reicht dann nicht unbedingt aus, um einen Dienst aus dem Internet
+      erreichbar zu machen.
+    </p>
+    <p>
+      NAT ist keine Verschlüsselung und für sich allein keine vollständige
+      Sicherheitsfunktion. Dass ein neues eingehendes Paket keine vorhandene
+      NAT-Zuordnung findet, erschwert zwar häufig den direkten Zugriff auf ein
+      internes Gerät. Die eigentliche Zugriffskontrolle sollte aber eine
+      Firewall mit klaren Regeln übernehmen. NAT verändert außerdem die
+      Ende-zu-Ende-Kommunikation: Anwendungen, die IP-Adressen in ihre Nutzdaten
+      schreiben oder direkte eingehende Verbindungen erwarten, können
+      Anpassungen benötigen. IPv6 braucht für globale Adressierung meist kein
+      NAT; Firewalls können auch dort festlegen, welcher Verkehr erlaubt ist.
+      NAT64 ist ein Sonderfall: Es übersetzt zwischen IPv6 und IPv4 und ist
+      nicht dasselbe wie das übliche IPv4-PAT im Heimrouter.
+    </p>
+
+    <h3>Firewalls</h3>
+    <p>
+      Eine Firewall kontrolliert Netzwerkverkehr anhand einer Sicherheitsregel-
+      menge. Sie kann auf einem einzelnen Rechner als Host-Firewall, zwischen
+      Netzen als Netzwerk-Firewall oder als Funktion eines Routers
+      beziehungsweise einer Cloud-Plattform laufen. Regeln legen zum Beispiel
+      fest, welche Quelle, welches Ziel, welches Protokoll und welcher Port
+      erlaubt oder blockiert werden. Häufig gilt das Prinzip „standardmäßig
+      verweigern“: Verkehr wird nur zugelassen, wenn eine passende
+      Erlaubnisregel existiert.
+    </p>
+    <figure>
+      <img
+        src="./../assets/screenshots/firewall.jpeg"
+        alt="Schematische Darstellung einer Firewall, die Netzwerkverkehr prüft"
+      />
+      <figcaption>
+        Eine Firewall liegt im Paketweg und wendet ihre Regeln auf den Verkehr
+        zwischen den verbundenen Netzen an.
+      </figcaption>
+    </figure>
+    <p>
+      Das Bild zeigt die Grundidee: Ein Paket wird nicht allein deshalb
+      weitergeleitet, weil es sein Ziel erreichen könnte. Die Firewall prüft
+      zunächst relevante Angaben im Paket und vergleicht sie mit ihrer
+      Regelmenge. Je nach Regel wird das Paket erlaubt, verworfen oder
+      zurückgewiesen. Eine zurückgewiesene Verbindung kann eine Fehlermeldung
+      erhalten; beim stillen Verwerfen wartet der Absender meist auf einen
+      Timeout.
+    </p>
+    <figure>
+      <img
+        src="./../assets/screenshots/firewall_beispiel.jpeg"
+        alt="Beispielhafter Netzwerkverkehr, der an einer Firewall geprüft wird"
+      />
+      <figcaption>
+        Beispiel für die Entscheidung einer Firewall anhand der Richtung und der
+        Eigenschaften des Netzwerkverkehrs.
+      </figcaption>
+    </figure>
+    <p>
+      <strong>Wie ein Paket geprüft wird:</strong> Zuerst betrachtet die
+      Firewall die Richtung und die Netzwerkzone, an der das Paket eintrifft. Im
+      IP-Header stehen Quell-IP und Ziel-IP. Diese Adressen können mit einzelnen
+      Hosts, Netzen in CIDR-Schreibweise oder Platzhaltern wie „any“ abgeglichen
+      werden. Das IP-Protokollfeld zeigt, ob die Nutzlast zum Beispiel TCP, UDP
+      oder ICMP ist. Danach kann die Firewall passende Felder des jeweiligen
+      Protokolls prüfen.
+    </p>
+    <p>
+      Bei TCP und UDP gibt es jeweils einen Quellport und einen Zielport. Der
+      Zielport bezeichnet meist den Dienst auf dem Zielsystem, etwa TCP 80 für
+      HTTP oder TCP 443 für HTTPS. Der Quellport eines Clients ist häufig ein
+      vorübergehend ausgewählter (ephemerer) Port. Deshalb erlaubt eine typische
+      Regel für einen Webserver TCP-Verkehr zum Zielport 80 oder 443, während
+      sie den Quellport nicht auf einen festen Wert beschränkt. UDP besitzt
+      ebenfalls Quell- und Zielports, aber keinen TCP-Verbindungsaufbau. Ports
+      gibt es nicht im IP-Header selbst, sondern im TCP- beziehungsweise
+      UDP-Header.
+    </p>
+    <figure>
+      <img
+        src="./../assets/screenshots/client_server.jpeg"
+        alt="Client baut eine HTTP-Verbindung zu einem Server anhand einer Domain und über Port 80 auf"
+      />
+      <figcaption>
+        Der Client verwendet die Domain zur Namensauflösung und verbindet sich
+        anschließend per HTTP über TCP-Port 80 mit der IP-Adresse des Servers.
+      </figcaption>
+    </figure>
+    <p>
+      Der Ablauf im Bild besteht aus zwei getrennten Schritten: Zuerst fragt der
+      Client beim DNS nach der IP-Adresse, die zur Domain gehört. DNS verwendet
+      häufig UDP-Port 53, kann je nach Situation aber auch TCP-Port 53 nutzen.
+      Danach baut der Client eine TCP-Verbindung zur ermittelten Server-IP auf.
+      Dabei ist der Zielport 80 für HTTP festgelegt; als Quellport verwendet der
+      Client meist einen freien ephemeren Port. Nach dem TCP-Handshake werden
+      die HTTP-Anfrage und die Antwort über diese Verbindung übertragen. Die
+      Domain selbst ist also nicht die Ziel-IP des Pakets: Sie wird zuvor in
+      eine IP-Adresse aufgelöst und kann bei HTTP zusätzlich im Host-Header der
+      Anfrage stehen. HTTP auf Port 80 ist normalerweise unverschlüsselt; HTTPS
+      verwendet üblicherweise Port 443 und TLS.
+    </p>
+    <p>
+      ICMP hat keine TCP- oder UDP-Ports. Eine Firewall kann ICMP stattdessen
+      anhand von Nachrichtentyp und Code unterscheiden. Bei ICMPv4 ist zum
+      Beispiel Typ 8 eine Echo Request-Anfrage („Ping“) und Typ 0 die passende
+      Echo Reply-Antwort. Bei ICMPv6 sind es Typ 128 und Typ 129. Andere
+      wichtige Meldungen signalisieren etwa „Ziel nicht erreichbar“ oder eine
+      überschrittene Lebensdauer. ICMP pauschal zu sperren kann daher nicht nur
+      Ping verhindern, sondern auch Fehlersuche und Funktionen wie die
+      Path-MTU-Ermittlung beeinträchtigen. ICMPv6 benötigt außerdem bestimmte
+      Meldungen für grundlegende Netzwerkfunktionen.
+    </p>
+    <p>
+      Bei TCP kann eine Regel zusätzlich die Flags SYN und ACK auswerten. Beim
+      normalen Drei-Wege-Handshake sendet der Client zuerst SYN=1, ACK=0. Der
+      Server antwortet mit SYN=1, ACK=1; danach bestätigt der Client mit ACK=1.
+      Eine Regel für ein neues eingehendes TCP-SYN kann so den Start einer
+      Verbindung erkennen. Die SYN- und ACK-Bits allein beweisen jedoch nicht,
+      dass ein Paket zu einer erlaubten Verbindung gehört: ACK lässt sich auch
+      in einem beliebigen oder gefälschten Paket setzen. Eine zustandsbehaftete
+      Firewall verfolgt deshalb den Verbindungsaufbau und ordnet Folgepakete
+      einer zuvor erlaubten Verbindung zu, statt ACK einfach mit „sicher“
+      gleichzusetzen.
+    </p>
+    <figure>
+      <img
+        src="./../assets/screenshots/firewall_acl.jpeg"
+        alt="Access Control List mit Firewall-Regeln für Paketmerkmale und Aktionen"
+      />
+      <figcaption>
+        Eine Access Control List (ACL) beschreibt Bedingungen für den
+        Paketabgleich und die dazugehörige Aktion.
+      </figcaption>
+    </figure>
+    <p>
+      Die ACL-Abbildung lässt sich als Folge von Prüfregeln lesen. Eine Regel
+      kann Quell-IP, Ziel-IP, Protokoll, Quellport und Zielport enthalten; je
+      nach Firewall kommen ICMP-Typ beziehungsweise TCP-Flags wie SYN und ACK
+      hinzu. Stimmen alle festgelegten Bedingungen überein, greift die Aktion
+      der Regel, zum Beispiel „allow“ oder „deny“. Ein nicht eingeschränktes
+      Feld wirkt wie ein Platzhalter. Bei vielen ACLs gilt die erste passende
+      Regel; danach werden spätere Regeln nicht mehr geprüft. Die Reihenfolge
+      ist dann entscheidend: Eine breite Erlaubnis weiter oben kann eine
+      restriktivere Regel darunter wirkungslos machen. Häufig folgt am Ende
+      außerdem eine implizite Verweigerung für alles, wofür keine Erlaubnis
+      definiert wurde. Das konkrete Verhalten hängt vom Firewall-System ab.
+    </p>
+    <p>
+      Beispiel für eine gezielte Freigabe: Erlaube TCP-Pakete aus dem Internet,
+      deren Ziel die öffentliche Adresse eines Webservers und deren Zielport 443
+      ist, sofern es sich um den erlaubten Verbindungsaufbau handelt. Bei
+      zustandsbehafteter Prüfung werden passende Antwortpakete dieser Verbindung
+      automatisch als Rückverkehr erkannt. Eine getrennte Freigabe „beliebige
+      Quelle zu beliebigem Ziel“ wäre unnötig weit. Wenn NAT vor oder hinter der
+      Firewall ausgeführt wird, kann die Firewall je nach Position die
+      ursprüngliche oder bereits übersetzte Adresse sehen; ACLs müssen zur
+      tatsächlichen Paketverarbeitungsreihenfolge passen.
+    </p>
+    <p>
+      Eine zustandslose Paketfilter-Firewall bewertet jedes Paket einzeln anhand
+      seiner Header. Sie kann beispielsweise TCP-Verkehr zu Port 443 erlauben,
+      kennt aber nicht automatisch den Zusammenhang zu den vorherigen Paketen
+      einer Verbindung. Eine zustandsbehaftete Firewall führt dagegen eine
+      Zustandstabelle. Sie kann eine ausgehende Verbindung erlauben und passende
+      Antwortpakete zurücklassen, ohne jede Antwort als neue eingehende
+      Verbindung freizugeben. „Zustandsbehaftet“ bedeutet nicht, dass der Inhalt
+      der Verbindung vollständig verstanden oder geprüft wird.
+    </p>
+    <p>
+      Eine Application Firewall oder ein Application Gateway wertet zusätzlich
+      Anwendungsprotokolle aus. Eine Web Application Firewall (WAF) prüft zum
+      Beispiel HTTP-Anfragen auf bestimmte Angriffsmerkmale. Ein Proxy kann
+      Verbindungen entgegennehmen und eine getrennte Verbindung zum Zielserver
+      aufbauen. Dadurch kann er Inhalte oder Anfragen detaillierter
+      kontrollieren, ist aber auch stärker von Protokoll, Konfiguration und
+      Zertifikaten abhängig. Ein Intrusion Prevention System (IPS) versucht
+      darüber hinaus, erkannte Angriffe aktiv zu blockieren.
+    </p>
+    <p>
+      Firewall-Regeln sollten möglichst konkret sein und sowohl eingehenden als
+      auch ausgehenden Verkehr berücksichtigen. Eine offene Regel für „alle
+      Quellen, alle Ziele, alle Ports“ hebt den Schutz weitgehend auf. Regeln
+      müssen außerdem für IPv4 und IPv6 geprüft werden: Wird nur IPv4 gefiltert,
+      kann ein parallel erreichbarer IPv6-Dienst unbeabsichtigt offen bleiben.
+      Protokollierung hilft bei der Fehlersuche, sollte aber so eingestellt
+      sein, dass sie keine vertraulichen Inhalte unnötig speichert und nicht
+      durch massenhaft wiederholte Ereignisse unbrauchbar wird.
+    </p>
+    <h4>Jump Hosts und ihre Sicherheitsprobleme</h4>
+    <p>
+      Ein Jump Host (auch Bastion Host) ist ein besonders abgesicherter
+      Zwischenrechner, über den Administratoren auf Systeme in einem ansonsten
+      nicht direkt erreichbaren internen Netz zugreifen. Typischer Ablauf:
+      Administrator → Jump Host → interner Server. Die Firewall erlaubt dann
+      Verwaltungsverbindungen aus einem kontrollierten Zugangsnetz zum Jump Host
+      und von dort nur die benötigten Verbindungen zu den vorgesehenen internen
+      Systemen und Ports.
+    </p>
+    <p>
+      Das zentrale Problem: Der Jump Host wird zu einem attraktiven und
+      besonders mächtigen Angriffsziel. Wird er kompromittiert, kann ein
+      Angreifer die von dort erlaubten Wege für laterale Bewegung in interne
+      Netze missbrauchen. Außerdem sehen Zielserver auf Netzwerkebene häufig nur
+      die IP-Adresse des Jump Hosts als Quelle, nicht die ursprüngliche
+      Administrator-IP. Das erschwert die Zuordnung von Aktionen, wenn die
+      Anmeldung am Jump Host und die dort gestartete Sitzung nicht getrennt
+      protokolliert und einer Person zugeordnet werden. SSH-Agent- oder
+      Credential-Weiterleitung kann zusätzliche Zugangsdaten für einen Angreifer
+      auf dem Zwischenrechner verfügbar machen.
+    </p>
+    <p>
+      Ein Jump Host ist deshalb keine Sicherheitsgarantie und ersetzt keine
+      Firewall-Regeln. Er sollte gehärtet und aktuell gehalten, mit MFA und
+      persönlichen Konten betrieben und nur für notwendige Zielsysteme und Ports
+      freigeschaltet werden. Sitzungen und Identitäten sollten zentral
+      protokolliert werden; unnötige Datei-, Agent- und Portweiterleitungen
+      gehören deaktiviert. Zusätzlich begrenzen Netzsegmentierung und zeitlich
+      begrenzte Berechtigungen den Schaden, falls der Jump Host oder ein
+      Administratorkonto kompromittiert wird. Bei SSH-ProxyJump baut der Jump
+      Host die zweite TCP-Verbindung zum Ziel auf; der Zielserver sieht daher
+      auf IP-Ebene normalerweise den Jump Host als Absender. Die ursprüngliche
+      Benutzeridentität muss über Authentisierung und Logs nachvollziehbar
+      bleiben.
+    </p>
+
+    <h3>Zusammenspiel und Abgrenzung</h3>
+    <p>
+      NAT und Firewall können im selben Gerät ausgeführt werden, lösen aber
+      unterschiedliche Aufgaben: NAT schreibt Adressen oder Ports um, eine
+      Firewall entscheidet anhand von Regeln, ob Verkehr passieren darf. Ein
+      konkretes Gerät kann beides tun, doch die NAT-Übersetzung ist nicht
+      automatisch die Firewall-Regel und ersetzt keine bewusste
+      Sicherheitskonfiguration. Beide sind Beispiele für Middleboxes, ebenso wie
+      Proxies oder Load Balancer.
+    </p>
+    <p>
+      Bei der Fehlersuche hilft diese Reihenfolge: Zuerst prüfen, ob der Client
+      das Zielnetz erreichen und den Zielport ansprechen kann. Danach
+      kontrollieren, ob eine Firewall den Verkehr blockiert, ob eine
+      NAT-Zuordnung oder Portweiterleitung existiert und ob die Antwort den
+      Rückweg findet. Bei mehreren Middleboxes müssen Regeln und Zustände an
+      jeder beteiligten Stelle zusammenpassen. Ein Paketmitschnitt auf beiden
+      Seiten eines Gateways kann zeigen, an welcher Stelle sich Adressen ändern
+      oder Pakete verschwinden.
+    </p>
     <h3>Go-Back-N</h3>
     <p>
       Go-Back-N ist ein ARQ-Verfahren zur zuverlässigen Datenübertragung mit
@@ -2336,14 +2704,60 @@ sudo apachectl configtest
       Rechner kann Teil dieses Netzwerk werden, wenn er zu einem Rechner in
       diesem Netzwerk eine VPN Verbindung aufgebaut hat.
     </p>
-    <h2>URL (Uniform Resource Locator)</h2>
+    <h2>URI und URL</h2>
+    <h3>URI (Uniform Resource Identifier)</h3>
     <p>
-      URLs sind eindeutige Adressen für Ressourcen im Internet. Sie bestehen aus
-      mehreren Teilen: Protokoll, Host, Port, Pfad und Query-Parameter.
+      Eine URI ist eine Zeichenfolge, die eine Ressource identifiziert. Das kann
+      zum Beispiel eine Webseite, eine Datei, ein E-Mail-Ziel oder ein anderer
+      digitaler Inhalt sein. Eine URI kann zugleich angeben, wo die Ressource
+      liegt und wie sie erreicht werden kann.
+    </p>
+    <figure>
+      <img
+        src="./../assets/screenshots/uri.jpeg"
+        alt="Aufbau einer URI mit Schema, Host, Port, Pfad, Query und Fragment"
+      />
+      <figcaption>
+        Die Bestandteile einer URI am Beispiel einer Webadresse.
+      </figcaption>
+    </figure>
+    <p>
+      Im Bild ist das Schema der Teil vor dem Doppelpunkt, zum Beispiel
+      <code>https</code>. Es beschreibt, welche Art von Kennung beziehungsweise
+      welches Zugriffsverfahren verwendet wird. Bei einer HTTP-URI folgt meist
+      <code>//</code> und danach die Autorität: optional Benutzerinformationen,
+      der Hostname oder die IP-Adresse und optional ein Port. Hinter dem Host
+      kann ein Pfad die Ressource auf dem Server bezeichnen. Eine Query beginnt
+      mit <code>?</code> und enthält zusätzliche Parameter. Ein Fragment nach
+      <code>#</code> bezeichnet einen Abschnitt oder Teil innerhalb der
+      Ressource und wird normalerweise vom Client ausgewertet, nicht an den
+      Server gesendet.
+    </p>
+    <p>
       Beispiel:
-      https://www.uni-tuebingen.de:80/index.html?search=example#section1
-      (Protokoll: https, Präfix: www, Host (Domain): uni-tuebingen.de, Port: 80,
-      Pfad: /index.html, Query-Parameter: search=example, Fragment: #section1)
+      <code
+        >https://www.example.com:443/dokumente/start.html?suche=uri#aufbau</code
+      >. Darin ist <code>https</code> das Schema,
+      <code>www.example.com</code> der Host, <code>443</code> der Port,
+      <code>/dokumente/start.html</code> der Pfad, <code>suche=uri</code> die
+      Query und <code>aufbau</code> das Fragment. Ein Standardport wie 443 kann
+      in einer Webadresse weggelassen werden.
+    </p>
+    <p>
+      Eine URL (Uniform Resource Locator) ist eine URI, die den Ort einer
+      Ressource und üblicherweise den Weg zu ihrem Abruf beschreibt. Eine URN
+      (Uniform Resource Name) ist dagegen eine URI, die eine Ressource über
+      einen Namen oder eine Kennung bezeichnet, ohne zwingend ihren aktuellen
+      Speicherort anzugeben. Deshalb gilt: Jede URL ist eine URI, aber nicht
+      jede URI ist eine URL.
+    </p>
+    <h3>URL (Uniform Resource Locator)</h3>
+    <p>
+      URLs sind die gebräuchlichsten URIs im Web. Der Browser löst den Hostnamen
+      über DNS in eine IP-Adresse auf und verbindet sich anschließend mit dem
+      Server. Schema und Port bestimmen dabei, welches Protokoll verwendet wird;
+      Pfad und Query geben an, welche Ressource beziehungsweise Variante davon
+      angefragt wird.
     </p>
 
     <h2>Wireless Access Point</h2>
@@ -2925,14 +3339,54 @@ sudo apachectl configtest
     </ul>
     <h3>HTTPS (Hypertext Transfer Protocol Secure)</h3>
     <p>
-      HTTPS ist eine sichere Version von HTTP, die SSL/TLS-Verschlüsselung
-      verwendet, um die Kommunikation zwischen dem Browser und dem Server zu
-      schützen. Es wird auf Port 443 verwendet. Möchte ein Client eine
-      Verbindung zu diesem Server aufbauen so ermittelt er mit Hilfe von DNS die
-      IP Adresse des Servers und baut auf Port 80 eine TCP Verbindung zu diesem
-      auf. Daraufhin sendet der Client seine HTTP Anfrage (zB GET, POST,
-      HEAD,..) und der Server sendet seine Antwort an den Client zurück.
+      HTTPS überträgt HTTP geschützt durch TLS. Bei HTTP/1.1 und HTTP/2 löst der
+      Client zunächst den Hostnamen über DNS auf, baut eine TCP-Verbindung zur
+      Server-IP auf Port 443 auf und führt anschließend den TLS-Handshake durch.
+      Dabei wird unter anderem das Serverzertifikat geprüft. Erst danach werden
+      HTTP-Anfrage und -Antwort verschlüsselt über die Verbindung übertragen.
+      SSL gilt als veraltet und sollte nicht mehr verwendet werden. HTTP/3
+      verwendet statt TCP QUIC über UDP, üblicherweise ebenfalls auf Port 443;
+      TLS 1.3 ist dabei in QUIC integriert.
     </p>
+    <h3>HTTP Ablauf</h3>
+    <p>
+      Der folgende Ablauf beschreibt HTTP/1.1 über TCP, üblicherweise ohne
+      Verschlüsselung auf Port 80:
+    </p>
+    <ol>
+      <li>
+        Der Client ermittelt per DNS die IP-Adresse für
+        <code>www.example.edu</code>. Die DNS-Antwort kann bereits im Cache
+        liegen.
+      </li>
+      <li>
+        Der Client startet den TCP-Verbindungsaufbau zur Server-IP auf Zielport
+        80. Nach dem TCP-Handshake nimmt der Server die Verbindung an.
+      </li>
+      <li>
+        Der Client sendet eine HTTP-Anfrage über den Socket. Bei HTTP/1.1
+        enthält sie zum Beispiel eine Request-Zeile wie
+        <code>GET /seite.html HTTP/1.1</code> und einen
+        <code>Host: www.example.edu</code>-Header. Die vollständige URL wird bei
+        einer normalen Anfrage nicht zwingend übertragen.
+      </li>
+      <li>
+        Der Server wertet Methode, Pfad, Host und weitere Header aus und sendet
+        eine HTTP-Antwort zurück. Sie enthält einen Statuscode, Header und –
+        sofern vorhanden – einen Inhalt im Antwortkörper.
+      </li>
+      <li>
+        Der Client verarbeitet die Antwort. Ist der Inhalt HTML, kann der
+        Browser ihn darstellen und weitere Ressourcen wie CSS, Bilder oder
+        Skripte anfordern.
+      </li>
+      <li>
+        Die TCP-Verbindung wird nicht zwingend nach jeder Antwort beendet.
+        HTTP/1.1 verwendet standardmäßig persistente Verbindungen, die für
+        weitere Anfragen wiederverwendet werden können. Client oder Server
+        können sie später schließen.
+      </li>
+    </ol>
     <h3>>SSH (Secure Shell)</h3>
     <p>
       SSH ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es
