@@ -3387,6 +3387,86 @@ sudo apachectl configtest
         können sie später schließen.
       </li>
     </ol>
+    <h3>Web Cache: Inhalte zwischenspeichern</h3>
+    <figure>
+      <img
+        src="/assets/screenshots/web_cache.jpeg"
+        alt="Web-Cache speichert eine Serverantwort und kann sie bei späteren Anfragen wiederverwenden"
+      />
+      <figcaption>
+        Bei einem Cache-Treffer erhält der Client eine gespeicherte Antwort,
+        ohne dass der Ursprungserver den Inhalt erneut übertragen muss.
+      </figcaption>
+    </figure>
+    <p>
+      Ein Web-Cache speichert Kopien von HTTP-Antworten, zum Beispiel HTML,
+      Bilder, Stylesheets oder Skripte. Beim nächsten Abruf kann eine gültige
+      Kopie direkt aus dem Browser-Cache oder einem zwischengeschalteten
+      Proxy-/CDN-Cache kommen. Das nennt man Cache-Hit. Gibt es keine passende
+      oder gültige Kopie, fragt der Cache den Ursprungserver an; das ist ein
+      Cache-Miss.
+    </p>
+    <p>
+      Eine Webseite besteht oft aus vielen Dateien: HTML, CSS, JavaScript,
+      Schriftarten und Bildern. Große Dateien und viele einzelne Anfragen
+      benötigen mehr Zeit für die Übertragung. Die verfügbare Bandbreite legt
+      fest, wie viele Daten pro Sekunde übertragen werden können; bei langsamer
+      oder ausgelasteter Verbindung dauert derselbe Download länger. Hinzu kommt
+      die Verzögerung für den Weg zum Server und zurück (RTT), die bei weit
+      entfernten Servern besonders spürbar sein kann. Ein Cache hilft bei
+      erneuten Besuchen, indem er bereits geladene Dateien wiederverwendet:
+      weniger Daten müssen über die Internetverbindung übertragen werden und
+      manche Anfragen müssen den Ursprungserver gar nicht erst erreichen.
+    </p>
+    <p>Zwischenspeichern lohnt sich, weil es:</p>
+    <ul>
+      <li>
+        die Ladezeit verringern kann, da Daten näher beim Nutzer liegen oder gar
+        nicht erneut über das Netzwerk geladen werden müssen;
+      </li>
+      <li>
+        Bandbreite spart und wiederholte Anfragen an den Ursprungserver
+        reduziert;
+      </li>
+      <li>
+        Server und Backend entlastet, sodass sie mehr Anfragen bedienen können.
+      </li>
+    </ul>
+    <p>
+      Der Cache macht die gespeicherten Dateien selbst nicht kleiner. Er spart
+      ihren erneuten Download. Komprimierung und optimierte Bilder verringern
+      dagegen die Dateigröße und helfen schon beim ersten Besuch; beides lässt
+      sich mit Caching kombinieren.
+    </p>
+    <p>
+      Der Server steuert das Caching vor allem über HTTP-Header. Zum Beispiel
+      erlaubt <code>Cache-Control: max-age=3600</code>, eine Antwort bis zu 3600
+      Sekunden als frisch zu behandeln. <code>private</code> kennzeichnet
+      Antworten für private Caches wie den Browser; <code>public</code> erlaubt
+      grundsätzlich auch gemeinsame Caches. Personalisierte oder sensible
+      Antworten müssen passend konfiguriert werden, damit sie nicht in einem
+      gemeinsam genutzten Cache für andere Nutzer landen.
+    </p>
+    <p>
+      Ist eine gespeicherte Antwort möglicherweise veraltet, kann der Cache beim
+      Server nachfragen, ob sie noch aktuell ist. Dafür dienen zum Beispiel
+      <code>ETag</code> mit <code>If-None-Match</code> oder
+      <code>Last-Modified</code> mit <code>If-Modified-Since</code>. Ist der
+      Inhalt unverändert, antwortet der Server mit
+      <code>304 Not Modified</code>; der Cache verwendet dann seine gespeicherte
+      Kopie weiter, statt den ganzen Inhalt erneut herunterzuladen.
+      <code>no-cache</code> bedeutet, dass vor der Wiederverwendung geprüft
+      werden muss. <code>no-store</code> weist Caches an, die Antwort nicht zu
+      speichern.
+    </p>
+    <p>
+      Caching ist besonders hilfreich für unveränderte statische Dateien. Es
+      kann aber veraltete Inhalte anzeigen, wenn Ablaufzeiten oder
+      Aktualisierungen falsch verwaltet werden. Für häufig geänderte oder
+      nutzerspezifische Daten braucht es daher passende Regeln; mit
+      <code>Vary</code> kann eine Antwort außerdem nach relevanten
+      Anfrage-Headern getrennt gecacht werden.
+    </p>
     <h3>>SSH (Secure Shell)</h3>
     <p>
       SSH ist ein Protokoll zur sicheren Remote-Verwaltung von Computern. Es
@@ -3942,6 +4022,79 @@ sudo apachectl configtest
       src="/assets/screenshots/http_versenden.jpeg"
       alt="Abbildung: Versenden von http Daten von Browser zu Webserver"
     />
+
+    <h3>HTTP RTT (Round-Trip Time)</h3>
+    <p>
+      RTT bedeutet Round-Trip Time und bezeichnet die Zeit, die ein Signal vom
+      Client zum Server und wieder zurück benötigt. Sie beschreibt damit die
+      Netzwerklatenz eines Hin- und Rückwegs. Bei einer HTTP-Anfrage beeinflusst
+      die RTT, wie lange es dauert, bis der Client eine Antwort erhält. Die
+      komplette Dauer einer HTTP-Anfrage kann zusätzlich die Verarbeitung auf
+      dem Server und die Übertragung der Antwort enthalten; sie ist daher nicht
+      automatisch gleich der reinen Netzwerk-RTT. Bei einer neuen Verbindung
+      können außerdem RTTs für den TCP- und bei HTTPS den TLS-Verbindungsaufbau
+      hinzukommen.
+    </p>
+
+    <h3>HTTP-Request: Anfrage vom Client</h3>
+    <figure>
+      <img
+        src="/assets/screenshots/http_request_message.jpeg"
+        alt="Aufbau einer HTTP-Request-Nachricht mit Request-Zeile, Headern und Body"
+      />
+      <figcaption>
+        Die Zeilen einer HTTP-Anfrage vom Client an den Server.
+      </figcaption>
+    </figure>
+    <ul>
+      <li>
+        <strong>Request-Zeile:</strong> Methode, angefragter Pfad und
+        HTTP-Version, zum Beispiel <code>GET /seite HTTP/1.1</code>. Die Methode
+        beschreibt die gewünschte Aktion.
+      </li>
+      <li>
+        <strong>Header-Zeilen:</strong> Metadaten zur Anfrage, etwa der
+        Ziel-Host, akzeptierte Inhaltstypen oder Informationen zum Client.
+      </li>
+      <li>
+        <strong>Leerzeile:</strong> Trennt die Header vom Nachrichtenkörper.
+      </li>
+      <li>
+        <strong>Body (optional):</strong> Enthält übertragene Daten, zum
+        Beispiel Formularwerte bei einer <code>POST</code>-Anfrage. Bei
+        <code>GET</code> ist normalerweise kein Body nötig.
+      </li>
+    </ul>
+
+    <h3>HTTP-Response: Antwort des Servers</h3>
+    <figure>
+      <img
+        src="/assets/screenshots/http_response_message.jpeg"
+        alt="Aufbau einer HTTP-Response-Nachricht mit Statuszeile, Headern und Body"
+      />
+      <figcaption>
+        Die Zeilen einer HTTP-Antwort vom Server an den Client.
+      </figcaption>
+    </figure>
+    <ul>
+      <li>
+        <strong>Statuszeile:</strong> HTTP-Version, Statuscode und kurzer
+        Statustext, zum Beispiel <code>HTTP/1.1 200 OK</code>. Der Statuscode
+        zeigt, ob die Anfrage erfolgreich war oder wie sie behandelt wurde.
+      </li>
+      <li>
+        <strong>Header-Zeilen:</strong> Metadaten zur Antwort, zum Beispiel
+        Inhaltstyp, Inhalt-Länge oder Cache-Regeln.
+      </li>
+      <li>
+        <strong>Leerzeile:</strong> Trennt die Header vom Nachrichtenkörper.
+      </li>
+      <li>
+        <strong>Body (optional):</strong> Der zurückgegebene Inhalt, etwa HTML,
+        JSON oder ein Bild. Bei manchen Antworten, zum Beispiel
+        <code>204 No Content</code>, gibt es keinen Body.
+      </li>
+    </ul>
 
     <h2>Paketübertragung (Versenden von Datenpaketen)</h2>
     <p>
@@ -4750,20 +4903,105 @@ sudo apachectl configtest
     </p>
     <p>Verwaltet wird es über die Google Analytics Oberfläche.</p>
     <h2>Consent Management (Cookies)</h2>
+    <figure>
+      <img
+        src="/assets/screenshots/cookies.jpeg"
+        alt="Darstellung der Verwendung von Cookies zwischen Browser und Webserver"
+      />
+      <figcaption>
+        Ein Cookie wird vom Server gesetzt und bei passenden späteren Anfragen
+        vom Browser wieder mitgesendet.
+      </figcaption>
+    </figure>
+    <h3>Wie Cookies funktionieren</h3>
     <p>
-      In Deutschland braucht es ein Cookie Banner, damit das Tracking erst nach
-      Bestätigung des Nutzers laufen darf. Es dürfen keine
-      nicht-technisch-notwendigen Cookies gesetzt werden ohne Zustimmung.
+      Ein Cookie ist ein kleiner Textwert, den eine Website im Browser speichern
+      lassen kann. Der Server sendet ihn meist im HTTP-Header
+      <code>Set-Cookie</code> an den Browser. Dieser speichert ihn entsprechend
+      seiner Eigenschaften, zum Beispiel für welche Domain und welchen Pfad er
+      gilt und wie lange er gültig ist.
     </p>
     <p>
-      Das Cookie Banner enthält "Alle akzeptieren", "Nur notwendige" und
-      "Individuelle Auswahl"
+      Bei einer späteren Anfrage an eine passende Adresse sendet der Browser den
+      Cookie-Wert automatisch im <code>Cookie</code>-Header zurück. Der Server
+      kann den Wert dann einer Sitzung zuordnen, etwa um einen Login oder
+      Warenkorb wiederzuerkennen. Häufig enthält das Cookie dafür nur eine
+      zufällige Sitzungs-ID; die eigentlichen Sitzungsdaten liegen auf dem
+      Server. Ein Ablaufdatum oder eine Löschung beendet die Speicherung.
+    </p>
+    <p>Vereinfacht läuft das so ab:</p>
+    <ol>
+      <li>Der Browser sendet eine Anfrage an die Website.</li>
+      <li>
+        Der Server antwortet und kann mit <code>Set-Cookie</code> einen Cookie
+        setzen.
+      </li>
+      <li>
+        Der Browser speichert den Cookie gemäß Gültigkeit und weiteren
+        Attributen.
+      </li>
+      <li>
+        Bei passenden Folgeanfragen sendet der Browser ihn im
+        <code>Cookie</code>-Header zurück.
+      </li>
+      <li>
+        Der Server verwendet den Wert, zum Beispiel zum Wiedererkennen einer
+        Sitzung.
+      </li>
+    </ol>
+    <h3>Vorteile von Cookies</h3>
+    <ul>
+      <li>
+        Sie ermöglichen Sitzungen über mehrere HTTP-Anfragen hinweg, obwohl HTTP
+        selbst zustandslos ist.
+      </li>
+      <li>
+        Login-Status, Warenkörbe und persönliche Einstellungen können
+        wiedererkannt werden.
+      </li>
+      <li>
+        Sie funktionieren ohne zusätzliche Abfrage, weil der Browser passende
+        Cookies automatisch mitsendet.
+      </li>
+    </ul>
+    <h3>Nachteile und Risiken</h3>
+    <ul>
+      <li>
+        Cookies können zur Wiedererkennung und zum Tracking verwendet werden;
+        das kann die Privatsphäre beeinträchtigen.
+      </li>
+      <li>
+        Werden Sitzungs-Cookies gestohlen, kann ein Angreifer unter Umständen
+        eine Sitzung übernehmen. HTTPS sowie passende Attribute wie
+        <code>Secure</code>, <code>HttpOnly</code> und
+        <code>SameSite</code> senken Risiken.
+      </li>
+      <li>
+        Cookies werden bei passenden Anfragen mitgesendet und vergrößern dadurch
+        die übertragenen Header.
+      </li>
+      <li>
+        Abgelaufene oder gelöschte Cookies können Sitzungen und gespeicherte
+        Einstellungen beenden; Browser schränken außerdem bestimmte
+        Drittanbieter-Cookies ein.
+      </li>
+    </ul>
+    <h3>Einwilligung und Consent Management</h3>
+    <p>
+      Technisch notwendige Cookies können ohne Einwilligung zulässig sein, wenn
+      sie für einen ausdrücklich gewünschten Dienst erforderlich sind. Für nicht
+      notwendige Cookies, etwa für Analyse oder Marketing, ist in der Regel eine
+      vorherige Einwilligung erforderlich. Die konkreten Anforderungen hängen
+      vom Einsatz ab; ein Consent-Banner sollte eine echte Auswahl ermöglichen,
+      zum Beispiel „Alle akzeptieren“, „Nur notwendige“ und „Individuelle
+      Auswahl“.
     </p>
     <p>
-      Das Tool dahinter speichert, welche Kategorien akzeptiert wurden, wann
-      akzeptiert wurde, von welcher IP Adresse akzeptiert wurde und die
-      Widerruf-Möglichkeit. (Consent-Management-Plattformen (CMPs):
-      Usercentrics, Borlabs Cookie, Cookiebot, Complianz)
+      Ein Consent-Management-Tool speichert die gewählten Kategorien und kann
+      den Zeitpunkt der Auswahl dokumentieren. Es muss außerdem ermöglichen,
+      eine Einwilligung später zu ändern oder zu widerrufen. Beispiele für
+      Consent-Management-Plattformen (CMPs) sind Usercentrics, Borlabs Cookie,
+      Cookiebot und Complianz.
     </p>
     <p>
       Consent Tools arbeiten mit data-attributes
