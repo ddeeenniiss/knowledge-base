@@ -3293,15 +3293,81 @@ sudo apachectl configtest
       Header Infos, HTML Seite
     </p>
     <h3>FTP (File Transfer Protocol)</h3>
+    <figure>
+      <img
+        src="/assets/screenshots/ftp.jpeg"
+        alt="FTP trennt die Steuerverbindung zwischen Client und Server vom Datenkanal für Dateien und Verzeichnislisten"
+      />
+      <figcaption>
+        FTP verwendet einen Steuerkanal für Befehle und einen separaten
+        Datenkanal für Verzeichnislisten sowie Dateiübertragungen.
+      </figcaption>
+    </figure>
     <p>
-      FTP ist ein Protokoll zur Übertragung von Dateien zwischen Computern. Es
-      verwendet zwei Ports: Port 21 für die Steuerung und Port 20 für die
-      Datenübertragung. Keine Verschlüsselung, daher nicht mehr Standard.
+      FTP überträgt Dateien und Verzeichnisinformationen zwischen einem Client
+      und einem Server. Anders als viele andere Protokolle nutzt es zwei
+      getrennte TCP-Verbindungen. Die dauerhafte Steuerverbindung läuft
+      normalerweise vom Client zum Server über Port 21. Über sie sendet der
+      Client Befehle wie <code>USER</code>, <code>PWD</code>, <code>CWD</code>,
+      <code>LIST</code>, <code>RETR</code> (Datei herunterladen) und
+      <code>STOR</code> (Datei hochladen). Die eigentlichen Dateiinhalte und
+      Verzeichnislisten werden über eine separate Datenverbindung übertragen.
     </p>
+    <p>
+      Der Datenkanal kann aktiv oder passiv aufgebaut werden. Im aktiven Modus
+      öffnet der Server die Datenverbindung zurück zum Client; dabei stammt der
+      Server-Port üblicherweise von TCP 20. Im heute häufigeren passiven Modus
+      nennt der Server einen separaten Port und der Client baut die
+      Datenverbindung zu diesem Port auf. Das funktioniert meist besser hinter
+      NAT und Firewalls. Deshalb ist Port 20 nicht grundsätzlich der Datenport
+      bei jeder FTP-Verbindung.
+    </p>
+    <p>
+      Normales FTP verschlüsselt weder Kennwort noch Dateiinhalt. FTPS ergänzt
+      FTP um TLS und sichert Steuer- und Datenverbindungen ab; der Anbieter
+      nennt dafür den passenden Modus und Port. SFTP ist dagegen kein FTP mit
+      Verschlüsselung, sondern ein eigenes Dateiübertragungsprotokoll über SSH,
+      normalerweise auf Port 22.
+    </p>
+    <h4>Mit Transmit zum Webserver verbinden und navigieren</h4>
+    <ol>
+      <li>
+        Erstelle in Transmit einen neuen Servereintrag und wähle das Protokoll,
+        das dein Hoster vorgibt. Bevorzuge SFTP oder FTPS; nutze
+        unverschlüsseltes FTP nicht in öffentlichen Netzwerken.
+      </li>
+      <li>
+        Trage Serveradresse (Hostname), Port, Benutzername und das vom Hoster
+        bereitgestellte Kennwort oder den SSH-Schlüssel ein. Die Adresse der
+        Website ist nicht zwingend dieselbe wie der FTP-/SFTP-Hostname.
+      </li>
+      <li>
+        Verbinde dich. In der Serveransicht kannst du Ordner öffnen und mit
+        <code>..</code> eine Ebene nach oben gehen. Mit <code>PWD</code> wird
+        der aktuelle Remote-Ordner abgefragt; <code>CWD</code> wechselt in einen
+        anderen Ordner. Transmit führt diese Navigation über den Steuerkanal
+        aus.
+      </li>
+      <li>
+        Suche den vom Hoster angegebenen Webroot. Er heißt häufig
+        <code>public_html</code>, <code>httpdocs</code>,
+        <code>htdocs</code> oder <code>www</code>, der tatsächliche Name hängt
+        aber von der Serverkonfiguration ab. Dieser Ordner ist dem
+        Webserver-Verzeichnis der Domain zugeordnet.
+      </li>
+      <li>
+        Übertrage die Website-Dateien in den richtigen Webroot und behalte die
+        Ordnerstruktur bei, damit Verweise auf CSS, JavaScript und Bilder
+        stimmen. Vor dem Ersetzen vorhandener Dateien solltest du prüfen, ob sie
+        gebraucht werden. Fehlende Schreibrechte können einen Upload-Fehler wie
+        <code>550 Permission denied</code> verursachen.
+      </li>
+    </ol>
     <h3>SFTP (Secure File Transfer Protocol)</h3>
     <p>
-      SFTP ist eine verschlüsselte Version von FTP, die auf Port 22 verwendet
-      wird. Ein SFTP Client erwartet einen SSH Server mit SFTP Unterstützung.
+      SFTP ist ein eigenes, verschlüsseltes Dateiübertragungsprotokoll über SSH,
+      üblicherweise auf Port 22. Client und Server benötigen
+      SSH-/SFTP-Unterstützung; FTP-Ports und FTP-Modi gelten dafür nicht.
     </p>
     <h3>SMTP (Simple Mail Transfer Protocol)</h3>
     <p>
@@ -3466,6 +3532,83 @@ sudo apachectl configtest
       nutzerspezifische Daten braucht es daher passende Regeln; mit
       <code>Vary</code> kann eine Antwort außerdem nach relevanten
       Anfrage-Headern getrennt gecacht werden.
+    </p>
+    <h3>Content Delivery Network (CDN)</h3>
+    <p>
+      Ein Content Delivery Network ist ein Verbund aus weltweit verteilten
+      Serverstandorten, sogenannten Edge-Servern oder Points of Presence. Ein
+      CDN speichert dort geeignete Kopien von Webinhalten, etwa Bilder, Videos,
+      CSS- und JavaScript-Dateien. Der Browser wird über DNS- oder
+      Routingverfahren zu einem passenden, häufig nahegelegenen Standort
+      geleitet. Ein CDN ist damit ein verteiltes Auslieferungs- und
+      Cache-Netzwerk, das vor dem Ursprungsserver (Origin) stehen kann.
+    </p>
+    <figure>
+      <img
+        src="/assets/screenshots/cdn.jpeg"
+        alt="CDN mit verteilten Edge-Servern zwischen Nutzern und dem Ursprungsserver"
+      />
+      <figcaption>
+        Das CDN verteilt Inhalte über mehrere Standorte, statt alle Anfragen
+        direkt zum Ursprungsserver zu schicken.
+      </figcaption>
+    </figure>
+    <p>
+      Die Abbildung zeigt das Grundprinzip: Der Ursprungsserver stellt die
+      Inhalte bereit; das CDN hält davon geeignete Kopien an verschiedenen
+      Standorten. Nutzer fragen einen passenden CDN-Standort an. Dadurch muss
+      der Datenverkehr nicht jedes Mal bis zum Ursprungsserver zurücklegen.
+    </p>
+    <figure>
+      <img
+        src="/assets/screenshots/cdn_example.jpeg"
+        alt="Beispielablauf einer Anfrage über einen CDN-Edge-Server zum Origin"
+      />
+      <figcaption>
+        Beispiel für den Weg einer Anfrage: Der Edge-Server liefert einen
+        Cache-Treffer direkt aus oder holt fehlende Inhalte beim Origin.
+      </figcaption>
+    </figure>
+    <p>
+      Beim ersten Abruf oder einem Cache-Miss fragt der Edge-Server den Origin
+      an, erhält die Datei und kann sie für weitere Abrufe zwischenspeichern.
+      Bei einem Cache-Hit liefert er die gültige Kopie direkt an den Browser
+      aus. Welche Dateien gespeichert werden und wie lange sie gültig sind,
+      hängt von den Cache-Regeln des CDN und den HTTP-Headern des
+      Ursprungsservers ab. Häufig veränderte oder personalisierte Antworten
+      werden nicht oder nur mit speziell konfigurierten Regeln gecacht.
+    </p>
+    <h4>Nutzen und Vorteile eines CDNs</h4>
+    <ul>
+      <li>
+        <strong>Kürzere Ladezeiten:</strong> Inhalte kommen meist von einem
+        näher gelegenen Server. Das kann Netzwerklaufzeit und RTT verringern.
+      </li>
+      <li>
+        <strong>Weniger Origin-Last:</strong> Wiederholte Abrufe von
+        Cache-Inhalten erreichen den Ursprungsserver nicht; dadurch werden
+        dessen Bandbreite und Rechenressourcen geschont.
+      </li>
+      <li>
+        <strong>Bessere Skalierbarkeit:</strong> Viele CDN-Standorte können
+        Anfragen parallel bedienen und Lastspitzen abfangen.
+      </li>
+      <li>
+        <strong>Verfügbarkeit:</strong> Bei Störungen oder hoher Last am Origin
+        können gültige gecachte Inhalte teilweise weiterhin ausgeliefert werden.
+      </li>
+      <li>
+        <strong>Zusätzliche Schutzfunktionen:</strong> Manche Anbieter bieten
+        DDoS-Abwehr oder Web Application Firewall-Funktionen an; diese sind
+        optionale CDN-Dienste und nicht automatisch durch Caching gegeben.
+      </li>
+    </ul>
+    <p>
+      Ein CDN verkleinert Dateien nicht von selbst: Komprimierung und
+      Bildoptimierung sind getrennte Maßnahmen. Inhalte müssen außerdem
+      zuverlässig aktualisiert oder invalidiert werden, damit Nutzer keine
+      veralteten Fassungen erhalten. Ein CDN ersetzt weder einen gut
+      dimensionierten Origin noch passende Cache-Regeln.
     </p>
     <h3>>SSH (Secure Shell)</h3>
     <p>
