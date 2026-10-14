@@ -3797,6 +3797,31 @@ sudo apachectl configtest
       möglich.
     </p>
     <p>49152-65535 Dynamic Ports: Können frei verwendet werden.</p>
+    <p>Bei der Generierung eines SSH Schlüssels wird ein Paar aus öffentlichem Key (public key = Schloss) und einem privaten Key (private key = Schlüssel) erzeugt.</p>
+    <p>Für die Generierung einfach im Terminal eingeben:</p>
+    <pre>ssh-keygen -t ed25519 -C "Github Bonna" -f ~/.ssh/github_company</pre>
+<p>Mit -t wird der Schlüsseltyp / Algorithmus gewählt. Standard wäre rsa, ed25519 ist allerdings moderner. Mit -C wird eine Beschreibung für den Schlüssel angegeben bzw eine Identifikation des Schlüssels, die auch vom admin auf github eingesehen wird. Mit -f kann ein Pfad für den Schlüssel angegeben werden. Standardmäßig werden ssh keys
+  immer in ~/.ssh angelegt. /github_company wäre dann der name des Schlüssels. Das ist sinnvoll um mehrere ssh keys anzulegen (zuhause und auch arbeit).
+</p>
+<p>Bei Enter wird das private/public Paar dann generiert in einer github_company und einer github_company.pub Datei.</p>
+<p>Ein private key wird niemals weitergegeben. Lediglich der public key wird in Projekten hinterlegt um zum Server zu kommunizieren.</p>
+
+<p>Zusätzlich kann eine config Datei erstellt werden, um die Verwendung von SSH Schlüsseln zu konfigurieren.</p>
+<pre>Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github_company
+  IdentitiesOnly yes
+</pre>
+<p>Host ist der Name des Hosts, der in git verwendet wird. HostName ist die echte Adresse des Servers. User ist der Benutzername, der für die Verbindung verwendet wird. IdentityFile ist der Pfad zum privaten Schlüssel, der für die Authentifizierung verwendet wird. IdentitiesOnly yes stellt sicher, dass nur der angegebene Schlüssel für die Authentifizierung verwendet wird und keine anderen Schlüssel auf dem System.</p>
+</p>
+<p>Ein zweiter Schlüssel könnte analog mit anderem Namen erstellt werden. Und dann auch andere config Datei:</p>
+<pre>Host sternundhuber
+    HostName github.com
+  User git
+  IdentityFile ~/.ssh/github_company
+  IdentitiesOnly yes
+</pre>
     <h2>MAC Adresse (Media Access Control Adresse)</h2>
     <p>
       6 Byte, 48 bit, dabei sind die ersten 24bit Herstellerkennzeichnung.
