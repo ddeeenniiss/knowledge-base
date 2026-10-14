@@ -1,0 +1,95 @@
+.slider-css-only {
+  position: relative;
+  width: 100%;
+}
+
+.slider-css-only__track {
+  display: flex;
+  overflow-x: auto;
+
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
+  scrollbar-width: none;
+}
+
+.slider-css-only__track::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-css-only__slide {
+  position: relative;
+
+  flex: 0 0 100%;
+  min-width: 100%;
+
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+
+  counter-increment: slide;
+}
+
+.slider-css-only__track {
+  counter-reset: slide;
+}
+
+/* Counter */
+.slider-css-only__slide::after {
+  content: counter(slide) " / " sibling-count();
+
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+
+  padding: .35rem .6rem;
+
+  color: white;
+  background: rgb(0 0 0 / .65);
+  border-radius: .4rem;
+
+  font: 600 .875rem/1 system-ui, sans-serif;
+}
+
+/* Bei genau einem Slide: Counter komplett entfernen */
+.slider-css-only__slide:only-child::after {
+  display: none;
+}
+
+/* Bild */
+.slider-css-only__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Navigation */
+.slider-css-only__prev,
+.slider-css-only__next {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+
+  width: 2.5rem;
+  height: 2.5rem;
+
+  transform: translateY(-50%);
+
+  color: white;
+  background: rgb(0 0 0 / .55);
+  border-radius: 50%;
+
+  text-decoration: none;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.slider-css-only__prev {
+  left: 1rem;
+}
+
+.slider-css-only__next {
+  right: 1rem;
+}
