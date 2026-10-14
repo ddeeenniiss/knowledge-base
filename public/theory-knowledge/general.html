@@ -3773,6 +3773,176 @@ sudo apachectl configtest
       auf einem Server anmelden, Dateien übertragen, Git Repositories erreichen.
     </p>
 
+    <h2>Peer to Peer (P2P)</h2>
+    <figure>
+      <img
+        src="/assets/screenshots/p2p.jpeg"
+        alt="Schematische Darstellung eines Peer-to-Peer-Netzwerks mit gleichberechtigten Knoten"
+      />
+      <figcaption>
+        In einem P2P-Netzwerk tauschen Peers Daten und Ressourcen direkt oder
+        über andere Peers miteinander aus.
+      </figcaption>
+    </figure>
+    <p>
+      Peer-to-Peer (P2P) bezeichnet ein verteiltes System, in dem die
+      teilnehmenden Geräte, die Peers, grundsätzlich gleichberechtigt sind.
+      Anders als beim klassischen Client-Server-Modell kann ein Peer sowohl
+      Dienste oder Daten anfordern als auch selbst anbieten und weitergeben.
+      Dadurch werden Ressourcen wie Speicherplatz, Rechenleistung oder Dateien
+      gemeinsam genutzt, ohne dass dafür zwingend ein einzelner zentraler Server
+      alle Anfragen bedienen muss.
+    </p>
+    <p>
+      Wenn Peers hinzukommen, können sie zusätzliche Ressourcen und
+      Übertragungskapazität beitragen. Das kann die Last verteilen und das
+      System skalierbarer machen. Dafür müssen Peers einander finden und
+      verwalten, obwohl Geräte zeitweise offline gehen oder ihre Adresse
+      wechseln können. Verfügbarkeit, Vertrauen und Sicherheit sind daher
+      wichtige Herausforderungen. Manche P2P-Systeme verwenden für Anmeldung,
+      Suche oder den ersten Kontakt trotzdem zentrale Dienste; P2P bedeutet
+      nicht automatisch, dass jede Funktion vollständig dezentral ist.
+    </p>
+    <h3>P2P-Overlaynetzwerk</h3>
+    <p>
+      Ein Overlaynetzwerk ist eine logische Netzstruktur, die auf einem bereits
+      vorhandenen Netzwerk aufsetzt. Bei einem P2P-Overlay sind die Peers die
+      logischen Knoten. Sie bauen Verbindungen zu ausgewählten anderen Peers auf
+      und organisieren darüber Nachrichten, Suche oder Dateiaustausch. Diese
+      logischen Nachbarschaften müssen nicht den direkten physischen
+      Verbindungen oder dem kürzesten Weg im Internet entsprechen: Eine
+      Overlay-Nachricht kann auf ihrem Weg mehrere normale IP-Router passieren.
+    </p>
+    <p>
+      Das Internet beziehungsweise IP stellt also den Transport zwischen den
+      Geräten bereit; das Overlay legt darüber fest, welche Peers miteinander
+      kommunizieren und wie Informationen im P2P-System weitergereicht oder
+      gefunden werden. Bei einem strukturierten Overlay kann zum Beispiel eine
+      Distributed Hash Table (DHT) festlegen, welcher Peer für einen Schlüssel
+      oder eine Datei zuständig ist. Bei einem unstrukturierten Overlay suchen
+      Peers häufig über ihre Nachbarn oder durch Weitergabe von Suchanfragen.
+    </p>
+
+    <h3>Distributed Hash Table (DHT)</h3>
+    <p>
+      Eine Distributed Hash Table ist eine verteilte Schlüssel-Wert-Suche. Ein
+      Schlüssel, etwa ein Datei-Hash, wird einem oder mehreren zuständigen Peers
+      zugeordnet. Diese Peers speichern und beantworten die Zuordnung gemeinsam;
+      es gibt also keine einzelne zentrale Tabelle. Das DHT-Overlay organisiert,
+      an welche Peers eine Suche weitergeleitet wird, bis die zuständige Stelle
+      gefunden ist.
+    </p>
+    <p>
+      Eine DHT speichert normalerweise nicht die Datei selbst, sondern kleine
+      Metadaten, zum Beispiel welche Peers einen bestimmten Inhalt anbieten und
+      wie sie erreichbar sind. In BitTorrent kann die DHT so Tracker-Aufgaben
+      zur Peer-Suche übernehmen. Sie hilft, Peers zu finden; die Dateiteile
+      werden anschließend direkt zwischen den Peers übertragen.
+    </p>
+
+    <h3>BitTorrent</h3>
+    <figure>
+      <img
+        src="/assets/screenshots/bittorrent.jpeg"
+        alt="BitTorrent-Schwarm, in dem Peers Dateiteile miteinander austauschen"
+      />
+      <figcaption>
+        Statt eine vollständige Datei von einem einzigen Server zu laden,
+        beziehen Peers verschiedene Teile voneinander und teilen bereits
+        geladene Teile weiter.
+      </figcaption>
+    </figure>
+    <p>
+      BitTorrent wurde für die effiziente Verteilung großer Dateien entwickelt.
+      Bei einem normalen Direktdownload muss ein zentraler Server alle
+      Datenmengen an alle Nutzer senden. Bei BitTorrent wird die Datei in viele
+      Teile zerlegt und innerhalb eines Schwarms verteilt. Ein Peer kann
+      unterschiedliche Teile parallel von mehreren anderen Peers laden und
+      bereits geprüfte Teile gleichzeitig weitergeben.
+    </p>
+    <p>
+      Für die Suche nach einem Schwarm nutzt ein Client Metadaten aus einer
+      Torrent-Datei oder einem Magnet-Link. Ein Tracker oder eine DHT kann dem
+      Client Kontakte zu Peers liefern. Die DHT verwendet dazu den Info-Hash des
+      Torrents als Schlüssel und liefert Peer-Adressen, nicht die Datei selbst.
+      Danach fordern die Clients fehlende Teile direkt voneinander an. Zu den
+      Komponenten und dem Ablauf:
+    </p>
+    <h4>Tracker: Peers im Schwarm finden</h4>
+    <p>
+      Ein Tracker ist ein Koordinationsdienst für einen Torrent. Beim Start und
+      danach in regelmäßigen Abständen sendet der Client eine
+      <code>announce</code>-Meldung an den Tracker. Darin stehen unter anderem
+      der Info-Hash des Torrents, eine Kennung des Clients, sein erreichbarer
+      Port und Angaben zum Download-Fortschritt. Der Tracker führt daraus eine
+      aktuelle Liste erreichbarer Peers des Schwarms und sendet dem Client eine
+      Auswahl ihrer Netzwerkadressen und Ports zurück.
+    </p>
+    <p>
+      Mit diesen Kontakten baut der Client Verbindungen zu anderen Peers auf und
+      tauscht anschließend Dateiteile direkt mit ihnen aus. Der Tracker verteilt
+      normalerweise nicht die Datei und leitet auch nicht den Dateiinhalt
+      weiter: Er hilft den Teilnehmern, einander zu finden. Ein Tracker kann
+      außerdem ungefähre Schwarm-Statistiken liefern, zum Beispiel wie viele
+      Seeder oder Leecher gemeldet sind.
+    </p>
+    <p>
+      Weil ein Tracker zentral organisiert sein kann, ist er für die Peer-Suche
+      eine mögliche Abhängigkeit. Fällt er aus, können bestehende
+      Peer-Verbindungen weiterlaufen; neue Peers finden den Schwarm aber
+      eventuell nicht mehr über diesen Tracker. Bei Torrents mit aktivierter DHT
+      können sie Peers alternativ über die verteilte Hash-Tabelle finden.
+      Tracker und DHT erfüllen also eine ähnliche Aufgabe bei der Suche, aber
+      auf zentralisierte beziehungsweise verteilte Weise.
+    </p>
+    <figure>
+      <img
+        src="/assets/screenshots/bittorrent_components.jpeg"
+        alt="Ablauf und Komponenten eines BitTorrent-Downloads von Metadaten und Peer-Suche bis zum Teilen geprüfter Dateiteile"
+      />
+      <figcaption>
+        Ablauf: Torrent identifizieren, Peers finden, Dateiteile anfordern,
+        Prüfsummen kontrollieren und empfangene Teile an den Schwarm
+        weitergeben.
+      </figcaption>
+    </figure>
+    <p>
+      Die Datei ist in Stücke (Pieces) aufgeteilt. Der Client prüft jedes Stück
+      anhand der im Torrent-Metadatum angegebenen Hashwerte. Beschädigte oder
+      falsche Teile werden verworfen und erneut geladen. Peers mit der
+      vollständigen Datei heißen Seeder; Peers, die noch laden, können schon die
+      Teile weitergeben, die sie vollständig erhalten und geprüft haben. Wenn
+      der Download fertig ist, kann ein Peer als Seeder weiterhelfen.
+    </p>
+    <h4>Warum BitTorrent und welche Vorteile?</h4>
+    <ul>
+      <li>
+        <strong>Verteilte Last:</strong> Die Upload-Arbeit wird auf viele Peers
+        verteilt, statt vollständig beim Ursprungsserver zu liegen.
+      </li>
+      <li>
+        <strong>Skalierung:</strong> Mit mehr aktiven Peers können zugleich mehr
+        Upload-Kapazität und Dateiteile verfügbar werden.
+      </li>
+      <li>
+        <strong>Paralleler Download:</strong> Verschiedene Teile können
+        gleichzeitig von unterschiedlichen Peers kommen.
+      </li>
+      <li>
+        <strong>Fortsetzen und Prüfen:</strong> Teilstücke lassen sich einzeln
+        verifizieren; unterbrochene Downloads können meist fortgesetzt werden,
+        ohne bereits geprüfte Teile erneut zu laden.
+      </li>
+    </ul>
+    <p>
+      BitTorrent garantiert aber keine hohe Geschwindigkeit oder Verfügbarkeit:
+      Wenn nur wenige Peers online sind oder niemand die vollständige Datei
+      anbietet, kann der Download langsam sein oder unvollständig bleiben. Die
+      Hashprüfung schützt vor beschädigten Teilen, ersetzt aber nicht die
+      Prüfung, ob die Quelle vertrauenswürdig oder die Verbreitung rechtmäßig
+      ist.
+    </p>
+
     <h2>Ports</h2>
     <p>
       Ports werden genutzt um Verbindungen zwischen ein und demselben Paar von
