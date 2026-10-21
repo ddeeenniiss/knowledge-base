@@ -1,0 +1,302 @@
+<div class="block">
+  <div class="container site-border">
+    <h2>Wayback Machine</h2>
+    <p>
+      Die Wayback Machine ist ein Online Archiv für Webseiten, in dem frühere
+      Versionen von Webseiten gespeichert werden. Es werden allerdings nur
+      Snapshots gespeichert (aktuelle Momentaufnahmen).
+    </p>
+    <h2>Google Analytics</h2>
+    <p>
+      Google Analytics ist ein Webanalyse-Tool von Google, mit dem gemessen
+      werden kann was Nutzer auf der Website machen. z.B. wie viele Nutzer
+      kommen?, woher kommen sie (Google, Social Media, Direktaufruf)?, welche
+      Seiten werden wie lange angesehen?, wo springen Nutzer ab?, welche
+      Buttons/Events werden geklickt? Von wo (Standort) greifen die Nutzer zu?
+      Mit welchem Gerät greifen Nutzer zu (Android/ iOS)? Wie viele Besucher
+      wurden mit der CTR in Leads (Kunden, Nutzer, Käufer) umgewandelt? Kurz: Es
+      zeigt dir, ob deine Website funktioniert und wie sie sich entwickelt.
+    </p>
+    <p>
+      Wichtig hierbei ist die Performance der Landing Pages. Kommen genug Leute
+      darauf und wird das Kontaktformular genutzt? Kommen genug Besucher über
+      die SEO?
+    </p>
+    <p>
+      Das Nutzerverhalten wird besser verstanden und die Seite kann entsprechend
+      optimiert werden.
+    </p>
+    <p>
+      Hierbei wird ein Tracking-Skript direkt im head eingebunden bei Google
+      Analytics 4 (GA4)
+    </p>
+    <p>
+      Wichtig: Seit dem 01.07.2023 ist Google Analytics 4 (GA4) der neue
+      Standard.
+    </p>
+    <p>
+      Ebenso wichtig: Die Daten dürfen nur nach Zustimmung durch Consent Manager
+      gesammelt werden.
+    </p>
+    <p>
+      Es wird ein Google Analytics Account benötigt, der mit wenigen Klicks
+      eingerichtet werden kann. Account Name, Unternehmensart und
+      Webseitenadresse müssen eingegeben werden. Danach wird eine Tracking ID
+      bzw. Property ID erstellt, die in das Tracking Skript eingebunden wird.
+      Das komplette Tracking Snippet kommt dann in den head der Website, damit
+      es auf allen Seiten verfügbar ist.
+    </p>
+    <p>Verwaltet wird es über die Google Analytics Oberfläche.</p>
+    <h2>Consent Management (Cookies)</h2>
+    <figure>
+      <img
+        src="/assets/screenshots/cookies.jpeg"
+        alt="Darstellung der Verwendung von Cookies zwischen Browser und Webserver"
+      />
+      <figcaption>
+        Ein Cookie wird vom Server gesetzt und bei passenden späteren Anfragen
+        vom Browser wieder mitgesendet.
+      </figcaption>
+    </figure>
+    <h3>Wie Cookies funktionieren</h3>
+    <p>
+      Ein Cookie ist ein kleiner Textwert, den eine Website im Browser speichern
+      lassen kann. Der Server sendet ihn meist im HTTP-Header
+      <code>Set-Cookie</code> an den Browser. Dieser speichert ihn entsprechend
+      seiner Eigenschaften, zum Beispiel für welche Domain und welchen Pfad er
+      gilt und wie lange er gültig ist.
+    </p>
+    <p>
+      Bei einer späteren Anfrage an eine passende Adresse sendet der Browser den
+      Cookie-Wert automatisch im <code>Cookie</code>-Header zurück. Der Server
+      kann den Wert dann einer Sitzung zuordnen, etwa um einen Login oder
+      Warenkorb wiederzuerkennen. Häufig enthält das Cookie dafür nur eine
+      zufällige Sitzungs-ID; die eigentlichen Sitzungsdaten liegen auf dem
+      Server. Ein Ablaufdatum oder eine Löschung beendet die Speicherung.
+    </p>
+    <p>Vereinfacht läuft das so ab:</p>
+    <ol>
+      <li>Der Browser sendet eine Anfrage an die Website.</li>
+      <li>
+        Der Server antwortet und kann mit <code>Set-Cookie</code> einen Cookie
+        setzen.
+      </li>
+      <li>
+        Der Browser speichert den Cookie gemäß Gültigkeit und weiteren
+        Attributen.
+      </li>
+      <li>
+        Bei passenden Folgeanfragen sendet der Browser ihn im
+        <code>Cookie</code>-Header zurück.
+      </li>
+      <li>
+        Der Server verwendet den Wert, zum Beispiel zum Wiedererkennen einer
+        Sitzung.
+      </li>
+    </ol>
+    <h3>Vorteile von Cookies</h3>
+    <ul>
+      <li>
+        Sie ermöglichen Sitzungen über mehrere HTTP-Anfragen hinweg, obwohl HTTP
+        selbst zustandslos ist.
+      </li>
+      <li>
+        Login-Status, Warenkörbe und persönliche Einstellungen können
+        wiedererkannt werden.
+      </li>
+      <li>
+        Sie funktionieren ohne zusätzliche Abfrage, weil der Browser passende
+        Cookies automatisch mitsendet.
+      </li>
+    </ul>
+    <h3>Nachteile und Risiken</h3>
+    <ul>
+      <li>
+        Cookies können zur Wiedererkennung und zum Tracking verwendet werden;
+        das kann die Privatsphäre beeinträchtigen.
+      </li>
+      <li>
+        Werden Sitzungs-Cookies gestohlen, kann ein Angreifer unter Umständen
+        eine Sitzung übernehmen. HTTPS sowie passende Attribute wie
+        <code>Secure</code>, <code>HttpOnly</code> und
+        <code>SameSite</code> senken Risiken.
+      </li>
+      <li>
+        Cookies werden bei passenden Anfragen mitgesendet und vergrößern dadurch
+        die übertragenen Header.
+      </li>
+      <li>
+        Abgelaufene oder gelöschte Cookies können Sitzungen und gespeicherte
+        Einstellungen beenden; Browser schränken außerdem bestimmte
+        Drittanbieter-Cookies ein.
+      </li>
+    </ul>
+    <h3>Einwilligung und Consent Management</h3>
+    <p>
+      Technisch notwendige Cookies können ohne Einwilligung zulässig sein, wenn
+      sie für einen ausdrücklich gewünschten Dienst erforderlich sind. Für nicht
+      notwendige Cookies, etwa für Analyse oder Marketing, ist in der Regel eine
+      vorherige Einwilligung erforderlich. Die konkreten Anforderungen hängen
+      vom Einsatz ab; ein Consent-Banner sollte eine echte Auswahl ermöglichen,
+      zum Beispiel „Alle akzeptieren“, „Nur notwendige“ und „Individuelle
+      Auswahl“.
+    </p>
+    <p>
+      Ein Consent-Management-Tool speichert die gewählten Kategorien und kann
+      den Zeitpunkt der Auswahl dokumentieren. Es muss außerdem ermöglichen,
+      eine Einwilligung später zu ändern oder zu widerrufen. Beispiele für
+      Consent-Management-Plattformen (CMPs) sind Usercentrics, Borlabs Cookie,
+      Cookiebot und Complianz.
+    </p>
+    <p>
+      Consent Tools arbeiten mit data-attributes
+      (data-cookiecategory="statistics")
+    </p>
+    <h2>Integration von CookieBot</h2>
+    <p>
+      CookieBot gehört seit 2021 mit Usercentrics zusammen. Cookiebot ist das
+      Tool ansich und Usercentrics ist das Unternehmen.
+    </p>
+    <p>
+      Zuerst wird ein Account bei CookieBot erstellt und eine Domain
+      hinzugefügt. Danach bekommt man seine Tracking ID.
+    </p>
+    <p>Das Skript von CookieBot wird dann in den head der Website eingefügt.</p>
+    <p>Danach wird im Cookie Dashboard der Scan durchgeführt</p>
+    <p>Das Cookie Banner kann jetzt konfiguriert werden.</p>
+    <p>
+      Skripte müssen korrekt blockiert werden, wenn diese nicht automatisch
+      erkannt werden.
+    </p>
+    <pre>
+    &lt;script type="text/plain" data-cookieconsent="statistics"
+      src="script.js"&gt;&lt;/script&gt;
+  </pre
+    >
+    <h2>SEO</h2>
+    <p>
+      Die SEO (Search Engine Optimization /Suchmaschinenoptimierung) umfasst
+      alle Maßnahmen, die dazu dienen, eine Website in Browsern besser sichtbar
+      zu machen und mehr organischen Traffic zu erhalten. Dabei geht es nicht
+      nur um Keywords, sondern um eine Kombination aus Technik, Inhalt, Struktur
+      und Autorität.
+    </p>
+    <h3>Technisches Design</h3>
+    <p>
+      Browser müssen die Website einfach crawlen, verstehen und indexieren
+      können.
+    </p>
+    <ul>
+      <li>Ladegeschwindigkeit</li>
+      <li>Mobile Optimierung (Responsive Design)</li>
+      <li>Saubere URL-Struktur</li>
+      <li>SSL / HTTPS</li>
+      <li>XML Sitemap</li>
+      <li>
+        robots.txt: Ist im Root einer Website und teilt Browsern mit welche
+        Bereiche sie crawlen dürfen oder nicht.
+        <pre>
+    User-agent: * // Für welchen Bot gelten die Regeln
+    Disallow: /admin/ //Admin Bereich wird ignoriert
+    Allow: / //Alles andere ist erlaubt
+  </pre
+        >
+      </li>
+      <li>Core Web Vitals</li>
+      <li>Strukturiertes Markup</li>
+      <li>
+        CDN: Content Delivery Network: Ist ein Netzwerk aus Servern weltweit,
+        das Website Inhalte näher zum Nutzer bringt. CDN speichert Kopien der
+        Website auf den Servern weltweit, dadurch lädt die Seite schneller. CDN
+        liefert Bilder, CSS, JavaSkript, Videos, statische Dateien. Anbieter
+        sind zB Cloudflare, AWS, Fastly, Akamai und BunnyCDN.
+      </li>
+      <li>
+        Lazy Loading: Inhalte werden erst dann geladen, wenn sie gebraucht
+        werden. Wenn sie also im sichtbaren Bereich des Nutzers erscheinen. Also
+        erst wenn der Nutzer dahin scrollt wo die Inhalte sind. Eingefügt wird
+        das einfach per Attribut loading="lazy". Angewendet wird das bei
+        Bildern, Videos, Iframes
+      </li>
+    </ul>
+    <p>
+      Verbesserungen hier sind unter anderen komprimierte Bilder, Lazy Loading,
+      Code minimieren (CSS/JS), CDN verwenden und Server Performance verbessern.
+    </p>
+	<h3>Lighthouse (Google devtool Kategorie)</h3>
+	<h4>Lighthouse lernen</h4>
+<p>Es gibt eine offizielle Lighthouse Dokumentation unter <a href="https://developer.chrome.com/docs/lighthouse/overview?hl=de">CLICK ME</a></p>
+<p>Einen Bericht zu den Lighthouse-Berichten gibt es <a href="https://developer.chrome.com/docs/lighthouse/performance/performance-scoring?hl=de">HIER</a></p>
+<p>Cross-Browser-Testing gibt es <a href="https://developer.mozilla.org/de/docs/Learn_web_development/Extensions/Testing/Introduction">HIER</a></p>
+
+<h4>Ranking in den Ergebnissen</h4>
+<p>Je Nach Kategorie gibt es auch bei Werten von 100 folgende Risiken:</p>
+<ul>
+	<li>Performance 100 bedeutet sehr gute Messwerte im Lighthouse Test, aber es bedeutet nicht, dass jeder Besucher dieselbe Ladezeit erlebt.</li>
+	<li>Accessibility 100 bedeutet, dass alle bewerteten automatischen Prüfungen bestanden sind, aber es bedeutet nicht automatisch vollständige Barrierefreiheit oder WCAG-Konformität.</li>
+	<li>Best Practices 100 bedeutet, dass alle bewerteten Prüfungen bestanden sind, aber es bedeutet nicht, dass die Website fehlerfrei oder vollständig sicher ist.</li>
+	<li>SEO 100 bedeutet, dass alle bewerteten SEO-Prüfungen bestanden sind, aber es bedeutet nicht, dass das Ranking automatisch auf Platz 1 bzw gut ist.</li>
+</ul>
+<h4>Wo finde ich LCP, INP und CLS?</h4>
+<p>In Chrome findest du diese Werte über Google PageSpeed Insights unter https://pagespeed.web.dev/. Gib dort deine Website-URL ein. Unter „Core Web Vitals“ werden die realen Nutzungsdaten angezeigt, sofern genügend Felddaten vorhanden sind. Weiter unten findest du zusätzliche Lighthouse-Labormessungen. Alternativ kannst du in Chrome DevTools unter „Lighthouse“ und „Performance“ weitere Analysen durchführen. Beachte, dass INP nicht direkt im normalen Lighthouse-Labortest gemessen wird, da dafür reale Nutzerinteraktionen erforderlich sind.</p>
+
+<h4>LCP (Largest Contentful Paint) – Ladegeschwindigkeit</h4>
+<p>LCP misst, wie lange es dauert, bis das größte sichtbare Inhaltselement im sichtbaren Seitenbereich dargestellt wird. Das kann beispielsweise ein großes Bild, ein Titel oder ein Textblock sein. Ein niedriger Wert bedeutet, dass Nutzer den Hauptinhalt schnell sehen. Zielwert: maximal 2,5 Sekunden. Zwischen 2,5 und 4 Sekunden besteht Verbesserungsbedarf. Über 4 Sekunden gilt der Wert als schlecht.</p>
+
+<h4>INP (Interaction to Next Paint) – Reaktionsfähigkeit</h4>
+<p>INP misst, wie schnell eine Website auf Nutzerinteraktionen reagiert, beispielsweise auf einen Klick auf das Menü, einen Button oder eine Formularfunktion. Ein niedriger Wert sorgt dafür, dass sich die Website flüssig und unmittelbar bedienbar anfühlt. Zielwert: maximal 200 Millisekunden. Zwischen 200 und 500 Millisekunden besteht Verbesserungsbedarf. Über 500 Millisekunden gilt der Wert als schlecht.</p>
+
+<h4>CLS (Cumulative Layout Shift) – visuelle Stabilität</h4>
+<p>CLS misst, wie stark sich sichtbare Seitenelemente unerwartet verschieben. Das passiert beispielsweise, wenn Bilder ohne reservierten Platz nachgeladen werden oder Schriftarten das Layout verändern. Ein niedriger Wert bedeutet, dass die Seite beim Laden stabil bleibt und Nutzer nicht versehentlich auf das falsche Element klicken. Zielwert: maximal 0,1. Zwischen 0,1 und 0,25 besteht Verbesserungsbedarf. Über 0,25 gilt der Wert als schlecht.</p>
+
+<h4>Welche Werte sollte ich insgesamt anstreben?</h4>
+<p>Für eine gute Nutzererfahrung sollten alle drei Core Web Vitals folgende Grenzwerte erreichen: LCP ≤ 2,5 Sekunden, INP ≤ 200 Millisekunden und CLS ≤ 0,1. Entscheidend sind die realen Nutzerdaten am 75. Perzentil. Das bedeutet, dass mindestens 75 Prozent der Seitenbesuche innerhalb dieser Grenzwerte liegen. Wenn noch keine ausreichenden Felddaten vorhanden sind, kannst du zunächst die Lighthouse-Labormessungen zur Optimierung verwenden. Diese ersetzen jedoch nicht die Messungen unter realen Nutzungsbedingungen.</p>
+    <h3>On-Page SEO</h3>
+    <p>Hier geht es um Inhalte und Struktur auf der Website</p>
+    <ul>
+      <li>Keyword Recherche</li>
+      <li>Titel (title Tag)</li>
+      <li>Meta Description</li>
+      <li>Überschriftenstruktur</li>
+      <li>Textqualität</li>
+      <li>interne Verlinkung</li>
+      <li>Bild-SEO (Alt Tags)</li>
+    </ul>
+    <p>
+      Verbesserungen hier sind die Optimierung auf Suchintentionen, eine klare
+      Struktur, bessere interne Verlinkung, längere und wertvolle Inhalte und
+      Duplicate Content vermeiden
+    </p>
+    <h3>Content SEO</h3>
+    <p>
+      Content ist einer der wichtigsten Ranking Faktoren. Ziel ist es Content zu
+      erstellen, der Fragen beantwortet, Mehrwert liefert, Keywords natürlich
+      integriert und regelmäßig aktualisiert wird.
+    </p>
+    <p>
+      Verbesserungen hier sind ein Keyword Cluster, Content regelmäßig
+      aktualisieren, Topic Authority aufbauen, Long Tail Keyword nutzen
+    </p>
+    <h3>Off-Page SEO</h3>
+    <p>
+      Das sind Signale von anderen Websites, die Vertrauen erzeugen. zB
+      Backlinks, Domain Authority, Marken Erwähnungen und Social Signals
+    </p>
+    <h3>UX & Engagement Signale</h3>
+    <p>Google bewertet auch, wie Nutzer mit der Seite interagieren.</p>
+    <ul>
+      <li>Click Through Rate (CTR)</li>
+      <li>Absprungrate</li>
+      <li>Verweildauer</li>
+      <li>Pages per Session</li>
+    </ul>
+    <h3>Wo kann die SEO eingesehen werden?</h3>
+    <p>
+      In der Google Search Console (Ranking und Keywords), Google Analytics
+      (Traffic und Verhalten), Ahrefs/SEMrush (Konkurrenz & Backlinks),
+      PageSpeed Insights (technische Performance). Diese zeigt, wie deine
+      Website direkt in der Google Suche performt.
+    </p>
+
+  </div>
+</div>

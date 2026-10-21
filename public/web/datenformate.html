@@ -1,0 +1,607 @@
+<div class="block">
+  <div class="container site-border">
+    <h2>JSON</h2>
+    <p>
+      JavaScript Object Notation ist eine Notation für Objektliterale.
+      Ungeordneter Container von key-value Paaren.
+    </p>
+    <h2>Asynchronous JavaScript and XML (AJAX):</h2>
+    <p>
+      AJAX ermöglicht es, Daten asynchron vom Server zu laden, ohne die Seite
+      neu zu laden. Dies verbessert die Benutzererfahrung durch dynamische
+      Inhalte. Der Browser kann also Javascript gesteuert kontinuierlich weitere
+      Anfragen an den Server stellen.
+    </p>
+    <p>
+      Wichtig zum Verständnis: AJAX ist <strong>keine eigene Technologie</strong>
+      und keine Programmiersprache, sondern ein <strong>Konzept</strong> – das
+      Zusammenspiel von JavaScript, einer HTTP-Anfrage im Hintergrund, einem
+      Datenformat (heute JSON) und dem DOM. Der Begriff wurde 2005 von Jesse
+      James Garrett geprägt; die zugrundeliegende Technik gab es schon vorher.
+    </p>
+    <p>
+      Beispiele sind zB die aktualisierenden Suchergebnisse bei der Eingabe in
+      Google Suchleiste.
+    </p>
+
+    <h3>Der Unterschied zum klassischen Seitenaufruf</h3>
+    <p>
+      Ohne AJAX läuft jede Interaktion über einen vollständigen Request/Response-
+      Zyklus: der Browser schickt die Anfrage, der Server baut die
+      <strong>komplette</strong> HTML-Seite neu zusammen, der Browser verwirft
+      die alte Seite und rendert alles neu. Dabei gehen Scrollposition,
+      Formularzustand und der Zustand von JavaScript verloren, und das Fenster
+      flackert kurz weiß.
+    </p>
+    <p>
+      Mit AJAX bleibt die Seite stehen. JavaScript schickt im Hintergrund eine
+      Anfrage, bekommt nur die <strong>benötigten Daten</strong> zurück (statt
+      einer ganzen Seite) und tauscht gezielt einen Teil des DOM aus. Der
+      Benutzer kann währenddessen weiterarbeiten – daher
+      <strong>asynchron</strong>: das Skript wartet nicht blockierend auf die
+      Antwort, sondern wird benachrichtigt, sobald sie eintrifft.
+    </p>
+    <table>
+      <tr>
+        <th></th>
+        <th>Klassischer Seitenaufruf</th>
+        <th>AJAX</th>
+      </tr>
+      <tr>
+        <td>Antwort des Servers</td>
+        <td>vollständiges HTML-Dokument</td>
+        <td>nur die Daten (JSON) oder ein HTML-Fragment</td>
+      </tr>
+      <tr>
+        <td>Seite wird neu geladen</td>
+        <td>ja, komplett</td>
+        <td>nein, nur ein Teil des DOM wird ersetzt</td>
+      </tr>
+      <tr>
+        <td>Übertragene Datenmenge</td>
+        <td>hoch</td>
+        <td>gering</td>
+      </tr>
+      <tr>
+        <td>Zustand der Seite</td>
+        <td>geht verloren</td>
+        <td>bleibt erhalten</td>
+      </tr>
+      <tr>
+        <td>Benutzer währenddessen</td>
+        <td>wartet, Seite blockiert</td>
+        <td>kann weiterarbeiten</td>
+      </tr>
+    </table>
+
+    <h3>Die Abbildung</h3>
+    <img
+      src="/assets/screenshots/ajax.jpeg"
+      alt="Abbildung einer AJAX Anfrage"
+    />
+    <p>
+      Die Abbildung zeigt die beiden Seiten einer AJAX-Kommunikation und das,
+      was dazwischen passiert:
+    </p>
+    <ul>
+      <li>
+        <strong>Links der Browser</strong> – hier läuft die
+        <strong>Präsentation</strong>. In ihm liegt das JavaScript, das die
+        Anfrage auslöst, die Antwort entgegennimmt und das DOM aktualisiert. Die
+        Beschriftung "Ajax" steht genau für diese Rolle: AJAX ist die Technik
+        <em>auf der Clientseite</em>.
+      </li>
+      <li>
+        <strong>Rechts der Webserver und die Datenhaltung</strong> – hier liegt
+        die <strong>Logik und Persistenz</strong>. Der Webserver nimmt die
+        Anfrage entgegen, ein serverseitiges Skript (z.B. PHP) verarbeitet sie,
+        liest oder schreibt in der Datenbank und erzeugt die Antwort.
+      </li>
+      <li>
+        <strong>Der rote Doppelpfeil</strong> ist der entscheidende Teil: die
+        Kommunikation läuft in <strong>beide Richtungen</strong> und
+        ausschließlich über <strong>HTTP</strong>. AJAX erfindet kein eigenes
+        Protokoll – es sind ganz normale HTTP-Requests, nur eben nicht vom
+        Browser-Hauptfenster ausgelöst, sondern von JavaScript.
+      </li>
+      <li>
+        <strong>"HTTP, XML, JSON, ..."</strong> benennt die Schichten: HTTP ist
+        das Transportprotokoll, XML und JSON sind die Formate, in denen die
+        Nutzdaten darin stecken. Möglich ist auch reiner Text, HTML oder bei
+        Uploads binärer Inhalt.
+      </li>
+    </ul>
+    <p>
+      Die Trennung in der Abbildung ist zugleich die
+      <strong>Architekturaussage</strong>: Darstellung im Browser, Daten und
+      Logik auf dem Server. Der Doppelpfeil bleibt dabei immer
+      <strong>vom Client initiiert</strong> – der Server kann von sich aus
+      nichts schicken. Genau dafür gibt es WebSockets und Server-Sent Events.
+    </p>
+
+    <h3>Das X in AJAX</h3>
+    <p>
+      Das "XML" im Namen ist historisch. Als der Begriff entstand, war XML das
+      übliche Austauschformat. Heute wird praktisch ausschließlich
+      <strong>JSON</strong> verwendet, weil es kompakter ist und in JavaScript
+      direkt zu einem Objekt wird. Der Name blieb trotzdem – korrekter wäre
+      heute "AJAJ". Auch das "Asynchronous" ist streng genommen nicht zwingend:
+      synchrone Requests wären technisch möglich, blockieren aber den gesamten
+      Browser-Tab und sind deshalb abgeschafft.
+    </p>
+
+    <h3>Typische Anwendungsfälle</h3>
+    <ul>
+      <li>
+        Aktualisierende <strong>Suchvorschläge</strong> während der Eingabe, wie
+        in der Google-Suchleiste (Autocomplete)
+      </li>
+      <li>
+        <strong>Formulare absenden</strong>, ohne die Seite zu verlassen – inkl.
+        Fehlermeldungen direkt am Feld
+      </li>
+      <li>
+        <strong>Nachladen</strong> von Inhalten: Infinite Scroll, "Mehr laden",
+        Seitenwechsel in Listen
+      </li>
+      <li>
+        <strong>Filter und Sortierung</strong> in Produktlisten
+      </li>
+      <li>
+        <strong>Live-Validierung</strong>, z.B. ob ein Benutzername noch frei
+        ist
+      </li>
+      <li>
+        <strong>Warenkorb</strong> aktualisieren, Likes, Favoriten,
+        Statuswechsel
+      </li>
+      <li>
+        <strong>Datei-Uploads</strong> mit Fortschrittsanzeige
+      </li>
+      <li>
+        <strong>Single Page Applications</strong> – dort ist AJAX nicht Zusatz,
+        sondern der einzige Weg, wie die Anwendung an Daten kommt
+      </li>
+    </ul>
+
+    <h3>Umsetzung: XMLHttpRequest</h3>
+    <p>
+      Gesteuert wurde AJAX ursprünglich über das JavaScript-Objekt
+      <strong>XMLHttpRequest</strong> (XHR). Es funktioniert bis heute, ist
+      aber umständlich, weil es mit Callbacks und Zustandscodes arbeitet statt
+      mit Promises.
+    </p>
+    <p>
+      Zuerst folgt die Erzeugung des XMLHttpRequest-Objektes, dann die Methode
+      open aus dieser Klasse und dann die Anzeige des Ergebnisses über
+      JavaScript-Event onreadystatechange.
+    </p>
+    <pre>const xhr = new XMLHttpRequest();
+xhr.open('GET', '/api/produkte.php?kategorie=oefen');
+
+xhr.onload = function () {
+  if (xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300) {
+    const daten = JSON.parse(xhr.responseText);
+    console.log(daten);
+  } else {
+    console.error('Fehler:', xhr.status);
+  }
+};
+xhr.onerror = function () {
+  console.error('Netzwerkfehler');
+};
+
+xhr.send();</pre>
+    <p>
+      Der Zustand wird über <strong>readyState</strong> (0 bis 4, wobei 4 =
+      fertig) und <strong>status</strong> (der HTTP-Statuscode) abgefragt.
+      Relevant ist XHR heute noch an zwei Stellen: beim Hochladen mit
+      Fortschrittsanzeige (<strong>xhr.upload.onprogress</strong>, was fetch
+      nicht kann) und in älterem Code – etwa in
+      <strong>jQuery</strong>, wo $.ajax(), $.get() und $.post() intern darauf
+      aufsetzen und AJAX über Jahre populär gemacht haben.
+    </p>
+
+    <h3>Umsetzung: fetch (heutiger Standard)</h3>
+    <p>
+      <strong>fetch()</strong> ersetzt XHR und arbeitet mit Promises, wodurch
+      sich der Code zusammen mit <strong>async/await</strong> fast wie
+      synchroner Code liest.
+    </p>
+    <pre>async function ladeProdukte(kategorie) {
+  try {
+    const response = await fetch(`/api/produkte.php?kategorie=${encodeURIComponent(kategorie)}`, {
+      headers: { 'Accept': 'application/json' }
+    });
+
+    // WICHTIG: fetch wirft bei 404 oder 500 keinen Fehler!
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const daten = await response.json();
+    render(daten);
+
+  } catch (error) {
+    console.error(error);
+    zeigeFehlermeldung('Daten konnten nicht geladen werden.');
+  }
+}</pre>
+    <p>Ein POST mit Formulardaten – der Fall aus dem Formular-Beispiel:</p>
+    <pre>const form = document.getElementById('ajaxForm');
+
+form.addEventListener('submit', async (e) =&gt; {
+  e.preventDefault();                  // verhindert den normalen Seitenwechsel
+
+  const button = form.querySelector('button');
+  button.disabled = true;              // gegen doppeltes Absenden
+
+  try {
+    const response = await fetch('/formular-ajax.php', {
+      method: 'POST',
+      body: new FormData(form)         // Content-Type setzt der Browser selbst
+    });
+
+    const ergebnis = await response.json();
+
+    if (ergebnis.status === 'ok') {
+      form.reset();
+      meldung.textContent = 'Nachricht erfolgreich gesendet.';
+    } else {
+      meldung.textContent = ergebnis.fehler.join(', ');
+    }
+
+  } catch (error) {
+    meldung.textContent = 'Verbindung fehlgeschlagen.';
+  } finally {
+    button.disabled = false;           // läuft in jedem Fall
+  }
+});</pre>
+    <p>
+      Bei <strong>FormData</strong> darf der Content-Type
+      <strong>nicht</strong> selbst gesetzt werden – der Browser ergänzt
+      multipart/form-data inklusive der nötigen boundary. Wird JSON geschickt,
+      muss der Header dagegen explizit gesetzt werden:
+    </p>
+    <pre>await fetch('/api/speichern.php', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name: 'John', menge: 2 })
+});</pre>
+
+    <h3>Die Gegenstelle auf dem Server</h3>
+    <p>
+      Serverseitig ist ein AJAX-Request ein ganz normaler Request. Der
+      Unterschied liegt nur darin, dass kein HTML, sondern JSON zurückgegeben
+      wird – und dass der passende Content-Type gesetzt werden muss.
+    </p>
+    <pre>&lt;?php
+header('Content-Type: application/json; charset=utf-8');
+
+$fehler = [];
+$name = trim($_POST['name'] ?? '');
+
+if ($name === '') {
+    $fehler[] = 'Name fehlt';
+}
+
+if ($fehler) {
+    http_response_code(422);                      // Unprocessable Entity
+    echo json_encode(['status' =&gt; 'error', 'fehler' =&gt; $fehler]);
+    exit;
+}
+
+// ... speichern oder Mail senden ...
+
+echo json_encode(['status' =&gt; 'ok']);</pre>
+    <p>Zwei Dinge gehen hier regelmäßig schief:</p>
+    <ul>
+      <li>
+        <strong>Jede Ausgabe vor json_encode zerstört die Antwort.</strong> Ein
+        Leerzeichen vor &lt;?php, eine PHP-Warning oder ein var_dump landen im
+        Response-Body, und response.json() scheitert mit "Unexpected token".
+        Deshalb display_errors produktiv auf Off und Fehler ins Log.
+      </li>
+      <li>
+        Wird ein <strong>JSON-Body</strong> geschickt (Content-Type:
+        application/json), ist <strong>$_POST leer</strong>. Dann muss der
+        Rohinhalt gelesen werden:
+        $daten = json_decode(file_get_contents('php://input'), true);
+      </li>
+    </ul>
+    <p>
+      Ein ausführbares Beispiel liegt in diesem Projekt unter
+      backend/formular-ajax.php zusammen mit dem Formular unter
+      "Formular mit AJAX".
+    </p>
+
+    <h2>Probleme und Fallstricke bei AJAX</h2>
+    <p>
+      Vor und zurück Tasten haben nun eine unlogische Bedeutung. Ebenso kann man
+      nur auf den Startzustand einer AJAX Anwendung verlinken.
+    </p>
+    <!-- Änderung für git reset -->
+
+    <h3>Same-Origin-Policy und CORS</h3>
+    <p>
+      Der Browser erlaubt JavaScript standardmäßig nur Anfragen an die
+      <strong>gleiche Herkunft</strong> (Origin = gleiches Protokoll, gleiche
+      Domain, gleicher Port). http://localhost:8000 und http://localhost:5173
+      sind damit bereits zwei verschiedene Origins. Soll eine fremde Domain
+      angesprochen werden, muss <strong>der Server</strong> das per
+      <strong>CORS</strong>-Header erlauben:
+    </p>
+    <pre>header('Access-Control-Allow-Origin: https://meine-domain.de');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');</pre>
+    <p>
+      Bei bestimmten Requests (eigene Header, Content-Type:
+      application/json, Methoden wie PUT oder DELETE) schickt der Browser
+      vorher automatisch einen <strong>Preflight-Request</strong> mit der
+      Methode OPTIONS. Antwortet der Server darauf nicht korrekt, kommt der
+      eigentliche Request gar nicht erst an.
+    </p>
+    <p>
+      Wichtig zur Einordnung: CORS ist ein Schutz
+      <strong>des Browsers</strong>, keine Serversicherheit. Mit curl oder
+      Postman greift er nicht – der Server muss also trotzdem selbst prüfen,
+      wer da anfragt. Und <strong>Access-Control-Allow-Origin: *</strong>
+      funktioniert nicht zusammen mit Cookies; dafür braucht es eine konkrete
+      Domain plus credentials: 'include'.
+    </p>
+
+    <h3>Fehlerbehandlung</h3>
+    <ul>
+      <li>
+        <strong>fetch wirft bei HTTP-Fehlern keinen Fehler.</strong> Ein 404
+        oder 500 landet nicht im catch-Block, sondern liefert eine Response mit
+        ok === false. Ohne die Prüfung auf response.ok wird eine Fehlerseite
+        stillschweigend als Erfolg behandelt.
+      </li>
+      <li>
+        <strong>Der Benutzer sieht nichts.</strong> Scheitert ein Request,
+        passiert ohne eigene Behandlung einfach gar nichts – der Fehler steht
+        nur in der Konsole. Jede AJAX-Interaktion braucht eine sichtbare
+        Rückmeldung.
+      </li>
+      <li>
+        <strong>Kein Ladezustand.</strong> Ohne Spinner oder deaktivierten
+        Button wirkt die Seite eingefroren, und der Benutzer klickt mehrfach.
+      </li>
+      <li>
+        <strong>Zeitüberschreitungen</strong> kennt fetch nicht von sich aus.
+        Nötig ist ein <strong>AbortController</strong>:
+      </li>
+    </ul>
+    <pre>const controller = new AbortController();
+const timeout = setTimeout(() =&gt; controller.abort(), 8000);
+
+try {
+  const res = await fetch(url, { signal: controller.signal });
+} catch (e) {
+  if (e.name === 'AbortError') { /* Timeout */ }
+} finally {
+  clearTimeout(timeout);
+}</pre>
+
+    <h3>Race Conditions und zu viele Requests</h3>
+    <p>
+      Bei einer Live-Suche wird pro Tastendruck ein Request ausgelöst. Das
+      erzeugt nicht nur unnötige Last, sondern auch ein echtes Problem: die
+      Antworten kommen nicht zwingend in der Reihenfolge zurück, in der sie
+      abgeschickt wurden. Die langsamere Antwort zu "Kam" kann nach der zu
+      "Kaminofen" eintreffen und das korrekte Ergebnis wieder überschreiben.
+    </p>
+    <p>Die zwei Gegenmittel:</p>
+    <ul>
+      <li>
+        <strong>Debouncing</strong> – erst senden, wenn der Benutzer kurz
+        aufgehört hat zu tippen
+      </li>
+      <li>
+        <strong>Abbrechen</strong> – den vorherigen Request per AbortController
+        verwerfen, bevor der neue startet
+      </li>
+    </ul>
+    <pre>let timer, controller;
+
+input.addEventListener('input', () =&gt; {
+  clearTimeout(timer);
+  timer = setTimeout(async () =&gt; {
+    controller?.abort();                 // alten Request verwerfen
+    controller = new AbortController();
+    const res = await fetch(`/suche.php?q=${encodeURIComponent(input.value)}`,
+                            { signal: controller.signal });
+    render(await res.json());
+  }, 300);
+});</pre>
+    <p>
+      Außerdem gilt: ein Klick, der mehrfach ausgelöst werden kann, sendet auch
+      mehrfach. Den Button während des Requests deaktivieren – serverseitig
+      zusätzlich auf Dubletten prüfen, denn auf den Client ist kein Verlass.
+    </p>
+
+    <h3>Browser-Historie und Deep Links</h3>
+    <p>
+      Wird Inhalt per AJAX ausgetauscht, ändert sich die URL nicht. Folgen:
+      der Zurück-Button verlässt die Seite komplett statt einen Schritt
+      zurückzugehen, ein Reload zeigt wieder den Ausgangszustand, und der
+      Zustand lässt sich nicht als Link weitergeben oder als Lesezeichen
+      speichern.
+    </p>
+    <p>
+      Lösung ist die <strong>History API</strong>: bei jedem Zustandswechsel
+      die URL mitschreiben und auf das Zurückgehen reagieren.
+    </p>
+    <pre>history.pushState({ kategorie }, '', `?kategorie=${kategorie}`);
+
+window.addEventListener('popstate', (e) =&gt; {
+  ladeProdukte(e.state?.kategorie ?? 'alle');
+});</pre>
+    <p>
+      Damit ein geteilter Link auch funktioniert, muss der Server denselben
+      Zustand zusätzlich <strong>serverseitig</strong> ausliefern können.
+    </p>
+
+    <h3>SEO und Crawler</h3>
+    <p>
+      Inhalte, die erst per AJAX nachgeladen werden, stehen nicht im
+      ausgelieferten HTML. Suchmaschinen führen zwar JavaScript aus, aber
+      verzögert und nicht garantiert vollständig – andere Crawler und
+      Link-Vorschauen (Social Media, Messenger) gar nicht. Inhalte, die
+      gefunden werden sollen, gehören deshalb ins initiale HTML oder brauchen
+      <strong>Server-Side Rendering</strong>. AJAX eignet sich für
+      Interaktion, nicht für den Hauptinhalt einer Seite.
+    </p>
+
+    <h3>Barrierefreiheit</h3>
+    <p>
+      Ein Screenreader bemerkt nicht von selbst, dass sich ein Teil der Seite
+      geändert hat – beim klassischen Seitenwechsel wäre das durch den Neuaufbau
+      automatisch passiert. Nötig sind deshalb
+      <strong>aria-live</strong>-Bereiche für Statusmeldungen und ein bewusstes
+      Setzen des Fokus auf den neuen Inhalt. Sonst arbeitet die Seite scheinbar
+      ohne Reaktion.
+    </p>
+    <pre>&lt;div id="meldung" role="status" aria-live="polite"&gt;&lt;/div&gt;</pre>
+
+    <h3>Abhängigkeit von JavaScript</h3>
+    <p>
+      Ist JavaScript deaktiviert, blockiert oder schlägt das Skript mit einem
+      Fehler fehl, funktioniert die Interaktion gar nicht mehr. Der robuste
+      Ansatz ist <strong>Progressive Enhancement</strong>: das Formular
+      funktioniert als normales HTML-Formular mit action und method, und AJAX
+      wird nur zusätzlich daraufgelegt. Genau das leistet
+      <strong>e.preventDefault()</strong> im submit-Handler – ohne
+      JavaScript greift der normale Weg.
+    </p>
+
+    <h3>Sicherheit</h3>
+    <ul>
+      <li>
+        <strong>Ein AJAX-Endpunkt ist eine öffentliche URL.</strong> Er lässt
+        sich direkt aufrufen, mit beliebigen Parametern, beliebig oft. Jede
+        Validierung und jede Rechteprüfung muss deshalb
+        <strong>serverseitig</strong> stattfinden – clientseitige Prüfung ist
+        reiner Komfort.
+      </li>
+      <li>
+        <strong>CSRF</strong> – auch AJAX-Requests senden Cookies mit und
+        brauchen daher ein Token. Zusätzlich hilft
+        SameSite=Lax beim Session-Cookie.
+      </li>
+      <li>
+        <strong>XSS</strong> – Daten aus der Antwort niemals per innerHTML
+        einsetzen, ohne sie zu escapen. <strong>textContent</strong> ist die
+        sichere Variante.
+      </li>
+      <li>
+        <strong>Keine Zugangsdaten im Frontend.</strong> Alles im JavaScript ist
+        einsehbar. API-Keys gehören hinter einen eigenen serverseitigen
+        Endpunkt, der als Proxy dient.
+      </li>
+      <li>
+        <strong>Rate Limiting</strong> – ein offener Endpunkt, der Mails
+        verschickt oder Datenbankabfragen auslöst, wird sonst zum Einfallstor
+        für Spam und Überlastung.
+      </li>
+      <li>
+        <strong>Fehlerdetails</strong> nicht in die JSON-Antwort schreiben –
+        Stacktraces und SQL-Fehler verraten die interne Struktur.
+      </li>
+    </ul>
+
+    <h3>Caching</h3>
+    <p>
+      GET-Requests können von Browser und Proxys zwischengespeichert werden, was
+      bei dynamischen Daten zu veralteten Ergebnissen führt. Abhilfe schaffen
+      passende Cache-Control-Header auf dem Server, cache: 'no-store' in fetch
+      oder ein Zeitstempel als zusätzlicher Parameter. Umgekehrt ist Caching bei
+      Daten, die sich selten ändern, ausdrücklich erwünscht.
+    </p>
+
+    <h3>Weitere typische Stolpersteine</h3>
+    <ul>
+      <li>
+        <strong>Statisches Hosting</strong> – auf GitHub Pages und ähnlichen
+        Hostern wird kein PHP ausgeführt. Ein AJAX-Request an eine .php-Datei
+        liefert dort den Quelltext oder einen 404. Deshalb funktionieren die
+        Formular-Beispiele dieser Knowledge Base nur lokal über
+        php -S localhost:8000.
+      </li>
+      <li>
+        <strong>Mixed Content</strong> – eine Seite über HTTPS darf keine
+        Requests an http:// senden; der Browser blockiert sie.
+      </li>
+      <li>
+        <strong>Relative Pfade</strong> – ein fetch('api.php') löst relativ zur
+        aktuellen URL auf, nicht relativ zur Skriptdatei. Nach einem
+        Verzeichniswechsel zeigt der Pfad ins Leere.
+      </li>
+      <li>
+        <strong>Event-Handler auf nachgeladenem Inhalt</strong> – per AJAX
+        eingefügte Elemente haben keine Listener aus dem ursprünglichen Setup.
+        Lösung ist <strong>Event Delegation</strong>: den Listener auf einen
+        bestehenden Container legen und über event.target auswerten.
+      </li>
+      <li>
+        <strong>Speicherverhalten</strong> – Listener und Timer auf entferntem
+        DOM müssen aufgeräumt werden, sonst wachsen sie bei jedem Nachladen
+        weiter an.
+      </li>
+      <li>
+        <strong>Offline und schlechtes Netz</strong> – mobil scheitern Requests
+        regelmäßig. Ein Wiederholungsversuch und eine klare Meldung gehören
+        dazu.
+      </li>
+    </ul>
+
+    <h3>Abgrenzung zu anderen Verfahren</h3>
+    <p>
+      AJAX wird immer <strong>vom Client</strong> angestoßen. Sollen
+      Aktualisierungen vom Server ausgehen, führen folgende Wege weiter:
+    </p>
+    <ul>
+      <li>
+        <strong>Polling</strong> – der Client fragt in festen Abständen nach.
+        Einfach umzusetzen, erzeugt aber viele unnötige Requests.
+      </li>
+      <li>
+        <strong>Long Polling</strong> – der Server hält die Anfrage offen, bis
+        es etwas zu melden gibt. Spart Requests, bindet aber Verbindungen.
+      </li>
+      <li>
+        <strong>Server-Sent Events (SSE)</strong> – eine dauerhafte Verbindung,
+        über die der Server <em>in eine Richtung</em> sendet. Ideal für
+        Benachrichtigungen und Live-Ticker.
+      </li>
+      <li>
+        <strong>WebSockets</strong> – dauerhafte Verbindung in
+        <strong>beide</strong> Richtungen, für Chat, Live-Daten und
+        Mehrbenutzeranwendungen.
+      </li>
+    </ul>
+    <p>
+      Faustregel: für einmalige Datenabrufe auf Benutzeraktion ist AJAX
+      richtig; für laufende Aktualisierungen vom Server sind SSE oder
+      WebSockets die passende Wahl.
+    </p>
+    <p>Wird gesteuert über JavaScript Objekt XMLHttpRequest</p>
+
+    <h2>Websockets</h2>
+    <p>
+      Für Echtzeitübertragungen wie Chats, Live-Updates, Multiplayer Games,
+      Börsenkurse. Diese sind bidirektional, asynchron und dauerhaft offen.
+    </p>
+    <h2>YAML (YAML Ain't Markup Language)</h2>
+    <p>
+      Ist ein menschenlesbares Datenformat, welches für Konfigurationen gedacht
+      ist als Altenative für JSON. Die Einrückung spielt hier eine zentrale
+      Rolle:
+    </p>
+    <pre>
+      parent: 
+        child1: value
+    </pre>
+  </div>
+</div>

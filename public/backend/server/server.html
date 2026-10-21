@@ -1,0 +1,1064 @@
+<div class="block">
+  <div class="container site-border">
+    <h2>Dateirechtesystem</h2>
+    <img
+      src="/assets/screenshots/terminal_user_ausgabe.jpeg"
+      alt="Abbildung zeigt die Ausgabe von ls -l"
+    />
+    <p>
+      Der erste Buchstabe der Ausgabe des Befehls ls -l zeigt die Dateitypen an.
+      d bedeutet Directory, also Verzeichnis. - bedeutet es handelt sich um eine
+      reguläre Datei.
+    </p>
+    <p>
+      Alle Dateien und Ordner in einem Linux System besitzen eine Angabe über
+      die Zugriffsrechte. Rechte beziehen sich immer auf Eigentümer, Gruppe,
+      Rest der Welt. Für diese drei Gruppen existiert eine Angabe ob die Datei
+      lesbar (r = readable), beschreibbar (w = writeable) und (x = executeable)
+      ist.
+    </p>
+    <p>
+      Beispiel 2 Zeile: Die Datei "datei" ist eine reguläre Datei, gehört dem
+      User conbart, der sie lesen und ändern darf (r w -). Sie gehört der Gruppe
+      user, die sie nur lesen dürfen (r - -) und der Rest der Welt darf sie
+      lesen (r - -).
+    </p>
+    <p>Jede Datei hat einen Besitzer (Spalte 3) und eine Gruppe (Spalte 4)</p>
+
+    <img
+      src="/assets/screenshots/rechtesystem_oktaldarstellung.jpeg"
+      alt="Abbildung zur Oktaldarstellung im Rechtesystem"
+    />
+    <p>
+      Rechte können durch drei Oktalwerte dargestellt werden. Dabei bedeutet
+      alle Rechte 2^2 + 2^1 + 2^0 = 7. Für Dateien ist hier 644 der Standard.
+      Für Verzeichnisse 755. Bei Verzeichnissen bedeutet das r, das Verzeichnis
+      aufzulisten. w erlaubt, Dateien im Verzeichnis anzulegen und zu löschen. x
+      erlaubt das Verzeichnis zu durchqueren und auf Einträge darin zuzugreifen,
+      sofern weitere Rechte das erlauben.
+    </p>
+    <h3>Dateirechte verändern:</h3>
+    <p>chmod [dateirechte] [files]</p>
+    <p>
+      chmod steht für change mode und ändert Zugriffsrechte von Dateien und
+      Verzeichnissen. Die Option -R steht für recursive und kann verwendet
+      werden, um Rechte rekursiv zu ändern.
+    </p>
+    <img
+      src="/assets/screenshots/rechtesystem_ändern.jpeg"
+      alt="Abbildung zu Veränderung von Dateirechten"
+    />
+    <p>[ugoa] + | - | = [rwx], ...</p>
+    <p>
+      Das führende Zeichen steht für die Kategorie (user, group, other, all)
+    </p>
+    <p>
+      +, -, = gibt an ob das Recht hinzugefügt, abgezogen oder absolut gesetzt
+      werden soll
+    </p>
+    <p>Dann folgen die Rechte rwx (read, write, executable)</p>
+    <p>Mehrere Modi können dabei durch Komma getrennt werden.</p>
+
+    <img
+      src="/assets/screenshots/rechtesystem_beispiel.jpeg"
+      alt="Abbildungsbeispiel zum verändern von Dateirechten"
+    />
+    <p>
+      Der User darf nun ausführen, die Group darf lesen und schreiben und others
+      dürfen lesen in Bezug auf die Datei "datei 3"
+    </p>
+
+    <h3>Dateiowner verändern</h3>
+    <p>chown [neu] datei.txt, damit der Dateiowner verändert wird.</p>
+
+    <h3>Dateigruppe verändern</h3>
+    <p>chgrp [neu] datei.txt, damit die Gruppe verändert wird.</p>
+    <h2>Staging Server</h2>
+    <h3>rsync.sh bei Bosch Sensortec</h3>
+    <p>Hier läuft local -> build -> rsync -> preview server</p>
+    <p>
+      Vite baut deine App. rsync schiebt sie auf einen Server. Staging ist der
+      Server dazwischen.
+    </p>
+    <p>REMOTE_SERVER=ssh-123456-dev@sternundhuber.com ist der Zielserver.</p>
+    <p>REMOTE_PATH=www_preview ist der Zielordner auf dem Server.</p>
+    <p>DIRECTORY=dist/ ist der lokale Build Ordner</p>
+    <p>URL=https://preview.nou-digital-workbench.de/ ist die URL zur Preview</p>
+
+    <h2>Server Side Includes (SSI)</h2>
+    <p>
+      Einfache Möglichkeit zur serverseitigenErstellung dynamischer Seiten. Wird
+      durch Spandard-Apachemodul include ermöglicht.
+    </p>
+    <p>
+      Voraussetzung: der Webserver Apache muss mit dem Modul mod_include
+      betrieben werden. Entweder statische Integration in Apache-Kernel oder
+      dynamische Integration über DSO (Dynamic Shared Object). In httpd.conf
+      muss für ein Verzeichnis und alle Unterverzeichnisse SSI erlaubt werden.
+    </p>
+    <pre>
+< Directory "d:/www/myssi">
+			Options +Includes
+		< /Directory></pre
+    >
+    <p>Außerdem Kennzeichnung einer HTML Datei als SSI in http.conf</p>
+    <pre>
+AddType text/html .shtml
+		AddHandler server-parsed .shtml
+	</pre
+    >
+    <p>
+      SSI Befehle selbst sind HTML Kommentare, zB !--#element attribute="value
+      ..."
+    </p>
+    <p>
+      SSI sind HTML Anweisungen, die serverseitig bei der Auslieferung einer
+      Seite eingefügt und ausgewertet werden. Es ist schneller als CGI, da kein
+      neuer Prozess gestartet werden muss. SSI können in HTML-Dateien mit der
+      Endung .shtml verwendet werden. Sie ermöglichen das Einfügen von Inhalten
+      wie Header, Footer, Navigation oder dynamische Daten wie Datum und
+      Uhrzeit.
+    </p>
+    <h2>Umgebungsvariable</h2>
+    <p>
+      Eine Umgebungsvariable ist eine globale Variable des Betriebssystems,
+      welche von mehreren Programmen verwendet werden kann. Oft sind in
+      Umgebungsvariablen Pfade gespeichert.
+    </p>
+    <h3>PATH</h3>
+    <p>
+      In der Umgebungsvariable PATH sind alle Pfade gespeichert, in denen nach
+      einem ausführbaren Programm gesucht wird, wenn der Benutzer das Programm
+      ohne Pfadangabe aufruft und sich das Programm nicht im aktuellen
+      Verzeichnis beendet. Diese kann mit echo $PATH angezeigt werden.
+    </p>
+    <p>Mit set können alle Umgebungsvariablen angezeigt werden.</p>
+    <p>
+      HOME enthält den Pfad zum Heimatverzeichnis des aktuell angemeldeten
+      Benutzers.
+    </p>
+    <h3>Setzen von Umgebungsvariablen</h3>
+    <p>zB VAR1=HelloWorld</p>
+    <h3>Entfernen der Umgebungsvariable</h3>
+    <p>unset VAR1</p>
+    <h2>FastCGI</h2>
+    <p>
+      FastCGI ist ein Ansatz zum wesentlichen Beschleunigen von
+      Server-Anwendugen.
+    </p>
+    ```html
+    <p>
+      CGI (Common Gateway Interface) ermöglicht es einem Webserver, externe
+      Programme zur Verarbeitung von HTTP-Anfragen auszuführen. Das Problem
+      dabei ist, dass für jede eingehende Anfrage ein neuer Prozess gestartet
+      werden muss. Dieser Prozess muss das Programm laden, ausführen und
+      anschließend wieder beendet werden.
+    </p>
+
+    <p>
+      Bei vielen gleichzeitigen Anfragen führt dieses Verhalten zu einem hohen
+      Ressourcenverbrauch und einer schlechten Performance, da ständig neue
+      Prozesse erstellt und beendet werden müssen.
+    </p>
+
+    <p>
+      FastCGI löst dieses Problem, indem die Prozesse nicht für jede Anfrage neu
+      gestartet werden. Stattdessen laufen die Anwendungsprozesse dauerhaft,
+      warten auf weitere Anfragen und könnenmehrere Anfragen nacheinander
+      verarbeiten.
+    </p>
+
+    <p>
+      Der Webserver, beispielsweise Nginx, übergibt die Anfrage über das
+      FastCGI-Protokoll an einen bereits laufenden Prozess. Dieser verarbeitet
+      die Anfrage und gibt das Ergebnis zurück. Dadurch entfällt das wiederholte
+      Starten und Beenden eines Prozesses. Der Webserver und fastcgi
+      kommunizieren über tcp-Socket, damit Trennung der Server möglich.
+    </p>
+    <p>
+      Typischer Ablauf wäre: Webserver erzeugt einen fastCGI Anwendungsprozess,
+      fastCGI Prozess initialisiert sich selbst und wartet auf Anfrage,
+      Webserver baut Verbindung zu fastCGI Prozess auf und sendet darüber
+      CGI-Umgebungsvariablen und stdin. fastCGI sendet stdout und stderr
+      entsprechend zurück. fastCGI wartet auf weitere Anfrage.
+    </p>
+    <p>
+      Ein typisches Beispiel ist Nginx mit PHP-FPM: Nginx nimmt die HTTP-Anfrage
+      entgegen und übergibt PHP-Anfragen über FastCGI an PHP-FPM. PHP-FPM
+      verwaltet dabei dauerhaft laufende PHP-Prozesse, die die Anfragen
+      verarbeiten.
+    </p>
+    <p>
+      Voraussetzungen: Das Modul mod_fastcgi muss bei Apache vorhanden sein.
+      Server muss entsprechend konfiguriert sein. SetHandler und AddHandler
+      müssen für fastCGI gesetzt sein. Es gibt weitere Direktiven für fastCGI
+      wie FastCgiExternalServer, FastCgiConfig, FastCgiAuthenticator,
+      FastCgiAuthenticatorAuthoritative und FastCgiAuthorizer.
+    </p>
+    <p>
+      Kommunikation zwischen Webserver und fastCGI erfolgt über tcp socket.
+      Somit können Webserver und fastCGI auf unterschiedlichen Maschinen laufen
+      und somit entlastet werden.
+    </p>
+    ```
+
+    <h2>Server</h2>
+    <p>
+      Ein Server ist ein Computer oder ein System, das Ressourcen, Daten oder
+      Dienste für andere Computer (Clients) über ein Netzwerk bereitstellt.
+      Server können verschiedene Funktionen erfüllen, wie z.B. das Hosten von
+      Webseiten, das Verwalten von Datenbanken oder das Bereitstellen von
+      Dateien. Größere Programme können damit von mehreren Benutzern
+      gleichzeitig ausgeführt werden.
+    </p>
+    <h3>Webserver</h3>
+    <p>
+      Ein Webserver ist ein spezieller Server, der HTTP-Anfragen von Clients
+      (z.B. Webbrowsern) entgegennimmt und Webseiten oder andere Webinhalte
+      bereitstellt. Ein Server läuft permanent und wartet auf Anfragen auf
+      TCP-Port 80 (HTTP) und beantwortet diese.
+    </p>
+    <h3>Datenbankserver</h3>
+    <p>
+      Ein Datenbankserver ist ein Server, der Datenbanken verwaltet und Anfragen
+      von Clients zur Speicherung, Abfrage oder Manipulation von Daten
+      verarbeitet.
+    </p>
+    <h3>nginx Webserver</h3>
+    <p>
+      nginx ist ein Webserver und auch Reverse / Mail Proxy. Die offizielle
+      Dokumentation dafür gibts
+      <a href="https://docs.nginx.com/nginx/admin-guide/web-server/">HIER</a>
+    </p>
+    <h3>Statische Inhalte</h3>
+    <p>
+      Nginx kann statische Dateien wie HTML, CSS, JavaScript, Bilder, Videos und
+      andere Dateien direkt an den Client ausliefern.
+    </p>
+    <h3>Reverse Proxy</h3>
+    <p>
+      Nginx kann als Vermittler zwischen Client und Backend fungieren.
+      Eingehende HTTP-Anfragen werden dabei an interne Anwendungen oder andere
+      Server weitergeleitet.
+    </p>
+    <h3>Caching</h3>
+    <p>
+      Nginx kann Antworten zwischenspeichern. Wiederholte Anfragen können
+      dadurch aus dem Cache beantwortet werden, ohne jedes Mal das Backend
+      kontaktieren zu müssen.
+    </p>
+    <h3>Load Balancing</h3>
+    <p>
+      Nginx kann Anfragen auf mehrere Backend-Server verteilen. Dadurch lassen
+      sich Lasten verteilen und Anwendungen skalierbarer und ausfallsicherer
+      betreiben.
+    </p>
+    <h3>Statisches Load Balancing</h3>
+    <p>
+      Beim statischen Load Balancing wird bereits vorher festgelegt, wie
+      Anfragen auf mehrere Server verteilt werden. Die Verteilung basiert auf
+      einer festen Regel oder Konfiguration und berücksichtigt normalerweise
+      nicht die aktuelle Auslastung, Antwortzeit oder Anzahl der aktiven
+      Verbindungen eines Servers.
+    </p>
+    <h4>Round Robin</h4>
+    <p>
+      Bei Round Robin werden die Anfragen der Reihe nach auf die Backend-Server
+      verteilt. Bei drei Servern erhält beispielsweise die erste Anfrage Server
+      1, die zweite Server 2, die dritte Server 3 und die vierte wieder Server
+      1. Dieses Verfahren ist einfach und funktioniert gut, wenn die Server
+      ähnlich leistungsfähig sind und die Anfragen ungefähr gleich viel Arbeit
+      verursachen.
+    </p>
+    <h4>Weighted Round Robin</h4>
+    <p>
+      Weighted Round Robin berücksichtigt unterschiedliche Leistungsfähigkeit.
+      Ein leistungsstärkerer Server erhält ein höheres Gewicht und dadurch mehr
+      Anfragen. Ein Server mit Gewicht 3 kann beispielsweise ungefähr dreimal so
+      viele Anfragen erhalten wie ein Server mit Gewicht 1. Die Gewichte werden
+      manuell festgelegt und nicht automatisch an die aktuelle Auslastung
+      angepasst.
+    </p>
+    <h4>IP-Hash und konsistentes Hashing</h4>
+    <p>
+      Beim IP-Hash wird aus der Client-IP-Adresse ein Hashwert berechnet. Dieser
+      bestimmt, welcher Backend-Server verwendet wird. Dadurch landet derselbe
+      Client häufig beim selben Server, was für einfache zustandsbehaftete
+      Anwendungen oder Session-Daten hilfreich sein kann. Ändert sich die
+      Serveranzahl, können sich bei einem einfachen Hashing jedoch viele
+      Zuordnungen ändern. Konsistentes Hashing reduziert dieses Problem.
+    </p>
+    <h4>Vorteile und Grenzen</h4>
+    <p>
+      Statisches Load Balancing ist leicht verständlich, einfach zu
+      konfigurieren und verursacht nur wenig zusätzlichen Verwaltungsaufwand. Es
+      eignet sich besonders für stabile Umgebungen mit gleichartigen
+      Backend-Servern und vorhersehbarem Datenverkehr.
+    </p>
+    <p>
+      Ein Nachteil ist, dass die feste Verteilung nicht automatisch auf eine
+      Überlastung oder einen Ausfall reagiert. Ohne Health Checks kann ein
+      Load-Balancer weiterhin Anfragen an einen nicht erreichbaren Server
+      senden. Dynamisches Load Balancing bewertet dagegen zusätzlich Faktoren
+      wie aktuelle Auslastung, Antwortzeit oder aktive Verbindungen und kann die
+      Verteilung laufend anpassen.
+    </p>
+    <h3>TLS / SSL</h3>
+    <p>
+      Nginx unterstützt TLS und kann HTTPS-Verbindungen terminieren. Dadurch
+      kann die verschlüsselte Verbindung zwischen Client und Nginx zentral
+      verwaltet werden.
+    </p>
+    <h3>FastCGI</h3>
+    <p>
+      Nginx unterstützt FastCGI zur Kommunikation mit Anwendungen. Ein typisches
+      Beispiel ist die Weiterleitung von PHP-Anfragen an PHP-FPM.
+    </p>
+    <h3>Streaming</h3>
+    <p>
+      Nginx kann Datenströme effizient übertragen und eignet sich beispielsweise
+      für die Auslieferung großer Dateien und Streaming-Anwendungen.
+    </p>
+    <h3>HTTP/1.1 und HTTP/2</h3>
+    <p>
+      Nginx unterstützt moderne HTTP-Protokolle. HTTP/2 ermöglicht unter anderem
+      eine effizientere Übertragung mehrerer Ressourcen über eine Verbindung.
+    </p>
+    <h3>WebSockets</h3>
+    <p>
+      Nginx kann WebSocket-Verbindungen als Reverse Proxy an Backend-Anwendungen
+      weiterleiten. Dadurch sind bidirektionale Echtzeitverbindungen zwischen
+      Client und Server möglich.
+    </p>
+    <h4>nginx.conf</h4>
+    <p>nginx.conf ist die zentrale Konfigurationsdatei für nginx.</p>
+    <h4>nginx Architektur</h4>
+    <p>
+      Nginx ist ein Webserver und Reverse Proxy, der nach einer
+      Master-Worker-Architektur arbeitet. Dabei übernimmt der Master-Prozess
+      hauptsächlich Verwaltungsaufgaben, während die Worker-Prozesse die
+      eigentlichen Client-Anfragen verarbeiten.
+    </p>
+    <img
+      src="/assets/screenshots/nginx_architecture.png"
+      alt="Abbildung zur nginx Architektur"
+    />
+    <h4>Master-Prozess</h4>
+    <p>
+      Der Master-Prozess ist für die Verwaltung von Nginx zuständig. Er startet
+      und beendet Nginx, liest und verarbeitet die Konfiguration, startet die
+      Worker-Prozesse und kann diese bei Änderungen oder Fehlern neu starten.
+      Der Master-Prozess verarbeitet normalerweise nicht selbst die eigentlichen
+      HTTP-Anfragen.
+    </p>
+    <h4>Worker-Prozesse</h4>
+    <p>
+      Die Worker-Prozesse übernehmen die Verarbeitung der eingehenden
+      Verbindungen und Anfragen. Mehrere Worker können gleichzeitig arbeiten,
+      sodass Nginx viele Verbindungen parallel und effizient verarbeiten kann.
+      Die Anzahl der Worker kann konfiguriert werden und wird häufig an die
+      Anzahl der verfügbaren CPU-Kerne angepasst.
+    </p>
+    <h4>Event-Driven Architektur</h4>
+    <p>
+      Nginx verwendet eine ereignisgesteuerte Architektur. Ein Worker-Prozess
+      kann viele gleichzeitig bestehende Verbindungen verwalten, ohne für jede
+      Verbindung einen eigenen Prozess oder Thread zu benötigen. Dadurch kann
+      Nginx besonders viele gleichzeitige Verbindungen mit vergleichsweise
+      geringem Ressourcenverbrauch verarbeiten.
+    </p>
+    <h4>Verarbeitung einer HTTP-Anfrage</h4>
+    <p>
+      Ein Client stellt beispielsweise eine HTTP- oder HTTPS-Anfrage an Nginx.
+      Ein Worker-Prozess nimmt die Verbindung entgegen und wertet die Anfrage
+      anhand der Nginx-Konfiguration aus. Anschließend entscheidet Nginx, wie
+      die Anfrage verarbeitet werden soll.
+    </p>
+    <h4>Statische Inhalte</h4>
+    <p>
+      Handelt es sich beispielsweise um eine HTML-, CSS-, JavaScript- oder
+      Bilddatei, kann Nginx diese direkt vom Dateisystem laden und an den Client
+      zurückgeben. Ein zusätzliches Backend ist für solche Dateien nicht
+      erforderlich.
+    </p>
+    <h4>Reverse Proxy</h4>
+    <p>
+      Nginx kann als Reverse Proxy vor anderen Servern und Anwendungen stehen.
+      Der Client kommuniziert dabei mit Nginx, während Nginx die Anfrage intern
+      an den zuständigen Backend-Dienst weiterleitet. Dadurch können interne
+      Anwendungen nach außen über eine zentrale Adresse erreichbar gemacht
+      werden.
+    </p>
+    <h4>Routing zu verschiedenen Diensten</h4>
+    <p>
+      Nginx kann anhand der Domain, des Pfades oder anderer Eigenschaften
+      entscheiden, an welchen internen Dienst eine Anfrage weitergeleitet wird.
+      Beispielsweise kann api.example.de an einen Backend-Server auf Port 3000
+      weitergeleitet werden, während admin.example.de einen anderen Dienst auf
+      Port 4000 verwendet.
+    </p>
+    <h4>HTTP-Proxy</h4>
+    <p>
+      Nginx kann HTTP-Anfragen an andere Webserver oder Application Server
+      weiterleiten. Ein Backend kann beispielsweise auf localhost:3000 laufen,
+      während Nginx öffentlich über Port 80 oder 443 erreichbar ist.
+    </p>
+    <h4>FastCGI</h4>
+    <p>
+      Nginx kann über FastCGI mit Anwendungen kommunizieren. Ein typisches
+      Beispiel ist PHP-FPM. Nginx nimmt dabei die HTTP-Anfrage entgegen und
+      übergibt PHP-Anfragen über FastCGI an PHP-FPM. PHP-FPM führt den PHP-Code
+      aus und gibt das Ergebnis an Nginx zurück.
+    </p>
+    <h4>PHP-FPM</h4>
+    <p>
+      PHP-FPM ist ein Prozessmanager für PHP und kann PHP-Anwendungen ausführen.
+      Nginx führt PHP dabei nicht selbst aus, sondern fungiert als Webserver und
+      übergibt die PHP-Anfragen an PHP-FPM.
+    </p>
+    <h4>Caching</h4>
+    <p>
+      Nginx kann Antworten und andere Daten zwischenspeichern. Bei einer
+      erneuten Anfrage kann eine bereits zwischengespeicherte Antwort direkt
+      ausgeliefert werden, ohne jedes Mal das Backend oder eine Datenbank
+      kontaktieren zu müssen. Dadurch können Antwortzeiten und die Belastung des
+      Backends reduziert werden.
+    </p>
+    <h4>Memcached</h4>
+    <p>
+      Memcached ist ein externer In-Memory-Cache, der häufig zum schnellen
+      Zwischenspeichern von Daten verwendet wird. Nginx kann je nach
+      Konfiguration mit einem Memcached-Server kommunizieren und gespeicherte
+      Daten verwenden, anstatt eine Anfrage an ein aufwendigeres Backend
+      weiterzugeben.
+    </p>
+    <h4>Load Balancing</h4>
+    <p>
+      Nginx kann Anfragen auf mehrere Backend-Server verteilen. Beispielsweise
+      können mehrere Instanzen einer Anwendung parallel betrieben werden. Nginx
+      verteilt die eingehenden Anfragen auf diese Instanzen und kann dadurch die
+      Last verteilen und die Skalierbarkeit verbessern.
+    </p>
+    <h4>TLS / HTTPS</h4>
+    <p>
+      Nginx kann TLS-Verbindungen terminieren und damit HTTPS für Clients
+      bereitstellen. Die TLS-Konfiguration und Zertifikate können zentral bei
+      Nginx verwaltet werden. Anschließend kann Nginx die Anfrage an interne
+      Dienste weiterleiten, die nicht selbst öffentliches HTTPS bereitstellen
+      müssen.
+    </p>
+    <h4>WebSockets</h4>
+    <p>
+      Nginx kann WebSocket-Verbindungen als Reverse Proxy an einen
+      Backend-Dienst weiterleiten. WebSockets ermöglichen eine dauerhafte,
+      bidirektionale Verbindung zwischen Client und Server und werden
+      beispielsweise für Chats, Live-Daten oder Echtzeitanwendungen verwendet.
+    </p>
+    <h4>Streaming</h4>
+    <p>
+      Nginx kann große Datenmengen und Datenströme effizient an Clients
+      übertragen. Dadurch kann es beispielsweise für die Auslieferung großer
+      Dateien oder bestimmte Streaming-Anwendungen eingesetzt werden.
+    </p>
+    <h4>Typische Gesamtarchitektur</h4>
+    <p>
+      Eine typische Architektur kann aus einem öffentlich erreichbaren Nginx und
+      mehreren internen Diensten bestehen. Nginx nimmt die HTTP- oder
+      HTTPS-Anfragen entgegen und entscheidet anhand der Konfiguration, wie die
+      jeweilige Anfrage verarbeitet wird.
+    </p>
+    <p>
+      Eine Anfrage nach einer statischen Datei kann Nginx direkt beantworten.
+      Eine PHP-Anfrage kann über FastCGI an PHP-FPM weitergeleitet werden. Eine
+      API-Anfrage kann über HTTP an einen Application Server weitergeleitet
+      werden. Zusätzlich können Caching und Load Balancing eingesetzt werden.
+    </p>
+    <p>
+      Vereinfacht kann die Architektur daher folgendermaßen dargestellt werden:
+      Internet → Nginx → statische Dateien, PHP-FPM, Application Server,
+      Webserver oder Cache. Innerhalb von Nginx übernimmt der Master-Prozess die
+      Verwaltung und die Worker-Prozesse übernehmen die Verarbeitung der
+      Verbindungen.
+    </p>
+    <h4>Reverse Proxy</h4>
+    <p>
+      Ein Reverse Proxy nimmt eine Anfrage entgegen und entscheidet, an welchen
+      internen Dienst sie weitergeleitet wird.
+    </p>
+    <h3>Apache Webserver</h3>
+    <p>
+      "A patchy server": Apache ist ein weit verbreiteter Webserver, der auf
+      verschiedenen Betriebssystemen läuft. Er dient dazu, Webseiten und
+      Webinhalte über das Internet bereitzustellen. Apache ist bekannt für seine
+      Stabilität, Flexibilität und einfache Konfiguration.
+    </p>
+    <p>
+      Bei Apache ist es besonders wichtig Patches und Updates anch Möglichkeit
+      direkt nach Veröffentlichung zu installieren. Der Webserver ist nämlich
+      Angriffen aus dem Internet ausgesetzt. Sobald bei einem Webserver eine
+      angreifbare Konfiguration bzw. ein Bug gefunden wurde, sind alle Webserver
+      mit dieser/diesem angreifbar. Durch Automatisierung von Angriffen ist es
+      in kurzer Zeit möglich viele Systeme anzugreifen und zu infiltrieren.
+    </p>
+    <h3>Apache Verzeichnis Layout</h3>
+    <ul>
+      <li>bin: Binaries</li>
+      <li>logs: Log-Files</li>
+      <li>conf: Konfigurationsdateien</li>
+      <li>htdocs: Verzeichnis für Webdokumente</li>
+      <li>cgi-bin: Default Verzeichnis für cgi-Programme</li>
+      <li>man: manpages</li>
+      <li>lib: Dynamische Module</li>
+    </ul>
+    <h3>Apache Security</h3>
+    <p>
+      Apache ist nach der Grundinstallation schon brauchbar geschützt. Standard
+      Port ist 80, kann faktisch nicht geändert werden. Durch die
+      Listen-Direktive kann aber zum Port auch die IP-Adresse für den Apache
+      festgelegt werden. zB Listen 134.2.2.38:80
+    </p>
+    <p>Wurzelverzeichnis (/)schützen durch Direktive:</p>
+    <pre>
+< Directory / >
+			AllowOverride none
+			Require all denied
+		< /Directory>
+	</pre
+    >
+    <p>
+      Direktive ServerSignature auf Wert Off oder Email setzen, um nicht so viel
+      über sich zu verraten.
+    </p>
+    <p>Je weniger Module geladen sind, desto sicherer ist der Server.</p>
+    '
+    <h3>Virtuelle Hosts (vHosts) bei Apache</h3>
+    <p>
+      Mehrere Webseiten bzw Domains können auf demselben Server betrieben
+      werden. Wenn zB zwei domains auf dieselbe Server IP Adresse zeigen, kann
+      apache sagen:
+    </p>
+    <pre>
+		< VirtualHost *:80>
+    ServerName www.meinefirma.de
+    DocumentRoot /var/www/meinefirma
+< /VirtualHost>
+
+< VirtualHost *:80>
+    ServerName www.meinblog.de
+    DocumentRoot /var/www/meinblog
+< /VirtualHost>
+	</pre
+    >
+    <p>
+      So liefert Apache je nach Eingabe die korrekte Domain aus. Da hier nicht
+      für jede Seite dann ein eigener Server benötigt wird, sagt man dann
+      virtueller Host.
+    </p>
+    <h4>Apache Portable Runtime</h4>
+    <p>
+      Apache Portable Runtime; eine Bibliothek, die Apache eine
+      plattformunabhängige Schnittstelle für Betriebssystemfunktionen
+      bereitstellt. Damit Apache auf verschiedenen Betriebssystemen laufen kann.
+    </p>
+    <h4>Unterordner /conf/extra</h4>
+    <p>
+      Hier stehen ausgelagerte Konfigurationsdateien, die je nach Setting von
+      der httpd.conf nachgeladen werden.
+    </p>
+    <h4>Unterordner logs (/logs)</h4>
+    <p>
+      Hier werden verschiedene Log Dateien geschrieben. Standardmäßig zwei Logs:
+      access.log (Protokoll für HTTP-Anfragen beim Webserver) und error.log
+      (Fehler, Warnungen und Serverprobleme).
+    </p>
+    <h4>Apache – Wichtige Einstellungen in der httpd.conf</h4>
+
+    <p>
+      Bei der Konfiguration von Apache müssen je nach Installation und
+      Anwendungsfall bestimmte Einstellungen in der <code>httpd.conf</code>
+      überprüft bzw. angepasst werden. Diese liegt normalerweise im Unterordner
+      /conf. In der httpd.conf wird der Apache Server flexibel und detailliert
+      konfiguriert, zB Festlegung des tcp/ip Ports, docRoot etc. Eine typische
+      httpd.conf hat um 1100 Zeilen.
+    </p>
+    <p>
+      Für jede aktive, nicht auskommentierte Direktive sind nach der
+      Installation default Werte gesetzt. Regeln gelten für alle
+      Unterverzeichnisse, außer sie werden in einem Unterverzeichnis
+      überschrieben. Konfiguration erfolgt also von oben nach unten.
+    </p>
+    <p>
+      Eine modulare httpd.conf ist für mehr Struktur auf Teil 1 beschränkt und
+      alle anderen configs ausgelagert in Unterordner wie conf/extra und die
+      werden in httpd.conf included. Eine httpd.conf ist klassisch in drei
+      Abschnitte unterteilt:
+    </p>
+    <ol>
+      <li>
+        Allgemeines: Regeln die den ganzen Webserver betreffen (Festlegung der
+        globalen Umgebung). zB Servername, Port, wo stehen Webdokumente
+      </li>
+      <li>
+        Direktiven des Hauptservers: Regeln für die einzelnen Verzeichnisse des
+        Webservers. Festlegung was erlaubt/verboten ist in einem speziellen
+        Verzeichnis oder sogar für einzelne Dateien.
+      </li>
+      <li>Virtuelle Hosts</li>
+    </ol>
+    <h4>Konfiguration</h4>
+    <p>
+      Nach Änderung der Konfiguration ist ein Neustart des Apache-Servers
+      erforderlich.
+    </p>
+    <ul>
+      <li>
+        ServerRoot: gibt an, in welchem Verzeichnis Apache installiert ist. zB
+        ServerRoot /usr/local/apache
+      </li>
+      <li>
+        Port: legt fest, auf welchem tcp-ip-Port der Hauptserver arbeitet. zB
+        Port 80
+      </li>
+      <li>DocumentRoot: legt das Wurzelverzeichnis der HTML Dokumente fest.</li>
+    </ul>
+
+    <p>
+      AllowOverride gibt an, ob für einzelne Verzeichnisse separate
+      Konfigurationsdateien gelesen werden, und welche Anweisungskategorien
+      darin erlaubt sind. Default ist All. Weitere Möglichkeiten sind None,
+      AuthConfig (Authentifizierung und Autorisierung), FileInfo (Veränderung
+      von Dokumentenattributen), Indexes (Erstellung von Verzeichnisindexen),
+      Limit (Zugriffskontrolle), Options (Verzeichnisoptionen).
+    </p>
+    <p>
+      Options hat Möglichkeiten ExecCGI (werden CGI Programme ausgeführt),
+      FollowSymLink (sind Links im Filesystem zulässig), Includes (Direktive für
+      ServerSideIncludes), Indexes (ist Directory-Listing erlaubt), All (alle
+      vorigen vier Optionen), None, IncludesNOEXEC (SSI erlaubt ohne #include
+      und #exec), MultiViews (gesendete Datei nach Präferenzen des Clients)
+    </p>
+    <p>
+      ServerSignature legt fest, ob und welche Informationen über den Server
+      ausgegeben werden.
+    </p>
+    <h5>bedingte Konfiguration</h5>
+    <p>
+      viele Direktiven sind nur möglich, wenn das entsprechende Modul geladen
+      ist. zB so:
+    </p>
+    <pre>
+< IfModule ssl_module>
+			SSLRandomSeed startup builtin
+			SSLRandomSeed connect builtin
+		< /IfModule>
+	</pre
+    >
+
+    <h4>Apache Module</h4>
+    <p>
+      Apache ist modular aufgebaut. In den Modulen sind verschiedene
+      Funktionalitäten gebündelt. Die Module erweitern Apache. Je mehr Module,
+      desto langsamer und unsicherer wird der Server.
+    </p>
+    <p>
+      Standardmodule werden automatisch geladen als ASF Module. (ASF = Apache
+      Software Foundation). Eine Modulübersicht der statischen Modulegibt es mit
+      httpd -l
+    </p>
+    <p>
+      Statische Module werden in den Apache Kern hineincompiliert und sind immer
+      verfügbar. Sie können nur im Makefile angegeben werden (zB bei ./configure
+      -enable-info). Statische Module sind sehr performant, allerdings muss
+      Apache bei Anpassungen komplett neu kompiliert werden und installiert
+      werden. Dynamische Module werden zur Laufzeit (beim Starten des Apache)
+      gebunden.
+    </p>
+    <p>
+      Statische Module können im Ordner [ApacheInstallation]/bin/ mit dem Befehl
+      ./httpd -l aufgerufen und aufgelistet werden. Dynamische Module können im
+      Ordner [ApacheInstallation]/conf/ in der Datei httpd.conf aufgerufen und
+      aufgelistet werden. Einträge mit Direktive LoadModule [Modulname] stehen
+      für dynamische Module.
+    </p>
+
+    <p>
+      Dynamische Module werden in der httpd.conf Datei geladen per Direktive
+      LoadModule. Apache muss bei Anpassungen nicht neu kompiliert werden, dafür
+      sind dynamische Module weniger performant.
+    </p>
+    <p>
+      Alle Apache Module sind aufgelistet auf der
+      <a href="https://httpd.apache.org/docs/current/mod/">APACHE SEITE</a>
+    </p>
+    <p>Es folgen einige grundlegende ASF Module:</p>
+    <p>
+      Der core, also die Kernfunktionalitäten des Apache Webserver können nicht
+      dynamisch sein.
+    </p>
+    <ul>
+      <li>
+        mod_core: Kernfunktionen des Apache HTTP Servers. Kerndirektiven wie
+        Directory und DocumentRoot
+      </li>
+      <li>
+        mod_access: Zugriffssteuerung auf Apache über Hostnamen oder IP-Adressen
+      </li>
+      <li>mod_actions: Zuordnung von MIME-Typen zu GCI Skripten</li>
+      <li>
+        mod_alias: Ändern von URL-Pfaden auf anderes Verzeichnis oder komplett
+        andere URL. Ermöglicht die Verwendung von Aliasnamen für Verzeichnisse
+        außerhalb des DocumentRoot. Ermöglicht "ScriptAlias" Namen für Skripte
+      </li>
+      <li>mod_asis: Auslieferung von Dokumenten ohne HTTP-Header</li>
+      <li>mod_auth: Authentifizierung von Benutzern</li>
+      <li>
+        mod_autoindex: Verzeichnisindex wird erzeugt, wenn keine Indexdatei
+        vorhanden ist.
+      </li>
+      <li>mod_cgi: Ausführung von CGI Skripten</li>
+      <li>mod_cgid: ähnlich zu mod_cgi, nur für multi-thread-Model</li>
+      <li>
+        mod_dir: legt Standards bei Zugriff auf Verzeichnis fest. Direktive
+        DirectoryIndex
+      </li>
+      <li>mod_env: Zugriff auf Umgebungsvariablen für Apache</li>
+      <li>mod_imap: Serverseitige Image-Maps</li>
+      <li>mod_include: Ermöglicht die Ausführung von Server Side Includes</li>
+      <li>mod_log_config: Konfigurierbare Logfiles</li>
+      <li>mod_mime: Erzeugung von MIME-Headern</li>
+      <li>
+        mod_negotiation: Steuerung der Inhalte durch den HTTP-Header des
+        Clientrequests
+      </li>
+      <li>
+        mod_setenvif: Steuerung des Apaches (Umgebungsvariablen) durch die
+        Clientanfrage
+      </li>
+      <li>
+        mod_so: ermöglicht es, dynamische Module in den Apache Webserver zu
+        laden. Muss selbst statisch geladen werden. Kann nicht dynamisch sein.
+      </li>
+      <li>
+        mod_status: Ermöglicht das auslesen des Statusbericht über den laufenden
+        Betrieb des Apache
+      </li>
+      <li>
+        mod_userdir: Benutzerdefinierte private Verzeichnisse für lokale User
+        (http://servername/~username)
+      </li>
+      <li>mod_auth_ldap: ldap-Authentifizierung</li>
+      <li>mod_cache: Caching für Proxy</li>
+      <li>mod_expires: setzt im HTTP-Header Expires</li>
+      <li>mod_headers: beliebige Veränderung des HTTP-Headers</li>
+      <li>mod_info: Informationen über den Server</li>
+      <li>
+        mod_perl: integriert Perl-Interpreter in Apache und steigert damit
+        wesentlich die Performance von Perl-Scripten.
+      </li>
+      <li>mod_proxy: Proxy für HTTP und FTP</li>
+      <li>mod_rewrite: umschreiben der URL durch regulären Ausdruck</li>
+      <li>mod_speling: korrigiert Schreibfehler in URL</li>
+      <li>mod_ssl: Schnittstelle von Apache zu OpenSSL</li>
+      <li>mod_usertrack: verfolgt Benutzeraktionen und verwendet Cookies</li>
+    </ul>
+
+    <h5>1. TCP-Port festlegen</h5>
+
+    <p>
+      Der Port wird über die Direktive <code>Listen</code> festgelegt. Für
+      normales HTTP wird standardmäßig Port <strong>80</strong> verwendet.
+    </p>
+
+    <pre><code>Listen 80</code></pre>
+
+    <p>Wenn Apache beispielsweise auf Port 8080 laufen soll:</p>
+
+    <pre><code>Listen 8080</code></pre>
+
+    <h5>2. DocumentRoot festlegen</h5>
+
+    <p>
+      Mit <code>DocumentRoot</code> wird festgelegt, aus welchem Verzeichnis
+      Apache die Webseiten ausliefert.
+    </p>
+
+    <pre><code>DocumentRoot "/var/www/html"</code></pre>
+
+    <h5>3. VirtualHost konfigurieren</h5>
+
+    <p>
+      Für eine Website sollte ein entsprechender VirtualHost eingerichtet
+      werden.
+    </p>
+
+    <pre><code>&lt;VirtualHost *:80&gt;
+    ServerName example.com
+    DocumentRoot "/var/www/html"
+&lt;/VirtualHost&gt;</code></pre>
+
+    <h5>4. ServerName festlegen</h5>
+
+    <p>
+      Der <code>ServerName</code> gibt den Hostnamen bzw. die Domain des
+      Apache-Servers an.
+    </p>
+
+    <pre><code>ServerName example.com</code></pre>
+
+    <p>Für einen lokalen Server kann beispielsweise verwendet werden:</p>
+
+    <pre><code>ServerName localhost</code></pre>
+
+    <h5>5. Verzeichnisrechte konfigurieren</h5>
+
+    <p>
+      Damit Apache auf das DocumentRoot-Verzeichnis zugreifen darf, müssen die
+      entsprechenden Zugriffsregeln vorhanden sein.
+    </p>
+
+    <pre><code>&lt;Directory "/var/www/html"&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+&lt;/Directory&gt;</code></pre>
+
+    <h5>6. Module aktivieren</h5>
+
+    <p>
+      Je nach Anwendung müssen benötigte Apache-Module geladen bzw. aktiviert
+      werden.
+    </p>
+
+    <p>Beispiele:</p>
+
+    <ul>
+      <li><code>mod_rewrite</code> – URL-Rewriting</li>
+      <li><code>mod_ssl</code> – HTTPS/SSL</li>
+      <li><code>mod_headers</code> – HTTP-Header</li>
+      <li><code>mod_proxy</code> – Proxy-Funktionen</li>
+    </ul>
+
+    <h5>7. HTTPS / Port 443</h5>
+
+    <p>
+      Wenn HTTPS verwendet werden soll, muss zusätzlich Port 443 konfiguriert
+      und SSL eingerichtet werden.
+    </p>
+
+    <pre><code>Listen 443</code></pre>
+
+    <pre><code>&lt;VirtualHost *:443&gt;
+    ServerName example.com
+
+    SSLEngine on
+    SSLCertificateFile "/path/to/certificate.crt"
+    SSLCertificateKeyFile "/path/to/private.key"
+
+    DocumentRoot "/var/www/html"
+&lt;/VirtualHost&gt;</code></pre>
+
+    <h5>8. Zusammenfassung</h5>
+
+    <p>
+      <strong>Wichtig:</strong> Nicht alle Einstellungen müssen bei jeder
+      Apache-Installation manuell geändert werden. Viele Werte sind bereits
+      durch die Standardkonfiguration vorgegeben.
+    </p>
+
+    <ul>
+      <li><strong>Listen</strong> → TCP-Port prüfen/anpassen</li>
+      <li><strong>DocumentRoot</strong> → Verzeichnis der Website festlegen</li>
+      <li><strong>ServerName</strong> → Hostname/Domain festlegen</li>
+      <li><strong>VirtualHost</strong> → Website und Port konfigurieren</li>
+      <li><strong>Directory</strong> → Zugriffsrechte festlegen</li>
+      <li><strong>Module</strong> → benötigte Funktionen aktivieren</li>
+      <li><strong>SSL</strong> → nur bei HTTPS erforderlich</li>
+    </ul>
+    <h4>Apache bedingte Direktive</h4>
+    <p>
+      Eine bedingte Direktive ist eine Direktive, die nur aktiv ist, wenn ein
+      bestimmtes Modul im Apache geladen ist. Angabe über [IfModule modulname]
+      .. [/IfModule]
+    </p>
+    <h4>Apache unter macOS starten und stoppen</h4>
+
+    <pre><code>
+# Apache starten
+sudo apachectl start
+
+# Apache stoppen
+sudo apachectl stop
+
+# Apache neu starten
+sudo apachectl restart
+
+# Konfiguration testen
+sudo apachectl configtest
+</code></pre>
+
+    <p>
+      Die Apache-Konfiguration befindet sich standardmäßig unter
+      <code>/etc/apache2/httpd.conf</code>.
+    </p>
+    <h3>Deamon</h3>
+    <p>
+      httpd - das d steht für "daemon" (Hintergrundprozess) und ist der Prozess
+      auf Port 80 HTTP oder 443 HTTPS, der die Anfragen entgegennimmt und
+      bearbeitet. Also der Apache Webserver selbst, der im Hintergrund läuft.
+      Also ein Hintergrundprozess (Deamon) wird einmalig beim Webserverstart
+      mitgestartet und wartet dann auf Anfragen. Das nennt man auch den
+      "Deamonize It" Ansatz. Schaut in httpd.conf nach was festgelegt ist.
+    </p>
+
+    <h3>Nginx</h3>
+    <p>
+      Nginx ist ein leistungsstarker Webserver und Reverse-Proxy-Server, der für
+      seine hohe Leistung und Skalierbarkeit bekannt ist. Nginx wird häufig
+      verwendet, um statische Inhalte zu liefern, Lastverteilung durchzuführen
+      und als Reverse-Proxy für Backend-Server zu fungieren. Kann weniger als
+      Apache, ist dafür aber schneller und ressourcenschonender.
+    </p>
+    <h3>Node.js</h3>
+    <p>
+      Node.js ist eine serverseitige JavaScript-Laufzeitumgebung, die es
+      ermöglicht, serverseitige Anwendungen mit JavaScript zu entwickeln.
+      Node.js verwendet ein ereignisgesteuertes, nicht blockierendes I/O-Modell,
+      das es besonders gut für skalierbare Netzwerk-Anwendungen macht.
+    </p>
+    <h2>Testen auf mobile</h2>
+    <ul>
+      <li>1. Mit Kabel verbinden</li>
+      <li>2. Safari Browser öffnen</li>
+      <li>3. Entwickler Tab oben öffnen</li>
+      <li>4. iOS Gerät auswählen und tab öffnen</li>
+    </ul>
+    <h2>FTP Upload</h2>
+    <pre>Status: Verbindung hergestellt, warte auf Willkommensnachricht...</pre>
+    <p>
+      Der Client hat den Server erreicht und wartet auf die Begrüßung des
+      FTP-Servers.
+    </p>
+    <pre>Status: Initialisiere TLS.. TLS Verbindung hergestellt.</pre>
+    <p>Die Verbindung wird verschlüsselt aufgebaut, also FTPS.</p>
+    <pre>Status: Angemeldet</pre>
+    <p>Benutzername und Passwort wurden akzeptiert.</p>
+    <pre>Status: Starte Upload von .../main.js</pre>
+    <p>Der Client beginnt, die Datei main.js hochzuladen</p>
+    <pre>Befehl: CWD /www_relaunch2025/assets/js</pre>
+    <p>
+      Der Server wechselt in das Zielverzeichnis /www_relaunch2025/assets/js
+    </p>
+    <pre>Antwort: 250 CWD command successful</pre>
+    <p>Das Verzeichnis existiert und du darfst es betreten.</p>
+    <pre>PWD</pre>
+    <p>Der Client fragt zur Kontrolle das aktuelle Verzeichnis ab</p>
+    <pre>
+Antwort: 257 "/www_relaunch2025/assets/js" is the current directory</pre
+    >
+    <p>Du bist im gewünschten Zielordner</p>
+    <pre>Befehl: Type A</pre>
+    <p>
+      Der Übertragungsmodus wird auf ASCII/Textmodus gesetzt. Für .js ist das
+      meist nicht ideal, üblich wäre eher Binary (TYPE I).
+    </p>
+    <pre>Befehl PASV</pre>
+    <p>
+      Passive Mode wird gestartet. Dabei öffnet der Server einen Datenkanal für
+      die Dateiübertragung.
+    </p>
+    <pre>Antwort: 227 Entering Passive Mode</pre>
+    <p>Der passive Datenkanal wurde erfolgreich vorbereitet.</p>
+    <pre>Befehl: STOR main.js</pre>
+    <p>STOR ist der eigentliche Befehl: Datei auf dem Server speichern.</p>
+    <pre>550 main.js: Permission denied</pre>
+    <p>
+      Hier scheitert es. Der Server sagt: Die Datei darf an dieser Stelle nicht
+      geschrieben oder überschrieben werden.
+    </p>
+    <h2>Proxy</h2>
+    <p>
+      Ein Proxy-Server ist vereinfacht gesagt ein Vermittler zwischen deinem
+      Computer und dem Internet. Ein Proxy hat zB die Aufgaben:
+    </p>
+    <ul>
+      <li>
+        Sicherheit: Verbindungen kontrollieren oder Proxyserver zwischen Nutzer
+        und Zielserver setzen
+      </li>
+      <li>Netzwerk: Internetzugriffe zentral verwalten</li>
+      <li>Caching: Häufig angeforderte Inhalte zwischenspeichern</li>
+      <li>IP-Adresse: Der Zielserver sieht möglicherweise die IP des Proxys</li>
+      <li>Filterung: Bestimmte Webseiten oder Inhalte blockieren</li>
+    </ul>
+
+    <h2>Was ist .htaccess</h2>
+    <p>
+      eine Konfigurationsdatei für Apache Webserver. Ermöglicht serverseitige
+      Regeln ohne Server selbst neu zu konfigurieren
+    </p>
+    <p>
+      Einsatzgebiete sind z.B. Weiterleitungen (redirect), URL Rewriting,
+      Zugriffsbeschränkungen (z.B. Passwortschutz) und Header Definitionen
+      (CORS, Cache)
+    </p>
+    <p>
+      Bei HTTP Basic Auth wird bei Aufruf der Seite nach Benutzername und
+      Passwort gefragt und der Browser zeigt ein Standard-Login-Popup
+    </p>
+    <p>
+      Dafür sind .htaccess (im Verzeichnis der Website oder Unterordner) und
+      .htpasswd (enthält verschlüsselte Benutzer und Passwort) wichtig
+    </p>
+    <p>
+      Erstellung per <code>htpasswd -c /home/user/.htpasswd kunde</code>. Dann
+      erfolgt eine Datei mit Nutzer und Passwort.
+    </p>
+    <p>Soll nur der Inhalt der htpasswd erstellt werden, dann:</p>
+    <pre>htpasswd -n nutzer</pre>
+    <p>
+      Danach wird nach dem Passwort gefragt und es kommt die verschlüsselte
+      Ausgabe heraus.
+    </p>
+    <p>.htaccess dann im Root der Website erstellen.</p>
+    <pre>
+      # Passwortschutz aktivieren
+      AuthType Basic                            //Nutzt HTTP Basic Auth
+      AuthName "Zugriff nur für Berechtigte"    //Text im Login-Popup
+      AuthUserFile /home/user/.htpasswd         //Pfad zur .htpasswd Datei
+      Require valid-user                        //Nur Benutzer aus .htpasswd
+
+      Schutz nur für /Redaxo
+      &lt;Directory "/relaunch25.firetube.de/redaxo"&gt;
+        AuthType Basic
+        AuthName "Redaxo Backend"
+        AuthUserFile /home/username/.htpasswd
+        Require valid-user
+      &lt;/Directory&gt;
+    </pre>
+    <h3>Nutzer und Passwort bei .htpasswd ändern</h3>
+    <p>Einfach folgenden command ausführen mit neuem nutzer und Passwort:</p>
+    <pre>htpasswd -nbB bbt-user '5%lKs23!o9Kr'</pre>
+    <p>Dann den Output in die .htpasswd einfügen.</p>
+    <h2>Sessions</h2>
+    <p>
+      Sessions sind ein Mechanismus zur Speicherung von Benutzerdaten über
+      mehrere Seitenaufrufe hinweg. Sie ermöglichen es, Daten zwischen
+      verschiedenen Seitenaufrufen zu speichern, z.B. Login-Status,
+      Warenkorb-Inhalte etc. Sessions sind immer an eine spezifische Sitzung
+      gebunden, die durch eine eindeutige Session-ID identifiziert wird
+      (Browser, Benutzer). Diese Session-ID wird in der Regel in einem Cookie
+      gespeichert, damit sie bei jedem Seitenaufruf automatisch mitgesendet
+      wird. Auf dem Server werden die Session-Daten in einer Datenbank
+      gespeichert. Eine Session hält solange bis die Session abläuft (z.B. nach
+      30 Minuten Inaktivität) oder explizit gelöscht wird (z.B. Logout) bzw
+      Browser geschlossen wird.<br />
+      Anwendung: Immer dann, wenn Daten über mehrere Seitenaufrufe hinweg
+      verfügbar sein sollen. Also Warenkorb, Login-Zustand, Benutzererkennung,
+      zwischengespeicherte Formulardaten, temporäre Statusinformationen.
+    </p>
+	<img
+      src="./../assets/screenshots/sessions.jpeg"
+      alt="Abbildung zum Ablauf einer Session"
+    />
+  </div>
+</div>

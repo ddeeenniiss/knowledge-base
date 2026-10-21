@@ -1,0 +1,989 @@
+<div class="block">
+  <div class="container site-border">
+    <h2>Datenbanken</h2>
+    <p>
+      Eine Datenbank ist eine strukturierte, dauerhafte Sammlung von Daten, auf
+      die mehrere Benutzer und Programme gleichzeitig zugreifen können. Der
+      Unterschied zu einer einfachen Datei liegt nicht im Speichern selbst,
+      sondern in dem, was drumherum passiert: gleichzeitige Zugriffe werden
+      koordiniert, Daten auf Gültigkeit geprüft, Abfragen optimiert,
+      Berechtigungen durchgesetzt und bei einem Absturz wird ein konsistenter
+      Zustand wiederhergestellt. Genau das leistet eine Datei nicht.
+    </p>
+
+    <h3>DBMS (Datenbankmanagementsystem)</h3>
+    <p>
+      Das DBMS ist die <strong>Software</strong>, die die Datenbank verwaltet.
+      Es liegt zwischen Anwendung und Datenbestand: die Anwendung stellt eine
+      Anfrage (meist in SQL), das DBMS entscheidet, wie es die Daten tatsächlich
+      liest oder schreibt, und liefert das Ergebnis zurück. Die Anwendung muss
+      also nicht wissen, in welchen Dateien und in welcher Reihenfolge die Daten
+      auf der Festplatte liegen.
+    </p>
+    <p>Begriffe, die oft vermischt werden:</p>
+    <ul>
+      <li><strong>Datenbank (DB)</strong> – der Datenbestand selbst</li>
+      <li>
+        <strong>DBMS</strong> – die verwaltende Software (z.B. MySQL, Oracle)
+      </li>
+      <li>
+        <strong>Datenbanksystem (DBS)</strong> – beides zusammen: DBMS +
+        Datenbank
+      </li>
+      <li>
+        <strong>RDBMS</strong> – ein relationales DBMS, also eines, das Daten in
+        Tabellen mit Beziehungen organisiert
+      </li>
+    </ul>
+    <p>Die zentralen Aufgaben eines DBMS:</p>
+    <ul>
+      <li>
+        <strong>Datendefinition</strong> – Strukturen anlegen und ändern
+        (Tabellen, Spalten, Datentypen)
+      </li>
+      <li>
+        <strong>Datenmanipulation</strong> – Einfügen, Lesen, Ändern, Löschen
+      </li>
+      <li>
+        <strong>Integrität</strong> – Regeln erzwingen: Pflichtfelder,
+        eindeutige Werte, gültige Verweise zwischen Tabellen
+      </li>
+      <li>
+        <strong>Mehrbenutzerbetrieb</strong> – parallele Zugriffe über Sperren
+        (Locking) und Transaktionen koordinieren, sodass sich Benutzer nicht
+        gegenseitig die Daten zerstören
+      </li>
+      <li>
+        <strong>Zugriffsschutz</strong> – Benutzer, Rollen und Rechte
+      </li>
+      <li>
+        <strong>Recovery</strong> – Wiederherstellung nach Absturz über
+        Transaktionslogs
+      </li>
+      <li>
+        <strong>Optimierung</strong> – der Query-Optimizer entscheidet
+        selbständig, welchen Weg eine Abfrage nimmt und welche Indizes genutzt
+        werden
+      </li>
+      <li>
+        <strong>Redundanzvermeidung</strong> – Daten liegen idealerweise nur an
+        einer Stelle
+      </li>
+    </ul>
+    <p>
+      Ein wichtiger Nebeneffekt ist die <strong>Datenunabhängigkeit</strong>:
+      die Anwendung spricht nur über SQL mit dem DBMS, sodass sich interne
+      Speicherstrukturen ändern können, ohne dass der Anwendungscode angepasst
+      werden muss.
+    </p>
+
+    <h3>ACID</h3>
+    <p>
+      ACID beschreibt die vier Garantien, die ein relationales DBMS für
+      Transaktionen gibt – also für eine Gruppe von Anweisungen, die nur
+      gemeinsam gültig sind (Klassiker: eine Überweisung besteht aus Abbuchen
+      und Gutschreiben).
+    </p>
+    <ul>
+      <li>
+        <strong>Atomicity (Atomarität)</strong> – eine Transaktion wird
+        vollständig oder überhaupt nicht ausgeführt. Bricht sie mitten ab, wird
+        alles zurückgerollt.
+      </li>
+      <li>
+        <strong>Consistency (Konsistenz)</strong> – vor und nach der Transaktion
+        sind alle Regeln der Datenbank erfüllt.
+      </li>
+      <li>
+        <strong>Isolation</strong> – parallele Transaktionen beeinflussen sich
+        nicht gegenseitig; jede arbeitet, als wäre sie allein.
+      </li>
+      <li>
+        <strong>Durability (Dauerhaftigkeit)</strong> – bestätigte Änderungen
+        bleiben erhalten, auch bei Stromausfall oder Absturz.
+      </li>
+    </ul>
+
+    <h3>Das relationale Modell</h3>
+    <p>
+      Relationale Datenbanken speichern Daten in <strong>Tabellen</strong>
+      (Relationen). Eine Zeile (Datensatz, Tupel) ist ein Objekt, eine Spalte
+      (Attribut, Feld) eine Eigenschaft mit festem Datentyp.
+    </p>
+    <ul>
+      <li>
+        <strong>Primärschlüssel (Primary Key)</strong> – identifiziert eine
+        Zeile eindeutig, meist eine automatisch hochzählende id-Spalte
+      </li>
+      <li>
+        <strong>Fremdschlüssel (Foreign Key)</strong> – verweist auf den
+        Primärschlüssel einer anderen Tabelle und stellt damit die Beziehung
+        her. Die Datenbank verhindert dann Verweise auf nicht existierende
+        Datensätze (referentielle Integrität).
+      </li>
+      <li>
+        <strong>Unique</strong> – Werte dürfen nur einmal vorkommen (z.B.
+        E-Mail-Adresse)
+      </li>
+      <li>
+        <strong>NOT NULL</strong> – Pflichtfeld
+      </li>
+      <li>
+        <strong>Index</strong> – Zusatzstruktur, die das Suchen beschleunigt
+      </li>
+    </ul>
+    <p>Beziehungen zwischen Tabellen:</p>
+    <ul>
+      <li>
+        <strong>1:1</strong> – ein Benutzer hat genau ein Profil. Der
+        Fremdschlüssel liegt in einer der beiden Tabellen und ist unique.
+      </li>
+      <li>
+        <strong>1:n</strong> – eine Kategorie hat viele Produkte. Der häufigste
+        Fall; der Fremdschlüssel liegt immer auf der n-Seite (also in
+        products.category_id).
+      </li>
+      <li>
+        <strong>n:m</strong> – ein Produkt hat mehrere Tags, ein Tag gehört zu
+        mehreren Produkten. Lässt sich nicht direkt abbilden und braucht eine
+        <strong>Zwischentabelle</strong> (product_tag mit product_id und
+        tag_id).
+      </li>
+    </ul>
+
+    <h3>Normalisierung</h3>
+    <p>
+      Normalisierung ist das Aufteilen von Tabellen, um Redundanz und damit
+      Widersprüche zu vermeiden. Steht der Kundenname in jeder Bestellzeile,
+      muss er bei einer Namensänderung überall gepflegt werden – und irgendeine
+      Stelle wird vergessen.
+    </p>
+    <ul>
+      <li>
+        <strong>1. Normalform (1NF)</strong> – jedes Feld enthält nur einen
+        einzelnen Wert, keine Listen wie "rot,grün,blau" in einer Spalte
+      </li>
+      <li>
+        <strong>2. Normalform (2NF)</strong> – 1NF, und jedes Nicht-Schlüssel-
+        Attribut hängt vom <em>vollständigen</em> Primärschlüssel ab
+      </li>
+      <li>
+        <strong>3. Normalform (3NF)</strong> – 2NF, und kein Attribut hängt von
+        einem anderen Nicht-Schlüssel-Attribut ab (keine transitiven
+        Abhängigkeiten, z.B. Postleitzahl → Ort in einer Kundentabelle)
+      </li>
+    </ul>
+    <p>
+      In der Praxis normalisiert man bis zur 3NF und weicht nur bewusst davon ab
+      (<strong>Denormalisierung</strong>), wenn Lesegeschwindigkeit wichtiger
+      ist als Redundanzfreiheit – etwa bei Auswertungen und Reporting.
+    </p>
+
+    <h3>SQL (Structured Query Language)</h3>
+    <p>
+      SQL ist die standardisierte Sprache, mit der mit relationalen Datenbanken
+      gesprochen wird. Sie ist <strong>deklarativ</strong>: man beschreibt, was
+      man haben möchte, nicht wie es beschafft wird. Der Standard ist
+      ANSI/ISO-normiert, jedes DBMS hat aber eigene Erweiterungen – reines
+      SQL ist nur begrenzt portabel.
+    </p>
+    <p>SQL wird in Teilsprachen gegliedert:</p>
+    <ul>
+      <li>
+        <strong>DDL (Data Definition Language)</strong> – Struktur: CREATE,
+        ALTER, DROP, TRUNCATE
+      </li>
+      <li>
+        <strong>DML (Data Manipulation Language)</strong> – Daten: INSERT,
+        UPDATE, DELETE
+      </li>
+      <li>
+        <strong>DQL (Data Query Language)</strong> – Abfragen: SELECT
+      </li>
+      <li>
+        <strong>DCL (Data Control Language)</strong> – Rechte: GRANT, REVOKE
+      </li>
+      <li>
+        <strong>TCL (Transaction Control Language)</strong> – Transaktionen:
+        START TRANSACTION, COMMIT, ROLLBACK
+      </li>
+    </ul>
+    <p>
+      Schlüsselwörter sind nicht case-sensitive, werden aber per Konvention
+      großgeschrieben. Jede Anweisung endet mit einem Semikolon.
+    </p>
+
+    <h3>Tabellen anlegen (DDL)</h3>
+    <pre>CREATE DATABASE shop
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+CREATE TABLE categories (
+  id    INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name  VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE products (
+  id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  category_id INT UNSIGNED NOT NULL,
+  name        VARCHAR(255) NOT NULL,
+  price       DECIMAL(10,2) NOT NULL DEFAULT 0,
+  active      TINYINT(1) NOT NULL DEFAULT 1,
+  created_at  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_products_category
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+    ON DELETE RESTRICT,
+  INDEX idx_products_name (name)
+);
+
+ALTER TABLE products ADD COLUMN sku VARCHAR(50) NULL AFTER name;
+ALTER TABLE products MODIFY COLUMN price DECIMAL(12,2) NOT NULL;
+DROP TABLE products;</pre>
+    <p>
+      <strong>DROP</strong> löscht die Tabelle samt Struktur,
+      <strong>TRUNCATE</strong> nur den Inhalt (schnell, ohne Rollback),
+      <strong>DELETE</strong> löscht Zeilen einzeln und ist zurückrollbar.
+    </p>
+    <p>Die wichtigsten Datentypen (MySQL/MariaDB-Schreibweise):</p>
+    <ul>
+      <li>
+        <strong>INT</strong>, <strong>BIGINT</strong>,
+        <strong>TINYINT</strong> – Ganzzahlen, TINYINT(1) wird als Boolean
+        genutzt
+      </li>
+      <li>
+        <strong>DECIMAL(10,2)</strong> – exakte Dezimalzahl,
+        <strong>Pflicht für Geldbeträge</strong>. FLOAT und DOUBLE rechnen
+        ungenau und sind dafür ungeeignet.
+      </li>
+      <li>
+        <strong>VARCHAR(n)</strong> – Text variabler Länge,
+        <strong>CHAR(n)</strong> feste Länge, <strong>TEXT</strong> für lange
+        Inhalte
+      </li>
+      <li>
+        <strong>DATE</strong>, <strong>DATETIME</strong>,
+        <strong>TIMESTAMP</strong> (zeitzonenabhängig),
+        <strong>TIME</strong>, <strong>YEAR</strong>
+      </li>
+      <li>
+        <strong>ENUM</strong> – feste Werteliste, <strong>JSON</strong> – ganze
+        JSON-Dokumente, <strong>BLOB</strong> – Binärdaten
+      </li>
+    </ul>
+
+    <h3>Daten abfragen (SELECT)</h3>
+    <pre>SELECT name, price FROM products;
+SELECT * FROM products WHERE active = 1;
+
+-- Filtern
+WHERE price &gt; 100 AND category_id = 3
+WHERE name LIKE 'Ofen%'          -- % = beliebig viele Zeichen
+WHERE category_id IN (1, 2, 5)
+WHERE price BETWEEN 50 AND 200
+WHERE sku IS NULL                -- niemals = NULL verwenden!
+
+-- Sortieren und begrenzen
+SELECT * FROM products ORDER BY price DESC, name ASC LIMIT 10 OFFSET 20;
+
+-- Doppelte entfernen
+SELECT DISTINCT category_id FROM products;</pre>
+    <p>
+      <strong>NULL</strong> bedeutet "unbekannt" und verhält sich eigen: NULL =
+      NULL ergibt nicht true, sondern unbekannt. Deshalb immer
+      <strong>IS NULL</strong> bzw. <strong>IS NOT NULL</strong> verwenden.
+    </p>
+
+    <h3>Aggregation und Gruppierung</h3>
+    <pre>SELECT COUNT(*) FROM products;
+SELECT AVG(price), MIN(price), MAX(price), SUM(price) FROM products;
+
+SELECT category_id, COUNT(*) AS anzahl, AVG(price) AS schnitt
+FROM products
+WHERE active = 1          -- filtert Zeilen VOR der Gruppierung
+GROUP BY category_id
+HAVING COUNT(*) &gt; 5       -- filtert Gruppen NACH der Gruppierung
+ORDER BY anzahl DESC;</pre>
+    <p>
+      Der Unterschied zwischen <strong>WHERE</strong> und
+      <strong>HAVING</strong> ist eine klassische Prüfungsfrage: WHERE wirkt auf
+      einzelne Zeilen vor dem Gruppieren, HAVING auf die gebildeten Gruppen
+      danach. Die logische Ausführungsreihenfolge ist FROM → JOIN → WHERE →
+      GROUP BY → HAVING → SELECT → ORDER BY → LIMIT – nicht die
+      Schreibreihenfolge.
+    </p>
+
+    <h3>JOINs</h3>
+    <p>
+      Ein JOIN verbindet Zeilen aus mehreren Tabellen über eine Bedingung,
+      üblicherweise Fremdschlüssel auf Primärschlüssel.
+    </p>
+    <ul>
+      <li>
+        <strong>INNER JOIN</strong> – nur Zeilen, die in beiden Tabellen eine
+        Entsprechung haben
+      </li>
+      <li>
+        <strong>LEFT JOIN</strong> – alle Zeilen der linken Tabelle, fehlende
+        rechte Werte werden NULL
+      </li>
+      <li><strong>RIGHT JOIN</strong> – umgekehrt</li>
+      <li>
+        <strong>FULL OUTER JOIN</strong> – alle Zeilen beider Seiten. MySQL und
+        MariaDB kennen das nicht und brauchen ein UNION aus LEFT und RIGHT JOIN.
+      </li>
+      <li>
+        <strong>CROSS JOIN</strong> – jede Zeile mit jeder (kartesisches
+        Produkt), selten gewollt
+      </li>
+      <li>
+        <strong>SELF JOIN</strong> – Tabelle mit sich selbst, z.B. für
+        Baumstrukturen
+      </li>
+    </ul>
+    <pre>SELECT p.name, c.name AS kategorie
+FROM products p
+INNER JOIN categories c ON c.id = p.category_id
+WHERE p.active = 1;
+
+-- Kategorien auch ohne Produkte anzeigen
+SELECT c.name, COUNT(p.id) AS anzahl
+FROM categories c
+LEFT JOIN products p ON p.category_id = c.id
+GROUP BY c.id, c.name;</pre>
+    <p>
+      Ein vergessenes ON erzeugt ein kartesisches Produkt – aus 1.000 × 1.000
+      Zeilen wird dann eine Million. Mit <strong>Subqueries</strong>
+      (Unterabfragen) und <strong>UNION</strong> lassen sich Ergebnisse
+      zusätzlich verschachteln bzw. zusammenführen.
+    </p>
+
+    <h3>Daten ändern (DML)</h3>
+    <pre>INSERT INTO products (category_id, name, price)
+VALUES (1, 'Kaminofen', 1299.00);
+
+-- mehrere Zeilen in einem Befehl (deutlich schneller)
+INSERT INTO products (category_id, name, price) VALUES
+  (1, 'Pelletofen', 2499.00),
+  (2, 'Ofenrohr',     89.90);
+
+UPDATE products SET price = 1199.00 WHERE id = 5;
+DELETE FROM products WHERE active = 0;</pre>
+    <p>
+      <strong>Die wichtigste Regel überhaupt:</strong> UPDATE und DELETE ohne
+      WHERE betreffen die <strong>gesamte Tabelle</strong>. Vor jedem Schreiben
+      auf Produktivdaten erst dieselbe Bedingung mit SELECT testen und ein
+      Backup haben.
+    </p>
+
+    <h3>Transaktionen</h3>
+    <pre>START TRANSACTION;
+
+UPDATE konten SET saldo = saldo - 100 WHERE id = 1;
+UPDATE konten SET saldo = saldo + 100 WHERE id = 2;
+
+COMMIT;     -- beide Änderungen gemeinsam übernehmen
+-- ROLLBACK; -- oder beide gemeinsam verwerfen</pre>
+    <p>
+      Transaktionen funktionieren nur mit einer Storage Engine, die sie
+      unterstützt – bei MySQL/MariaDB also <strong>InnoDB</strong>, nicht
+      MyISAM. Über <strong>Isolationslevel</strong> (READ COMMITTED,
+      REPEATABLE READ, SERIALIZABLE) wird gesteuert, wie stark parallele
+      Transaktionen voneinander abgeschirmt sind.
+    </p>
+
+    <h3>Indizes und Performance</h3>
+    <p>
+      Ein Index ist eine sortierte Zusatzstruktur (meist ein B-Baum), über die
+      die Datenbank Zeilen findet, ohne die ganze Tabelle zu lesen (Full Table
+      Scan). Der Primärschlüssel ist automatisch indiziert.
+    </p>
+    <ul>
+      <li>
+        Indizes gehören auf Spalten, die in <strong>WHERE</strong>,
+        <strong>JOIN</strong> und <strong>ORDER BY</strong> vorkommen – also vor
+        allem auf Fremdschlüssel.
+      </li>
+      <li>
+        Jeder Index kostet Speicher und bremst INSERT/UPDATE, weil er
+        mitgepflegt werden muss. Nicht blind auf jede Spalte.
+      </li>
+      <li>
+        Ein Index auf einer Spalte mit sehr wenigen unterschiedlichen Werten
+        (z.B. ein Ja/Nein-Feld) bringt kaum etwas.
+      </li>
+      <li>
+        Funktionen auf der Spalte verhindern die Indexnutzung:
+        WHERE YEAR(created_at) = 2026 nutzt den Index nicht, ein Vergleich auf
+        einen Datumsbereich schon.
+      </li>
+      <li>
+        Bei einem zusammengesetzten Index zählt die Reihenfolge – er wirkt nur
+        von links beginnend.
+      </li>
+    </ul>
+    <pre>EXPLAIN SELECT * FROM products WHERE name = 'Kaminofen';
+-- zeigt, ob ein Index genutzt wird und wie viele Zeilen gelesen werden
+
+CREATE INDEX idx_products_category ON products (category_id);
+SHOW INDEX FROM products;</pre>
+    <p>
+      Weitere Werkzeuge: das <strong>Slow Query Log</strong> protokolliert
+      langsame Abfragen, <strong>ANALYZE TABLE</strong> aktualisiert die
+      Statistiken des Optimizers. Ein häufiges Anwendungsproblem ist das
+      <strong>N+1-Problem</strong>: statt einer Abfrage mit JOIN werden in einer
+      Schleife hunderte Einzelabfragen ausgeführt.
+    </p>
+
+    <h3>Views, Stored Procedures und Trigger</h3>
+    <ul>
+      <li>
+        <strong>View</strong> – gespeicherte Abfrage, die sich wie eine Tabelle
+        verwenden lässt. Gut für wiederkehrende Auswertungen und um
+        Komplexität zu verstecken.
+      </li>
+      <li>
+        <strong>Stored Procedure / Function</strong> – in der Datenbank
+        gespeicherte Logik. Schnell, aber schwer zu versionieren und zu testen,
+        daher in Webprojekten eher selten.
+      </li>
+      <li>
+        <strong>Trigger</strong> – läuft automatisch bei INSERT, UPDATE oder
+        DELETE, z.B. für Protokolltabellen. Nebenwirkungen sind von außen nicht
+        sichtbar, was die Fehlersuche erschwert.
+      </li>
+    </ul>
+    <pre>CREATE VIEW v_active_products AS
+SELECT p.id, p.name, p.price, c.name AS kategorie
+FROM products p
+JOIN categories c ON c.id = p.category_id
+WHERE p.active = 1;
+
+SELECT * FROM v_active_products;</pre>
+
+    <h3>Relational oder NoSQL</h3>
+    <p>
+      Relationale Datenbanken brauchen ein festes Schema und garantieren ACID.
+      NoSQL-Systeme verzichten teilweise darauf, um besser horizontal skalieren
+      zu können (CAP-Theorem: bei einer Netzwerkpartition muss zwischen
+      Konsistenz und Verfügbarkeit gewählt werden).
+    </p>
+    <ul>
+      <li>
+        <strong>Dokumentorientiert</strong> – MongoDB, CouchDB. Speichert
+        JSON-ähnliche Dokumente ohne festes Schema.
+      </li>
+      <li>
+        <strong>Key-Value</strong> – Redis, Memcached. Sehr schnell, typisch für
+        Caching und Sessions.
+      </li>
+      <li>
+        <strong>Spaltenorientiert</strong> – Cassandra, HBase. Für sehr große
+        Datenmengen und Analysen.
+      </li>
+      <li>
+        <strong>Graphdatenbanken</strong> – Neo4j. Für stark vernetzte Daten wie
+        soziale Netzwerke.
+      </li>
+      <li>
+        <strong>Suchindizes</strong> – Elasticsearch. Für Volltextsuche.
+      </li>
+    </ul>
+    <p>
+      Für klassische Webprojekte mit Bestellungen, Benutzern und Inhalten ist
+      eine relationale Datenbank praktisch immer die richtige Wahl. NoSQL wird
+      meist ergänzend eingesetzt, etwa Redis als Cache neben MySQL.
+    </p>
+
+    <h2>Bekannte Datenbanksysteme</h2>
+
+    <h3>Oracle Database</h3>
+    <p>
+      Oracle Database ist das klassische Enterprise-RDBMS, 1979 erschienen und
+      im Großunternehmensumfeld, bei Banken, Versicherungen und in
+      SAP-Landschaften weit verbreitet. Es gilt als technisch sehr ausgereift,
+      ist aber komplex zu betreiben und teuer.
+    </p>
+    <ul>
+      <li>
+        <strong>PL/SQL</strong> – eigene, mächtige Programmiersprache innerhalb
+        der Datenbank für Prozeduren, Funktionen und Pakete
+      </li>
+      <li>
+        Sehr weitreichende Funktionen: Partitionierung, Materialized Views,
+        Real Application Clusters (RAC) für Hochverfügbarkeit, Data Guard für
+        Replikation, feingranulare Rechte und Auditing
+      </li>
+      <li>
+        Eigenheiten gegenüber MySQL: Standardport <strong>1521</strong>,
+        <strong>Sequences</strong> statt AUTO_INCREMENT,
+        <strong>ROWNUM</strong> bzw. FETCH FIRST n ROWS statt LIMIT, die
+        Dummy-Tabelle <strong>DUAL</strong>, NVL() statt IFNULL(), und ein
+        "Schema" entspricht dort einem Benutzer
+      </li>
+      <li>
+        <strong>Lizenzierung</strong> – kostenpflichtig und meist nach
+        CPU-Kernen abgerechnet, was schnell sehr teuer wird. Die kostenlose
+        <strong>Express Edition (XE)</strong> ist in CPU, RAM und Datenmenge
+        begrenzt und für Tests und Lernen gedacht.
+      </li>
+      <li>
+        Oracle ist außerdem seit der Sun-Übernahme 2010 Eigentümer von MySQL –
+        der Grund, warum MariaDB entstanden ist.
+      </li>
+    </ul>
+    <p>
+      Für Webprojekte spielt Oracle praktisch keine Rolle. Relevant wird es,
+      wenn eine Anwendung an bestehende Unternehmenssysteme angebunden werden
+      muss.
+    </p>
+
+    <h3>MySQL</h3>
+    <p>
+      MySQL ist das bekannteste Open-Source-RDBMS und über Jahrzehnte der
+      Standard im Webumfeld gewesen – das "M" in den Abkürzungen LAMP (Linux,
+      Apache, MySQL, PHP) und XAMPP. WordPress, Redaxo, TYPO3, Shopware und
+      praktisch jedes PHP-CMS setzen darauf.
+    </p>
+    <ul>
+      <li>
+        1995 von MySQL AB entwickelt, 2008 an Sun verkauft, seit 2010 bei
+        <strong>Oracle</strong>
+      </li>
+      <li>
+        <strong>Duales Lizenzmodell</strong> – Community Edition unter GPL,
+        daneben kommerzielle Editionen mit Support und Zusatzfunktionen
+      </li>
+      <li>
+        Standardport <strong>3306</strong>
+      </li>
+      <li>
+        <strong>Storage Engines</strong> sind austauschbar und ein
+        MySQL-Spezifikum:
+        <strong>InnoDB</strong> ist seit 5.5 Standard und beherrscht
+        Transaktionen, Fremdschlüssel und Row-Level-Locking –
+        <strong>MyISAM</strong> kann das alles nicht und sollte nur noch in
+        Altbeständen vorkommen. Weitere: MEMORY, ARCHIVE, CSV.
+      </li>
+      <li>
+        Replikation (Master-Replica), Partitionierung, JSON-Spalten,
+        Window Functions und CTEs (ab 8.0), Volltextsuche
+      </li>
+      <li>
+        <strong>Zeichensatz</strong> – immer <strong>utf8mb4</strong>
+        verwenden. Das ältere "utf8" in MySQL ist nur ein 3-Byte-UTF-8 und kann
+        keine Emojis und manche Sonderzeichen speichern.
+      </li>
+    </ul>
+
+    <h3>MariaDB</h3>
+    <p>
+      MariaDB ist ein 2009 gestarteter <strong>Fork von MySQL</strong>,
+      begonnen von Michael "Monty" Widenius, einem der MySQL-Gründer, aus Sorge
+      um die Zukunft des Projekts unter Oracle. Der Name kommt von seiner
+      Tochter Maria – wie zuvor schon MySQL von My.
+    </p>
+    <ul>
+      <li>
+        Vollständig <strong>Open Source (GPL)</strong>, ohne kommerzielle
+        Doppellizenz, und von einer Foundation getragen
+      </li>
+      <li>
+        Weitgehend <strong>drop-in-kompatibel</strong>: gleiche
+        Protokolle, gleiche Befehle, gleicher Port 3306. Der Client heißt
+        mariadb, mysql existiert als Alias – in vielen Linux-Distributionen ist
+        unter dem Namen "mysql" längst MariaDB installiert.
+      </li>
+      <li>
+        Eigene Entwicklungen: zusätzliche Storage Engines (Aria, ColumnStore für
+        Analysen, Spider), <strong>Galera Cluster</strong> für
+        Multi-Master-Replikation, virtuelle Spalten, teils bessere
+        Query-Optimierung
+      </li>
+      <li>
+        Standard in Debian, Ubuntu, RHEL und bei vielen Hostern; DDEV nutzt es
+        üblicherweise ebenfalls
+      </li>
+    </ul>
+    <p>
+      <strong>Wichtig:</strong> Die Versionsnummern laufen seit MySQL 8
+      auseinander, und die Kompatibilität ist nicht mehr vollständig – JSON- und
+      Window-Function-Implementierungen, Authentifizierungs-Plugins und manche
+      Systemtabellen unterscheiden sich. Ein Wechsel von MySQL zu MariaDB ist
+      meist unproblematisch, der Weg zurück dagegen oft nicht. Für Dumps gilt
+      deshalb: nicht einfach zwischen beiden hin- und herschieben, ohne es zu
+      testen.
+    </p>
+
+    <h3>Weitere relevante Systeme</h3>
+    <ul>
+      <li>
+        <strong>PostgreSQL</strong> – Open Source, gilt als technisch
+        fortschrittlichste freie Datenbank: sehr standardtreu, starke
+        Datentypen (JSONB, Arrays, Geodaten über PostGIS), Transaktionen auch
+        für DDL. Standardport 5432. In modernen Projekten zunehmend erste Wahl
+        statt MySQL.
+      </li>
+      <li>
+        <strong>SQLite</strong> – die gesamte Datenbank ist eine einzige Datei,
+        kein Server nötig. Ideal für kleine Projekte, Tests, Apps und
+        Embedded-Systeme; nicht für viele gleichzeitige Schreibzugriffe.
+      </li>
+      <li>
+        <strong>Microsoft SQL Server</strong> – im Windows-/.NET-Umfeld
+        verbreitet, Abfragesprache T-SQL, Standardport 1433.
+      </li>
+      <li>
+        <strong>MongoDB</strong> – bekannteste dokumentorientierte
+        NoSQL-Datenbank.
+      </li>
+      <li>
+        <strong>Redis</strong> – In-Memory Key-Value-Store für Caching,
+        Sessions und Warteschlangen.
+      </li>
+    </ul>
+
+    <h3>Vergleich</h3>
+    <table>
+      <tr>
+        <th>System</th>
+        <th>Lizenz</th>
+        <th>Port</th>
+        <th>Typischer Einsatz</th>
+        <th>Besonderheit</th>
+      </tr>
+      <tr>
+        <td>Oracle</td>
+        <td>kommerziell (XE frei)</td>
+        <td>1521</td>
+        <td>Großunternehmen, SAP, Banken</td>
+        <td>PL/SQL, RAC, sehr teuer</td>
+      </tr>
+      <tr>
+        <td>MySQL</td>
+        <td>GPL + kommerziell</td>
+        <td>3306</td>
+        <td>Webprojekte, CMS, Shops</td>
+        <td>austauschbare Storage Engines, gehört Oracle</td>
+      </tr>
+      <tr>
+        <td>MariaDB</td>
+        <td>GPL</td>
+        <td>3306</td>
+        <td>wie MySQL, Standard bei Linux-Distributionen</td>
+        <td>MySQL-Fork, Galera Cluster</td>
+      </tr>
+      <tr>
+        <td>PostgreSQL</td>
+        <td>PostgreSQL License</td>
+        <td>5432</td>
+        <td>moderne Anwendungen, komplexe Daten</td>
+        <td>sehr standardtreu, JSONB, PostGIS</td>
+      </tr>
+      <tr>
+        <td>SQLite</td>
+        <td>Public Domain</td>
+        <td>–</td>
+        <td>Apps, Tests, kleine Tools</td>
+        <td>serverlos, eine einzige Datei</td>
+      </tr>
+    </table>
+
+    <h2>Arbeiten mit Datenbanken</h2>
+
+    <h3>Zugriffswege</h3>
+    <ul>
+      <li>
+        <strong>Kommandozeile</strong> – mysql / mariadb / psql / sqlplus.
+        Immer vorhanden, ideal auf dem Server und für Dumps.
+      </li>
+      <li>
+        <strong>Weboberfläche</strong> – <strong>phpMyAdmin</strong> (bei fast
+        jedem Hoster vorinstalliert), <strong>Adminer</strong> (eine einzige
+        PHP-Datei, sehr schlank)
+      </li>
+      <li>
+        <strong>Desktop-GUI</strong> – <strong>DBeaver</strong>
+        (kostenlos, alle Systeme), MySQL Workbench, TablePlus, Sequel Ace,
+        DataGrip, Oracle SQL Developer
+      </li>
+      <li>
+        <strong>Aus dem Code</strong> – in PHP über
+        <strong>PDO</strong> (empfohlen) oder mysqli, immer mit Prepared
+        Statements
+      </li>
+      <li>
+        <strong>ORM / Query Builder</strong> – Doctrine, Eloquent (Laravel),
+        oder in Redaxo rex_sql. Bildet Tabellen auf Objekte ab und erspart
+        handgeschriebenes SQL, erzeugt aber bei Unachtsamkeit ineffiziente
+        Abfragen (N+1).
+      </li>
+    </ul>
+
+    <h3>Verbinden und umsehen (MySQL / MariaDB)</h3>
+    <pre># verbinden, Passwort interaktiv abfragen lassen
+mysql -u root -p
+mysql -h 127.0.0.1 -P 3306 -u shopuser -p shop
+
+SHOW DATABASES;              -- welche Datenbanken gibt es?
+USE shop;                    -- Datenbank auswählen
+SHOW TABLES;                 -- welche Tabellen?
+DESCRIBE products;           -- Spalten und Typen
+SHOW CREATE TABLE products;  -- das vollständige CREATE-Statement
+SHOW INDEX FROM products;
+SELECT DATABASE(), VERSION(), USER();
+SHOW PROCESSLIST;            -- laufende Abfragen
+EXIT;</pre>
+    <p>
+      Das Passwort nie direkt im Befehl angeben (-pgeheim), da es sonst in der
+      Shell-History und in der Prozessliste landet. Besser nur
+      <strong>-p</strong> schreiben und warten, oder die Zugangsdaten in einer
+      <strong>~/.my.cnf</strong> mit Dateirechten 600 ablegen.
+    </p>
+
+    <h3>Benutzer und Rechte</h3>
+    <pre>CREATE DATABASE shop CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+CREATE USER 'shopuser'@'localhost' IDENTIFIED BY 'sicheresPasswort';
+
+-- nur die nötigen Rechte, nur auf die eine Datenbank
+GRANT SELECT, INSERT, UPDATE, DELETE ON shop.* TO 'shopuser'@'localhost';
+
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'shopuser'@'localhost';
+REVOKE DELETE ON shop.* FROM 'shopuser'@'localhost';</pre>
+    <p>
+      Grundregel <strong>Least Privilege</strong>: pro Projekt ein eigener
+      Benutzer mit genau den Rechten, die die Anwendung braucht – niemals der
+      root-Benutzer in der Anwendungskonfiguration. Der Host-Teil ist Teil der
+      Identität: 'user'@'localhost' und 'user'@'%' sind zwei verschiedene
+      Benutzer.
+    </p>
+
+    <h3>Backup und Restore</h3>
+    <pre># Dump einer Datenbank (SQL-Datei mit CREATE- und INSERT-Statements)
+mysqldump -u root -p shop &gt; shop_2026-10-21.sql
+mariadb-dump -u root -p shop &gt; shop.sql     # MariaDB-Name
+
+# komprimiert
+mysqldump -u root -p shop | gzip &gt; shop.sql.gz
+
+# nur Struktur / nur Daten
+mysqldump --no-data   -u root -p shop &gt; struktur.sql
+mysqldump --no-create-info -u root -p shop &gt; daten.sql
+
+# alle Datenbanken
+mysqldump --all-databases -u root -p &gt; alles.sql
+
+# Wiederherstellen (Datenbank muss existieren)
+mysql -u root -p shop &lt; shop_2026-10-21.sql
+gunzip &lt; shop.sql.gz | mysql -u root -p shop</pre>
+    <p>
+      Wichtige Punkte zum Thema Backup:
+    </p>
+    <ul>
+      <li>
+        Ein Backup, das nie zurückgespielt wurde, ist kein Backup. Den Restore
+        regelmäßig testen.
+      </li>
+      <li>
+        <strong>Vor jeder Migration und jedem größeren UPDATE</strong> einen
+        Dump ziehen.
+      </li>
+      <li>
+        Dumps enthalten alle Daten im Klartext – sie gehören nicht ins Git und
+        nicht in ein öffentlich erreichbares Verzeichnis (DSGVO).
+      </li>
+      <li>
+        Mit <strong>--single-transaction</strong> wird bei InnoDB ein
+        konsistenter Dump erstellt, ohne die Tabellen zu sperren.
+      </li>
+      <li>
+        Für große Datenbanken sind physische Backups (Percona XtraBackup) oder
+        Snapshots sinnvoller als Dumps.
+      </li>
+    </ul>
+
+    <h3>Zeichensatz und Collation</h3>
+    <p>
+      Zeichensalat ("Ã¼" statt "ü") entsteht, wenn Datenbank, Tabelle,
+      Verbindung und Anwendung nicht denselben Zeichensatz verwenden. Die
+      Verbindung ist dabei die am häufigsten vergessene Stelle.
+    </p>
+    <pre>-- überall utf8mb4
+ALTER DATABASE shop CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE products CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+SHOW VARIABLES LIKE 'character_set%';</pre>
+    <pre>// in PHP den Zeichensatz schon im DSN mitgeben
+$pdo = new PDO('mysql:host=localhost;dbname=shop;charset=utf8mb4', $user, $pass);</pre>
+    <p>
+      Die <strong>Collation</strong> bestimmt zusätzlich Sortierung und
+      Vergleich – utf8mb4_unicode_ci bzw. utf8mb4_general_ci ignorieren
+      Groß- und Kleinschreibung ("ci" = case insensitive).
+    </p>
+
+    <h3>Konfiguration und Betrieb</h3>
+    <ul>
+      <li>
+        Konfigurationsdatei: <strong>my.cnf</strong> bzw.
+        /etc/mysql/my.cnf und die Dateien in conf.d. Wichtige Werte:
+        <strong>innodb_buffer_pool_size</strong> (der größte
+        Performance-Faktor, typisch 50–70 % des RAM auf einem dedizierten
+        Server), max_connections, bind_address.
+      </li>
+      <li>
+        <strong>bind-address = 127.0.0.1</strong> – die Datenbank sollte nicht
+        aus dem Internet erreichbar sein. Zugriff von außen am besten über einen
+        SSH-Tunnel.
+      </li>
+      <li>
+        <strong>mysql_secure_installation</strong> nach der Installation
+        ausführen: root-Passwort setzen, anonyme Benutzer und Testdatenbank
+        entfernen.
+      </li>
+      <li>
+        Dienst steuern:
+        <strong>systemctl status/restart mariadb</strong> bzw. mysql.
+      </li>
+      <li>
+        Lokale Entwicklung läuft heute meist über
+        <strong>DDEV oder Docker</strong> – dort ist die Datenbank ein eigener
+        Container, Zugriff per <strong>ddev mysql</strong>,
+        <strong>ddev import-db</strong> und <strong>ddev export-db</strong>.
+      </li>
+    </ul>
+
+    <h3>Schemaänderungen versionieren (Migrationen)</h3>
+    <p>
+      Eine Datenbank lässt sich nicht wie Code einfach aus Git auschecken.
+      Deshalb werden Strukturänderungen als <strong>Migrationen</strong>
+      geschrieben: kleine, nummerierte Skripte, die nacheinander ausgeführt
+      werden und mitversioniert sind.
+    </p>
+    <ul>
+      <li>
+        Jede Änderung ist ein eigenes Skript, das nur vorwärts geht und nie
+        nachträglich verändert wird.
+      </li>
+      <li>
+        Welche Migrationen gelaufen sind, merkt sich eine eigene Tabelle.
+      </li>
+      <li>
+        Werkzeuge: Doctrine Migrations, Phinx, Laravel Migrations – in Redaxo
+        laufen Strukturänderungen über das jeweilige AddOn-Update.
+      </li>
+      <li>
+        <strong>ALTER TABLE</strong> sperrt bei großen Tabellen unter Umständen
+        lange. Produktiv deshalb in einem Wartungsfenster oder mit Online-DDL
+        arbeiten.
+      </li>
+    </ul>
+
+    <h3>Sicherheit</h3>
+    <ul>
+      <li>
+        <strong>SQL-Injection</strong> – niemals Benutzereingaben in einen
+        SQL-String einsetzen. Immer Prepared Statements mit Platzhaltern
+        (siehe PHP-Seite). Tabellen- und Spaltennamen lassen sich nicht binden
+        und müssen gegen eine Whitelist geprüft werden.
+      </li>
+      <li>
+        <strong>Least Privilege</strong> – eigener Benutzer pro Projekt, kein
+        root, keine DROP-Rechte für die Anwendung.
+      </li>
+      <li>
+        <strong>Zugangsdaten</strong> gehören in eine .env-Datei außerhalb des
+        Webroots, nicht in den Code und nicht ins Git.
+      </li>
+      <li>
+        <strong>Passwörter</strong> in der Datenbank nur als Hash
+        (password_hash), niemals im Klartext und nicht als md5.
+      </li>
+      <li>
+        <strong>Kein öffentlicher Port</strong>, Verbindungen nach außen über
+        TLS, Datenbank-Backups verschlüsselt ablegen.
+      </li>
+      <li>
+        <strong>Fehlermeldungen</strong> nicht an den Benutzer ausgeben – sie
+        verraten Tabellennamen und Struktur.
+      </li>
+    </ul>
+
+    <h3>Typischer Arbeitsablauf</h3>
+    <ul>
+      <li>
+        <strong>Modellieren</strong> – Entitäten, Attribute und Beziehungen
+        festlegen, als ER-Diagramm skizzieren, bis zur 3NF normalisieren
+      </li>
+      <li>
+        <strong>Anlegen</strong> – Datenbank mit utf8mb4, Tabellen mit
+        Primär- und Fremdschlüsseln, Indizes auf den Fremdschlüsseln
+      </li>
+      <li>
+        <strong>Benutzer</strong> mit minimalen Rechten einrichten und
+        Zugangsdaten in die .env legen
+      </li>
+      <li>
+        <strong>Abfragen entwickeln</strong> – erst im GUI oder auf der
+        Kommandozeile testen, dann in den Code übernehmen
+      </li>
+      <li>
+        <strong>Im Code</strong> ausschließlich Prepared Statements und
+        Transaktionen für zusammenhängende Schreibvorgänge
+      </li>
+      <li>
+        <strong>Prüfen</strong> – EXPLAIN auf die wichtigen Abfragen, Slow
+        Query Log beobachten, Indizes nachziehen
+      </li>
+      <li>
+        <strong>Strukturänderungen</strong> als Migration schreiben, vorher
+        Dump ziehen
+      </li>
+      <li>
+        <strong>Backups</strong> automatisieren und den Restore testen
+      </li>
+    </ul>
+
+    <h3>Häufige Fehler und ihre Ursache</h3>
+    <ul>
+      <li>
+        <strong>Access denied for user</strong> – falsches Passwort, falscher
+        Host-Teil des Benutzers oder fehlende Rechte
+      </li>
+      <li>
+        <strong>Unknown database</strong> – Datenbank existiert nicht oder ist
+        falsch geschrieben
+      </li>
+      <li>
+        <strong>Can't connect to MySQL server</strong> – Dienst läuft nicht,
+        falscher Port, oder 127.0.0.1 statt localhost nötig (bzw. umgekehrt,
+        weil localhost über einen Socket verbindet)
+      </li>
+      <li>
+        <strong>Cannot add or update a child row: a foreign key constraint
+        fails</strong> – der verwiesene Datensatz existiert nicht
+      </li>
+      <li>
+        <strong>Duplicate entry for key</strong> – Verstoß gegen einen
+        Unique-Index oder den Primärschlüssel
+      </li>
+      <li>
+        <strong>Incorrect string value</strong> – Zeichensatz ist nicht utf8mb4
+      </li>
+      <li>
+        <strong>Deadlock found when trying to get lock</strong> – zwei
+        Transaktionen blockieren sich; die Anwendung muss den Vorgang
+        wiederholen
+      </li>
+      <li>
+        <strong>Lock wait timeout exceeded</strong> – eine Transaktion wurde
+        offen gelassen, also kein COMMIT oder ROLLBACK
+      </li>
+      <li>
+        <strong>Table doesn't exist</strong> – unter Linux sind Tabellennamen
+        case-sensitive, unter macOS und Windows meist nicht. Deshalb
+        durchgehend kleinschreiben.
+      </li>
+    </ul>
+  </div>
+</div>

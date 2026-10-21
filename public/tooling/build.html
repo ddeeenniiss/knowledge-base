@@ -1,0 +1,464 @@
+<div class="block">
+  <div class="container site-border">
+    <h2>Husky</h2>
+    <p>
+      Husky ist ein Tool, welches Git Hooks für ein Projekt definiert, die vor
+      dem Commit ausgeführt werden. Damit kann zB ein Linter vorher ausgeführt
+      werden. Husky führt Skripte zu bestimmten Git Zeitpunkten aus zB vor
+      commit (pre-commit), beim commit (commit-msg), vor push (pre-push)
+    </p>
+
+    <h2>Template Projekt aufbauen</h2>
+    <p>Zu einem professionellen Projekt gehören:</p>
+    <ul>
+      <li>Vite</li>
+      <li>Git</li>
+      <li>Husky</li>
+      <li>ESLint</li>
+      <li>Prettier</li>
+      <li>JS / TS</li>
+      <li>DDEV</li>
+      <li>GitGraph</li>
+    </ul>
+    <h2>Vite</h2>
+    <p>
+      Vite ist ein modernes Build-Tool, das schnelle Entwicklungsserver und
+      optimierte Produktions-Builds bietet. Es nutzt native ES-Module im Browser
+      für eine schnellere Entwicklungserfahrung.
+    </p>
+    <h3>Vite Dev Modus (lokal)</h3>
+    <p>
+      Im Entwicklungsmodus startet Vite einen lokalen Entwicklungsserver, der
+      Hot Module Replacement (HMR) aktiviert. Dadurch werden ES-Module direkt im
+      Browser geladen, ohne ein bundling dafür zu benötigen. ES-Module
+      (ECMAScript Modules)sind das standardisierte Modulsystem von JavaScript.
+      Der Browser erkennt ES Module anhand von type="module". ES Module besitzen
+      auch immer import / export Statements, damit sie als Module erkannt
+      werden. Eine main.ts ist dabei immer der Einstiegspunkt für den Browser.
+      Diese wird auch als ES Modul geladen, darin liegen aber alle weiteren
+      Module, die ebenso ES Module sind. Zusammen bildet sind dann ein
+      Modulnetzwerk
+    </p>
+
+    <h3>Vite Build Modus</h3>
+    <p>Sobald vite build ausgeführt wird, passieren folgende Dinge:</p>
+    <ol>
+      <li>
+        JavaScript Code wird gebündelt, die ES Module werden zusammengeführt,
+        ungenützter Code wird entfernt, und die Dateien werden für die
+        Produktion optimiert
+      </li>
+      <li>
+        TypeScript wird zu JavaScript kompiliert und gebündelt. Generell landen
+        alle JavaScript chunks, css, bilder und fonts immer in /dist/assets/
+      </li>
+      <li>
+        SCSS wird zu CSS kompiliert und gebündelt, minifiziert und evtl. in JS
+        eingebettet.
+      </li>
+      <li>
+        HTML wird als Entry File anaysiert, Assets bekommen hashing und imports
+        werden korrekt auf gebundelte Dateien umgeleitet.
+      </li>
+    </ol>
+
+    <h3>Wie erkenne ich Vite?</h3>
+    <p>
+      In der package.json stehen unter scripts die verwendeten Befehle. Darunter
+      wäre dann auch "build": "vite build"
+    </p>
+
+    <h2>Dateistruktur</h2>
+    <h3>public</h3>
+    <p>
+      Dieser Ordner enthält statische Dateien, die unverändert ins
+      Build-Verzeichnis kopiert werden. Beispiele: statische html Seiten,
+      Bilder, Fonts, favicon, robots.txt usw. Dateien hier kannst du direkt über
+      /dateiname im Browser aufrufen.
+    </p>
+    <h3>src</h3>
+    <p>
+      Hier kommt dein kompletter Quellcode rein: Komponenten, Styles, Utils,
+      etc. assets/: Bilder, Icons oder kleine Dateien, die importiert werden.
+      components/: React- oder Vue-Komponenten. main.tsx / main.ts: Startpunkt
+      der App, z. B. ReactDOM.render(<App />, document.getElementById('root')).
+      App.tsx / App.vue: Hauptkomponente deiner Anwendung.
+    </p>
+    <h3>vite.config.js</h3>
+    <p>
+      Die Konfigurationsdatei für Vite. Hier kannst du z. B.: Aliase definieren
+      (@/components → src/components) Plugins hinzufügen (z. B. für
+      TypeScript-Checking, React, Vue, PWA) Build-Optionen ändern
+      (Output-Verzeichnis, Minifizierung, etc.). Sobald vite ausgeführt wird,
+      wird diese Datei namens vite.config.js automatisch geladen im Projektroot.
+    </p>
+    <p>
+      Intern benutzt Vite den Rollup Production Bundler. Sobald vite build
+      ausgeführt wird, nutzt Vite intern Rollup, um Module zusammenzuführen,
+      Tree Shaking (ungenutzten Code entfernen) und code zu splitten. Daher der
+      name der rollupOptions in der Vite Konfiguration.
+    </p>
+    <p>
+      Es ist letzlich die komplette Steuerkonsole für dein Build und Dev Setup.
+    </p>
+    <h4>Imports</h4>
+    <pre>import { defineConfig } from 'vite';</pre>
+    <p>
+      Hilfsfunktionen für die Vite Konfiguration zB bessere
+      Autovervollständigung, Typsicherheit und klarere Struktur.
+    </p>
+    <pre>import { resolve } from 'path';</pre>
+    <p>
+      Node.js Funktion zum sicheren Erstellen von Pfaden. zB resolve(__dirname,
+      'src') ergibt den absolut sicheren Pfad zu /project/src
+    </p>
+    <pre>import autoprefixer from 'autoprefixer';</pre>
+    <p>
+      Ist ein PostCSS-Plugin und fügt automatisch Vendor-Prefixes hinzu. zB
+      display: flex; wird zu display: -webkit-flex; display: flex; Das ist
+      wichtig für Browser Kompatibilität.
+    </p>
+    <pre>import injectHTML from 'vite-plugin-html-inject';</pre>
+    <p>
+      Plugin für Vite, welches HTML-Inhalte dynamisch in andere HTML-Dateien
+      einfügt. Ähnlich zu includes in PHP.
+    </p>
+
+    <pre>import removeConsole from 'vite-plugin-remove-console';</pre>
+    <p>
+      entfernt automatisch console.log Aufrufe aus dem Produktionscode und sorgt
+      für sauberen, performanten Output.
+    </p>
+
+    <h4>Projektpfade</h4>
+    <pre>const rootDir = resolve(__dirname, 'src');</pre>
+    <pre>const outDir = resolve(__dirname, 'dist');</pre>
+    <p>rootDir: Quellcode liegt in /src und outDir: Build landet in /dist</p>
+
+    <h4>Export der Konfiguration (Vite Konfiguration)</h4>
+    <pre>export default defineConfig({})</pre>
+    <p>Hier beginnt die eigentliche Konfiguration von Vite</p>
+    <pre>base: './'</pre>
+    <p>
+      Das ist der Basispfad für das Build-Verzeichnis. Bedeutet letzlich
+      http://localhost:5173/ auf dev und http://example.com/ auf production (je
+      nachdem was der Webserver oder hosting als domain erstellt).
+    </p>
+    <p>
+      Das build Ergebnis ist dann
+      <script src="/assets/index.js"></script>
+      und funktioniert auf http://example.com. base: '/app/' wäre dagegen
+      <script src="/app/assets/index.js"></script>
+    </p>
+    und würde auf http://example.com/app/ laufen.
+    <pre>root: rootDir,</pre>
+    <p>src ist das Root-Verzeichnis für den Quellcode</p>
+    <pre>publicDir: resolve(__dirname, 'public'),</pre>
+    <p>
+      Bestimmt Verzeichnis zur Bereitstellung von einfachen statischen Assets.
+      alles aus public/ wird unverändert ins Build Verzeichnis kopiert. Landet
+      alles unverändert in /dist bzw outDir. __dirname ist dabei der Ordner,
+      indem die Datei liegt, in der __dirname verwendet wird.
+    </p>
+    <pre>plugins:[removeConsole(), includeHtmlPartials()],</pre>
+    <p>
+      Array zur Verwendung von Plugins: bei einem Build werden Debug Ausgaben
+      entfernt und HTML Teilvorlagen eingefügt.
+    </p>
+    <pre>
+server: { port: 5050, open: true, watch: { './html/**/*.html': true, }, },</pre
+    >
+    <p>
+      Server-Konfigurationen. Läuft auf http://localhost:5050, öffnet
+      automatisch den Browser. Alle Dateien unter html/ werden überwacht.
+    </p>
+    <pre>
+css: { postcss: { sourceMap: false, plugins: [autoprefixer], }, preprocessorOptions: { scss: { api: 'modern-compiler',}, }, },</pre
+    >
+    <p>
+      CSS Konfigurationen, PostCSS verarbeitet CSS nach. Keine CSS Quellkarten,
+      Autoprefixer ist aktiviert, scss verwendet die moderne sass-compiler API
+    </p>
+    <pre>build:</pre>
+    <p>Konfigurationen für das Build Verfahren</p>
+    <pre>outDir: outDir, </pre>
+    <p>build geht in /dist</p>
+    <pre>emptyOutDir: true,</pre>
+    <p>Vor jedem Build wird /dist geleert bzw gelöscht</p>
+    <pre>cssCodeSplit: false,</pre>
+    <p>CSS Code wird in einer einzigen Datei gebündelt.</p>
+    <pre>sourcemap: false,</pre>
+    <p>Keine .map Dateien werden erstellt</p>
+    <pre>assetsDir: 'assets'</pre>
+    <p>statische Assets wie Bilder und Schriftarten landen in dist/assets/</p>
+    <pre>minify: true,</pre>
+    <p>aktiviert JavaScript, CSS und HTML Minifizierung</p>
+    <pre>modulePreload: { polyfill: true, }</pre>
+    <p>
+      Vite fügt bei Bedarf Polyfills hinzu, also zB <link rel="modulepreload" />
+    </p>
+    <pre>
+rollupOptions: { input: { robotics: resolve(rootDir, 'index.html'),
+                                  smartGlasses: resolve(rootDir, 'smart-glasses.html')},}</pre
+    >
+    <p>Multi Page Projekt: 2 Seiten entstehen beim build.</p>
+    <pre>
+output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) => {}}</pre
+    >
+    <p>Ausgabe Konfiguration im Build Verfahren</p>
+    <h3>package.json</h3>
+    <p>
+      Eine package.json ist eine JSON-Datei (JavaScript Object Notation), die
+      Metadaten über dein Projekt enthält – also quasi eine Art „Rezeptbuch“ für
+      dein Projekt.
+    </p>
+    <p>
+      "name": "knowledge-base" Name deines Projekts. "version": "1.0.0"
+      Versionsnummer, nützlich für Releases oder npm-Pakete. "private": true
+      Verhindert, dass das Projekt versehentlich auf npm veröffentlicht wird.
+      "scripts" Enthält Befehle, die du über npm run .. ausführen kannst. //Für
+      die App wichtig sind vor allem: "dependencies" Bibliotheken, die deine App
+      benötigt, um zu laufen (Produktion). Hier z. B. marked für Markdown. //Für
+      die Entwicklung wichtig sind: "devDependencies" Entwicklungsbibliotheken,
+      die nur während Entwicklung gebraucht werden (Build-Tools, Compiler etc.).
+      Hier z. B. vite und sass.
+    </p>
+    <p>
+      Die script section "scripts" Enthält Befehle, die du über den package
+      manager yarn .. ausführen kannst.
+    </p>
+    <table>
+      <tr>
+        <th>script name / command alias</th>
+        <th>command</th>
+        <th>Erklärung</th>
+      </tr>
+      <tr>
+        <td>"dev":</td>
+        <td>"vite"</td>
+        <td>
+          Startet den Entwicklungsserver und öffnet lokalen Server über
+          localhost. Ebenso wird hot module reload aktiviert für sofortige
+          Änderungen im Browser.
+        </td>
+      </tr>
+      <tr>
+        <td>"build":</td>
+        <td>"vite build"</td>
+        <td>
+          Baut die Produktionsversion deiner App. Vite kompiliert Projekt,
+          bündelt sass und optimiert Assets
+        </td>
+      </tr>
+      <tr>
+        <td>"preview":</td>
+        <td>"vite preview"</td>
+        <td>
+          Startet eine lokale Vorschau der Build Version. Output aus dist/ wird
+          lokal simuliert
+        </td>
+      </tr>
+      <tr>
+        <td>"preinstall":</td>
+        <td>"npx only-allow yarn"</td>
+        <td>Erlaubt nur yarn als package manager.</td>
+      </tr>
+    </table>
+    <p>
+      "publish:prod": "sh rsync.prod.sh" führt per shell das sh (shellskript)
+      aus.
+    </p>
+
+    <p>Für die App wichtig sind vor allem:</p>
+    <table>
+      <tr>
+        <th>dependency section</th>
+        <th>dependency name /package</th>
+        <th>version</th>
+        <th>Erklärung</th>
+      </tr>
+      <tr>
+        <td>"dependencies":</td>
+        <td>"marked":</td>
+        <td>"^17.0.1"</td>
+        <td>
+          Liste aller Laufzeitabhängigkeiten im Projekt, die für das korrekte
+          Laufen notwendig sind (Production). marked ist eine Bibliothek, die
+          Markdown in HTML umwandelt. Die Version "^17.0.1" bedeutet, dass jede
+          Version ab 17.0.1, aber unter 18.0.0 akzeptabel ist.
+        </td>
+      </tr>
+    </table>
+
+    <p>Für die Entwicklung wichtig sind vor allem:</p>
+    <table>
+      <tr>
+        <th>dev dependency section</th>
+        <th>dependency name /package</th>
+        <th>version</th>
+        <th>Erklärung</th>
+      </tr>
+      <tr>
+        <td>"devDependencies":</td>
+        <td>"vite":</td>
+        <td>"^4.0.0"</td>
+        <td>vite ist ein Dev Server und Build Tool.</td>
+        <td>"devDependencies":</td>
+        <td>"typescript":</td>
+        <td>"^5.9.3"</td>
+        <td>typescript ist eine Erweiterung für JavaScript.</td>
+        <td>"devDependencies":</td>
+        <td>"sass":</td>
+        <td>"^1.70.0"</td>
+        <td>sass ist eine Erweiterung für css.</td>
+      </tr>
+    </table>
+    <h3>index.html</h3>
+
+    <h2>Paketmanager</h2>
+    <p>
+      Paketmanager sind Tools, die Entwicklern helfen, Bibliotheken und
+      Abhängigkeiten in ihren Projekten zu verwalten. Sie ermöglichen das
+      einfache Installieren, Aktualisieren und Entfernen von Paketen sowie das
+      Verwalten von Versionsabhängigkeiten.
+    </p>
+    <img
+      src="/assets/screenshots/yarn_build.png"
+      alt="Vorschau des Befehls yarn build"
+    />
+    <p>
+      Der erste Wert hinter jeder gebuildeten Datei ist die echte Dateigröße auf
+      dem Server. Der zweite Wert ist die gzip Größe, also die komprimierte
+      Größe die im Browser ankommt. Ein map: ...kB wäre die Source Map, diese
+      ist nur für die devtools und hilft beim debuggen. Diese wird nicht beim
+      normalen Laden verwendet.
+    </p>
+    <h3>npm (Node Package Manager): npm run &lt;script&gt;</h3>
+    <p>
+      npm ist der Standard-Paketmanager für Node.js. Es ermöglicht Entwicklern,
+      Pakete aus dem npm-Registry zu installieren und zu verwalten. npm
+      verwendet eine Datei namens package.json, um die Abhängigkeiten eines
+      Projekts zu definieren.
+    </p>
+    <h3>Yarn: yarn &lt;script&gt;</h3>
+    <p>
+      Yarn ist ein alternativer Paketmanager zu npm, der von Facebook entwickelt
+      wurde. Es bietet schnellere Installationszeiten und eine deterministische
+      Abhängigkeitsauflösung. Yarn verwendet eine Datei namens yarn.lock, um die
+      genauen Versionen der installierten Pakete zu sperren.
+    </p>
+    <p>
+      Ein yarn install liest die package.json und die yarn.lock, lädt alle
+      benötigten Pakete aus dem npm-Registry herunter, legt den Ordner
+      node_modules an und verknüpft alle Abhängigkeiten miteinander.
+    </p>
+
+    <h3>Node.js</h3>
+    <p>
+      Node.js ist eine Laufzeitumgebung, die es ermöglicht, JavaScript außerhalb
+      des Browsers auszuführen. Es kann also der Entwicklungsserver gestartet
+      werden, Build Prozesse ausgeführt werden und npm/yarn verwendet werden.
+    </p>
+
+    <h3>node_modules</h3>
+    <p>
+      Das Verzeichnis node_modules enthält alle installierten Abhängigkeiten des
+      Projekts. Es wird nicht versioniert in git, da es durch die package.json
+      und die yarn.lock reproduzierbar ist und zudem auch viel zu groß wäre. Die
+      node_modules entstehen durch die packetmanager Befehle wie npm install
+      oder yarn install, die die Abhängigkeiten aus der package.json
+      installieren.
+    </p>
+
+    <h3>nvm (Node Version Manager)</h3>
+    <p>
+      nvm ermöglicht es, mehrere Node-Versionen gleichzeitig installiert zu
+      haben. Mit nvm use kann die node Version für das aktuelle Terminal
+      gewechselt werden. Die aktuelle Version steht immer in der .nvmrc, daraus
+      zieht nvm die Information für die aktuelle Version. nvm use liest die
+      .nvmrc und aktiviert automatisch die passende Version.
+    </p>
+    <h3>Wieso muss nach git clone immer yarn install ausgeführt werden?</h3>
+    <p>
+      Das liegt daran, dass die Bibliotheken nicht mit Git versioniert werden.
+      Der node_modules Ordner liegt nicht im git, da die Datei viel zu groß
+      werden kann. Darin liegen tausende Dateien. Ein Projekt enthält
+      stattdessen die package.json und die yarn.lock, die die Abhängigkeiten und
+      deren Versionen definieren, also eine Art Anleitung.
+    </p>
+
+    <h2>Umgebungen in Workflows</h2>
+    <table>
+      <tr>
+        <th>Umgebung</th>
+        <th>Beschreibung</th>
+      </tr>
+      <tr>
+        <td>Development</td>
+        <td>Entwicklungsumgebung mit lokalem Server</td>
+      </tr>
+      <tr>
+        <td>Staging</td>
+        <td>Testumgebung vor der Produktion</td>
+      </tr>
+      <tr>
+        <td>Production</td>
+        <td>Live-Umgebung für Endnutzer</td>
+      </tr>
+    </table>
+    <h2>CI/CD (Continuous Integration / Continuous Deployment)</h2>
+    <p>CI bedeutet Code wird automatisch getestet / gebaut</p>
+    <p>CD bedeutet Code wird automatisch in die Produktion deployt</p>
+
+    <p>
+      CI /CD ersetzt manuelle Schritte wie Dependencies installieren (npm
+      install oder yarn install), Projekte bauen (vite build), Code Checks durch
+      ESLint, Prettier und Stylelint, Fehlerfindung, build lokal, FTP /rsync
+      hochladen und hoffentlich funktioniert es live, Sicherheitstests (npm
+      audit, Snyk), Bilder / Video / JSON Optimierung mit verschiedenen
+      Auflösungen pro Breakpoint und Gerät / Geschwindigkeits (geht mit
+      vite-plugin-imagemin, vite-imagetools oder sharp, bei Redaxo media manager
+      und optional Cloudflare oder AddOn media_negotiator oder AddOn
+      yakamara/roadie oder AddOn focuspoint oder man baut sich eigenes Template
+      die das übernimmt, bei typo3 Image Processing Engine oder eigenes fluid
+      ViewHelper dafür. Es gibt auch dafür schon Erweiterungen wie
+      EXT:image_autoresize, EXT:picture), DB Migrationen bei CMS.
+    </p>
+    <p>
+      Ein ViewHelper kümmert sich dann um AVIF, WebP und JPG, srcset, sizes,
+      lazy loading
+    </p>
+    <p>
+      Media Manager ansich benötigt definierte Medientypen wie hero, teaser und
+      thumb. Redaxo generiert die Varianten dann automatisch beim Aufruf.
+    </p>
+    <p>
+      Es macht zB git push -> automatische Tests und Deployment -> Tests, die
+      optional laufen und Deploy auf staging oder production
+    </p>
+    <p>CODE -> BUILD -> TEST -> DEPLOY</p>
+    <h2>Neues git Projekt anlegen</h2>
+    <p>
+      Erstelle zuerst ein Projekt auf git mit einer readme.md und öffne dann das
+      Terminal. Dort führst du yarn create vite . aus, das erstellt das vite
+      Projekt im aktuellen Ordner. In den Optionen vom Terminal einfach "Ignore
+      files and continue" wählen.
+    </p>
+    <p>
+      Lege im projekt eine yarnrc.yml an und schreibe nodeLinker: node-modules
+      an und mache yarn install
+    </p>
+    <h2>Projekt aufsetzen</h2>
+    <h3>Vite nachinstallieren nach clonen von gitlab</h3>
+    <p>yarn add -D vite</p>
+    <p>oder direkt yarn create vite</p>
+
+    <h3>yarn aufsetzen</h3>
+    <p>node -v</p>
+    <p>corepack enable</p>
+    <p>yarn --version</p>
+    <p>yarn set version stable</p>
+    <p>yarn install</p>
+
+  </div>
+</div>

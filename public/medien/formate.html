@@ -1,0 +1,210 @@
+<div class="block">
+  <div class="container site-border">
+    <h2>Bildformate:</h2>
+    <ul>
+      <li>
+        APNG: Animated Portable Network Graphics (Animation) .apng. Für
+        Animationen wie GIF, aber besser in Qualität und Transparenz,
+        verlustfrei. Allerdings nicht überall unterstützt.
+      </li>
+      <li>
+        GIF: Graphics Interchange Format .gif. Kleine animierte Icons, einfache
+        Animationen.
+      </li>
+      <li>
+        ICO: Microsoft Icon .ico. Für Favicons. Mehrere Auflösungen und
+        Farbtiefen in einer Datei, speziell für Favicons.
+      </li>
+      <li>
+        JPEG: Joint Photographic Experts Group .jpg, .jpeg. Für Bilder mit
+        vielen Farben. Verlustbehaftet, aber komprimiert.
+      </li>
+      <li>
+        PNG: Portable Network Graphics .png. Logos, Icons, Grafiken mit
+        Transparenz. Verlustfrei, unterstützt Transparenz. Keine Animation.
+      </li>
+      <li>
+        SVG: Scalable Vector Graphics .svg. Vektorbasiert (also skalierbar ohne
+        Qualitätsverlust), verlustfrei, skalierbar, editierbar per Code. Für
+        Logos, Illustrationen, responsive Grafiken. Jedes Element in SVG ist ein
+        DOM-Element und kann mit CSS und JavaScript animiert werden.
+      </li>
+    </ul>
+    <h3>JPEG / JPG</h3>
+    <p>
+      Ist vor allem für Fotos entwickelt worden. Verlustbehaftet, da es
+      Informationen entfernt, die für das menschliche Auge weniger sichtbar
+      sind. Weniger geeignet für Screenshots/ Text/ Logos
+    </p>
+    <h3>PNG</h3>
+    <p>PNG ist verlustfrei und unterstützt rgba.</p>
+    <h3>WebP</h3>
+    <p>Ist für Webanwendungen die Standardwahl.</p>
+    <h3>AVIF</h3>
+    <p>
+      AVIF ist jünger und basiert auf Bildkompressionstechnologie AV1. Noch
+      kleiner als WebP. Encoding ist aufwendiger, daher können bei mehreren
+      tausend Bildern Encoding Zeit und CPU Kosten relevant sein. Am besten AVIF
+      priorisieren und webp als Fallback.
+    </p>
+    <h3>SVGs</h3>
+    <p>
+      SVGs lassen sich individuell anpassen. Für Logos geeignet. Hier sind
+      Beispiele für Formen:
+    </p>
+    <pre>
+      <svg width="100" height="100">
+        <circle cx="50" cy="50" r="40" stroke="black" strock-width="4" fill="yellow"/>
+      </svg>
+    </pre>
+    <p>Dasselbe gibts für Rechtecke, auch mit abgerundeten Ecken</p>
+    <pre>
+      <svg width="400" height="180">
+        <rect x="50" y="20" rx="20" ry="20" width="150" height="150" /> //rx und ry für abgerundete Ecken
+      </svg>
+    </pre>
+    <p>Interessant werden dann individuelle Formen bzw Polygone</p>
+    <pre>
+      <svg width="300" height="200">
+        <polygon points="100, 10 40, 198 190, 78 10, 78 160, 198" /> //
+      </svg>
+    </pre>
+    <h3>SVG Animationen</h3>
+    <p>Können ebenfalls gezeichnet werden.</p>
+    <h2>Video Formate</h2>
+    <ul>
+      <li>
+        .mpg, .mpeg: Moving Picture Expert Group war das erste bekannte
+        Videoformat. Wird nicht länger in HTML supported.
+      </li>
+      <li>
+        .avi: Audio Video Interleave wird bei Kameras und TV verwendet, aber
+        nicht für Webseiten geeignet.
+      </li>
+      <li>.wmv: Windows Media Video: ebenso nur für Kameras und TV</li>
+      <li>.mov: QuickTime Video Format bei Apple</li>
+      <li>
+        .webm: Entwickelt von Mozilla, Opera, Adobe und Google. Wird von HTML
+        unterstützt.
+      </li>
+      <li>
+        .mp4: Entwickelt von Moving Pictures Expert Group und Standard für
+        Kameras und TV. Wird unterstützt von allen Browsern und ebenso von
+        Youtube. Für Webseiten geeignet.
+      </li>
+    </ul>
+    <h2>Bildgrößen in der Webentwicklung</h2>
+    <p>
+      Das Ziel hierbei ist immer eine scharfe Darstellung auf der Seite. Zu
+      berücksichtigen sind hier einmal die Darstellungsgröße und auch die DPR,
+      die verwendet wird.
+    </p>
+    <p>
+      Für Desktop Stage/ Hero Bilder ist eine Bildbreite von 2560px empfohlen,
+      da sie alle gängigen Bildschirmbreiten für Web abdeckt und für DPR 1 und 2
+      funktioniert. Für maximale Qualität sollten 3840px verwendet werden. Das
+      deckt 4K Monitore und DPR 2 ab.
+    </p>
+    <p>
+      Normale Contentbilder sind im Bereich von 1200 - 1600px, das deckt
+      Desktop, Tablet, hohe DPR ohne unnötig groß zu sein.
+    </p>
+    <p>
+      Professionell wird immer srcset + mehrere Größen verwendet. Das sieht dann
+      zB so aus:
+    </p>
+    <pre>
+      &lt;img src="image-1280.webp"
+      srcset="image-640.webp 640w,
+              image-1920.webp 1920w"
+      sizes="100vw"&gt;
+    </pre>
+    <p>
+      Damit lädt der Browser automatisch die optimale Dateigröße, somit hat man
+      für die maximale Qualität immer die kleinste Datei.
+    </p>
+    <p>
+      Best Practise wäre also: Original Bild hochladen ins CMS (zB: 3000px),
+      dann so konfigurieren, dass mehrere Größen mit srcset erzeugt werden.
+      Optimierte Formate dafür nutzen (WebP /AVIF).
+    </p>
+    <h3>Bildschirmgrößen Macbook</h3>
+    <p>
+      Die meisten Macbooks haben eine Größe von 2560x1600 mit DPR 2. Effektiv im
+      CSS entspricht das also 2560 / 2 = 1280x800px
+    </p>
+    <p>
+      Entwickelt wird immer für Viewport Größen (also css Pixel), nicht für
+      physische Auflösung.
+    </p>
+    <h2>Nutzer nach Browsern und Displays:</h2>
+    <p>Ca 68% nutzen Chrome, 16% Safari, 5% Edge und 2% Firefox</p>
+    <p>macOS liegt bei ca 7- 15%, der Rest ist Windows.</p>
+    <p>Auflösungen: 1920x1080 8%,</p>
+    <h2>Audio Formate</h2>
+    <ul>
+      <li>
+        .mid, .midi: Musical Instrument Digital Interface. Wird für
+        elektronische Musikgeräte wie Synthesizer und PC Soundcards verwendet.
+        MIDI Dateien enthalten keine Audiodaten, sondern Anweisungen für die
+        Wiedergabe von Musik (welche Noten werden gespielt, wie lange und mit
+        welcher Lautstärke). Nicht für Webseiten geeignet.
+      </li>
+      <li></li>
+    </ul>
+
+    <p>
+      Generell: Für Fotos / Bilder mit vielen Farben eignet sich JPEG wegen der
+      Dateigröße (Komprimierung). Für Icons. Logos PNG oder SVG (SVG wenn
+      skalierbare Grafiken benötigt werden). Für Favicons ist ICO oder SVG das
+      geeignete Format. Für Animationen ist APNG zu bevorzugen, GIF als
+      Fallback, da alte Browser nicht alle APNG Formate unterstützen.
+    </p>
+    <p>
+      JPEG Bilder sind verlustbehaftet, haben keine Transparenz und eignen sich
+      für große Bilder. PNG sind verlustfrei, unterstützen Transparenz und
+      eignen sich für Logos und Icons (Bilder mit klaren Kanten).
+    </p>
+
+    <h2>Responsive Größen Overview:</h2>
+    <img
+      src="/assets/screenshots/responsive_overview.jpeg"
+      alt="Abbildung über responsive Größen"
+    />
+    <h2>Bilder zuschneiden</h2>
+    <p>
+      Hier eignet sich crop zum zuschneiden. Einfach ffmpeg -i 000060.png \ -vf
+      "crop=1920:800:960:1360" \ /Users/dennisbonna/Desktop/test_crop.png
+    </p>
+    <p>Basis wäre crop=WIDTH:HEIGHT:X:Y</p>
+    <p>WIDTH: Breite des zugeschnittenen Bildes</p>
+    <p>HEIGHT: Höhe des zugeschnittenen Bildes</p>
+    <p>X: X-Position des zugeschnittenen Bereichs</p>
+    <p>Y: Y-Position des zugeschnittenen Bereichs</p>
+
+    <p>
+      Ein verwendetes skript ist zum Beispiel: for f in *.png; do ffmpeg -y -i
+      "$f" \ -vf "crop=1280:720:1280:1440" \
+      "/Users/dennisbonna/Desktop/straehle-images/${f%.png}_1280x720.png" done
+    </p>
+    <p>
+      Das hat alle Bilder unten mitte zugeschnitten und gleichbenannt mit
+      1280x720 in den erstellten Ordner verschoben.
+    </p>
+    <p>
+      Oder direkt skript welches unterordner und alle Modelle erzeugt:
+      OUTPUT="/Users/dennisbonna/Desktop/straehle-images" for dir in */; do
+      model="${dir%/}" echo "▶ Processing: $model" mkdir -p "$OUTPUT/$model" for
+      f in "$dir"*.png; do [ -e "$f" ] || continue filename=$(basename "$f"
+      .png) ffmpeg -y -i "$f" \ -vf "crop=1280:720:1280:1440" \
+      "$OUTPUT/$model/${filename}_1280x720.png" done done
+    </p>
+    <h2>Konvertieren in avif</h2>
+    <p>
+      mkdir -p ~/Desktop/siteco-avif for file in siteco_SL11_LED*.png; do
+      avifenc --min 20 --max 20 --speed 6 "$file"
+      "$HOME/Desktop/siteco-avif/${file%.png}.avif" done
+    </p>
+
+  </div>
+</div>
