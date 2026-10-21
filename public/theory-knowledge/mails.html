@@ -216,6 +216,12 @@
       <code>mail()</code> nicht garantieren.
     </p>
 
+    <h2>mail-tester.com</h2>
+    <p>Ein Ergebnis von -5 wird bei SpamAssassin als Spam eingestuft.</p>
+
+    <h2>dkimvalidator.com</h2>
+    <p></p>
+
     <h2>PHP-Mailer</h2>
     <p>
       PHPMailer ist eine beliebte Bibliothek für das Senden von E-Mails in PHP.
@@ -303,9 +309,28 @@
 
     <h2>Domains</h2>
     <p>
-      Eine Domain ist die Internetadresse einer Website. Ohne Domains müsste
-      jede Website über eine IP Adresse aufgerufen werden. Eine Domain besteht
-      aus Subdomain, Hauptdomain und Domainendung (Top-Level-Domain).
+      Eine Domain ist ein eindeutiger Name zur Identifikation einer Website.
+      Ohne Domains müsste jede Website über eine IP Adresse aufgerufen werden.
+      Eine Domain besteht aus Subdomain, Hauptdomain und Domainendung
+      (Top-Level-Domain).
+    </p>
+    <h3>Top Level Domains (TLD)</h3>
+    <p>
+      Eine Top-Level Domain (TLD) bezeichnet die Endung eines Domainnamens. Man
+      unterscheidet zwischen generischen (.com, .net, .org) und
+      länderspezifischen TLDs (.de, . ch, .at). Zu den generischen zählen auch
+      die Endungen mil, .int, .arpa, .edu und .gov. Letztere sind allerdings
+      nicht frei verfügbar, sondern ausschliesslich bestimmten Gruppen
+      vorbehalten (.mil=Militär, .gov=US-Regierung). Die generischen TLDs werden
+      von der internationalen Organisation ICANN (The Internet Corporation for
+      Assigned Names and Numbers) verwaltet. Die Länderkürzel hingegen werden
+      von den nationalen Network Information Centers (NICs) verwaltet und
+      administriert. Für Deutschland ist dies die DENIC eG, deren Mitglied Host
+      Europe ist. Bei der Host Europe GmbH können eine Vielzahl
+      unterschiedlicher TopLevel-Domains registriert werden - welche genau,
+      hängt vom jeweiligen Domainreseller-Vertrag ab. Ein Blick ins KIS genügt,
+      um eine Liste der aktuell verfügbaren TLDs und den zugehörigen Preisen zu
+      finden.
     </p>
     <p>
       Die TLD geben Hinweise auf Herkunft, Zweck oder Zielgruppe einer Website.
@@ -321,6 +346,36 @@
       Generische TLDs wie .com (kommerziell), .org (Organisation), .net
       (network) sind universell und für globale Unternehmen geeignet.
     </p>
+    <h3>Second Level Domain</h3>
+    <p>
+      Eine Second-Level-Domain ist der eigentliche Domainname, wie “hosteurope”
+      in der URL http://www.hosteurope.de . Die Second-Level-Domain muss,
+      abhängig von der verwendeten Top-Level-Domain, bestimmte Voraussetzungen
+      erfüllen: so ist die Mindestlänge einer .com-Domain beispielsweise zwei
+      Zeichen, einer .de-Domain drei. Im Anhang B sind alle TLD-spezifischen
+      Besonderheiten, auf die bei der Registrierung von Domains geachtet werden
+      muss, aufgelistet. Dies beinhaltet die bereits erwähnte Mindestlänge, aber
+      auch die maximale Länge, die verwendbaren Zeichen, und die Zusammensetzung
+      des Domainnamens (manche Registrare erlauben beispielsweise die
+      Registrierung von Domainnamen, die nur aus Zahlen bestehen). Die
+      Kombination aus Second-Level- und Top-Level-Domain alleine erlaubt noch
+      nicht die korrekte Auflösung einer URL; dafür notwendig sind die
+      Third-Level-Domains.
+    </p>
+
+    <h3>Third Level Domain</h3>
+    <p>
+      Third-Level-Domains, auch Hostnames (oder manchmal Subdomains) genannt,
+      sind beispielsweise der “www”-Teil in http://www.hosteurope.de . Diese
+      sind in der Regel unabhängig vom Registrar und werden lokal auf den
+      Nameservern des Registrierenden konfiguriert. Bestimmte Hostnamen, wie
+      “www”, “ftp” oder “mail” haben sich mittlerweile für bestimmte Dienste
+      eingebürgert, müssen jedoch nicht zwangsweise für eine bestimmte Domain
+      existieren – dies ist komplett dem Domaininhaber überlassen. Einzige
+      derzeitige Ausnahme bilden die Domains innerhalb der TLD .name – dort
+      können (und müssen teilweise auch) Third-Level-Registrierungen vorgenommen
+      werden.
+    </p>
 
     <h2>Subdomains</h2>
     <p>
@@ -334,8 +389,30 @@
       Für Typo3 Projekte sind managed Cloud / VPS Anbieter besonders geeignet.
       zB Hetzner oder netcup
     </p>
-    <h2>Host Europe erklärt:</h2>
-    <h3>KIS (Kundeninformationssystem)</h3>
+    <h2>Host Europe (Hosteurope) erklärt:</h2>
+    <p>
+      Eine Dokumentation bzw FAQ für Hosteurope gibt es bei
+      <a href="https://www.hosteurope.de/faq/">HIER</a>
+    </p>
+
+    <h3>
+      KIS (Kundeninformationssystem) / Kundenlogin / Kundenmenü / Control Center
+    </h3>
+    <p>
+      Bezeichnet die zentrale Weboberfläche, über die nach dem Kauf alles zum
+      Hosting Vertrag selbst verwaltet werden kann ohne Support.
+    </p>
+    <p>
+      Dort enthalten sind Stammdaten, Zugangsdaten, Passwort, 2FA, gebuchte
+      Produkte (WebHosting Paket, VPS, Dedicated Server, Domains), Tarifwechsel,
+      Kündigung, Upgrade, Rechnungen etc.
+    </p>
+    <p>
+      Ebenso können Domains registriert werden, transferiert werden, gelöscht
+      werden. DNS Einträge können verwaltet werden. Subdomains können angelegt
+      werden. Weiterleitungen und Redirects ebenso.
+    </p>
+    <p>Postfächer und Passwörter können angelegt werden.</p>
     <h3>Neue Subdomain erreichbar machen:</h3>
     <ul>
       <li>Subdomain anlegen</li>
@@ -469,7 +546,8 @@
         <strong>SPF-Einträge (Sender Policy Framework):</strong> Diese Einträge
         legen fest, welche Server berechtigt sind, E-Mails im Namen der Domain
         zu senden. Sie helfen dabei, Spoofing und Phishing-Angriffe zu
-        verhindern.
+        verhindern. Manipulationen an E-Mail Adressen werden durch Kontrolle der
+        IP-Adresse des Senders erkannt.
       </li>
       <li>
         <strong>DKIM-Einträge (DomainKeys Identified Mail):</strong> Diese
@@ -477,16 +555,22 @@
         E-Mail zu überprüfen, indem sie eine digitale Signatur enthalten, die
         mit dem privaten Schlüssel der Domain erstellt wurde. DomainKeys
         Identified Mail Es sorgt dafür, dass E-Mails echt sind und unterwegs
-        nicht manipuliert wurden.
+        nicht manipuliert wurden. Eine Domain kann mit einer E-Mail Nachricht
+        verknüpft werden. Diese Info steht im Header. Dabei wird die Mail vom
+        Mailserver signiert mit einem privaten Schlüssel. Der Empfänger fragt
+        den DNS-Eintrag ab. Der Empfänger prüft die Signatur mit dem
+        öffentlichen Schlüssel ob die Signatur gültig ist und die signierten
+        Inhalte unverändert sind.
       </li>
       <li>
         <strong
           >DMARC-Einträge (Domain-based Message Authentication, Reporting &
           Conformance):</strong
         >
-        Diese Einträge legen fest, wie der Empfänger-Mailserver mit E-Mails
-        umgehen soll, die die SPF- und DKIM-Prüfungen nicht bestehen. Sie helfen
-        dabei, die Domain vor Missbrauch zu schützen.
+        Diese Einträge legen fest, ob der Absender seine Emails durch SPF und
+        DKIM schützt und wie der Empfänger-Mailserver mit E-Mails umgehen soll,
+        die die SPF- und DKIM-Prüfungen nicht bestehen. Sie helfen dabei, die
+        Domain vor Missbrauch zu schützen.
       </li>
     </ul>
 
@@ -530,6 +614,40 @@
       gesendet werden, die für Spam bekannt sind. Ebenso verdächtige Anhänge
       (.exe, .zip, .scr) können darin landen.
     </p>
+    <h3>Warum können Mails im Spam Ordner landen?</h3>
+    <p>
+      Fehlende oder falsche Authentifizierung: SPF, DKIM oder DMARC sind nicht
+      korrekt eingerichtet. Diese Verfahren helfen dem empfangenden Server, die
+      Echtheit einer E-Mail zu überprüfen. Das wäre reine DNS Konfiguration bzw
+      Mailserver Konfiguration.
+    </p>
+    <p>
+      Gemeinsam genutzter Mailserver: Ein anderer Kunde desselben Hosting- oder
+      Mail-Anbieters verschickt Spam. Dadurch kann auch die gemeinsame
+      Versand-IP einen schlechten Ruf bekommen. Aufgabe des Hostings bzw Mail
+      Anbieters.
+    </p>
+    <p>
+      Inhalt der E-Mail: Bestimmte Formulierungen, viele Links, ungewöhnliche
+      Anhänge oder verdächtige HTML-Strukturen können Spamfilter beeinflussen.
+    </p>
+    <p>
+      Empfänger und Nutzerverhalten: Empfänger markieren Nachrichten als Spam,
+      ignorieren sie häufig oder haben strenge Filterregeln eingerichtet. Hier
+      müsste der Empfänger seine Spam Regeln anpassen.
+    </p>
+
+    <h3>Checkliste für Spam Mails:</h3>
+    <p></p>
+
+    <h2>Bounce-Adresse</h2>
+    <p>Kann auch Return-Path, MAIL FROM oder Envelope Sender heißen.</p>
+    <p>
+      Die technische Rücksendeadresse, die bei einer E-Mail hinterlegt ist. Sie
+      kann bei jeder versendeten E-Mail vorhanden sein. An diese Adresse wird
+      eine Fehlermeldung zurückgeschickt, falls zB die Adresse ungültig ist.
+    </p>
+
     <h2>Ursache für Weiterleitung auf www finden</h2>
     <p>1. curl -I relaunch.inside.at im Terminal prüfen.</p>
     <p>Wenn ja, dann .htaccess im Webroot prüfen auf Weiterleitung.</p>

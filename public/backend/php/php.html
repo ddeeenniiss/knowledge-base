@@ -1,59 +1,1781 @@
 <div class="block">
   <div class="container site-border">
-<!-- lt steht für less than und gt für greater than-->
-<h2>PHP (PHP: Hypertext-Präprozessor)</h2>
-<p>PHP ist eine serverseitige Skriptsprache zur Erstellung dynamischer und interaktiver Webseiten.</p>
+    <!-- lt steht für less than und gt für greater than-->
+    <h1>PHP (PHP: Hypertext-Präprozessor)</h1>
+    <p>
+      PHP ist eine serverseitige Skriptsprache zur Erstellung dynamischer und
+      interaktiver Webseiten. Der Code wird auf dem Server ausgeführt, beim
+      Browser kommt nur das Ergebnis (HTML, JSON, eine Datei) an. Im Quellcode
+      der Seite ist von PHP nichts mehr zu sehen.
+    </p>
+    <p>
+      PHP ist eine interpretierte Sprache mit dynamischer Typisierung. Seit PHP
+      7 ist sie deutlich schneller geworden, seit PHP 8 kommen echte
+      Typdeklarationen, Enums, <strong>match</strong> und der JIT-Compiler
+      hinzu. Aktuell gepflegt werden die 8.x-Versionen; alles unter 8.1 erhält
+      keine Sicherheitsupdates mehr und sollte nicht mehr produktiv laufen.
+    </p>
 
-<p>Schlüsselwörter, Klassen, Funktionen sind nicht case-sensitive. echo ist also auch ECHO</p>
-<p>PHP verwendet &lt;?php ... ?&gt; Tags, um PHP-Code in HTML-Dateien einzubetten.</p>
-<p>Mit &lt;?php echo 'Ausgabetext' ?> lassen sich Inhalte ausgeben</p>
-<p>Idealerweise lässt sich &lt;?= nutzen, der eine Kurzform für &lt;?php echo darstellt.</p>
+    <h2>Wie PHP ausgeführt wird (SAPI)</h2>
+    <p>
+      SAPI steht für "Server API" und beschreibt, auf welchem Weg PHP
+      angesprochen wird. Wichtig zu wissen, weil jede SAPI ihre
+      <strong>eigene php.ini</strong> verwenden kann.
+    </p>
+    <ul>
+      <li>
+        <strong>CLI</strong> – PHP auf der Kommandozeile, z.B.
+        <strong>php script.php</strong> oder Composer-Befehle.
+      </li>
+      <li>
+        <strong>Built-in Webserver</strong> – zum Entwickeln:
+        <strong>php -S localhost:8000</strong> im Projektordner. Damit laufen
+        auch die Formular-Beispiele dieser Knowledge Base.
+      </li>
+      <li>
+        <strong>PHP-FPM (FastCGI Process Manager)</strong> – Standard auf
+        modernen Servern, läuft als eigener Prozess hinter nginx oder Apache.
+      </li>
+      <li>
+        <strong>mod_php</strong> – PHP als Apache-Modul. Älter, nur hier
+        funktionieren php_value-Einträge in der .htaccess.
+      </li>
+    </ul>
 
-<p>echo 'Hallo Welt'; dient zum Ausgeben von Text ('Text') oder Variablen ($variable) auf der Webseite. Ein Semikolon ist hierbei zu verwenden.</p>
-<p>Kommentare in PHP werden mit // für einzeilige Kommentare oder /* ... */ für mehrzeilige Kommentare erstellt.</p>
-<h2>Kommentare</h2>
-<p>Einzeilig: // oder #</p>
-<p>Mehrzeilig: /* ... */</p>
-<h2>Variablen</h2>
-<p>Variablen in PHP beginnen mit einem $-Zeichen, gefolgt vom Variablennamen. <pre>Beispiel: $name = "John";<br> $zahl = 42;</pre> 
-<p>Die Typen sind dabei dynamisch, daher kein integer, string, float etc. notwendig.</p>
-<h2>Variablen verketten: </h2>
-<p>Um Variablen in PHP zu verketten, verwendet man den Punkt (.) als Verknüpfungsoperator. <pre>Beispiel: echo $name . " " . $lastname;</pre></p>
-<h2>Arrays</h2>
-<p>Arrays in PHP werden mit dem array()-Konstruktur oder der Kurzsyntax [] erstellt.</p> <pre>Beispiel: $fruits = array("Apfel", "Banane", "Orange");</pre>
-    <p>oder</p> <pre>$fruits = ["Apfel", "Banane", "Orange"];</pre>
-    <p>Der Zugriff auf Array-Elemente erfolgt über den Index</p><pre>z.B. $fruits[0] für "Apfel".</pre>
-    <p>Ebenso gibt es assoziative Arrays, bei denen Schlüssel benannt werden</p> <pre>z.B. $person = ["name" => "John", "age" => 30];</pre>
-    <p>Der Zugriff hier erfolgt über den Schlüssel, z.B. $person["name"] für "John".</p>
-<h2>Bedingungen</h2>
-<p>Bedingungen in PHP werden mit if, elseif und else abgefragt. Beispiel: if ($age >= 18) { echo "Du bist volljährig"; } else { echo "Du bist minderjährig"; }</p>
-<p>Vergleichsoperatoren sind z.B. ==, !=, & lt;, >, & lt;=, >=. ===, wenn exakt gleicher Typ und Wert verglichen werden sollen.</p>
-<h2>Schleifen</h2>
-<p>Schleifen in PHP können mit for, while und foreach erstellt werden. Beispiel für eine for-Schleife: for ($i = 0; $i kleiner 10; $i++) { echo $i; }</p>
-<p>Beispiel für eine foreach-Schleife: foreach ($fruits as $fruit) { echo $fruit; }</p>
-<h2>Funktionen</h2>
-<p>Funktionen in PHP werden mit dem function-Schlüsselwort definiert. Beispiel: function greet($name) { return "Hallo " . $name; }</p>
-<p><pre>function myTest() {
-          echo "Variable x inside function is: $x<br>";
-      } 
-        myTest();</pre></p>
-<p>Funktionen können Parameter entgegennehmen und Werte zurückgeben.</p>
-<h2>Includes / Requires: </h2>
-<p>include und require werden verwendet, um externe PHP-Dateien einzubinden. Beispiel: include 'header.php'; oder require 'config.php';</p>
-<p>Der Unterschied besteht darin, dass require einen fatalen Fehler auslöst, wenn die Datei nicht gefunden wird, während include nur eine Warnung ausgibt.</p>
-<h2>Superglobale Variablen</h2>
-<p>PHP bietet superglobale Variablen wie $_GET, $_POST, $_SESSION, $_SERVER, $_FILES und $_COOKIE, um auf Daten aus Formularen, Sitzungen und Cookies zuzugreifen.</p>
-<p>Beispiel: $name = $_POST['name']; um auf einen Wert aus einem POST-Formular zuzugreifen.</p>
-<p>Beispiel: $name = $_GET['name']; um auf einen Wert aus einem GET-Formular zuzugreifen.</p>
-<p>Beispiel: $_SESSION['user'] = "John"; um eine Sitzung zu starten oder auf eine Sitzung zuzugreifen.</p>
-<p>$_SESSION ist in PHP ein assoziatives Array mir Schlüssel-Wert-Paaren. zB $_SESSION = ['configurator' => [1 => 'Holzofen', 2 => 'Front', 3 => 'Zubehör']]; </p>
-<p>Beispiel: $_SERVER['HTTP_USER_AGENT']; um Informationen über den Browser des Benutzers zu erhalten.</p>
-<p>Beispiel: $_FILES['file']['name']; um auf den Namen einer hochgeladenen Datei zuzugreifen.</p>
-<p>Beispiel: $_COOKIE['user']; um auf einen Wert aus einem Cookie zuzugreifen.</p>
+    <h2>Syntax-Grundlagen</h2>
+    <p>
+      PHP verwendet &lt;?php ... ?&gt; Tags, um PHP-Code in HTML-Dateien
+      einzubetten.
+    </p>
+    <p>
+      Mit &lt;?php echo 'Ausgabetext'; ?&gt; lassen sich Inhalte ausgeben.
+      Idealerweise lässt sich &lt;?= nutzen, das eine Kurzform für
+      &lt;?php echo darstellt.
+    </p>
+    <p>
+      In Dateien, die <strong>nur</strong> PHP enthalten (Klassen, Konfiguration),
+      lässt man das schließende ?&gt; absichtlich weg. So kann kein
+      versehentliches Leerzeichen hinter dem Tag die Ausgabe starten – was sonst
+      zum Klassiker "headers already sent" führt.
+    </p>
+    <p>
+      Schlüsselwörter, Klassen und Funktionen sind nicht case-sensitive,
+      <strong>echo</strong> ist also auch <strong>ECHO</strong>.
+      <strong>Variablennamen sind dagegen case-sensitive</strong>: $name und
+      $Name sind zwei verschiedene Variablen.
+    </p>
+    <p>
+      Jede Anweisung endet mit einem Semikolon. Nur bei der letzten Anweisung
+      vor einem schließenden ?&gt; ist es optional.
+    </p>
 
+    <h2>Kommentare</h2>
+    <p>Einzeilig: // oder #</p>
+    <p>Mehrzeilig: /* ... */</p>
+    <p>
+      Dokumentationskommentare (DocBlocks) beginnen mit /** und werden von IDEs
+      für Autovervollständigung ausgelesen.
+    </p>
+    <pre>/**
+ * Begrüßt einen Benutzer.
+ *
+ * @param string $name
+ * @return string
+ */</pre>
 
-<h2>Funktionen</h2>
-<h3>count()</h3>
-<p>Gibt die Anzahl der Elemente in einem Array oder eines Objekts zurück.</p>
-</div>
+    <h2>Variablen</h2>
+    <p>
+      Variablen in PHP beginnen mit einem $-Zeichen, gefolgt vom
+      Variablennamen. Die Typen sind dabei dynamisch, daher kein integer,
+      string, float etc. bei der Deklaration notwendig – eine Variable entsteht
+      durch die erste Zuweisung.
+    </p>
+    <pre>$name = "John";
+$zahl = 42;</pre>
+    <p>
+      Erlaubt sind Buchstaben, Ziffern und Unterstriche, das erste Zeichen darf
+      keine Ziffer sein (gültig: $name, $_id, $preis2 – ungültig: $2preis,
+      $mein-name). Variablennamen sind
+      <strong>case-sensitive</strong>: $name und $Name sind zwei verschiedene
+      Variablen. Konvention in PHP ist camelCase ($firstName), bei Klassen
+      PascalCase und bei Konstanten GROSSSCHREIBUNG.
+    </p>
+
+    <h3>Existenz prüfen und löschen</h3>
+    <p>
+      Der Zugriff auf eine nicht existierende Variable erzeugt seit PHP 8 eine
+      Warning ("Undefined variable") und liefert null. Deshalb vor dem Zugriff
+      prüfen oder mit <strong>??</strong> einen Standardwert setzen.
+    </p>
+    <pre>isset($name);        // existiert und ist nicht null
+empty($name);        // existiert nicht oder ist "falsy"
+$name = $name ?? 'Gast';
+unset($name);        // Variable entfernen</pre>
+
+    <h3>Zuweisung: Wert oder Referenz</h3>
+    <p>
+      Standardmäßig wird bei einer Zuweisung der <strong>Wert kopiert</strong>.
+      Mit <strong>&amp;</strong> entsteht dagegen eine Referenz, beide Namen
+      zeigen dann auf denselben Inhalt. Objekte sind die Ausnahme: dort zeigen
+      beide Variablen immer auf dieselbe Instanz.
+    </p>
+    <pre>$a = 5;
+$b = $a;      // Kopie
+$b = 10;      // $a bleibt 5
+
+$c = &amp;$a;     // Referenz
+$c = 10;      // $a ist jetzt auch 10</pre>
+
+    <h3>Gültigkeitsbereich (Scope)</h3>
+    <p>
+      Variablen aus dem Hauptskript sind in einer Funktion <strong>nicht</strong>
+      sichtbar – PHP kennt keinen "Durchgriff" von außen nach innen. Das ist der
+      häufigste Anfängerfehler. Umgekehrt sind Variablen aus einer Funktion
+      außerhalb ebenfalls nicht verfügbar.
+    </p>
+    <pre>$x = 5;
+
+function myTest() {
+    echo $x; // Warning: Undefined variable $x
+}
+
+function besser(int $x) {
+    echo $x; // richtig: als Parameter übergeben
+}
+besser($x);</pre>
+    <p>
+      Mit <strong>global $x;</strong> oder über
+      <strong>$GLOBALS['x']</strong> ließe sich die äußere Variable holen, das
+      gilt aber als schlechter Stil, weil die Abhängigkeit nicht mehr an der
+      Funktionssignatur erkennbar ist. Parameter und Rückgabewerte sind der
+      saubere Weg.
+    </p>
+    <p>
+      <strong>static</strong> innerhalb einer Funktion behält den Wert über
+      mehrere Aufrufe hinweg, ohne ihn global zu machen:
+    </p>
+    <pre>function zaehler(): int {
+    static $count = 0;
+    return ++$count;
+}
+zaehler(); // 1
+zaehler(); // 2</pre>
+    <p>
+      Eine Ausnahme von der Scope-Regel sind die
+      <strong>superglobalen Variablen</strong> ($_POST, $_SERVER, $_SESSION
+      usw.) – sie sind überall ohne global verfügbar.
+    </p>
+    <p>
+      In einer <strong>Closure</strong> werden äußere Variablen mit
+      <strong>use</strong> importiert, eine <strong>Arrow Function</strong> (fn)
+      übernimmt sie automatisch. Eingebundene Dateien per include/require
+      teilen dagegen den Scope der einbindenden Stelle.
+    </p>
+
+    <h3>Variable Variablen</h3>
+    <p>
+      Mit $$ lässt sich ein Variablenname aus dem Inhalt einer anderen Variablen
+      bilden. Funktioniert, führt aber schnell zu unlesbarem Code – ein Array
+      ist in solchen Fällen fast immer die bessere Lösung.
+    </p>
+    <pre>$feld = 'name';
+$$feld = 'John';   // erzeugt $name
+echo $name;        // "John"</pre>
+
+    <h2>Datentypen</h2>
+    <p>
+      PHP ist <strong>dynamisch typisiert</strong>: der Typ einer Variablen
+      ergibt sich aus dem zugewiesenen Wert und kann sich jederzeit ändern. Man
+      deklariert ihn also nicht, sollte ihn aber kennen – viele Fehler entstehen
+      genau dort, wo PHP unerwartet umwandelt.
+    </p>
+    <pre>$wert = "42";   // string
+$wert = 42;     // int
+$wert = 42.5;   // float
+$wert = true;   // bool
+$wert = null;   // null</pre>
+
+    <h3>Skalare Typen</h3>
+    <ul>
+      <li>
+        <strong>string</strong> – Text: "Hallo". Beliebig lang, intern eine
+        Folge von Bytes. Umlaute belegen in UTF-8 mehrere Bytes, daher für
+        Längen und Teilstrings die mb_*-Funktionen nutzen.
+      </li>
+      <li>
+        <strong>int</strong> – Ganzzahl: 42, -7, 0. Auf 64-Bit-Systemen bis
+        PHP_INT_MAX (ca. 9,2 Billiarden). Bei Überschreitung wird daraus
+        automatisch ein float.
+      </li>
+      <li>
+        <strong>float</strong> – Kommazahl: 3.14 (Punkt, nicht Komma!). Da
+        Fließkommazahlen binär gespeichert werden, ist 0.1 + 0.2 === 0.3
+        <strong>false</strong>. Deshalb Geldbeträge nie als float rechnen,
+        sondern in Cent als int – oder mit einer Toleranz vergleichen:
+        abs($a - $b) &lt; 0.00001.
+      </li>
+      <li>
+        <strong>bool</strong> – true / false. In der Ausgabe wird true zu "1"
+        und false zu einem leeren String, daher zum Prüfen var_dump() nutzen.
+      </li>
+    </ul>
+
+    <h3>Zusammengesetzte Typen</h3>
+    <ul>
+      <li>
+        <strong>array</strong> – Liste oder Schlüssel-Wert-Paare, intern immer
+        eine geordnete Map.
+      </li>
+      <li>
+        <strong>object</strong> – Instanz einer Klasse. Objekte werden bei der
+        Zuweisung nicht kopiert, beide Variablen zeigen auf dieselbe Instanz
+        (Kopie mit <strong>clone</strong>).
+      </li>
+      <li>
+        <strong>callable</strong> – eine aufrufbare Funktion, Closure oder
+        Methode, typisch als Callback für array_map().
+      </li>
+      <li>
+        <strong>iterable</strong> – alles, was mit foreach durchlaufen werden
+        kann: array oder Traversable.
+      </li>
+      <li>
+        <strong>resource</strong> – Verweis auf eine externe Ressource, z.B. ein
+        offenes Dateihandle aus fopen().
+      </li>
+    </ul>
+
+    <h3>null</h3>
+    <p>
+      <strong>null</strong> bedeutet "kein Wert" und ist der Typ einer Variablen,
+      die noch nichts zugewiesen bekommen hat oder mit unset() geleert wurde.
+      Wichtig ist der Unterschied zu einem leeren String oder 0 – das sind
+      vorhandene Werte.
+    </p>
+    <pre>$a = null;
+var_dump(isset($a));        // false – null gilt als "nicht gesetzt"
+var_dump($a === null);      // true
+var_dump(is_null($a));      // true
+var_dump($a ?? 'Standard'); // "Standard"</pre>
+
+    <h3>Typ prüfen und ausgeben</h3>
+    <p>
+      <strong>var_dump($wert)</strong> zeigt Typ <em>und</em> Wert und ist damit
+      das wichtigste Debugging-Werkzeug. <strong>print_r($array)</strong> gibt
+      Arrays lesbar aus (mit true als 2. Parameter als String zurück),
+      <strong>gettype()</strong> liefert den Typnamen.
+    </p>
+    <pre>var_dump("5");    // string(1) "5"
+var_dump(5);      // int(5)
+var_dump(5.0);    // float(5)
+var_dump(true);   // bool(true)
+var_dump([1, 2]); // array(2) { [0]=&gt; int(1) [1]=&gt; int(2) }</pre>
+    <p>
+      Gezielte Prüfungen: <strong>is_string()</strong>,
+      <strong>is_int()</strong>, <strong>is_float()</strong>,
+      <strong>is_bool()</strong>, <strong>is_array()</strong>,
+      <strong>is_object()</strong>, <strong>is_null()</strong>,
+      <strong>is_numeric()</strong> (Zahl oder numerischer String),
+      <strong>is_callable()</strong>.
+    </p>
+
+    <h3>Typumwandlung (Casting)</h3>
+    <p>
+      PHP wandelt Typen bei Bedarf automatisch um – "3" + 4 ergibt 7. Explizit
+      geht es per Cast in Klammern oder über Funktionen.
+    </p>
+    <pre>(int) "42abc"     // 42  – schneidet ab der ersten Nicht-Ziffer ab
+(int) "abc"       // 0
+(float) "3,5"     // 3   – Achtung: Komma wird nicht erkannt
+(string) 42       // "42"
+(bool) "0"        // false
+(array) "Hallo"   // ["Hallo"]
+
+intval($wert); floatval($wert); strval($wert); boolval($wert);
+settype($wert, 'int');  // ändert die Variable selbst</pre>
+    <p>
+      Da ein Cast stillschweigend 0 liefert, ist zur Prüfung von
+      Benutzereingaben <strong>filter_var()</strong> besser geeignet – es gibt
+      bei ungültigen Werten false zurück:
+    </p>
+    <pre>$seite = filter_var($_GET['seite'] ?? '', FILTER_VALIDATE_INT);
+if ($seite === false) {
+    $seite = 1;
+}</pre>
+
+    <h3>Falsy-Werte</h3>
+    <p>
+      Als <strong>false</strong> gelten: false, 0, 0.0, "" (leerer String), "0",
+      leeres Array und null. Achtung: der String "0" ist falsy, der String
+      "false" dagegen truthy – ebenso wie "0.0" und " " (Leerzeichen).
+    </p>
+    <p>
+      <strong>empty($var)</strong> prüft auf falsy, ohne bei nicht existierenden
+      Variablen eine Warnung auszulösen. <strong>isset($var)</strong> prüft, ob
+      die Variable existiert und nicht null ist. Bei einer Zahl, die 0 sein
+      darf, ist empty() daher die falsche Prüfung – dort gehört isset() oder ein
+      Vergleich mit !== ''.
+    </p>
+
+    <h3>Vergleiche: == und ===</h3>
+    <p>
+      <strong>==</strong> vergleicht nur den Wert und wandelt dabei Typen um,
+      <strong>===</strong> vergleicht Wert <em>und</em> Typ. Seit PHP 8 ist der
+      lockere Vergleich deutlich weniger überraschend, trotzdem gilt:
+      <strong>immer === verwenden</strong>.
+    </p>
+    <pre>0 == "0"       // true
+"1" === 1      // false – unterschiedlicher Typ
+null == false  // true
+0 == "abc"     // false (ab PHP 8; vorher true!)
+"10" == "1e1"  // true – beide werden als Zahl gelesen</pre>
+
+    <h3>Typdeklarationen</h3>
+    <p>
+      Auch wenn Variablen selbst keinen festen Typ haben, lassen sich Parameter,
+      Rückgabewerte und Klasseneigenschaften typisieren. Das macht den Code
+      selbsterklärend und Fehler fallen sofort auf.
+    </p>
+    <pre>function teile(int $a, int $b): float
+{
+    return $a / $b;
+}
+
+function finde(int $id): ?User      // User oder null
+{
+    return $this-&gt;users[$id] ?? null;
+}
+
+function verarbeite(int|string $id): void   // Union Type, ab PHP 8
+{
+    // void = gibt nichts zurück
+}
+
+class Produkt
+{
+    public string $name = '';
+    public ?float $preis = null;    // typisierte Eigenschaft, ab PHP 7.4
+}</pre>
+
+    <h3>Strict Types</h3>
+    <p>
+      Mit <strong>declare(strict_types=1);</strong> als erster Anweisung einer
+      Datei akzeptiert PHP bei Typdeklarationen keine stillen Umwandlungen mehr
+      – aus "5" wird dann nicht automatisch 5, sondern ein TypeError. Empfohlen
+      für jede neue Datei, da Fehler früh auffallen.
+    </p>
+    <pre>&lt;?php
+declare(strict_types=1);
+
+teile("10", 2);  // ohne strict_types: funktioniert
+                 // mit strict_types:  TypeError</pre>
+
+    <h2>Strings</h2>
+    <p>
+      Der entscheidende Unterschied: in <strong>doppelten</strong>
+      Anführungszeichen werden Variablen und Escape-Sequenzen wie \n
+      ausgewertet, in <strong>einfachen</strong> nicht.
+    </p>
+    <pre>$name = "John";
+echo "Hallo $name";     // Hallo John
+echo 'Hallo $name';     // Hallo $name
+echo "Hallo {$user['name']}"; // geschweifte Klammern bei Array-/Objektzugriff</pre>
+
+    <h3>Variablen verketten</h3>
+    <p>
+      Um Strings in PHP zu verketten, verwendet man den Punkt (.) als
+      Verknüpfungsoperator. <strong>.=</strong> hängt an eine bestehende
+      Variable an.
+    </p>
+    <pre>echo $name . " " . $lastname;
+
+$html = '';
+$html .= '&lt;li&gt;Eintrag&lt;/li&gt;';</pre>
+
+    <h3>Heredoc und Nowdoc</h3>
+    <p>
+      Für mehrzeilige Texte, z.B. HTML- oder Mail-Templates. Heredoc (&lt;&lt;&lt;HTML)
+      wertet Variablen aus, Nowdoc (&lt;&lt;&lt;'HTML') nicht.
+    </p>
+    <pre>$text = &lt;&lt;&lt;HTML
+&lt;h1&gt;Hallo $name&lt;/h1&gt;
+&lt;p&gt;Willkommen!&lt;/p&gt;
+HTML;</pre>
+
+    <h3>Wichtige String-Funktionen</h3>
+    <ul>
+      <li><strong>strlen()</strong> – Länge in Bytes, <strong>mb_strlen()</strong> für Umlaute/UTF-8</li>
+      <li><strong>trim()</strong> / ltrim() / rtrim() – Leerzeichen entfernen</li>
+      <li><strong>strtolower()</strong> / strtoupper() / ucfirst() / ucwords()</li>
+      <li><strong>str_replace($suche, $ersatz, $text)</strong></li>
+      <li><strong>substr($text, 0, 10)</strong> – Teilstring</li>
+      <li><strong>strpos($text, $suche)</strong> – Position, gibt false zurück wenn nicht gefunden (daher immer mit !== false prüfen)</li>
+      <li><strong>str_contains()</strong> / str_starts_with() / str_ends_with() – ab PHP 8, deutlich lesbarer als strpos</li>
+      <li><strong>explode(",", $text)</strong> – String zu Array, <strong>implode(", ", $array)</strong> – Array zu String</li>
+      <li><strong>sprintf("%s hat %d Punkte", $name, $punkte)</strong> – formatierte Ausgabe, number_format() für Tausenderpunkte</li>
+      <li><strong>nl2br()</strong> – Zeilenumbrüche zu &lt;br&gt;</li>
+      <li><strong>htmlspecialchars()</strong> – Pflicht bei jeder Ausgabe von Benutzereingaben (siehe Sicherheit)</li>
+    </ul>
+    <p>
+      Bei Umlauten und Sonderzeichen immer die <strong>mb_*</strong>-Varianten
+      verwenden (mb_strlen, mb_substr, mb_strtolower), da ein UTF-8-Umlaut aus
+      zwei Bytes besteht.
+    </p>
+
+    <h2>Konstanten</h2>
+    <p>
+      Eine Konstante ist ein Wert, der einmal festgelegt wird und sich danach
+      nicht mehr ändern lässt. Im Unterschied zu Variablen steht
+      <strong>kein $</strong> davor, und sie sind automatisch in jedem
+      Gültigkeitsbereich verfügbar – also auch innerhalb von Funktionen, ohne
+      global. Konvention ist GROSSSCHREIBUNG mit Unterstrichen.
+    </p>
+    <p>
+      Typischer Einsatz: Konfigurationswerte, Pfade, Grenzwerte und feste
+      Statuswerte, die sich zur Laufzeit nicht ändern dürfen.
+    </p>
+    <pre>define('SITE_NAME', 'Knowledge Base');
+const MAX_UPLOAD = 5;
+
+echo SITE_NAME;
+echo MAX_UPLOAD;</pre>
+
+    <h3>define() oder const?</h3>
+    <ul>
+      <li>
+        <strong>const</strong> – wird beim Kompilieren ausgewertet, muss daher
+        auf oberster Ebene stehen (nicht in if-Blöcken) und benötigt einen
+        festen Wert. Innerhalb von Klassen ist const die einzige Möglichkeit.
+        Etwas schneller und von IDEs besser erkannt – im Zweifel die richtige
+        Wahl.
+      </li>
+      <li>
+        <strong>define()</strong> – wird zur Laufzeit ausgeführt und kann
+        deshalb bedingt oder mit berechneten Werten verwendet werden. Nötig,
+        wenn der Name selbst erst zur Laufzeit feststeht.
+      </li>
+    </ul>
+    <pre>// nur mit define() möglich
+if (!defined('DEBUG')) {
+    define('DEBUG', $_SERVER['HTTP_HOST'] === 'localhost:8000');
+}</pre>
+    <p>
+      <strong>defined('NAME')</strong> prüft, ob eine Konstante existiert, und
+      verhindert den Fehler "Constant already defined".
+      <strong>constant('NAME')</strong> liest eine Konstante über einen
+      Variablennamen aus.
+    </p>
+
+    <h3>Konstanten in Klassen und Enums</h3>
+    <p>
+      In Klassen und Interfaces werden Konstanten mit const definiert und über
+      <strong>::</strong> angesprochen. Sie können public, protected oder
+      private sein.
+    </p>
+    <pre>class User
+{
+    public const ROLE_ADMIN  = 'admin';
+    public const ROLE_EDITOR = 'editor';
+}
+
+echo User::ROLE_ADMIN;   // von außen
+// innerhalb der Klasse: self::ROLE_ADMIN oder static::ROLE_ADMIN</pre>
+    <p>
+      Für eine feste Menge zusammengehöriger Werte sind
+      <strong>Enums</strong> (ab PHP 8.1) allerdings die bessere Lösung, da
+      dort ungültige Werte gar nicht möglich sind.
+    </p>
+
+    <h3>Vordefinierte und magische Konstanten</h3>
+    <p>PHP bringt selbst eine Reihe von Konstanten mit:</p>
+    <ul>
+      <li><strong>PHP_VERSION</strong>, <strong>PHP_OS</strong>, <strong>PHP_INT_MAX</strong>, <strong>PHP_FLOAT_EPSILON</strong></li>
+      <li><strong>PHP_EOL</strong> – betriebssystemgerechter Zeilenumbruch</li>
+      <li><strong>DIRECTORY_SEPARATOR</strong> – / bzw. \ je nach System</li>
+      <li><strong>E_ALL</strong>, <strong>E_WARNING</strong> – Fehlerstufen für error_reporting()</li>
+      <li><strong>UPLOAD_ERR_OK</strong>, <strong>PASSWORD_DEFAULT</strong>, <strong>JSON_THROW_ON_ERROR</strong> – Konstanten einzelner Erweiterungen</li>
+    </ul>
+    <p>
+      Die <strong>magischen Konstanten</strong> (doppelter Unterstrich) ändern
+      ihren Wert je nach Position im Code und werden nicht mit define gesetzt:
+    </p>
+    <ul>
+      <li><strong>__DIR__</strong> – Ordner der aktuellen Datei, die zuverlässige Basis für include-Pfade</li>
+      <li><strong>__FILE__</strong> – absoluter Pfad der aktuellen Datei</li>
+      <li><strong>__LINE__</strong> – aktuelle Zeilennummer</li>
+      <li><strong>__CLASS__</strong>, <strong>__FUNCTION__</strong>, <strong>__METHOD__</strong>, <strong>__NAMESPACE__</strong></li>
+    </ul>
+    <pre>require_once __DIR__ . '/config.php';   // bricht nicht, egal von wo eingebunden
+error_log(__FILE__ . ':' . __LINE__ . ' – Wert: ' . $wert);</pre>
+    <p>
+      <strong>Unterschied zur Variablen in einem Satz:</strong> Variablen haben
+      ein $, sind veränderbar und an einen Gültigkeitsbereich gebunden –
+      Konstanten haben kein $, sind unveränderbar und überall sichtbar.
+    </p>
+
+    <h2>Operatoren</h2>
+    <ul>
+      <li><strong>Arithmetisch:</strong> + - * / % (Modulo, Rest) ** (Potenz)</li>
+      <li><strong>Zuweisung:</strong> = += -= *= /= .= ??=</li>
+      <li><strong>Inkrement:</strong> $i++ / ++$i / $i-- </li>
+      <li><strong>Vergleich:</strong> == != &lt; &gt; &lt;= &gt;= und === / !== wenn exakt gleicher Typ <em>und</em> Wert verglichen werden sollen</li>
+      <li><strong>Spaceship:</strong> &lt;=&gt; gibt -1, 0 oder 1 zurück, praktisch für usort()</li>
+      <li><strong>Logisch:</strong> &amp;&amp; (und), || (oder), ! (nicht), xor</li>
+      <li><strong>Null-Coalescing:</strong> ?? – nimmt den rechten Wert, wenn der linke nicht existiert oder null ist</li>
+      <li><strong>Ternär:</strong> $a ? $b : $c, Kurzform $a ?: $c</li>
+      <li><strong>Nullsafe:</strong> $user?-&gt;getAddress()?-&gt;city – bricht ab, statt bei null einen Fehler zu werfen</li>
+    </ul>
+    <p>
+      <strong>Faustregel: immer === verwenden.</strong> Der ==-Vergleich wandelt
+      Typen um und führt zu Überraschungen. ?? ist der sichere Weg, um
+      Formular- oder Konfigurationswerte mit Standardwert zu lesen:
+    </p>
+    <pre>$name = $_POST['name'] ?? '';
+$limit = $config['limit'] ?? 10;
+$count ??= 0; // setzt nur, wenn noch nicht gesetzt</pre>
+
+    <h2>Bedingungen</h2>
+    <p>
+      Bedingungen in PHP werden mit if, elseif und else abgefragt.
+    </p>
+    <pre>if ($age &gt;= 18) {
+    echo "Du bist volljährig";
+} elseif ($age &gt; 0) {
+    echo "Du bist minderjährig";
+} else {
+    echo "Ungültiges Alter";
+}</pre>
+    <p>
+      In Templates ist die <strong>alternative Syntax</strong> lesbarer, weil
+      sich HTML dazwischen sauber einfügen lässt:
+    </p>
+    <pre>&lt;?php if ($user): ?&gt;
+    &lt;p&gt;Hallo &lt;?= htmlspecialchars($user['name']) ?&gt;&lt;/p&gt;
+&lt;?php else: ?&gt;
+    &lt;a href="/login"&gt;Anmelden&lt;/a&gt;
+&lt;?php endif; ?&gt;</pre>
+
+    <h3>switch und match</h3>
+    <p>
+      <strong>switch</strong> vergleicht locker (==) und braucht break, sonst
+      läuft der Code in den nächsten Fall weiter.
+    </p>
+    <pre>switch ($rolle) {
+    case 'admin':
+        $rechte = 'alle';
+        break;
+    case 'redakteur':
+        $rechte = 'bearbeiten';
+        break;
+    default:
+        $rechte = 'lesen';
+}</pre>
+    <p>
+      <strong>match</strong> (ab PHP 8) ist ein Ausdruck, vergleicht strikt
+      (===), braucht kein break und gibt direkt einen Wert zurück. In der Regel
+      die bessere Wahl.
+    </p>
+    <pre>$rechte = match($rolle) {
+    'admin'               =&gt; 'alle',
+    'redakteur', 'autor'  =&gt; 'bearbeiten',
+    default               =&gt; 'lesen',
+};</pre>
+
+    <h2>Schleifen</h2>
+    <p>
+      Schleifen in PHP können mit for, while, do-while und foreach erstellt
+      werden.
+    </p>
+    <pre>for ($i = 0; $i &lt; 10; $i++) {
+    echo $i;
+}
+
+while ($zeile = $stmt-&gt;fetch()) {
+    echo $zeile['name'];
+}
+
+do {
+    // läuft mindestens einmal
+} while ($bedingung);</pre>
+    <p>
+      <strong>foreach</strong> ist die wichtigste Schleife in PHP, da man damit
+      Arrays ohne Index durchläuft:
+    </p>
+    <pre>foreach ($fruits as $fruit) {
+    echo $fruit;
+}
+
+foreach ($person as $key =&gt; $value) {
+    echo "$key: $value";
+}
+
+foreach ($items as &amp;$item) {
+    $item = strtoupper($item); // &amp; verändert das Original-Array
+}
+unset($item); // Referenz nach der Schleife auflösen</pre>
+    <p>
+      <strong>break</strong> verlässt die Schleife, <strong>continue</strong>
+      springt zum nächsten Durchlauf. Mit break 2 / continue 2 auch über zwei
+      Ebenen.
+    </p>
+
+    <h2>Arrays</h2>
+    <p>
+      Arrays in PHP werden mit dem array()-Konstrukt oder der Kurzsyntax []
+      erstellt. Ein PHP-Array ist technisch immer eine geordnete Map, deshalb
+      gibt es keinen Unterschied zwischen "Liste" und "Dictionary".
+    </p>
+    <pre>$fruits = array("Apfel", "Banane", "Orange");
+$fruits = ["Apfel", "Banane", "Orange"]; // bevorzugt</pre>
+    <p>Der Zugriff auf Array-Elemente erfolgt über den Index:</p>
+    <pre>echo $fruits[0];   // "Apfel"
+$fruits[] = "Kiwi"; // anhängen</pre>
+    <p>
+      Ebenso gibt es assoziative Arrays, bei denen Schlüssel benannt werden. Der
+      Zugriff erfolgt dann über den Schlüssel.
+    </p>
+    <pre>$person = ["name" =&gt; "John", "age" =&gt; 30];
+echo $person["name"]; // "John"</pre>
+    <p>Mehrdimensionale Arrays sind einfach Arrays in Arrays:</p>
+    <pre>$users = [
+    ["name" =&gt; "John", "age" =&gt; 30],
+    ["name" =&gt; "Jane", "age" =&gt; 25],
+];
+echo $users[1]["name"]; // "Jane"</pre>
+
+    <h3>Wichtige Array-Funktionen</h3>
+    <ul>
+      <li><strong>count()</strong> – Anzahl der Elemente in einem Array oder eines Objekts</li>
+      <li><strong>in_array($wert, $array)</strong> – enthält das Array den Wert? (mit true als 3. Parameter strikt vergleichen)</li>
+      <li><strong>array_key_exists($key, $array)</strong> – existiert der Schlüssel?</li>
+      <li><strong>array_keys()</strong> / <strong>array_values()</strong></li>
+      <li><strong>array_map(fn($x) =&gt; $x * 2, $array)</strong> – jeden Wert transformieren</li>
+      <li><strong>array_filter($array, fn($x) =&gt; $x &gt; 10)</strong> – filtern</li>
+      <li><strong>array_reduce()</strong> – auf einen Wert zusammenfassen (z.B. Summe)</li>
+      <li><strong>array_column($users, 'name')</strong> – eine Spalte aus Datensätzen ziehen</li>
+      <li><strong>array_merge()</strong> – zusammenfügen, <strong>array_unique()</strong>, <strong>array_slice()</strong>, <strong>array_search()</strong></li>
+      <li><strong>sort()</strong> / rsort() / asort() (nach Wert, Schlüssel bleiben) / ksort() (nach Schlüssel) / usort() (eigene Funktion)</li>
+      <li><strong>array_sum()</strong>, <strong>min()</strong>, <strong>max()</strong></li>
+      <li><strong>unset($array[2])</strong> – Element löschen (Indizes bleiben lückenhaft, mit array_values() neu durchnummerieren)</li>
+    </ul>
+    <p>Destrukturierung und Spread:</p>
+    <pre>[$a, $b] = [1, 2];
+['name' =&gt; $name] = $person;
+$alle = [...$array1, ...$array2];</pre>
+
+    <h2>Funktionen</h2>
+    <p>
+      Funktionen in PHP werden mit dem function-Schlüsselwort definiert. Sie
+      können Parameter entgegennehmen und Werte zurückgeben.
+    </p>
+    <pre>function greet($name) {
+    return "Hallo " . $name;
+}
+echo greet("John");</pre>
+    <p>
+      Mit <strong>Typdeklarationen</strong> wird der Code deutlich sicherer und
+      selbsterklärend. ?string bedeutet "string oder null", void heißt "gibt
+      nichts zurück".
+    </p>
+    <pre>function greet(string $name, string $gruss = "Hallo"): string {
+    return "$gruss $name";
+}
+
+greet("John");                  // Standardwert wird genutzt
+greet(name: "John", gruss: "Hi"); // Named Arguments, ab PHP 8</pre>
+    <p>Variable Anzahl von Parametern mit ... (Variadic):</p>
+    <pre>function summe(int ...$zahlen): int {
+    return array_sum($zahlen);
+}
+echo summe(1, 2, 3); // 6</pre>
+
+    <h3>Closures und Arrow Functions</h3>
+    <p>
+      Anonyme Funktionen lassen sich in Variablen speichern und als Callback
+      übergeben. Eine Closure muss äußere Variablen mit <strong>use</strong>
+      importieren, eine Arrow Function (fn) übernimmt sie automatisch.
+    </p>
+    <pre>$faktor = 3;
+
+$mal = function ($x) use ($faktor) {
+    return $x * $faktor;
+};
+
+$mal = fn($x) =&gt; $x * $faktor; // kurz, ab PHP 7.4
+
+$ergebnis = array_map($mal, [1, 2, 3]);</pre>
+
+    <h3>Referenzen</h3>
+    <p>
+      Normalerweise werden Werte kopiert übergeben. Mit &amp; vor dem Parameter
+      wird das Original verändert. Objekte werden dagegen immer als Referenz auf
+      dieselbe Instanz behandelt.
+    </p>
+    <pre>function addiere(array &amp;$liste, $wert) {
+    $liste[] = $wert;
+}</pre>
+
+    <h2>Includes / Requires</h2>
+    <p>
+      include und require werden verwendet, um externe PHP-Dateien einzubinden.
+    </p>
+    <pre>include 'header.php';
+require 'config.php';
+require_once __DIR__ . '/config.php'; // empfohlen</pre>
+    <p>
+      Der Unterschied besteht darin, dass <strong>require</strong> einen fatalen
+      Fehler auslöst, wenn die Datei nicht gefunden wird, während
+      <strong>include</strong> nur eine Warnung ausgibt und weiterläuft.
+    </p>
+    <p>
+      Die <strong>_once</strong>-Varianten binden eine Datei nur einmal ein und
+      verhindern damit "Cannot redeclare function"-Fehler. Für Konfiguration und
+      Klassen immer require_once verwenden, für Template-Teile include.
+    </p>
+    <p>
+      Pfade immer absolut über <strong>__DIR__</strong> aufbauen – relative
+      Pfade beziehen sich auf das aufrufende Skript und brechen, sobald die
+      Datei von woanders eingebunden wird.
+    </p>
+
+    <h2>Superglobale Variablen (Superglobals)</h2>
+    <p>
+      Superglobale Variablen sind vordefinierte Arrays, die PHP bei jedem
+      Request automatisch füllt. Sie heißen "superglobal", weil sie in
+      <strong>jedem Gültigkeitsbereich</strong> verfügbar sind – also auch
+      innerhalb von Funktionen und Methoden, ohne dass man sie mit
+      <strong>global</strong> importieren oder als Parameter übergeben muss.
+      Das ist der einzige Unterschied zu normalen globalen Variablen.
+    </p>
+    <pre>function zeigeMethode() {
+    echo $_SERVER['REQUEST_METHOD']; // funktioniert ohne global
+}</pre>
+    <p>Es gibt genau neun davon:</p>
+    <ul>
+      <li><strong>$GLOBALS</strong> – alle globalen Variablen</li>
+      <li><strong>$_SERVER</strong> – Server- und Request-Informationen</li>
+      <li><strong>$_GET</strong> – Daten aus der URL</li>
+      <li><strong>$_POST</strong> – Daten aus einem POST-Request</li>
+      <li><strong>$_FILES</strong> – hochgeladene Dateien</li>
+      <li><strong>$_COOKIE</strong> – Cookies des Browsers</li>
+      <li><strong>$_SESSION</strong> – serverseitiger Speicher pro Besucher</li>
+      <li><strong>$_REQUEST</strong> – Mischung aus GET, POST und COOKIE</li>
+      <li><strong>$_ENV</strong> – Umgebungsvariablen</li>
+    </ul>
+    <p>
+      <strong>Grundregel:</strong> $_GET, $_POST, $_COOKIE, $_FILES,
+      $_REQUEST und große Teile von $_SERVER kommen vom Benutzer und sind
+      grundsätzlich als <strong>nicht vertrauenswürdig</strong> zu behandeln –
+      immer auf Existenz prüfen, validieren und beim Ausgeben escapen. Nur
+      $_SESSION und $_ENV liegen auf dem Server und sind damit vertrauenswürdig.
+    </p>
+
+    <h3>$_GET</h3>
+    <p>
+      Enthält die Parameter aus dem Query-String der URL, also alles nach dem
+      Fragezeichen, sowie die Felder eines Formulars mit method="get". Die Werte
+      stehen sichtbar in der Adresszeile, lassen sich als Lesezeichen speichern
+      und landen im Browserverlauf und in Serverlogs. Deshalb nur für Filter,
+      Suche, Sortierung und Seitenzahlen verwenden – nie für Passwörter.
+    </p>
+    <pre>// Aufruf: /produkte.php?kategorie=oefen&amp;seite=2
+
+$kategorie = $_GET['kategorie'] ?? 'alle';
+$seite     = (int) ($_GET['seite'] ?? 1);
+
+// Sicher weiterverwenden
+$seite = max(1, $seite);
+echo htmlspecialchars($kategorie, ENT_QUOTES, 'UTF-8');</pre>
+    <p>
+      Die Werte sind <strong>immer Strings</strong> (oder Arrays), auch wenn in
+      der URL eine Zahl steht – daher die Umwandlung mit (int) oder die Prüfung
+      mit filter_var(). Mehrere Werte unter einem Namen gehen mit
+      eckigen Klammern: <strong>?tags[]=a&amp;tags[]=b</strong> liefert in
+      $_GET['tags'] ein Array.
+    </p>
+    <p>
+      Beim Zusammenbauen von Links müssen Werte kodiert werden:
+      <strong>urlencode($wert)</strong> bzw.
+      <strong>http_build_query(['kategorie' =&gt; $k, 'seite' =&gt; 2])</strong>.
+    </p>
+
+    <h3>$_POST</h3>
+    <p>
+      Enthält die Felder eines Formulars mit method="post". Die Daten stehen im
+      Body des Requests, sind also nicht in der URL sichtbar und werden nicht
+      geloggt oder als Lesezeichen gespeichert. Für alles, was Daten
+      <strong>verändert</strong> (anlegen, ändern, löschen, Login, Mailversand)
+      oder vertraulich ist.
+    </p>
+    <pre>&lt;form method="post" action="speichern.php"&gt;
+    &lt;input type="text" name="name"&gt;
+    &lt;input type="email" name="email"&gt;
+    &lt;button type="submit"&gt;Senden&lt;/button&gt;
+&lt;/form&gt;</pre>
+    <pre>// Der Schlüssel ist das name-Attribut des Feldes
+$name  = trim($_POST['name'] ?? '');
+$email = trim($_POST['email'] ?? '');</pre>
+    <p>Wichtige Punkte, die immer wieder für Fehler sorgen:</p>
+    <ul>
+      <li>
+        Felder <strong>ohne name-Attribut</strong> werden nicht mitgesendet und
+        fehlen in $_POST.
+      </li>
+      <li>
+        Nicht angekreuzte <strong>Checkboxen</strong> sind überhaupt nicht in
+        $_POST enthalten – daher mit isset($_POST['agb']) prüfen, nicht auf den
+        Wert.
+      </li>
+      <li>
+        Ein <strong>deaktiviertes</strong> Feld (disabled) wird nicht gesendet,
+        ein readonly-Feld schon.
+      </li>
+      <li>
+        Für Datei-Uploads muss das Formular
+        <strong>enctype="multipart/form-data"</strong> haben – sonst bleibt
+        $_FILES leer.
+      </li>
+      <li>
+        Ist der Request größer als <strong>post_max_size</strong> (php.ini),
+        sind $_POST <em>und</em> $_FILES komplett leer.
+      </li>
+      <li>
+        $_POST wird nur bei
+        application/x-www-form-urlencoded und multipart/form-data gefüllt. Bei
+        einem JSON-Body (typisch bei AJAX/fetch) ist $_POST leer, dann muss der
+        Rohinhalt gelesen werden:
+      </li>
+    </ul>
+    <pre>$daten = json_decode(file_get_contents('php://input'), true);</pre>
+    <p>
+      Ob überhaupt ein POST vorliegt, prüft man über $_SERVER, nicht über
+      leere Felder:
+    </p>
+    <pre>if ($_SERVER['REQUEST_METHOD'] === 'POST') { /* verarbeiten */ }</pre>
+
+    <h3>$_REQUEST</h3>
+    <p>
+      Enthält GET-, POST- und Cookie-Werte in einem Array. Welche Quellen in
+      welcher Reihenfolge einfließen, hängt von der php.ini-Einstellung
+      <strong>variables_order</strong> ab – bei Namensgleichheit überschreibt die
+      spätere Quelle die frühere.
+    </p>
+    <p>
+      <strong>Sollte man nicht verwenden.</strong> Die Herkunft eines Wertes ist
+      nicht erkennbar, wodurch sich ein POST-Wert über einen URL-Parameter oder
+      ein gesetztes Cookie unterschieben lässt. Zusätzlich lässt sich damit die
+      Request-Methode nicht mehr kontrollieren – ein Formular, das eigentlich
+      nur per POST absendbar sein soll, funktioniert plötzlich auch über einen
+      Link. Immer gezielt $_GET oder $_POST abfragen.
+    </p>
+
+    <h3>$_COOKIE</h3>
+    <p>
+      Enthält alle Cookies, die der Browser mit dem Request mitgeschickt hat.
+      Cookies werden <strong>beim Benutzer</strong> gespeichert und sind dort
+      beliebig manipulierbar – also nie für Berechtigungen oder Preise
+      verwenden, sondern nur für unkritische Dinge wie Theme, Sprache oder
+      Cookie-Banner-Zustand.
+    </p>
+    <pre>// Setzen (muss vor jeder Ausgabe passieren)
+setcookie('theme', 'dark', [
+    'expires'  =&gt; time() + 86400 * 30,
+    'path'     =&gt; '/',
+    'secure'   =&gt; true,   // nur über HTTPS
+    'httponly' =&gt; true,   // kein Zugriff per JavaScript
+    'samesite' =&gt; 'Lax',
+]);
+
+// Lesen
+$theme = $_COOKIE['theme'] ?? 'light';
+
+// Löschen: Zeitpunkt in die Vergangenheit setzen
+setcookie('theme', '', time() - 3600, '/');</pre>
+    <p>
+      <strong>Wichtig:</strong> Ein gerade gesetztes Cookie steht erst beim
+      <strong>nächsten</strong> Request in $_COOKIE – unmittelbar nach
+      setcookie() ist es dort noch nicht enthalten. Pro Cookie sind rund 4 KB
+      möglich, und sie werden bei jedem Request mitgesendet.
+    </p>
+
+    <h3>$_SESSION</h3>
+    <p>
+      Der serverseitige Speicher pro Besucher. Der Browser erhält nur eine
+      Session-ID als Cookie (PHPSESSID), die eigentlichen Daten liegen auf dem
+      Server und sind damit nicht manipulierbar. Deshalb gehören Login-Status
+      und Berechtigungen in die Session, nicht in ein Cookie.
+    </p>
+    <p>
+      Vor jedem Zugriff muss <strong>session_start()</strong> aufgerufen werden –
+      und zwar <strong>vor jeder Ausgabe</strong>, da dabei ein Cookie-Header
+      gesendet wird.
+    </p>
+    <pre>session_start();
+
+$_SESSION['user'] = "John";
+$_SESSION['user_id'] = 42;
+
+if (isset($_SESSION['user_id'])) {
+    // eingeloggt
+}
+
+unset($_SESSION['user']);   // einen Wert entfernen
+session_unset();            // alle Werte leeren
+session_destroy();          // Session serverseitig löschen</pre>
+    <p>
+      $_SESSION ist ein assoziatives Array mit Schlüssel-Wert-Paaren und kann
+      beliebig verschachtelt werden, z.B.
+      $_SESSION = ['configurator' =&gt; [1 =&gt; 'Holzofen', 2 =&gt; 'Front',
+      3 =&gt; 'Zubehör']];
+    </p>
+    <pre>// verschachtelt lesen und schreiben
+$_SESSION['configurator'][2] = 'Front schwarz';
+$schritt = $_SESSION['configurator'][1] ?? null;</pre>
+    <p>
+      Lebensdauer und Sicherheit werden über die php.ini gesteuert
+      (session.gc_maxlifetime, session.cookie_httponly,
+      session.cookie_secure, session.use_strict_mode). Nach einem Login immer
+      <strong>session_regenerate_id(true)</strong> aufrufen, um Session Fixation
+      zu verhindern.
+    </p>
+
+    <h3>$_FILES</h3>
+    <p>
+      Enthält die hochgeladenen Dateien eines multipart-Formulars. Pro Feld
+      entsteht ein Array mit fünf Schlüsseln.
+    </p>
+    <pre>$_FILES['datei']['name']      // Originalname beim Benutzer
+$_FILES['datei']['type']      // vom Browser gemeldeter MIME-Typ (nicht vertrauen!)
+$_FILES['datei']['tmp_name']  // temporärer Pfad auf dem Server
+$_FILES['datei']['error']     // Fehlercode, 0 = UPLOAD_ERR_OK
+$_FILES['datei']['size']      // Größe in Bytes
+$_FILES['datei']['full_path'] // relativer Pfad bei Ordner-Uploads (ab PHP 8.1)</pre>
+    <pre>if (($_FILES['datei']['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_OK) {
+
+    // MIME-Typ serverseitig ermitteln, nicht ['type'] glauben
+    $mime = mime_content_type($_FILES['datei']['tmp_name']);
+    $erlaubt = ['image/jpeg' =&gt; 'jpg', 'image/png' =&gt; 'png'];
+
+    if (isset($erlaubt[$mime])) {
+        // Dateinamen selbst erzeugen, nie den Originalnamen übernehmen
+        $ziel = __DIR__ . '/uploads/' . bin2hex(random_bytes(16))
+              . '.' . $erlaubt[$mime];
+
+        move_uploaded_file($_FILES['datei']['tmp_name'], $ziel);
+    }
+}</pre>
+    <p>
+      Die temporäre Datei wird am Ende des Requests automatisch gelöscht – sie
+      muss mit <strong>move_uploaded_file()</strong> verschoben werden, nicht mit
+      copy() oder rename(). Die Größenbegrenzung kommt aus der php.ini
+      (upload_max_filesize, post_max_size, max_file_uploads).
+    </p>
+
+    <h3>$_SERVER</h3>
+    <p>
+      Informationen über Server, Request und Umgebung. Der Inhalt hängt vom
+      Webserver ab, die wichtigsten Schlüssel sind aber überall vorhanden.
+    </p>
+    <ul>
+      <li><strong>REQUEST_METHOD</strong> – GET, POST, PUT, DELETE</li>
+      <li><strong>REQUEST_URI</strong> – angefragter Pfad inkl. Query-String</li>
+      <li><strong>QUERY_STRING</strong> – nur der Teil nach dem Fragezeichen</li>
+      <li><strong>SCRIPT_NAME</strong> / <strong>PHP_SELF</strong> – Pfad des laufenden Skripts</li>
+      <li><strong>DOCUMENT_ROOT</strong> – Wurzelverzeichnis des Webservers</li>
+      <li><strong>SCRIPT_FILENAME</strong> – absoluter Pfad des Skripts</li>
+      <li><strong>HTTP_HOST</strong> / <strong>SERVER_NAME</strong> – Domain</li>
+      <li><strong>HTTPS</strong> – gesetzt, wenn die Verbindung verschlüsselt ist</li>
+      <li><strong>REMOTE_ADDR</strong> – IP-Adresse des Besuchers</li>
+      <li><strong>HTTP_USER_AGENT</strong> – Browser des Benutzers</li>
+      <li><strong>HTTP_REFERER</strong> – vorherige Seite, vom Browser gesendet und damit fälschbar</li>
+      <li><strong>HTTP_ACCEPT_LANGUAGE</strong> – Sprachwunsch des Browsers</li>
+      <li><strong>CONTENT_TYPE</strong> / <strong>CONTENT_LENGTH</strong> – Angaben zum Request-Body</li>
+      <li><strong>SERVER_SOFTWARE</strong>, <strong>SERVER_PORT</strong>, <strong>SERVER_PROTOCOL</strong></li>
+      <li><strong>REQUEST_TIME</strong> / <strong>REQUEST_TIME_FLOAT</strong> – Startzeit des Requests</li>
+      <li><strong>argv</strong> / <strong>argc</strong> – Kommandozeilenargumente in der CLI</li>
+    </ul>
+    <pre>// HTTPS erkennen
+$istHttps = !empty($_SERVER['HTTPS']) &amp;&amp; $_SERVER['HTTPS'] !== 'off';
+
+// Vollständige aktuelle URL
+$url = ($istHttps ? 'https://' : 'http://')
+     . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+// Zwischen lokal und live unterscheiden
+$lokal = in_array($_SERVER['HTTP_HOST'] ?? '', ['localhost:8000', '127.0.0.1'], true);</pre>
+    <p>
+      <strong>Achtung:</strong> alle Schlüssel, die mit <strong>HTTP_</strong>
+      beginnen, stammen aus Headern des Browsers und sind frei fälschbar – das
+      gilt auch für HTTP_HOST, HTTP_REFERER und HTTP_X_FORWARDED_FOR. Niemals
+      für Sicherheitsentscheidungen nutzen. PHP_SELF gehört vor der Ausgabe
+      durch htmlspecialchars(), da sich darüber sonst XSS einschleusen lässt.
+      Hinter einem Proxy oder Loadbalancer ist REMOTE_ADDR die IP des Proxys,
+      nicht die des Besuchers.
+    </p>
+
+    <h3>$_ENV und getenv()</h3>
+    <p>
+      Enthält die Umgebungsvariablen des Prozesses. Der typische Einsatz sind
+      <strong>Zugangsdaten</strong> (Datenbank, SMTP, API-Keys), die
+      nicht im Code und nicht im Git stehen sollen.
+    </p>
+    <pre>$dbPass = $_ENV['DB_PASSWORD'] ?? getenv('DB_PASSWORD');
+
+putenv('APP_ENV=production'); // zur Laufzeit setzen</pre>
+    <p>
+      $_ENV ist oft leer, weil die php.ini-Einstellung
+      <strong>variables_order</strong> standardmäßig "GPCS" lautet und das E für
+      Environment fehlt. <strong>getenv()</strong> funktioniert unabhängig davon
+      und ist daher der zuverlässigere Weg. In der Praxis liest man .env-Dateien
+      meist mit der Composer-Bibliothek vlucas/phpdotenv ein. Die .env-Datei
+      gehört in die .gitignore und außerhalb des Webroots bzw. muss vom
+      Webserver blockiert werden.
+    </p>
+
+    <h3>$GLOBALS</h3>
+    <p>
+      Ein Array aller globaler Variablen, zugänglich über den Variablennamen als
+      Schlüssel: $GLOBALS['x']. Damit ließe sich innerhalb einer Funktion auf
+      eine äußere Variable zugreifen – gilt aber wie global als schlechter Stil,
+      da Abhängigkeiten unsichtbar werden. Seit PHP 8.1 ist das Array nur noch
+      eingeschränkt beschreibbar. Parameter und Rückgabewerte sind der saubere
+      Weg.
+    </p>
+
+    <h2>Formulare verarbeiten</h2>
+    <pre>&lt;?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name  = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $errors = [];
+
+    if ($name === '') {
+        $errors[] = 'Name fehlt';
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'E-Mail ungültig';
+    }
+
+    if (!$errors) {
+        // speichern / Mail senden
+        header('Location: /danke.php');
+        exit; // nach header immer exit!
+    }
+}</pre>
+    <p>
+      <strong>filter_var()</strong> validiert mit FILTER_VALIDATE_EMAIL,
+      FILTER_VALIDATE_INT, FILTER_VALIDATE_URL. Nach einem
+      <strong>header('Location: ...')</strong> muss immer
+      <strong>exit</strong> folgen, sonst läuft das Skript weiter.
+    </p>
+    <p>
+      Nach erfolgreichem POST auf eine andere Seite weiterleiten
+      (Post-Redirect-Get). Sonst führt ein Reload im Browser zum doppelten
+      Absenden.
+    </p>
+
+    <h2>Sessions und Cookies</h2>
+    <p>
+      Eine Session speichert Daten <strong>auf dem Server</strong>, der Browser
+      erhält nur eine Session-ID als Cookie. Ein Cookie speichert die Daten
+      dagegen beim Benutzer und ist dort manipulierbar – also nie für
+      Berechtigungen nutzen.
+    </p>
+    <pre>session_start(); // muss vor jeder Ausgabe stehen
+
+$_SESSION['user_id'] = 42;
+
+// Login-Prüfung
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /login.php');
+    exit;
+}
+
+// nach dem Login die ID wechseln (gegen Session Fixation)
+session_regenerate_id(true);
+
+// Logout
+session_unset();
+session_destroy();</pre>
+    <pre>setcookie('theme', 'dark', [
+    'expires'  =&gt; time() + 86400 * 30,
+    'path'     =&gt; '/',
+    'secure'   =&gt; true,   // nur über HTTPS
+    'httponly' =&gt; true,   // kein Zugriff per JavaScript
+    'samesite' =&gt; 'Lax',  // gegen CSRF
+]);</pre>
+    <p>
+      Ein gesetztes Cookie steht erst beim <strong>nächsten</strong> Request in
+      $_COOKIE.
+    </p>
+
+    <h2>Objektorientierung (OOP)</h2>
+    <p>
+      Ab einer bestimmten Projektgröße führt kein Weg an Klassen vorbei – auch
+      Redaxo, Symfony und Laravel sind komplett objektorientiert aufgebaut.
+    </p>
+    <pre>class User
+{
+    public const ROLE_ADMIN = 'admin';
+
+    private array $roles = [];
+
+    public function __construct(
+        private string $name,
+        private string $email,
+    ) {}
+
+    public function getName(): string
+    {
+        return $this-&gt;name;
+    }
+
+    public function addRole(string $role): static
+    {
+        $this-&gt;roles[] = $role;
+        return $this; // erlaubt Method Chaining
+    }
+}
+
+$user = new User('John', 'john@example.com');
+echo $user-&gt;getName();</pre>
+    <p>
+      Die Schreibweise im Konstruktor nennt sich
+      <strong>Constructor Property Promotion</strong> (ab PHP 8) und erzeugt die
+      Eigenschaften automatisch. Auf Eigenschaften und Methoden der eigenen
+      Instanz greift man mit <strong>$this-&gt;</strong> zu, auf statische mit
+      <strong>self::</strong> oder <strong>Klasse::</strong>.
+    </p>
+
+    <h3>Sichtbarkeit</h3>
+    <ul>
+      <li><strong>public</strong> – von überall zugänglich</li>
+      <li><strong>protected</strong> – nur in der Klasse und ihren Kindklassen</li>
+      <li><strong>private</strong> – nur in der Klasse selbst</li>
+    </ul>
+    <p>
+      Grundregel: Eigenschaften private oder protected, Zugriff über Methoden
+      (Getter/Setter). <strong>readonly</strong> (ab PHP 8.1) erlaubt das
+      Setzen nur einmal im Konstruktor.
+    </p>
+
+    <h3>Vererbung, Interfaces, abstrakte Klassen, Traits</h3>
+    <ul>
+      <li>
+        <strong>extends</strong> – erbt Eigenschaften und Methoden einer
+        Elternklasse. Mit <strong>parent::__construct()</strong> wird der
+        Eltern-Konstruktor aufgerufen.
+      </li>
+      <li>
+        <strong>interface</strong> – schreibt nur Methodensignaturen vor, ohne
+        Code. Eine Klasse kann mehrere Interfaces
+        <strong>implements</strong>-ieren.
+      </li>
+      <li>
+        <strong>abstract class</strong> – kann nicht direkt instanziiert werden
+        und mischt fertige mit vorgeschriebenen Methoden.
+      </li>
+      <li>
+        <strong>trait</strong> – wiederverwendbare Methodenblöcke, die per
+        <strong>use</strong> in Klassen eingebunden werden. Lösung für das
+        Problem, dass PHP keine Mehrfachvererbung kennt.
+      </li>
+      <li>
+        <strong>static</strong> – Eigenschaft oder Methode gehört zur Klasse,
+        nicht zur Instanz: User::count().
+      </li>
+      <li><strong>final</strong> – verhindert Überschreiben bzw. Erben.</li>
+    </ul>
+
+    <h3>Enums</h3>
+    <p>
+      Ab PHP 8.1 ersetzen Enums lose Konstanten und machen ungültige Werte
+      unmöglich.
+    </p>
+    <pre>enum Status: string
+{
+    case Draft     = 'draft';
+    case Published = 'published';
+
+    public function label(): string
+    {
+        return match($this) {
+            Status::Draft     =&gt; 'Entwurf',
+            Status::Published =&gt; 'Veröffentlicht',
+        };
+    }
+}
+
+$status = Status::from('draft');
+echo $status-&gt;label();</pre>
+
+    <h3>Magic Methods</h3>
+    <p>
+      Methoden mit doppeltem Unterstrich, die PHP automatisch aufruft:
+      <strong>__construct</strong>, <strong>__destruct</strong>,
+      <strong>__toString</strong> (Objekt als String ausgeben),
+      <strong>__get</strong> / <strong>__set</strong> (Zugriff auf nicht
+      existierende Eigenschaften), <strong>__call</strong>,
+      <strong>__invoke</strong> (Objekt wie Funktion aufrufen).
+    </p>
+
+    <h2>Namespaces, Composer und Autoloading</h2>
+    <p>
+      Namespaces verhindern Namenskonflikte zwischen Klassen gleichen Namens aus
+      verschiedenen Bibliotheken.
+    </p>
+    <pre>// src/Mail/Sender.php
+namespace App\Mail;
+
+class Sender {}
+
+// Verwendung
+use App\Mail\Sender;
+$sender = new Sender();</pre>
+    <p>
+      <strong>Composer</strong> ist der Paketmanager von PHP (das Pendant zu npm
+      / yarn). composer.json beschreibt die Abhängigkeiten, composer.lock fixiert
+      die exakten Versionen, der Ordner <strong>vendor/</strong> enthält den
+      Code und wird nicht ins Git eingecheckt.
+    </p>
+    <pre>composer require phpmailer/phpmailer
+composer install     // installiert gemäß composer.lock
+composer update      // aktualisiert auf neue Versionen
+composer dump-autoload</pre>
+    <p>
+      Eine einzige Zeile ersetzt dann alle require-Aufrufe – Klassen werden
+      anhand ihres Namespaces automatisch geladen (PSR-4):
+    </p>
+    <pre>require_once __DIR__ . '/vendor/autoload.php';</pre>
+    <p>
+      <strong>PSR</strong> sind die PHP-Standards der PHP-FIG: PSR-4
+      (Autoloading), PSR-12 (Code-Style), PSR-3 (Logging), PSR-7 (HTTP). Daran
+      halten sich praktisch alle modernen Bibliotheken.
+    </p>
+
+    <h2>Fehlerbehandlung</h2>
+    <p>
+      PHP unterscheidet <strong>Errors</strong> (Fehler in der Sprache, z.B.
+      TypeError, DivisionByZeroError) und <strong>Exceptions</strong>
+      (Ausnahmen der Anwendung). Beide lassen sich mit Throwable abfangen.
+    </p>
+    <pre>try {
+    $pdo = new PDO($dsn, $user, $pass);
+} catch (PDOException $e) {
+    error_log($e-&gt;getMessage());   // ins Log, nicht an den Benutzer
+    http_response_code(500);
+    echo 'Es ist ein Fehler aufgetreten.';
+} finally {
+    // läuft immer, z.B. zum Aufräumen
+}
+
+// eigene Ausnahme werfen
+if ($menge &lt; 0) {
+    throw new InvalidArgumentException('Menge darf nicht negativ sein');
+}</pre>
+    <p>
+      Fehlermeldungen gehören in der Produktion <strong>ins Log</strong>, nie
+      auf den Bildschirm – sie verraten Pfade, Datenbanknamen und Zugangsdaten.
+      Gesteuert wird das über display_errors und log_errors in der php.ini.
+    </p>
+    <p>
+      Mit <strong>set_exception_handler()</strong> und
+      <strong>register_shutdown_function()</strong> lässt sich eine zentrale
+      Fehlerseite umsetzen.
+    </p>
+
+    <h2>Datenbankzugriff mit PDO</h2>
+    <p>
+      <strong>PDO</strong> (PHP Data Objects) ist die empfohlene
+      Datenbank-Schnittstelle, da sie mit verschiedenen Datenbanken funktioniert
+      und Prepared Statements sauber unterstützt. mysqli geht nur für MySQL.
+    </p>
+    <pre>$pdo = new PDO(
+    'mysql:host=localhost;dbname=shop;charset=utf8mb4',
+    $user,
+    $pass,
+    [
+        PDO::ATTR_ERRMODE            =&gt; PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   =&gt; false,
+    ]
+);
+
+// Lesen mit Platzhalter
+$stmt = $pdo-&gt;prepare('SELECT * FROM users WHERE email = :email');
+$stmt-&gt;execute(['email' =&gt; $email]);
+$user = $stmt-&gt;fetch();          // ein Datensatz
+$alle = $stmt-&gt;fetchAll();       // alle Datensätze
+
+// Schreiben
+$stmt = $pdo-&gt;prepare('INSERT INTO users (name, email) VALUES (?, ?)');
+$stmt-&gt;execute([$name, $email]);
+$id = $pdo-&gt;lastInsertId();</pre>
+    <p>
+      Die drei Optionen oben sind Pflicht: ERRMODE_EXCEPTION wirft bei Fehlern
+      eine Exception statt stillschweigend false zurückzugeben,
+      FETCH_ASSOC liefert lesbare assoziative Arrays, und
+      EMULATE_PREPARES =&gt; false sorgt für echte, von der Datenbank geprüfte
+      Prepared Statements.
+    </p>
+    <p>
+      Transaktionen für mehrere zusammenhängende Schreibvorgänge:
+      <strong>$pdo-&gt;beginTransaction()</strong>,
+      <strong>$pdo-&gt;commit()</strong>, im catch-Block
+      <strong>$pdo-&gt;rollBack()</strong>.
+    </p>
+
+    <h2>Sicherheit</h2>
+    <p>Die wichtigsten Punkte, die in jedem PHP-Projekt sitzen müssen:</p>
+    <ul>
+      <li>
+        <strong>SQL-Injection</strong> – niemals Benutzereingaben in einen
+        SQL-String kleben. Immer Prepared Statements mit Platzhaltern. Tabellen-
+        und Spaltennamen lassen sich nicht binden, die müssen gegen eine
+        Whitelist geprüft werden.
+      </li>
+      <li>
+        <strong>XSS (Cross-Site-Scripting)</strong> – jede Benutzereingabe beim
+        <em>Ausgeben</em> escapen:
+        <strong>htmlspecialchars($text, ENT_QUOTES, 'UTF-8')</strong>. Nicht
+        beim Speichern escapen, sondern beim Ausgeben.
+      </li>
+      <li>
+        <strong>CSRF</strong> – bei jedem Formular ein Token in der Session
+        ablegen, als hidden-Feld mitsenden und beim POST mit
+        <strong>hash_equals()</strong> vergleichen.
+      </li>
+      <li>
+        <strong>Passwörter</strong> – nur mit
+        <strong>password_hash($pw, PASSWORD_DEFAULT)</strong> speichern und mit
+        <strong>password_verify($pw, $hash)</strong> prüfen. Niemals md5 oder
+        sha1.
+      </li>
+      <li>
+        <strong>Datei-Uploads</strong> – Zieldateinamen selbst erzeugen,
+        MIME-Typ serverseitig prüfen (finfo, nicht $_FILES['type']), Uploads
+        außerhalb des Webroots oder ohne PHP-Ausführung ablegen.
+      </li>
+      <li>
+        <strong>Path Traversal</strong> – nie
+        include $_GET['page'] verwenden. Immer gegen eine Whitelist erlaubter
+        Werte prüfen.
+      </li>
+      <li>
+        <strong>Zugangsdaten</strong> – nicht im Code und nicht im Git, sondern
+        in einer .env-Datei oder Umgebungsvariablen außerhalb des Webroots.
+      </li>
+      <li>
+        <strong>Fehleranzeige</strong> – display_errors in der Produktion aus
+        (siehe php.ini).
+      </li>
+    </ul>
+    <pre>// Token erzeugen
+$_SESSION['csrf'] = bin2hex(random_bytes(32));
+
+// im Formular
+&lt;input type="hidden" name="csrf" value="&lt;?= $_SESSION['csrf'] ?&gt;"&gt;
+
+// beim Absenden prüfen
+if (!hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) {
+    http_response_code(403);
+    exit('Ungültige Anfrage');
+}</pre>
+
+    <h2>JSON, Dateien und Datum</h2>
+    <pre>// JSON
+$json = json_encode($daten, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR);
+$array = json_decode($json, true); // true = assoziatives Array statt Objekt
+
+// JSON an den Browser ausgeben (z.B. für AJAX)
+header('Content-Type: application/json');
+echo json_encode(['status' =&gt; 'ok']);
+
+// Dateien
+$inhalt = file_get_contents(__DIR__ . '/data.txt');
+file_put_contents($pfad, $inhalt, FILE_APPEND);
+$zeilen = file($pfad, FILE_IGNORE_NEW_LINES);
+if (file_exists($pfad)) { /* ... */ }
+
+// Datum
+$jetzt = new DateTimeImmutable('now');
+echo $jetzt-&gt;format('d.m.Y H:i');
+echo $jetzt-&gt;modify('+7 days')-&gt;format('Y-m-d');
+$diff = $jetzt-&gt;diff(new DateTimeImmutable('2026-12-24'));
+echo $diff-&gt;days;</pre>
+    <p>
+      <strong>DateTimeImmutable</strong> ist DateTime vorzuziehen, weil
+      Änderungen ein neues Objekt zurückgeben und nicht das bestehende
+      verändern. Damit das Datum stimmt, muss
+      <strong>date.timezone</strong> in der php.ini gesetzt sein.
+    </p>
+
+    <h2>php.ini</h2>
+    <p>
+      Die php.ini ist die <strong>zentrale Konfigurationsdatei</strong> von PHP.
+      Sie wird beim Start des PHP-Prozesses eingelesen und bestimmt, wie PHP
+      sich verhält: welche Erweiterungen geladen werden, wie viel Speicher und
+      Laufzeit ein Skript bekommt, wie groß Uploads sein dürfen, ob Fehler
+      angezeigt oder geloggt werden und wie Sessions arbeiten.
+    </p>
+
+    <h3>Welche php.ini gilt überhaupt?</h3>
+    <p>
+      Der häufigste Stolperstein: es gibt meist <strong>mehrere</strong>
+      php.ini-Dateien – eine für die CLI und eine für den Webserver (PHP-FPM
+      oder mod_php). Eine Änderung auf der Kommandozeile wirkt daher nicht
+      automatisch auf der Website.
+    </p>
+    <pre>php --ini              # zeigt den Pfad der geladenen Datei (CLI)
+php -i | grep "Loaded Configuration File"</pre>
+    <p>
+      Für den Webserver ist <strong>phpinfo()</strong> der zuverlässige Weg.
+      Eine Datei mit &lt;?php phpinfo(); anlegen, aufrufen, die Zeile "Loaded
+      Configuration File" ablesen – und die Datei
+      <strong>danach wieder löschen</strong>, da sie sonst die komplette
+      Serverkonfiguration öffentlich preisgibt.
+    </p>
+    <p>
+      Zusätzlich gibt es ein <strong>Scan-Verzeichnis</strong> (meist
+      /etc/php/8.3/fpm/conf.d/), dessen .ini-Dateien in alphabetischer
+      Reihenfolge <strong>nach</strong> der php.ini geladen werden. Dort liegen
+      typischerweise die Erweiterungen. Wer in der php.ini etwas setzt, das
+      später in der conf.d überschrieben wird, sucht lange nach dem Grund.
+    </p>
+    <p>
+      Nach jeder Änderung muss PHP <strong>neu gestartet</strong> werden, bei
+      der CLI genügt der nächste Aufruf:
+    </p>
+    <pre>sudo systemctl restart php8.3-fpm
+sudo systemctl restart apache2     # bei mod_php</pre>
+
+    <h3>Syntax</h3>
+    <p>
+      Pro Zeile eine Direktive, Kommentare beginnen mit einem Semikolon. Werte
+      lassen sich mit Einheiten (K, M, G) und Konstanten (On/Off, Zahlen,
+      Konstanten wie E_ALL) schreiben. Ein führendes Semikolon ist der
+      klassische Fehler: die Zeile ist dann auskommentiert und wirkungslos.
+    </p>
+    <pre>; so sieht ein Kommentar aus
+memory_limit = 256M
+display_errors = Off
+error_reporting = E_ALL &amp; ~E_DEPRECATED
+date.timezone = "Europe/Berlin"
+extension = intl</pre>
+
+    <h3>php.ini-development und php.ini-production</h3>
+    <p>
+      PHP liefert zwei Vorlagen mit. <strong>php.ini-development</strong> zeigt
+      alle Fehler direkt im Browser, <strong>php.ini-production</strong>
+      versteckt sie und schreibt sie ins Log. Auf einem Live-Server ist immer die
+      Production-Variante die Basis.
+    </p>
+
+    <h3>Fehlerbehandlung</h3>
+    <ul>
+      <li>
+        <strong>display_errors</strong> – Fehler im Browser anzeigen. Lokal On,
+        produktiv <strong>Off</strong>. Angezeigte Fehler verraten Pfade,
+        Datenbanknamen und teils Zugangsdaten.
+      </li>
+      <li>
+        <strong>display_startup_errors</strong> – Fehler beim Start von PHP
+        anzeigen (z.B. fehlende Extension). Produktiv Off.
+      </li>
+      <li>
+        <strong>error_reporting</strong> – welche Fehlerarten gemeldet werden.
+        Entwicklung: E_ALL. Produktiv typischerweise
+        E_ALL &amp; ~E_DEPRECATED &amp; ~E_STRICT.
+      </li>
+      <li>
+        <strong>log_errors</strong> – Fehler ins Log schreiben. Immer On.
+      </li>
+      <li>
+        <strong>error_log</strong> – Pfad der Logdatei, z.B.
+        /var/log/php/error.log. Ohne Angabe landen die Meldungen im Log des
+        Webservers.
+      </li>
+    </ul>
+
+    <h3>Laufzeit und Speicher</h3>
+    <ul>
+      <li>
+        <strong>memory_limit</strong> – maximaler Speicher pro Skript (z.B.
+        128M, 256M). Bei "Allowed memory size exhausted" ist das die Ursache. -1
+        bedeutet unbegrenzt und ist nur für die CLI sinnvoll.
+      </li>
+      <li>
+        <strong>max_execution_time</strong> – maximale Laufzeit in Sekunden
+        (Standard 30). Verursacht "Maximum execution time exceeded". Gilt
+        <strong>nicht</strong> für die CLI (dort 0). Achtung: bei PHP-FPM
+        begrenzt zusätzlich request_terminate_timeout, bei nginx
+        fastcgi_read_timeout.
+      </li>
+      <li>
+        <strong>max_input_time</strong> – wie lange PHP Eingabedaten
+        einlesen darf.
+      </li>
+      <li>
+        <strong>max_input_vars</strong> – maximale Anzahl an
+        Eingabevariablen (Standard 1000). Große Formulare, etwa in Redaxo- oder
+        WordPress-Backends, werden sonst stillschweigend abgeschnitten.
+      </li>
+    </ul>
+
+    <h3>Datei-Uploads</h3>
+    <ul>
+      <li><strong>file_uploads</strong> – Uploads grundsätzlich erlauben (On)</li>
+      <li><strong>upload_max_filesize</strong> – maximale Größe einer einzelnen Datei</li>
+      <li><strong>post_max_size</strong> – maximale Größe des gesamten POST-Requests</li>
+      <li><strong>max_file_uploads</strong> – Anzahl Dateien pro Request (Standard 20)</li>
+      <li><strong>upload_tmp_dir</strong> – temporäres Verzeichnis für Uploads</li>
+    </ul>
+    <p>
+      Diese drei Werte hängen voneinander ab und müssen in der richtigen
+      Reihenfolge stehen – sonst greift die kleinste Grenze und der Upload
+      scheitert ohne klare Meldung:
+    </p>
+    <pre>upload_max_filesize = 32M
+post_max_size       = 40M   ; größer als upload_max_filesize
+memory_limit        = 128M  ; größer als post_max_size</pre>
+    <p>
+      Wird post_max_size überschritten, sind $_POST und $_FILES
+      <strong>komplett leer</strong> – ein Verhalten, das gern für Verwirrung
+      sorgt. Bei nginx muss zusätzlich client_max_body_size passen.
+    </p>
+
+    <h3>Sessions</h3>
+    <ul>
+      <li><strong>session.save_path</strong> – Speicherort der Session-Dateien</li>
+      <li>
+        <strong>session.gc_maxlifetime</strong> – nach wie vielen Sekunden
+        Sessions als Müll gelten (Standard 1440 = 24 Minuten). Zu niedrig
+        bedeutet: Benutzer werden mitten in der Arbeit ausgeloggt.
+      </li>
+      <li>
+        <strong>session.cookie_lifetime</strong> – Lebensdauer des
+        Session-Cookies im Browser, 0 heißt "bis der Browser geschlossen wird"
+      </li>
+      <li>
+        <strong>session.cookie_httponly = 1</strong> – kein Zugriff per
+        JavaScript, schützt die Session-ID bei XSS
+      </li>
+      <li>
+        <strong>session.cookie_secure = 1</strong> – Cookie nur über HTTPS
+        senden
+      </li>
+      <li>
+        <strong>session.cookie_samesite = Lax</strong> – schützt gegen CSRF
+      </li>
+      <li>
+        <strong>session.use_strict_mode = 1</strong> – PHP akzeptiert keine
+        selbst erfundenen Session-IDs, verhindert Session Fixation
+      </li>
+      <li>
+        <strong>session.use_only_cookies = 1</strong> – keine Session-ID in der
+        URL
+      </li>
+    </ul>
+
+    <h3>Zeichensatz und Zeitzone</h3>
+    <ul>
+      <li>
+        <strong>date.timezone = "Europe/Berlin"</strong> – muss gesetzt sein,
+        sonst arbeiten date() und DateTime mit UTC und alle Zeitstempel sind
+        verschoben.
+      </li>
+      <li>
+        <strong>default_charset = "UTF-8"</strong> – Zeichensatz für Header und
+        htmlspecialchars().
+      </li>
+      <li>
+        <strong>mbstring.*</strong> – Einstellungen der Multibyte-Erweiterung
+        für Umlaute und Sonderzeichen.
+      </li>
+    </ul>
+
+    <h3>Mail</h3>
+    <ul>
+      <li>
+        <strong>sendmail_path</strong> – Programm, an das die PHP-Funktion
+        mail() die Nachricht übergibt (unter Linux meist /usr/sbin/sendmail -t
+        -i). Genau dieser Weg wird bei Mailertyp "mail" genutzt.
+      </li>
+      <li>
+        <strong>SMTP</strong> und <strong>smtp_port</strong> – nur unter
+        Windows relevant.
+      </li>
+      <li>
+        <strong>mail.add_x_header</strong> – fügt einen X-PHP-Originating-Script
+        Header hinzu, hilfreich beim Aufspüren von Spam-Skripten.
+      </li>
+      <li>
+        <strong>mail.log</strong> – protokolliert alle mail()-Aufrufe.
+      </li>
+    </ul>
+    <p>
+      Für zuverlässigen Mailversand ist SMTP mit Authentifizierung über
+      PHPMailer trotzdem die bessere Wahl als mail() – siehe die Seite zum
+      PHP Mailer.
+    </p>
+
+    <h3>Sicherheitsrelevante Direktiven</h3>
+    <ul>
+      <li>
+        <strong>expose_php = Off</strong> – entfernt den X-Powered-By Header,
+        der die PHP-Version verrät.
+      </li>
+      <li>
+        <strong>allow_url_fopen</strong> – erlaubt file_get_contents() mit
+        URLs. Wenn möglich Off und stattdessen cURL nutzen.
+      </li>
+      <li>
+        <strong>allow_url_include = Off</strong> – darf nie On sein, sonst lässt
+        sich Fremdcode einbinden und ausführen.
+      </li>
+      <li>
+        <strong>disable_functions</strong> – sperrt gefährliche Funktionen wie
+        exec, shell_exec, system, passthru, popen auf Shared Hosting.
+      </li>
+      <li>
+        <strong>open_basedir</strong> – beschränkt Dateizugriffe auf bestimmte
+        Verzeichnisse, isoliert damit mehrere Projekte auf einem Server
+        voneinander.
+      </li>
+      <li>
+        <strong>short_open_tag = Off</strong> – verbietet &lt;? als Kurzform.
+        &lt;?= funktioniert davon unabhängig immer.
+      </li>
+      <li>
+        <strong>cgi.fix_pathinfo = 0</strong> – bei nginx und PHP-FPM wichtig,
+        verhindert das Ausführen untergeschobener Dateien.
+      </li>
+    </ul>
+
+    <h3>OPcache (Performance)</h3>
+    <p>
+      OPcache hält den kompilierten PHP-Bytecode im Speicher, sodass Dateien
+      nicht bei jedem Request neu geparst werden. Das ist der größte einzelne
+      Performance-Faktor und sollte produktiv immer aktiv sein.
+    </p>
+    <pre>opcache.enable = 1
+opcache.memory_consumption = 256
+opcache.max_accelerated_files = 20000
+opcache.validate_timestamps = 1   ; produktiv 0, dann nach Deploy neu starten
+opcache.revalidate_freq = 2
+opcache.jit = tracing             ; JIT, ab PHP 8</pre>
+    <p>
+      Steht validate_timestamps auf 0, bemerkt PHP Dateiänderungen nicht –
+      praktisch für maximale Geschwindigkeit, erfordert aber nach jedem Deploy
+      einen Neustart von PHP-FPM. Lokal gehört der Wert auf 1, sonst wirken
+      Codeänderungen scheinbar nicht.
+    </p>
+
+    <h3>Erweiterungen</h3>
+    <p>
+      Erweiterungen werden mit <strong>extension =</strong> geladen, in
+      Ubuntu/Debian üblicherweise über eigene Dateien im conf.d-Verzeichnis.
+    </p>
+    <pre>extension = pdo_mysql
+extension = mbstring
+extension = intl
+extension = gd
+extension = curl
+extension = zip</pre>
+    <p>
+      Prüfen lassen sich geladene Erweiterungen mit <strong>php -m</strong> oder
+      <strong>extension_loaded('gd')</strong>. Fehlt eine Erweiterung, ist die
+      Fehlermeldung oft nur "Class 'PDO' not found" oder "Call to undefined
+      function curl_init()".
+    </p>
+
+    <h3>Werte überschreiben – ohne Zugriff auf die php.ini</h3>
+    <p>
+      Auf Shared Hosting gibt es oft keinen Zugriff auf die php.ini. Es gibt
+      mehrere Ebenen, jede mit eigenen Grenzen:
+    </p>
+    <ul>
+      <li>
+        <strong>ini_set('memory_limit', '256M');</strong> – zur Laufzeit im
+        Skript. Funktioniert nur bei Direktiven, die als PHP_INI_ALL markiert
+        sind. memory_limit, max_execution_time und display_errors gehen,
+        upload_max_filesize und post_max_size <strong>nicht</strong>, weil sie
+        beim Einlesen des Requests schon ausgewertet sind.
+      </li>
+      <li>
+        <strong>.user.ini</strong> – Datei im Projektverzeichnis, wirkt bei
+        PHP-FPM/CGI. Sie wird gecacht (user_ini.cache_ttl, Standard 300
+        Sekunden), Änderungen greifen also verzögert.
+      </li>
+      <li>
+        <strong>.htaccess</strong> mit php_value / php_flag – funktioniert
+        <strong>nur mit mod_php</strong>. Unter PHP-FPM führt es zu einem
+        500er-Fehler.
+      </li>
+      <li>
+        <strong>FPM-Pool-Konfiguration</strong> (www.conf) mit php_value bzw.
+        php_admin_value. Die admin-Varianten können im Skript nicht mehr
+        überschrieben werden.
+      </li>
+    </ul>
+    <pre>; .user.ini im Projektordner
+upload_max_filesize = 64M
+post_max_size = 72M
+max_execution_time = 120</pre>
+    <p>
+      Den aktuell geltenden Wert liefert
+      <strong>ini_get('upload_max_filesize')</strong> – nützlich, um zu prüfen,
+      ob eine Änderung wirklich angekommen ist.
+    </p>
+
+    <h3>Beispiel: sinnvolle Produktionswerte</h3>
+    <pre>display_errors = Off
+display_startup_errors = Off
+log_errors = On
+error_log = /var/log/php/error.log
+error_reporting = E_ALL &amp; ~E_DEPRECATED
+
+memory_limit = 256M
+max_execution_time = 60
+max_input_vars = 5000
+
+upload_max_filesize = 32M
+post_max_size = 40M
+
+date.timezone = "Europe/Berlin"
+default_charset = "UTF-8"
+
+expose_php = Off
+allow_url_include = Off
+session.cookie_httponly = 1
+session.cookie_secure = 1
+session.cookie_samesite = Lax
+session.use_strict_mode = 1
+
+opcache.enable = 1
+opcache.memory_consumption = 256
+opcache.validate_timestamps = 0</pre>
+
+    <h2>Wichtige eingebaute Funktionen (Überblick)</h2>
+    <h3>count()</h3>
+    <p>Gibt die Anzahl der Elemente in einem Array oder eines Objekts zurück.</p>
+    <h3>Debugging</h3>
+    <p>
+      <strong>var_dump()</strong> (Typ und Wert), <strong>print_r()</strong>
+      (lesbar für Arrays), <strong>error_log()</strong> (ins Serverlog),
+      <strong>debug_print_backtrace()</strong>,
+      <strong>die() / exit()</strong>. Für ernsthaftes Debugging ist
+      <strong>Xdebug</strong> mit Breakpoints der richtige Weg.
+    </p>
+    <h3>Sonstiges</h3>
+    <p>
+      <strong>header()</strong> (HTTP-Header, muss vor jeder Ausgabe stehen),
+      <strong>http_response_code()</strong>, <strong>urlencode()</strong>,
+      <strong>uniqid()</strong> / <strong>random_bytes()</strong>,
+      <strong>hash()</strong>, <strong>number_format()</strong>,
+      <strong>round()</strong> / <strong>floor()</strong> /
+      <strong>ceil()</strong>, <strong>rand()</strong> /
+      <strong>random_int()</strong>.
+    </p>
+  </div>
 </div>
