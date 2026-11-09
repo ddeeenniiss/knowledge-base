@@ -42,6 +42,187 @@
       </li>
     </ul>
 
+    <h2>PHP-Version: Mac vs. Projekt (REDAXO / TYPO3)</h2>
+    <p>
+      <strong>php -v</strong> im Terminal zeigt <strong>nicht</strong> die
+      Version, mit der ein REDAXO- oder TYPO3-Projekt läuft. Beide Versionen
+      gehören zu verschiedenen Welten: die eine zum Mac, die andere zum Projekt.
+      Deshalb kann im Terminal PHP 8.4 stehen, während das Projekt im Browser
+      mit 8.2 läuft – und das ist kein Fehler, sondern der Normalfall.
+    </p>
+
+    <h3>Was php -v auf dem Mac anzeigt</h3>
+    <p>
+      <strong>php -v</strong> startet das erste <strong>php</strong>-Binary, das
+      im PATH gefunden wird – also die <strong>CLI-SAPI auf dem Host</strong>.
+      Das ist in der Regel eine über Homebrew installierte Version. Seit macOS 12
+      (Monterey) liefert Apple selbst kein PHP mehr mit; ohne Homebrew gibt es
+      auf einem frischen Mac gar kein php.
+    </p>
+    <pre>php -v                 # Version des Host-PHP
+which php              # /opt/homebrew/bin/php (Apple Silicon)
+                       # /usr/local/bin/php    (Intel)
+php --ini              # welche php.ini diese CLI nutzt</pre>
+    <p>
+      Über Homebrew können mehrere Versionen parallel installiert sein (php@8.2,
+      php@8.3, php@8.4). Welche davon bei <strong>php</strong> gewinnt,
+      entscheidet allein der PATH bzw. der gesetzte brew-Link – der
+      Projektordner, in dem man gerade steht, ändert daran
+      <strong>nichts</strong>.
+    </p>
+    <pre>brew list | grep php
+brew unlink php &amp;&amp; brew link --overwrite --force php@8.2</pre>
+    <p>
+      Dieses Host-PHP ist nur für das zuständig, was direkt auf dem Mac läuft:
+      ein <strong>php script.php</strong>, der eingebaute Server
+      <strong>php -S localhost:8000</strong> (so laufen die Formular-Beispiele
+      dieser Knowledge Base) oder ein Composer-Aufruf außerhalb des Containers.
+    </p>
+
+    <h3>Was im Projekt läuft</h3>
+    <p>
+      Ein REDAXO- oder TYPO3-Projekt läuft nicht auf dem Mac, sondern in seiner
+      eigenen Umgebung: lokal meist in einem <strong>Docker-Container</strong>
+      (bei PHP-CMS fast immer über DDEV gesteuert), live beim Hoster. In dieser
+      Umgebung steckt eine <strong>eigene PHP-Installation</strong> mit eigener
+      Version, eigener php.ini und eigenen Erweiterungen (intl, gd, imagick,
+      pdo_mysql …).
+    </p>
+    <p>
+      Bei DDEV steht die Version in <strong>.ddev/config.yaml</strong>. Diese
+      Datei liegt im Git-Repository – damit haben alle im Team automatisch
+      dieselbe PHP-Version, unabhängig davon, was auf ihrem Rechner installiert
+      ist.
+    </p>
+    <pre>php_version: "8.2"
+webserver_type: nginx-fpm</pre>
+    <pre>ddev config --php-version 8.4   # Version ändern
+ddev restart                    # Container neu bauen, erst dann gilt sie</pre>
+    <p>
+      Ohne DDEV, also mit reinem Docker, legt der <strong>Image-Tag</strong> die
+      Version fest. Der Container bringt PHP mitsamt Konfiguration mit, das
+      Host-System ist dafür komplett irrelevant:
+    </p>
+    <pre>docker pull php:8.2-fpm            # Tag = PHP-Version
+docker compose exec web php -v     # Version im Container abfragen</pre>
+    <p>
+      Live beim Hoster wird die Version im Hosting-Panel (Plesk, cPanel, Domain-
+      oder Server-Verwaltung) pro Domain eingestellt – auch dort hat der Mac
+      keinen Einfluss.
+    </p>
+
+    <h3>Warum die Versionen auseinanderlaufen</h3>
+    <ul>
+      <li>
+        <strong>Unterschiedlicher Zweck</strong> – das Host-PHP ist eine
+        Werkzeug-Installation für die Kommandozeile, das Projekt-PHP ist die
+        Laufzeitumgebung der Website.
+      </li>
+      <li>
+        <strong>Global vs. projektbezogen</strong> – auf dem Mac gibt es eine
+        aktive Version für alles. Jedes Projekt bringt dagegen seine eigene mit,
+        und zwar bewusst: so lässt sich ein altes Kundenprojekt mit 8.1 parallel
+        zu einem neuen mit 8.4 betreiben.
+      </li>
+      <li>
+        <strong>Das CMS gibt den Rahmen vor</strong> – jede REDAXO- bzw.
+        TYPO3-Version unterstützt nur einen bestimmten PHP-Bereich. Die
+        verbindliche Angabe steht im <strong>require</strong>-Block der
+        composer.json des Projekts ("php": "^8.2") und in den Systemanforderungen
+        des CMS. Eine zu neue PHP-Version bricht Extensions und AddOns genauso
+        zuverlässig wie eine zu alte.
+      </li>
+      <li>
+        <strong>Die Produktion ist die Referenz</strong> – lokal wird die Version
+        des Live-Servers nachgebaut, nicht die neueste verfügbare. Genau das ist
+        der Sinn von Docker/DDEV: dieselbe Umgebung auf jedem Rechner und auf dem
+        Server.
+      </li>
+      <li>
+        <strong>Homebrew aktualisiert nebenbei</strong> – ein
+        <strong>brew upgrade</strong> zieht das Host-PHP mit hoch. Der Container
+        bleibt davon unberührt, weil seine Version in der Konfiguration bzw. im
+        Image festgeschrieben ist.
+      </li>
+    </ul>
+
+    <h3>Welche Version wofür verwendet wird</h3>
+    <ul>
+      <li>
+        <strong>Host-CLI (php -v auf dem Mac)</strong> – eigene Skripte,
+        <strong>php -S</strong>, globale Tools (z.B. ein global installierter
+        Composer oder Linter), kleine Tests ohne Projektkontext.
+      </li>
+      <li>
+        <strong>Projekt-FPM (im Container / beim Hoster)</strong> – alles, was im
+        Browser passiert: Frontend, REDAXO-Backend, TYPO3-Backend. Diese Version
+        entscheidet über Syntax, Deprecations, Performance und verfügbare
+        Erweiterungen.
+      </li>
+      <li>
+        <strong>Projekt-CLI (im Container / beim Hoster)</strong> – Composer,
+        TYPO3-Console (vendor/bin/typo3), REDAXO-Console, Cronjobs, Imports.
+        Deshalb gehören diese Befehle in den Container:
+      </li>
+    </ul>
+    <pre>ddev php -v                     # PHP im Container (CLI)
+ddev composer install           # Composer MIT der Projekt-Version
+ddev exec vendor/bin/typo3 cache:flush
+ddev ssh                        # danach läuft alles im Container</pre>
+
+    <h3>Version im Projekt prüfen</h3>
+    <ul>
+      <li>
+        <strong>ddev describe</strong> – zeigt PHP-Version, Datenbank, URLs und
+        laufende Container auf einen Blick.
+      </li>
+      <li>
+        <strong>REDAXO</strong> – Backend unter System, dort stehen PHP-Version
+        und geladene Erweiterungen.
+      </li>
+      <li>
+        <strong>TYPO3</strong> – Backend unter Admin Tools / Environment, dort
+        prüft TYPO3 die PHP-Version und die nötigen Einstellungen gleich mit.
+      </li>
+      <li>
+        <strong>phpversion() / phpinfo()</strong> – der neutrale Weg über eine
+        Testdatei im Docroot. Die Datei danach wieder löschen, siehe
+        <strong>php.ini</strong> weiter unten.
+      </li>
+    </ul>
+    <pre>&lt;?php echo PHP_VERSION;   // Version der SAPI, die diese Datei ausführt</pre>
+
+    <h3>Typische Stolpersteine</h3>
+    <ul>
+      <li>
+        <strong>composer install auf dem Host</strong> – Composer löst die
+        Abhängigkeiten gegen die PHP-Version auf, mit der es läuft. Mit dem
+        Host-PHP landen dann Pakete im Projekt, die der Container nicht
+        unterstützt (oder umgekehrt). Lösung: immer
+        <strong>ddev composer</strong>. Notfalls fixiert ein
+        <strong>config.platform.php</strong> in der composer.json die
+        Zielversion.
+      </li>
+      <li>
+        <strong>"Lokal läuft es, live nicht"</strong> – fast immer ein
+        Versionsunterschied zwischen Container und Hoster. php_version in der
+        .ddev/config.yaml auf die Live-Version setzen, dann fällt das Problem
+        schon lokal auf.
+      </li>
+      <li>
+        <strong>Cronjob mit falscher Version</strong> – beim Hoster ist die
+        CLI-PHP oft eine andere als die der Website. Im Cron deshalb den
+        vollständigen Pfad zum passenden Binary angeben
+        (/usr/bin/php8.2 statt php).
+      </li>
+      <li>
+        <strong>Änderung in der php.ini wirkt nicht</strong> – die php.ini des
+        Macs hat keinen Einfluss auf den Container. Im Container gehören solche
+        Werte nach <strong>.ddev/php/</strong> (eigene .ini-Datei), danach
+        <strong>ddev restart</strong>.
+      </li>
+    </ul>
+
     <h2>Syntax-Grundlagen</h2>
     <p>
       PHP verwendet &lt;?php ... ?&gt; Tags, um PHP-Code in HTML-Dateien

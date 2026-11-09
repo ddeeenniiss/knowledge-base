@@ -45,24 +45,31 @@
       Sicherung von Datenübertragungen über das Internet dient. Es wird häufig
       in Verbindung mit SMTP verwendet, um E-Mails sicher zu übertragen. SSL
       verschlüsselt die Kommunikation zwischen dem Mail-Client und dem
-      Mail-Server, um sicherzustellen, dass sensible Informationen nicht
-      abgehört werden können.
+      Mail-Server, um sicherzustellen, dass sensible Informationen wie
+      Passwörter und Formulareingaben nicht abgehört werden können.
     </p>
     <p>
-      Ein SSL-Zertifikat ist im Grunde dein digitaler Sicherheitsausweis für
-      eine Website. Es sorgt dafür, dass die Verbindung zwischen Browser und
-      Server verschlüsselt und vertrauenswürdig ist (Firmenprüfung, ob diese
-      Firma wirklich existiert / Ansprechpartner vorhanden?). Erkennbar an
-      https. Diese Verschlüsselung ist Pflicht für moderne Websites, gerade bei
-      Daten (Passwörter, Formulare, Login etc.), damit diese nicht mitgelesen
-      werden können. Das verhindert Man-in-the-Middle Angriffe und ist ebenso
-      wichtig für das SEO Ranking.
+      Ein SSL-Zertifikat (auch TLS Zertifikat) ist im Grunde ein digitaler
+      Sicherheitsausweis für eine Website. Es sorgt dafür, dass die Verbindung
+      zwischen Browser und Server verschlüsselt und vertrauenswürdig ist
+      (Firmenprüfung, ob diese Firma wirklich existiert / Ansprechpartner
+      vorhanden?). Erkennbar an https. Diese Verschlüsselung ist Pflicht für
+      moderne Websites, gerade bei Daten (Passwörter, Formulare, Login etc.),
+      damit diese nicht mitgelesen werden können. Das verhindert
+      Man-in-the-Middle Angriffe und ist ebenso wichtig für das SEO Ranking. Ein
+      SSL Zertifikat wird normalerweise über einen Hoster wie HostEurope gebucht
+      und aktiviert.
     </p>
     <p>Es gibt verschiedene Arten von SSL-Zertifikaten:</p>
     <ul>
       <li>
         Domain SSL (Domain Validated SSL): gilt für eine Domain, keine
-        Firmenüprüfung, nur Besitz der Domain wird geprüft
+        Firmenüprüfung, nur Besitz bzw die Kontrolle über eine Domain wird
+        geprüft. Das wird zB über eine spezielle Datei, die auf dem Server
+        abgelegt wird geprüft. Oder auch durch einen TXT Eintrag in den DNS
+        Einstellungen. Es wird dann geprüft ob dieser Eintrag öffentlich
+        abrufbar ist. Dritter Fall wäre eine Email Bestätigung über die
+        zugelassene Mail der Domain.
       </li>
       <li>Domain SSL Wildcard: gilt für eine Domain und alle Subdomains</li>
       <li>
