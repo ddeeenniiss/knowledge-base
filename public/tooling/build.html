@@ -411,18 +411,26 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
     <p>CD bedeutet Code wird automatisch in die Produktion deployt</p>
 
     <p>
-      CI /CD ersetzt manuelle Schritte wie Dependencies installieren (npm
-      install oder yarn install), Projekte bauen (vite build), Code Checks durch
-      ESLint, Prettier und Stylelint, Fehlerfindung, build lokal, FTP /rsync
-      hochladen und hoffentlich funktioniert es live, Sicherheitstests (npm
-      audit, Snyk), Bilder / Video / JSON Optimierung mit verschiedenen
-      Auflösungen pro Breakpoint und Gerät / Geschwindigkeits (geht mit
-      vite-plugin-imagemin, vite-imagetools oder sharp, bei Redaxo media manager
-      und optional Cloudflare oder AddOn media_negotiator oder AddOn
-      yakamara/roadie oder AddOn focuspoint oder man baut sich eigenes Template
-      die das übernimmt, bei typo3 Image Processing Engine oder eigenes fluid
-      ViewHelper dafür. Es gibt auch dafür schon Erweiterungen wie
+      CI /CD automatisiert und standardisiert manuelle Schritte wie Dependencies
+      installieren (npm install oder yarn install), Projekte bauen (vite build),
+      Code Checks durch ESLint, Prettier und Stylelint, Fehlerfindung, build
+      lokal, FTP /rsync hochladen und hoffentlich funktioniert es live,
+      Sicherheitstests (npm audit, Snyk), Bilder / Video / JSON Optimierung mit
+      verschiedenen Auflösungen pro Breakpoint und Gerät / Geschwindigkeits
+      (geht mit vite-plugin-imagemin, vite-imagetools oder sharp, bei Redaxo
+      media manager und optional Cloudflare oder AddOn media_negotiator oder
+      AddOn yakamara/roadie oder AddOn focuspoint oder man baut sich eigenes
+      Template die das übernimmt, bei typo3 Image Processing Engine oder eigenes
+      fluid ViewHelper dafür. Es gibt auch dafür schon Erweiterungen wie
       EXT:image_autoresize, EXT:picture), DB Migrationen bei CMS.
+    </p>
+    <p>
+      Ohne CI / CD müsste man manuell code schreiben, lokal bauen, Tests
+      ausführen, Fehler beheben, Anwendung auf den Server übertragen und
+      Anwendung deployen. Dabei wäre CI für Dependencies installieren, Build
+      erstellen, automatische Tests ausführen und Code Qualität prüfen
+      zuständig. CD wäre für Artefakte bereitstellen, Anwendung deployen und
+      Deployment überprüfen zuständig.
     </p>
     <p>
       Ein ViewHelper kümmert sich dann um AVIF, WebP und JPG, srcset, sizes,
@@ -437,6 +445,56 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
       optional laufen und Deploy auf staging oder production
     </p>
     <p>CODE -> BUILD -> TEST -> DEPLOY</p>
+    <p>Ein erster Schritt wäre das Anlegen einer .gitlab-ci.yml Datei, darin steht zB dann: </p>
+    <pre class="code-annotated">
+      <code>
+        <span data-info="Legt die Phasen der Pipeline und ihre Reihenfolge fest. Jobs einer Stage laufen parallel, die nächste Stage startet erst, wenn alle Jobs der vorherigen erfolgreich waren.">stages:</span>
+        <span>  - build</span>
+        <span>  - deploy</span>
+        <span></span>
+        <span data-info="Speichert Dateien zwischen Pipeline-Läufen, damit nicht jedes Mal alles neu heruntergeladen werden muss.">cache:</span>
+        <span data-info="Der Cache-Schlüssel entscheidet, welcher Cache verwendet wird.">  key:</span>
+        <span>    files:</span>
+        <span data-info="Der Schlüssel wird aus dem Inhalt der yarn.lock berechnet. Ändern sich die Dependencies, entsteht automatisch ein neuer Cache.">      - yarn.lock</span>
+        <span>  paths:</span>
+        <span data-info="Dieser Ordner wird gecacht, damit yarn install deutlich schneller ist.">    - node_modules/</span>
+        <span></span>
+        <span data-info="Name des Jobs (frei wählbar). Dieser Job baut Vite-Assets (JS, CSS, Bilder).">build-assets:</span>
+        <span data-info="Ordnet den Job der Stage „build“ zu. Der Name muss oben in stages stehen.">  stage: build</span>
+        <span data-info="Docker-Image, in dem der Job läuft. Hier ein Container mit Node.js 24. Ein Container Image besteht dabei aus mehreren Schichten, zB Basis-Dateisystem, Linux-Werkzeuge, Systembibliotheken, PHP 8.3. Zusammen ergeben sie ein vollständiges Dateisystem.">  image: node:24</span>
+        <span data-info="Die Shell-Befehle, die der Reihe nach ausgeführt werden. Schlägt einer fehl, bricht der Job ab.">  script:</span>
+        <span data-info="Aktiviert Corepack, damit die in der package.json festgelegte Yarn-Version verwendet wird.">    - corepack enable</span>
+        <span data-info="Gibt die Yarn-Version im Log aus, praktisch zum Debuggen.">    - yarn --version</span>
+        <span data-info="Installiert die Dependencies exakt nach yarn.lock. Passt die Lockfile nicht zur package.json, bricht der Job ab, statt sie stillschweigend zu ändern.">    - yarn install --immutable</span>
+        <span data-info="Führt „vite build“ aus. Das Ergebnis landet in public/.">    - yarn build</span>
+        <span data-info="Dateien, die nach dem Job aufbewahrt und an spätere Jobs weitergegeben werden.">  artifacts:</span>
+        <span data-info="Nach 7 Tagen werden die Artefakte automatisch gelöscht.">    expire_in: 7 days</span>
+        <span>    paths:</span>
+        <span data-info="Der gebaute Ordner. Der Deploy-Job bekommt ihn automatisch, ohne neu zu bauen.">      - public/</span>
+        <span data-info="Schränkt ein, für welche Branches der Job läuft. (Älteres Schlüsselwort, neuer wäre rules:.)">  only:</span>
+        <span data-info="Läuft nur bei Pushes auf den Branch „staging“.">    - staging</span>
+        <span data-info="Auskommentiert. Später aktivieren, wenn auch main gebaut werden soll.">    # - main</span>
+        <span></span>
+        <span data-info="Zweiter Job: bringt den Build auf den Staging-Server.">deploy-staging:</span>
+        <span data-info="Läuft erst nach der Stage „build“.">  stage: deploy</span>
+        <span data-info="Sehr kleines Linux-Image. Es braucht nur ssh und tar, kein Node.">  image: alpine:latest</span>
+        <span data-info="Wird vor script ausgeführt, hier die SSH-Vorbereitung.">  before_script:</span>
+        <span data-info="Installiert den SSH-Client im Alpine-Container (apk ist dessen Paketmanager).">    - apk add --no-cache openssh-client</span>
+        <span data-info="Startet einen ssh-agent, der den privaten Schlüssel im Speicher hält.">    - eval $(ssh-agent -s)</span>
+        <span data-info="$SSH_PRIVATE_KEY ist eine GitLab-CI-Variable vom Typ „File“. tr -d &#x27;\r&#x27; entfernt Windows-Zeilenenden, die sonst den Key ungültig machen.">    - tr -d '\r' &lt; "$SSH_PRIVATE_KEY" &gt; /tmp/deploy_key</span>
+        <span data-info="SSH verweigert Keys, die für andere lesbar sind. 400 = nur lesen, nur Besitzer.">    - chmod 400 "/tmp/deploy_key"</span>
+        <span data-info="Fügt den Key dem ssh-agent hinzu.">    - ssh-add "/tmp/deploy_key"</span>
+        <span data-info="Legt den .ssh-Ordner an und sperrt ihn für andere.">    - mkdir -p ~/.ssh &amp;&amp; chmod 700 ~/.ssh</span>
+        <span data-info="Trägt den Host-Key des Servers in known_hosts ein, damit SSH nicht interaktiv nachfragt. -H hasht den Hostnamen.">    - ssh-keyscan -H "$STAGING_SSH_HOST" &gt;&gt; ~/.ssh/known_hosts</span>
+        <span>    - chmod 644 ~/.ssh/known_hosts</span>
+        <span data-info="Die eigentlichen Deploy-Befehle.">  script:</span>
+        <span data-info="Packt public/ als tar.gz in die Pipe (kein Zwischenfile) und entpackt es per SSH direkt im Zielordner auf dem Server. Host, Port, User und Pfad kommen aus CI-Variablen (Settings → CI/CD → Variables).">    - tar czf - -C public . | ssh -p "$STAGING_SSH_PORT" "$STAGING_SSH_USER@$STAGING_SSH_HOST" "mkdir -p '$STAGING_DEPLOY_PATH' &amp;&amp; cd '$STAGING_DEPLOY_PATH' &amp;&amp; tar xzf -"</span>
+        <span data-info="Führt auf dem Server Redaxo-Befehle aus: Projekt-Migrationen und Paket-Installation. printf &#x27;y\n&#x27; beantwortet die Rückfrage automatisch mit „y“.">    - ssh -p "$STAGING_SSH_PORT" "$STAGING_SSH_USER@$STAGING_SSH_HOST" "cd '$STAGING_DEPLOY_PATH' &amp;&amp; php84 redaxo/bin/console project:migrate &amp;&amp; printf 'y\n' | php84 redaxo/bin/console project:install:packages"</span>
+        <span>  only:</span>
+        <span data-info="Deployt nur vom Branch „staging“.">    - staging</span>
+      </code>
+    </pre>
+    
     <h2>Neues git Projekt anlegen</h2>
     <p>
       Erstelle zuerst ein Projekt auf git mit einer readme.md und öffne dann das
@@ -459,6 +517,5 @@ output: { entryFileNames: 'assets/js/[name].js', assetsFileNames: '(assetInfo) =
     <p>yarn --version</p>
     <p>yarn set version stable</p>
     <p>yarn install</p>
-
   </div>
 </div>

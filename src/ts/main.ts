@@ -4,6 +4,7 @@ import './functions/dialog';
 
 import './components/content';
 import './components/copy-btn';
+import './components/code-info';
 import './components/navigation';
 import { initSearch } from './components/search';
 
